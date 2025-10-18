@@ -1,0 +1,638 @@
+{
+    "ZCtrl.OnOffGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z-Controller status": "I"
+        }
+    },
+    "ZCtrl.OnOffSet": {
+        "argTypes": {
+            "Z-Controller status": "I"
+        },
+        "argValues": {
+            "Z-Controller status": 1
+        },
+        "args": [
+            "Z-Controller status"
+        ],
+        "respTypes": {}
+    },
+    "ZCtrl.SetpntGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z-Controller setpoint": "f"
+        }
+    },
+    "ZCtrl.LimitsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z high limit (m)": "f",
+            "Z low limit (m)": "f"
+        }
+    },
+    "ZCtrl.SetpntSet": {
+        "argTypes": {
+            "Z-Controller setpoint": "f"
+        },
+        "argValues": {
+            "Z-Controller setpoint": 1e-10
+        },
+        "args": [
+            "Z-Controller setpoint"
+        ],
+        "respTypes": {}
+    },
+    "ZCtrl.HomePropsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Relative or Absolute": "H",
+            "Home position (m)": "f"
+        }
+    },
+    "ZCtrl.HomePropsSet": {
+        "argTypes": {
+            "Relative or Absolute": "H",
+            "Home position (m)": "f"
+        },
+        "argValues": {},
+        "args": [
+            "Relative or Absolute",
+            "Home position (m)"
+        ],
+        "respTypes": {}
+    },
+    "ZCtrl.Home": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {}
+    },
+    "ZCtrl.StatusGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z -Controller Status": "H"
+        }
+    },
+    "Bias.Get": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Bias value (V)": "f"
+        }
+    },
+    "Bias.Set": {
+        "argTypes": {
+            "Bias value (V)": "f"
+        },
+        "argValues": {
+            "Bias value (V)": 0.1
+        },
+        "args": [
+            "Bias value (V)"
+        ],
+        "respTypes": {}
+    },
+    "ZCtrl.ZPosGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z position (m)": "f"
+        }
+    },
+    "ZCtrl.ZPosSet": {
+        "argTypes": {
+            "Z position (m)": "f"
+        },
+        "argValues": {
+            "Z position (m)": 0
+        },
+        "args": [
+            "Z position (m)"
+        ],
+        "respTypes": {}
+    },
+    "ZCtrl.Withdraw": {
+        "argTypes": {
+            "Wait until finished": "I",
+            "Timeout (ms)": "i"
+        },
+        "argValues": {
+            "Wait until finished": 1,
+            "Timeout (ms)": -1
+        },
+        "args": [
+            "Wait until finished",
+            "Timeout (ms)"
+        ],
+        "respTypes": {}
+    },
+    "FolMe.XYPosGet": {
+        "argTypes": {
+            "Wait for newest data": "I"
+        },
+        "argValues": {
+            "Wait for newest data": 1
+        },
+        "args": [],
+        "respTypes": {
+            "X (m)": "d",
+            "Y (m)": "d"
+        }
+    },
+    "FolMe.XYPosSet": {
+        "argTypes": {
+            "X (m)": "d",
+            "Y (m)": "d",
+            "Wait end of move": "I"
+        },
+        "argValues": {
+            "X (m)": 0,
+            "Y (m)": 0,
+            "Wait end of move": 1
+        },
+        "args": [
+            "X (m)",
+            "Y (m)"
+        ],
+        "respTypes": {}
+    },
+    "Piezo.DriftCompGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Compensation status": "I",
+            "Vx (m/s)": "f",
+            "Vy (m/s)": "f",
+            "Vz (m/s)": "f",
+            "X saturated status": "I",
+            "Y saturated status": "I",
+            "Z saturated status": "I",
+            "Saturation limit (%)": "f"
+        }
+    },
+    "Piezo.DriftCompSet": {
+        "argTypes": {
+            "Compensation status": "I",
+            "Vx (m/s)": "f",
+            "Vy (m/s)": "f",
+            "Vz (m/s)": "f",
+            "Saturation limit (%)": "f"
+        },
+        "argValues": {
+            "Compensation status": 0,
+            "Vx (m/s)": 0,
+            "Vy (m/s)": 0,
+            "Vz (m/s)": 0,
+            "Saturation limit (%)": 10
+        },
+        "args": [
+            "Compensation status",
+            "Vx (m/s)",
+            "Vy (m/s)",
+            "Vz (m/s)"
+        ],
+        "respTypes": {}
+    },
+    "BiasSpectr.Start": {
+        "argTypes": {
+            "Get data": "I",
+            "Save base name string size": "i",
+            "Save base name": "s"
+        },
+        "argValues": {
+            "Get data": 1,
+            "Save base name string size": 0,
+            "Save base name": ""
+        },
+        "args": [
+            "Get data",
+            "Save base name string size",
+            "Save base name"
+        ],
+        "respTypes": {
+            "Channels names size": "i",
+            "Number of channels": "i",
+            "Channels names": "1D array string",
+            "Data rows": "i",
+            "Data columns": "i",
+            "Data": "2D array float32",
+            "Number of parameters": "i",
+            "Parameters": "1D array float32"
+        }
+    },
+    "BiasSpectr.Open": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {}
+    },
+    "Scan.Action": {
+        "argTypes": {
+            "Scan action": "H",
+            "Scan direction": "I"
+        },
+        "argValues": {
+        },
+        "args": [],
+        "respTypes": {}
+    },
+    "Scan.StatusGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Scan status": "I"
+        }
+    },
+    "Scan.WaitEndOfScan": {
+        "argTypes": {
+            "Timeout (ms)": "i"
+        },
+        "argValues": {},
+        "args": [
+            "Timeout (ms)"
+        ],
+        "respTypes": {
+            "Timeout status status": "I",
+            "File path size": "I",
+            "File path": "s"
+        }
+    },
+    "Scan.WaitEndOfLine":{
+        "argTypes": {
+            "Timeout (ms)": "i"
+        },
+        "argValues": {},
+        "args": [
+            "Timeout (ms)"
+        ],
+        "respTypes": {
+            "Timeout status status": "I",
+            "Line number": "i",
+            "Type of movement": "H",
+            "Pass number": "i"
+        }
+    },
+
+    "Scan.FrameGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Center X (m)": "f",
+            "Center Y (m)": "f",
+            "Width (m)": "f",
+            "Height (m)": "f",
+            "Angle (deg)": "f"
+        }
+    },
+    "Scan.PropsSet": {
+        "argTypes": {
+            "Continuous scan": "I",
+            "Bouncy scan": "I",
+            "Autosave": "I",
+            "Series name size": "i",
+            "Series name": "s",
+            "Comment size": "i",
+            "Comment": "s"
+        },
+        "argValues": {},
+        "args": [
+            "Continuous scan",
+            "Bouncy scan",
+            "Autosave",
+            "Series name size",
+            "Series name",
+            "Comment size",
+            "Comment"
+        ],
+        "respTypes": {}
+    },
+    "Scan.PropsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Continuous scan": "I",
+            "Bouncy scan": "I",
+            "Autosave": "I",
+            "Series name size": "i",
+            "Series name": "s",
+            "Comment size": "i",
+            "Comment": "s",
+            "Modules names size":"i",
+            "Modules names number":"i",
+            "Modules names":"1D array string",
+            "Size of Number of Parameters per Module array":"i",
+            "Number of Parameters per Module array":"1D array int",
+            "Parameters rows":"i",
+            "Parameters columns":"i",
+            "Parameters":"2D array string",
+            "Autopaste":"I"
+        }
+    },
+    "Scan.BufferSet": {
+        "argTypes": {
+            "Number of channels": "i",
+            "Channel indexes": "1D array int",
+            "Pixels": "i",
+            "Lines": "i"
+        },
+        "argValues": {},
+        "args": [
+            "Number of channels",
+            "Channel indexes",
+            "Pixels",
+            "Lines"
+        ],
+        "respTypes": {}
+    },
+    "Scan.BufferGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Number of channels": "i",
+            "Channel indexes": "1D array int",
+            "Pixels": "I",
+            "Lines": "I"
+        }
+    },
+    "Scan.FrameDataGrab": {
+        "argTypes": {
+            "Channel index": "I",
+            "Data direction": "I"
+        },
+        "argValues": {},
+        "args": [
+            "Channel index",
+            "Data direction"
+        ],
+        "respTypes": {
+            "Channels name size": "i",
+            "Channel name": "s",
+            "Scan data rows": "i",
+            "Scan data columns": "i",
+            "Scan data": "2D array float32",
+            "Scan direction": "I"
+        }
+    },
+    "LockIn.DemodPhasSet": {
+        "argTypes": {
+            "Demodulator number": "i",
+            "Phase (deg)": "f"
+        },
+        "argValues": {
+            "Demodulator number": 1,
+            "Phase (deg)": 0
+        },
+        "args": [
+            "Demodulator number",
+            "Phase (deg)"
+        ],
+        "respTypes": {}
+    },
+    "LockIn.DemodPhasGet": {
+        "argTypes": {
+            "Demodulator number": "i"
+        },
+        "argValues": {
+            "Demodulator number": 1
+        },
+        "args": [
+            "Demodulator number"
+        ],
+        "respTypes": {
+            "Phase (deg)": "f"
+        }
+    },
+    "LockIn.DemodSignalGet": {
+        "argTypes": {
+            "Demodulator number": "i"
+        },
+        "argValues": {
+            "Demodulator number": 1
+        },
+        "args": [
+            "Demodulator number"
+        ],
+        "respTypes": {
+            "Demodulator Signal Index": "i"
+        }
+    },
+    "Current.GainSet": {
+        "argTypes": {
+            "Gain index": "H"
+        },
+        "argValues": {
+            "Gain index": 0
+        },
+        "args": [
+            "Gain index"
+        ],
+        "respTypes": {}
+    },
+    "BiasSpectr.LimitsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Start value (V)": "f",
+            "End value (V)": "f"
+        }
+    },
+    "BiasSpectr.ChsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Number of channels": "i",
+            "Channel indexes": "1D array int"
+        }
+    },
+    "BiasSpectr.ChsSet": {
+        "argTypes": {
+            "Number of channels": "i",
+            "Channel indexes": "1D array int"
+        },
+        "argValues": {},
+        "args": [
+            "Number of channels",
+            "Channel indexes"
+        ],
+        "respTypes": {}
+    },
+    "BiasSpectr.PropsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Save all": "H",
+            "Number of sweeps": "i",
+            "Backward sweep": "H",
+            "Number of points": "i",
+            "Channels size": "i",
+            "Number of channels": "i",
+            "Channels": "1D array string",
+            "Parameters size": "i",
+            "Number of parameters": "i",
+            "Parameters": "1D array string",
+            "Fixed parameters size": "i",
+            "Number of fixed parameters": "i",
+            "Fixed parameters": "1D array string"
+        }
+    },
+    "BiasSpectr.AdvPropsGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Reset Bias": "H",
+            "Z-Controller Hold": "H",
+            "Record final Z": "H",
+            "Lockin Run": "H"
+        }
+    },
+    "BiasSpectr.TimingGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Z averaging time (s)": "f",
+            "Z offset (m)": "f",
+            "Initial settling time (s)": "f",
+            "Maximum slew rate (V/s)": "f",
+            "Settling time (s) ": "f",
+            "Integration time ": "f",
+            "End settling time (s) ": "f",
+            "Z control time (s) ": "f"
+        }
+    },
+    "Signals.NamesGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Signals names size": "i",
+            "Signals names number": "i",
+            "Signals names": "1D array string"
+        }
+    },
+    "Signals.MeasNamesGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Measurement channels list size": "i",
+            "Number of Measurement channels": "i",
+            "Measurement channels list": "1D array string"
+        }
+    },
+    "Signals.ValGet": {
+        "argTypes": {
+            "Signal index": "i",
+            "Wait for newest data": "I"
+        },
+        "argValues": {
+            "Signal index": 18,
+            "Wait for newest data": 1
+        },
+        "args": [
+            "Signal index",
+            "Wait for newest data"
+        ],
+        "respTypes": {
+            "Signal value": "f"
+        }
+    },
+    "AutoApproach.OnOffSet": {
+        "argTypes": {
+            "On/Off": "H"
+        },
+        "argValues": {},
+        "args": [
+            "On/Off"
+        ],
+        "respTypes": {}
+    },
+    "AutoApproach.OnOffGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Status": "H"
+        }
+    },
+    "AutoApproach.Open": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {}
+    },
+    "Motor.StartMove": {
+        "argTypes": {
+            "Direction": "I",
+            "Number of steps": "H",
+            "Group": "I",
+            "Wait until finished": "I"
+        },
+        "argValues": {},
+        "args": [
+            "Direction",
+            "Number of steps",
+            "Group",
+            "Wait until finished"
+        ],
+        "respTypes": {}
+    },
+    "Motor.FreqAmpGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "Frequency (Hz)": "f",
+            "Amplitude (V)": "f"
+        }
+    },
+    "Motor.PosGet": {
+        "argTypes": {},
+        "argValues": {},
+        "args": [],
+        "respTypes": {
+            "X(m)": "f",
+            "Y(m)": "f",
+            "Z(m)": "f"
+        }
+    },
+    "Marks.PointDraw": {
+        "argTypes": {
+            "X coordinate (m)": "f",
+            "Y coordinate (m)": "f",
+            "Text size": "i",
+            "Text": "s",
+            "Color": "I"
+        },
+        "argValues": {},
+        "args": [
+            "X coordinate (m)",
+            "Y coordinate (m)",
+            "Text size",
+            "Text",
+            "Color"
+        ],
+        "respTypes": {}
+    }
+}

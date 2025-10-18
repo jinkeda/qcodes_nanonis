@@ -1,0 +1,7233 @@
+{
+    "Bias.Set": {
+        "args": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Bias.RangeSet": {
+        "args": [
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.RangeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bias ranges size",
+                "type": "i"
+            },
+            {
+                "name": "Number of ranges",
+                "type": "i"
+            },
+            {
+                "name": "Bias ranges",
+                "type": "1D array string"
+            },
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ]
+    },
+    "Bias.CalibrSet": {
+        "args": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.CalibrGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "Bias.Pulse": {
+        "args": [
+            {
+                "name": "Wait until done",
+                "type": "I"
+            },
+            {
+                "name": "Bias pulse width (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller on hold",
+                "type": "H"
+            },
+            {
+                "name": "Pulse absolute/relative",
+                "type": "H"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            },
+            {
+                "name": "Reset bias",
+                "type": "I"
+            },
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "H"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "i"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Reset Bias",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller Hold",
+                "type": "H"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Start value (V)",
+                "type": "f"
+            },
+            {
+                "name": "End value (V)",
+                "type": "f"
+            },
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            },
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            },
+            {
+                "name": "Alternate Z -controller setpoint",
+                "type": "H"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset Revert",
+                "type": "H"
+            },
+            {
+                "name": "Lock -In per segment",
+                "type": "I"
+            },
+            {
+                "name": "Sweep mode (int)",
+                "type": "s"
+            },
+            {
+                "name": "Sweep mode",
+                "type": "s"
+            },
+            {
+                "name": "Number of segments",
+                "type": "i"
+            },
+            {
+                "name": "Bias start (V)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Bias end (V)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Steps",
+                "type": "1D array int"
+            },
+            {
+                "name": "Lock -In run (1D array",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channels size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels names",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "i"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Parameters size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of parameters (int)",
+                "type": "s"
+            },
+            {
+                "name": "Fixed parameters size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of fixed parameters (int)",
+                "type": "s"
+            },
+            {
+                "name": "Fixed parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Reset Bias",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller Hold",
+                "type": "H"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Start value (V)",
+                "type": "f"
+            },
+            {
+                "name": "End value (V)",
+                "type": "f"
+            },
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            },
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            },
+            {
+                "name": "Alternate Z -controller setpoint",
+                "type": "H"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset Revert",
+                "type": "H"
+            },
+            {
+                "name": "Lock -In per segment",
+                "type": "I"
+            },
+            {
+                "name": "Sweep mode (int)",
+                "type": "s"
+            },
+            {
+                "name": "Sweep mode",
+                "type": "s"
+            },
+            {
+                "name": "Number of segments",
+                "type": "i"
+            },
+            {
+                "name": "Bias start (V)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Bias end (V)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Steps",
+                "type": "1D array int"
+            },
+            {
+                "name": "Lock -In run (1D array",
+                "type": "I"
+            }
+        ]
+    },
+    "BiasSpectr.SafeCond1Set": {
+        "args": [
+            {
+                "name": "Condition",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.SafeCond1Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Condition",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ]
+    },
+    "BiasSpectr.SafeCond2Set": {
+        "args": [
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.SafeCond2Get": {
+        "args": [
+            {
+                "name": "Control On/Off",
+                "type": "I"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "AC mode On/Off",
+                "type": "H"
+            },
+            {
+                "name": "Modulation On/Off",
+                "type": "H"
+            },
+            {
+                "name": "Demodulated/Control signal index",
+                "type": "i"
+            },
+            {
+                "name": "Bias high limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias low limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Range (V)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller switch off delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "TipLift (m)",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            },
+            {
+                "name": "Withdraw slew rate (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Limit Z status",
+                "type": "I"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Safe Tip status",
+                "type": "H"
+            },
+            {
+                "name": "Auto recovery",
+                "type": "H"
+            },
+            {
+                "name": "Auto pause scan",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "On/Off",
+                "type": "H"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Time between forward and backward sweep (s)",
+                "type": "f"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Reset Z",
+                "type": "H"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z sweep distance (m )",
+                "type": "f"
+            },
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Retract delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Enable",
+                "type": "H"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            },
+            {
+                "name": "2nd condition",
+                "type": "i"
+            },
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            },
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            },
+            {
+                "name": "Tilt X (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Tilt Y (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Z (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Compensation on/off",
+                "type": "i"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            },
+            {
+                "name": "Enable limits",
+                "type": "H"
+            },
+            {
+                "name": "Voltage limit X Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit X High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Number of fast axis po",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Fast axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis po",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Slow axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "Scan action",
+                "type": "H"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            },
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            },
+            {
+                "name": "Continuous scan",
+                "type": "I"
+            },
+            {
+                "name": "Bouncy scan",
+                "type": "I"
+            },
+            {
+                "name": "Series name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Series name",
+                "type": "s"
+            },
+            {
+                "name": "Comment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Autopaste",
+                "type": "I"
+            },
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            },
+            {
+                "name": "Channel index",
+                "type": "I"
+            },
+            {
+                "name": "Data d irection",
+                "type": "I"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            },
+            {
+                "name": "Wait until saved",
+                "type": "I"
+            },
+            {
+                "name": "Wait until pasted",
+                "type": "I"
+            },
+            {
+                "name": "Wait until deleted",
+                "type": "I"
+            },
+            {
+                "name": "Which background to delete",
+                "type": "I"
+            },
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            },
+            {
+                "name": "Wait end of move",
+                "type": "I"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Custom speed",
+                "type": "I"
+            },
+            {
+                "name": "Oversampling",
+                "type": "i"
+            },
+            {
+                "name": "Point & Shoot status",
+                "type": "I"
+            },
+            {
+                "name": "Point & Shoot experiment",
+                "type": "H"
+            },
+            {
+                "name": "Auto resume",
+                "type": "I"
+            },
+            {
+                "name": "Use own basename",
+                "type": "I"
+            },
+            {
+                "name": "Basename size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "External VI path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Buffer size",
+                "type": "i"
+            },
+            {
+                "name": "Clear buffer",
+                "type": "I"
+            },
+            {
+                "name": "Pattern",
+                "type": "H"
+            },
+            {
+                "name": "Pause/Resume",
+                "type": "I"
+            },
+            {
+                "name": "Set active pattern",
+                "type": "I"
+            },
+            {
+                "name": "Grid=Scan frame",
+                "type": "I"
+            },
+            {
+                "name": "Line=Scan frame",
+                "type": "I"
+            },
+            {
+                "name": "Line Point 1 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 1 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "X coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Selected experiment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Selected experiment",
+                "type": "s"
+            },
+            {
+                "name": "Save scan channels",
+                "type": "I"
+            },
+            {
+                "name": "X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "s"
+            },
+            {
+                "name": "Color",
+                "type": "I"
+            },
+            {
+                "name": "Text size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Color (1D array",
+                "type": "I"
+            },
+            {
+                "name": "Start point X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Start point Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "End point X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "End point Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Number of lines",
+                "type": "i"
+            },
+            {
+                "name": "Po",
+                "type": "i"
+            },
+            {
+                "name": "Line index",
+                "type": "i"
+            },
+            {
+                "name": "Show/hide",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "AC mode status",
+                "type": "H"
+            },
+            {
+                "name": "Modulation status",
+                "type": "H"
+            },
+            {
+                "name": "Demodulated/Control signal index",
+                "type": "i"
+            },
+            {
+                "name": "Bias high limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias low limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Range (V)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Size 1",
+                "type": "i"
+            },
+            {
+                "name": "Bias forward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift forward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift forward fit data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Size 2",
+                "type": "i"
+            },
+            {
+                "name": "Bias backward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift backward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift backward fit data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "CPD estimate",
+                "type": "f"
+            },
+            {
+                "name": "a coefficient",
+                "type": "d"
+            },
+            {
+                "name": "b coefficient",
+                "type": "d"
+            },
+            {
+                "name": "Current value (A)",
+                "type": "f"
+            },
+            {
+                "name": "Current 100 value (A)",
+                "type": "f"
+            },
+            {
+                "name": "Current BEEM value (A)",
+                "type": "f"
+            },
+            {
+                "name": "Gains size",
+                "type": "i"
+            },
+            {
+                "name": "Number of gains",
+                "type": "i"
+            },
+            {
+                "name": "Gains",
+                "type": "1D array string"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of filters",
+                "type": "i"
+            },
+            {
+                "name": "Filters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller switch off delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "TipLift (m)",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "List of controllers size",
+                "type": "i"
+            },
+            {
+                "name": "Number of controllers",
+                "type": "i"
+            },
+            {
+                "name": "List of controllers",
+                "type": "1D array string"
+            },
+            {
+                "name": "Active Z -Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Withdraw slew rate (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Limit Z status",
+                "type": "I"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z -Controller Status",
+                "type": "H"
+            },
+            {
+                "name": "Safe Tip status",
+                "type": "H"
+            },
+            {
+                "name": "Signal value",
+                "type": "f"
+            },
+            {
+                "name": "Auto recovery",
+                "type": "H"
+            },
+            {
+                "name": "Auto pause scan",
+                "type": "H"
+            },
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channels size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels names",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Parameters size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of parameters (int)",
+                "type": "s"
+            },
+            {
+                "name": "Fixed parameters size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of fixed parameters (int)",
+                "type": "s"
+            },
+            {
+                "name": "Fixed parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Time between forward and backward sweep (s)",
+                "type": "f"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Reset Z",
+                "type": "H"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z sweep distance (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Retract delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Enable",
+                "type": "H"
+            },
+            {
+                "name": "2nd condition",
+                "type": "i"
+            },
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            },
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            },
+            {
+                "name": "Tilt X (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Tilt Y (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Z (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Compensation status",
+                "type": "I"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "X saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Y saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Z saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            },
+            {
+                "name": "Gain AUX",
+                "type": "f"
+            },
+            {
+                "name": "Gain X",
+                "type": "f"
+            },
+            {
+                "name": "Gain Y",
+                "type": "f"
+            },
+            {
+                "name": "Gain Z",
+                "type": "f"
+            },
+            {
+                "name": "X/Y enabled status",
+                "type": "I"
+            },
+            {
+                "name": "Z enabled status",
+                "type": "I"
+            },
+            {
+                "name": "AUX enabled status",
+                "type": "I"
+            },
+            {
+                "name": "Overheated status",
+                "type": "I"
+            },
+            {
+                "name": "HV supply status",
+                "type": "I"
+            },
+            {
+                "name": "High temperature status",
+                "type": "I"
+            },
+            {
+                "name": "Output connector status",
+                "type": "I"
+            },
+            {
+                "name": "Enable limits",
+                "type": "H"
+            },
+            {
+                "name": "Voltage limit X Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit X High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z High (V)",
+                "type": "f"
+            },
+            {
+                "name": "On/Off",
+                "type": "I"
+            },
+            {
+                "name": "Number of fast axis po",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Fast axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis po",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Slow axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Scan status",
+                "type": "I"
+            },
+            {
+                "name": "Timeout status status",
+                "type": "I"
+            },
+            {
+                "name": "File path size",
+                "type": "I"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "Line number",
+                "type": "i"
+            },
+            {
+                "name": "Type of movement",
+                "type": "H"
+            },
+            {
+                "name": "Pass number",
+                "type": "i"
+            },
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            },
+            {
+                "name": "Continuous scan",
+                "type": "I"
+            },
+            {
+                "name": "Bouncy scan",
+                "type": "I"
+            },
+            {
+                "name": "Series name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Series name",
+                "type": "s"
+            },
+            {
+                "name": "Comment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Size of Number of Parameters per Module array",
+                "type": "i"
+            },
+            {
+                "name": "Number of Parameters per Module array",
+                "type": "1D array int"
+            },
+            {
+                "name": "Parameters rows",
+                "type": "i"
+            },
+            {
+                "name": "Parameters columns",
+                "type": "i"
+            },
+            {
+                "name": "Autopaste",
+                "type": "I"
+            },
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            },
+            {
+                "name": "Channels name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channel name",
+                "type": "s"
+            },
+            {
+                "name": "Scan data rows",
+                "type": "i"
+            },
+            {
+                "name": "Scan data columns",
+                "type": "i"
+            },
+            {
+                "name": "Scan d ata",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Timed out?",
+                "type": "I"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Custom speed",
+                "type": "I"
+            },
+            {
+                "name": "Oversampling",
+                "type": "i"
+            },
+            {
+                "name": "Sampling rate (Samples/s)",
+                "type": "f"
+            },
+            {
+                "name": "Point & Shoot status",
+                "type": "I"
+            },
+            {
+                "name": "Point & Shoot experiment",
+                "type": "H"
+            },
+            {
+                "name": "Size of the list of experiments (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of experiments (int)",
+                "type": "s"
+            },
+            {
+                "name": "List of experiments",
+                "type": "1D array string"
+            },
+            {
+                "name": "Auto resume",
+                "type": "I"
+            },
+            {
+                "name": "Use own basename",
+                "type": "I"
+            },
+            {
+                "name": "Basename size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "External VI path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Buffer size",
+                "type": "i"
+            },
+            {
+                "name": "Line Point 1 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 1 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "X coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Selected experiment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Selected experiment",
+                "type": "s"
+            },
+            {
+                "name": "Save scan channels",
+                "type": "I"
+            },
+            {
+                "name": "X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "1D array string"
+            },
+            {
+                "name": "Color (1D array",
+                "type": "I"
+            },
+            {
+                "name": "Visible (1D array",
+                "type": "I"
+            },
+            {
+                "name": "Number of lines",
+                "type": "i"
+            },
+            {
+                "name": "Start point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Start point Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point Y coordinate (m)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "MPass.Activate": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MPass.Load": {
+        "args": [
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "MPass.Save": {
+        "args": [
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "TipShaper.Start": {
+        "args": [
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "TipShaper.PropsSet": {
+        "args": [
+            {
+                "name": "Switch Off Delay",
+                "type": "f"
+            },
+            {
+                "name": "Change Bias?",
+                "type": "I"
+            },
+            {
+                "name": "Bias (V)",
+                "type": "f"
+            },
+            {
+                "name": "Tip Lift (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 1 (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Lift (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Settling Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 2 (s)",
+                "type": "f"
+            },
+            {
+                "name": "End Wait Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Restore Feedback?",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "TipShaper.PropsGet": {
+        "args": [
+            {
+                "name": "Direction",
+                "type": "I"
+            },
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Group",
+                "type": "I"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Absolute/relative",
+                "type": "I"
+            },
+            {
+                "name": "Target X(m)",
+                "type": "d"
+            },
+            {
+                "name": "Target Y(m)",
+                "type": "d"
+            },
+            {
+                "name": "Target Z(m)",
+                "type": "d"
+            },
+            {
+                "name": "Timeout",
+                "type": "I"
+            },
+            {
+                "name": "Reset X",
+                "type": "I"
+            },
+            {
+                "name": "Reset Y",
+                "type": "I"
+            },
+            {
+                "name": "Reset Z",
+                "type": "I"
+            },
+            {
+                "name": "Axis",
+                "type": "H"
+            },
+            {
+                "name": "Frequency (Hz )",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (V )",
+                "type": "f"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channel names size",
+                "type": "i"
+            },
+            {
+                "name": "Channel names number",
+                "type": "i"
+            },
+            {
+                "name": "Channel names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Sweep channel name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Sweep channel name",
+                "type": "s"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Initial Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "i"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "i"
+            },
+            {
+                "name": "Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            },
+            {
+                "name": "Reset signal",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller",
+                "type": "H"
+            },
+            {
+                "name": "On/Off",
+                "type": "i"
+            },
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Signal",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Linkage to 1",
+                "type": "i"
+            },
+            {
+                "name": "Condition 2",
+                "type": "i"
+            },
+            {
+                "name": "Signal 2",
+                "type": "i"
+            },
+            {
+                "name": "Threshold 2",
+                "type": "f"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "I"
+            },
+            {
+                "name": "Continuous",
+                "type": "i"
+            },
+            {
+                "name": "Reset Signals",
+                "type": "i"
+            },
+            {
+                "name": "Basename size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Path",
+                "type": "s"
+            },
+            {
+                "name": "Save Data",
+                "type": "i"
+            },
+            {
+                "name": "Comment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Wait until done",
+                "type": "i"
+            },
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            },
+            {
+                "name": "Timed Sweep",
+                "type": "i"
+            },
+            {
+                "name": "Relative Limits",
+                "type": "i"
+            },
+            {
+                "name": "Start",
+                "type": "f"
+            },
+            {
+                "name": "Stop",
+                "type": "f"
+            },
+            {
+                "name": "Number of points",
+                "type": "I"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bwd Sweep",
+                "type": "I"
+            },
+            {
+                "name": "Bwd Delay",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller Off",
+                "type": "i"
+            },
+            {
+                "name": "Z-Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Z Averaging Time",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset",
+                "type": "f"
+            },
+            {
+                "name": "Z Control Time",
+                "type": "f"
+            },
+            {
+                "name": "Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Output value",
+                "type": "f"
+            },
+            {
+                "name": "Signal name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Signal name",
+                "type": "s"
+            },
+            {
+                "name": "Units size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            },
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "AC mode",
+                "type": "H"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            },
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Control signal index",
+                "type": "i"
+            },
+            {
+                "name": "I gain",
+                "type": "f"
+            },
+            {
+                "name": "AT control",
+                "type": "H"
+            },
+            {
+                "name": "Status",
+                "type": "H"
+            },
+            {
+                "name": "Integral gain",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (m )",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Switch Off delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Lock -In On/Off",
+                "type": "I"
+            },
+            {
+                "name": "Modulator Signal Index",
+                "type": "i"
+            },
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            },
+            {
+                "name": "Harmonic",
+                "type": "i"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "LP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "LP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Sync Filter",
+                "type": "I"
+            },
+            {
+                "name": "RT Signals",
+                "type": "I"
+            },
+            {
+                "name": "Get Data",
+                "type": "I"
+            },
+            {
+                "name": "Lower limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Integration periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Save dialog",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Switch Off Delay",
+                "type": "f"
+            },
+            {
+                "name": "Change Bias?",
+                "type": "I"
+            },
+            {
+                "name": "Bias (V)",
+                "type": "f"
+            },
+            {
+                "name": "Tip Lift (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 1 (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Lift (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Settling Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 2 (s)",
+                "type": "f"
+            },
+            {
+                "name": "End Wait Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Restore Feedback?",
+                "type": "I"
+            },
+            {
+                "name": "X(m)",
+                "type": "d"
+            },
+            {
+                "name": "Y(m)",
+                "type": "d"
+            },
+            {
+                "name": "Z(m)",
+                "type": "d"
+            },
+            {
+                "name": "Step counter X",
+                "type": "i"
+            },
+            {
+                "name": "Step counter Y",
+                "type": "i"
+            },
+            {
+                "name": "Step counter Z",
+                "type": "i"
+            },
+            {
+                "name": "Frequency (Hz )",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (V )",
+                "type": "f"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Sweep channel name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Sweep channel name",
+                "type": "s"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Initial Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            },
+            {
+                "name": "Number of steps",
+                "type": "i"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "I"
+            },
+            {
+                "name": "Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Channels names (1D array",
+                "type": "s"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data (2D array",
+                "type": "f"
+            },
+            {
+                "name": "Available Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels names number",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of available channels",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "On/Off",
+                "type": "i"
+            },
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Signal",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Linkage to 1",
+                "type": "i"
+            },
+            {
+                "name": "Condition 2",
+                "type": "i"
+            },
+            {
+                "name": "Signal 2",
+                "type": "i"
+            },
+            {
+                "name": "Threshold 2",
+                "type": "f"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "I"
+            },
+            {
+                "name": "Continuous",
+                "type": "i"
+            },
+            {
+                "name": "Reset Signals",
+                "type": "i"
+            },
+            {
+                "name": "Basename size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Path",
+                "type": "s"
+            },
+            {
+                "name": "Save Data",
+                "type": "i"
+            },
+            {
+                "name": "Comment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Modules parameters number",
+                "type": "i"
+            },
+            {
+                "name": "Modules parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Signal names size",
+                "type": "i"
+            },
+            {
+                "name": "Signal names number",
+                "type": "i"
+            },
+            {
+                "name": "Signal names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of signals",
+                "type": "i"
+            },
+            {
+                "name": "Signal indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            },
+            {
+                "name": "Timed Sweep",
+                "type": "i"
+            },
+            {
+                "name": "Relative Limits",
+                "type": "i"
+            },
+            {
+                "name": "Start",
+                "type": "f"
+            },
+            {
+                "name": "Stop",
+                "type": "f"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bwd Sweep",
+                "type": "I"
+            },
+            {
+                "name": "Bwd Delay",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller Off",
+                "type": "i"
+            },
+            {
+                "name": "Z-Controller Index",
+                "type": "i"
+            },
+            {
+                "name": "Z Averaging Time",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset",
+                "type": "f"
+            },
+            {
+                "name": "Z Control Time",
+                "type": "f"
+            },
+            {
+                "name": "Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Output value",
+                "type": "f"
+            },
+            {
+                "name": "Signal name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Signal name",
+                "type": "s"
+            },
+            {
+                "name": "Units size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            },
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            },
+            {
+                "name": "Control signal index",
+                "type": "i"
+            },
+            {
+                "name": "Control signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Control signals names",
+                "type": "i"
+            },
+            {
+                "name": "Control signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of Control signals indexes",
+                "type": "i"
+            },
+            {
+                "name": "Control signals indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Input signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Input signals names",
+                "type": "i"
+            },
+            {
+                "name": "Input signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of Input signals indexes",
+                "type": "i"
+            },
+            {
+                "name": "Input signals indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "I gain",
+                "type": "f"
+            },
+            {
+                "name": "Integral gain",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (m )",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Switch Off delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Lock -In On/Off",
+                "type": "I"
+            },
+            {
+                "name": "Modulator Signal Index",
+                "type": "i"
+            },
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            },
+            {
+                "name": "Harmonic",
+                "type": "i"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "LP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "LP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Sync Filter",
+                "type": "I"
+            },
+            {
+                "name": "RT Signals",
+                "type": "I"
+            },
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Channels names number",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Lower limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Integration periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Save dialog",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.InpCalibrSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.InpCalibrGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration (m/V)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.InpRangeSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Input range (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.InpRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Differential input",
+                "type": "H"
+            },
+            {
+                "name": "1/10 divider",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input range (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.InpPropsGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Differential input",
+                "type": "H"
+            },
+            {
+                "name": "1/10 divider",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.AddOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Add",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.AddOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Add",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.OutOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "PLL output",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.OutOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "PLL output",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.ExcRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Excitation value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.ExcitationGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Setpoint (m)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Excitation value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlSetpntGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Setpoint (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.AmpCtrlOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "P gain (V/m)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.AmpCtrlGainGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "P gain (V/m)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integral gain (V/m/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlBandwidthGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.PhasCtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.PhasCtrlGainSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "P gain (Hz/deg)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlGainGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "P gain (Hz/deg)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integral gain (Hz/deg/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.PhasCtrlBandwidthSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlBandwidthGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.FreqRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Center frequency (Hz)",
+                "type": "d"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Center frequency (Hz)",
+                "type": "d"
+            }
+        ]
+    },
+    "PLL.FreqShiftSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency shift (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqShiftGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency shift (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.FreqShiftAutoCenter": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqExcOverwriteSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Excitation overwrite signal index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency overwrite signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqExcOverwriteGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Input",
+                "type": "H"
+            },
+            {
+                "name": "Frequency generator",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Excitation overwrite signal index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency overwrite signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "PLL.DemodInputGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Harmonic",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input",
+                "type": "H"
+            },
+            {
+                "name": "Frequency generator",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.DemodHarmonicGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Phase reference (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Filter order",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Harmonic",
+                "type": "H"
+            },
+            {
+                "name": "Phase reference (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.DemodFilterGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Filter order",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.PerfectPLLApply": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PerfectPLLUpdtZTC": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.AccessRequest": {
+        "args": [
+            {
+                "name": "Request/Release",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.AccessGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Request/Release",
+                "type": "I"
+            }
+        ]
+    },
+    "PLLQCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ]
+    },
+    "PLLQCtrl.QGainSet": {
+        "args": [
+            {
+                "name": "Q Gain",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.QGainGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Q Gain",
+                "type": "f"
+            }
+        ]
+    },
+    "PLLQCtrl.PhaseSet": {
+        "args": [
+            {
+                "name": "Phase Adjustment",
+                "type": "i"
+            },
+            {
+                "name": "Custom Phase",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.PhaseGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase Adjustment",
+                "type": "i"
+            },
+            {
+                "name": "Phase Custom",
+                "type": "f"
+            },
+            {
+                "name": "Number of po",
+                "type": "i"
+            },
+            {
+                "name": "Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Resonance frequency (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Q factor",
+                "type": "d"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude to excitation quotient (nm/mV)",
+                "type": "f"
+            },
+            {
+                "name": "Fit length",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLFreqSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLPhasSwp.Start": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "PLLPhasSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            },
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            },
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            },
+            {
+                "name": "Script index",
+                "type": "i"
+            },
+            {
+                "name": "Script file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Script file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session",
+                "type": "I"
+            },
+            {
+                "name": "Save session",
+                "type": "I"
+            },
+            {
+                "name": "Wait until script finishes",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            },
+            {
+                "name": "Timebases size",
+                "type": "i"
+            },
+            {
+                "name": "Timebases number",
+                "type": "i"
+            },
+            {
+                "name": "Timebases",
+                "type": "1D array string"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source signals list size",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list number",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data t0",
+                "type": "d"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            },
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            },
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            }
+        ]
+    },
+    "Script.ChsGet": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Sweep number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "Script.Autosave": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Sweep number",
+                "type": "i"
+            },
+            {
+                "name": "All sweeps to same file",
+                "type": "I"
+            },
+            {
+                "name": "Folder path path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Folder path",
+                "type": "s"
+            },
+            {
+                "name": "Basename path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTLoad": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "LUT values size",
+                "type": "i"
+            },
+            {
+                "name": "LUT values",
+                "type": "1D array float32"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTSave": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTDeploy": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Integral",
+                "type": "f"
+            },
+            {
+                "name": "Proportional",
+                "type": "f"
+            },
+            {
+                "name": "Sign",
+                "type": "I"
+            },
+            {
+                "name": "W-piezo",
+                "type": "f"
+            },
+            {
+                "name": "Laser Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "Name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            },
+            {
+                "name": "Deflection signal",
+                "type": "H"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            },
+            {
+                "name": "Signals indexes size",
+                "type": "i"
+            },
+            {
+                "name": "Signals indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Additional RT signal 1",
+                "type": "i"
+            },
+            {
+                "name": "Additional RT signal 2",
+                "type": "i"
+            },
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            },
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Output mode",
+                "type": "H"
+            },
+            {
+                "name": "Monitor channel index",
+                "type": "i"
+            },
+            {
+                "name": "Output value",
+                "type": "f"
+            },
+            {
+                "name": "Calculated signal name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Calculated signal name",
+                "type": "s"
+            },
+            {
+                "name": "Signal 1",
+                "type": "H"
+            },
+            {
+                "name": "Operation",
+                "type": "H"
+            },
+            {
+                "name": "Signal 2",
+                "type": "H"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Raw limits?",
+                "type": "I"
+            },
+            {
+                "name": "Digital line",
+                "type": "I"
+            },
+            {
+                "name": "Port",
+                "type": "I"
+            },
+            {
+                "name": "Direction",
+                "type": "I"
+            },
+            {
+                "name": "Polarity",
+                "type": "I"
+            },
+            {
+                "name": "Digital lines size",
+                "type": "i"
+            },
+            {
+                "name": "Digital line s (1D array unsigned",
+                "type": "i"
+            },
+            {
+                "name": "Pulse width (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse pause (s)",
+                "type": "f"
+            },
+            {
+                "name": "Number of pulses",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Acquisition mode",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition duration( hours)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (minutes)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (seconds)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Basename size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Comment size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Size of the list of moduless (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of modules (int)",
+                "type": "s"
+            },
+            {
+                "name": "List of modules",
+                "type": "1D array string"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Integral",
+                "type": "f"
+            },
+            {
+                "name": "Proportional",
+                "type": "f"
+            },
+            {
+                "name": "Sign",
+                "type": "I"
+            },
+            {
+                "name": "W-piezo",
+                "type": "f"
+            },
+            {
+                "name": "Interferometer value",
+                "type": "f"
+            },
+            {
+                "name": "Laser Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "Laser power",
+                "type": "f"
+            },
+            {
+                "name": "Name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            },
+            {
+                "name": "Signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Signals names number",
+                "type": "i"
+            },
+            {
+                "name": "Signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            },
+            {
+                "name": "Maximum limit",
+                "type": "f"
+            },
+            {
+                "name": "Minimum limit",
+                "type": "f"
+            },
+            {
+                "name": "Signal value",
+                "type": "f"
+            },
+            {
+                "name": "Signals values size",
+                "type": "i"
+            },
+            {
+                "name": "Signals values",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Measurement channels list size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Measurement channels",
+                "type": "i"
+            },
+            {
+                "name": "Measurement channels list",
+                "type": "1D array string"
+            },
+            {
+                "name": "Additional RT signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Additional RT signals",
+                "type": "i"
+            },
+            {
+                "name": "Additional RT signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Additional RT signal 1",
+                "type": "s"
+            },
+            {
+                "name": "Additional RT signal 2",
+                "type": "s"
+            },
+            {
+                "name": "Output mode",
+                "type": "H"
+            },
+            {
+                "name": "Monitor channel index",
+                "type": "i"
+            },
+            {
+                "name": "Calculated signal name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Calculated signal name",
+                "type": "s"
+            },
+            {
+                "name": "Signal 1",
+                "type": "H"
+            },
+            {
+                "name": "Operation",
+                "type": "H"
+            },
+            {
+                "name": "Signal 2",
+                "type": "H"
+            },
+            {
+                "name": "Uppe r limit",
+                "type": "f"
+            },
+            {
+                "name": "Lowe r limit",
+                "type": "f"
+            },
+            {
+                "name": "TTL voltages size",
+                "type": "i"
+            },
+            {
+                "name": "TTL voltages (1D array",
+                "type": "I"
+            },
+            {
+                "name": "Start time size (int) returns the number of bytes corresponding to the Start time",
+                "type": "s"
+            },
+            {
+                "name": "Start time",
+                "type": "s"
+            },
+            {
+                "name": "Acquisition elapsed hours",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition elapsed minutes",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition elapsed seconds",
+                "type": "f"
+            },
+            {
+                "name": "Stop time size (int) returns the number of bytes corresponding to the Stop time",
+                "type": "s"
+            },
+            {
+                "name": "Stop time",
+                "type": "s"
+            },
+            {
+                "name": "Saved file path size (int) returns the number of bytes corresponding to the Saved file path",
+                "type": "s"
+            },
+            {
+                "name": "Saved file path",
+                "type": "s"
+            },
+            {
+                "name": "Po",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Acquisition mode",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition duration( hours)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (minutes)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (seconds)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Basename size (int) returns the size in bytes of the Basename",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Comment size (int) returns the size in bytes of the Comment",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            }
+        ]
+    },
+    "TCPLog.Stop": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "TCPLog.OversamplSet": {
+        "args": [
+            {
+                "name": "Oversampling value",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "TCPLog.StatusGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Oversampling index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration mode",
+                "type": "H"
+            },
+            {
+                "name": "Number of samples",
+                "type": "i"
+            },
+            {
+                "name": "Pre-Trigger samples",
+                "type": "I"
+            },
+            {
+                "name": "Pre-Trigger (s)",
+                "type": "d"
+            },
+            {
+                "name": "Data to get",
+                "type": "H"
+            },
+            {
+                "name": "Timeout (s)",
+                "type": "d"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Level trigger channel index",
+                "type": "i"
+            },
+            {
+                "name": "Level trigger value",
+                "type": "d"
+            },
+            {
+                "name": "Level trigger Hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Level trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Digital trigger channel index",
+                "type": "i"
+            },
+            {
+                "name": "Trigger arming mode",
+                "type": "H"
+            },
+            {
+                "name": "Digital trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Show PSD section",
+                "type": "I"
+            },
+            {
+                "name": "PSD Weighting",
+                "type": "H"
+            },
+            {
+                "name": "PSD window type",
+                "type": "H"
+            },
+            {
+                "name": "PSD averaging type",
+                "type": "H"
+            },
+            {
+                "name": "PSD averaging count",
+                "type": "i"
+            },
+            {
+                "name": "Timebase index",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            },
+            {
+                "name": "Trigger channel",
+                "type": "H"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Range index",
+                "type": "i"
+            },
+            {
+                "name": "Resolution index",
+                "type": "H"
+            },
+            {
+                "name": "FFT window index",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "I"
+            },
+            {
+                "name": "AC coupling",
+                "type": "I"
+            },
+            {
+                "name": "Cursor type",
+                "type": "H"
+            },
+            {
+                "name": "Position X Cursor 1 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position X Cursor 2 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Periods",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            },
+            {
+                "name": "Idle value",
+                "type": "f"
+            },
+            {
+                "name": "Device",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Add/Zero",
+                "type": "H"
+            },
+            {
+                "name": "Shape",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "i"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Oversampling index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration mode",
+                "type": "H"
+            },
+            {
+                "name": "Number of samples",
+                "type": "i"
+            },
+            {
+                "name": "Pre-Trigger samples",
+                "type": "i"
+            },
+            {
+                "name": "Data t0 size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Data t0",
+                "type": "s"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Timeout",
+                "type": "I"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Level trigger channel index",
+                "type": "i"
+            },
+            {
+                "name": "Level trigger value",
+                "type": "d"
+            },
+            {
+                "name": "Level trigger Hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Level trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Digital trigger channel index",
+                "type": "i"
+            },
+            {
+                "name": "Trigger arming mode",
+                "type": "H"
+            },
+            {
+                "name": "Digital trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "PSD Weighting",
+                "type": "H"
+            },
+            {
+                "name": "PSD window type",
+                "type": "H"
+            },
+            {
+                "name": "PSD averaging type",
+                "type": "H"
+            },
+            {
+                "name": "PSD averaging count",
+                "type": "i"
+            },
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Timebase index",
+                "type": "i"
+            },
+            {
+                "name": "Number of timebases",
+                "type": "i"
+            },
+            {
+                "name": "Timebases (s)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            },
+            {
+                "name": "Trigger channel",
+                "type": "H"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Data size",
+                "type": "i"
+            },
+            {
+                "name": "Data CHA",
+                "type": "1D array float64"
+            },
+            {
+                "name": "Data CHB",
+                "type": "1D array float64"
+            },
+            {
+                "name": "Range index",
+                "type": "i"
+            },
+            {
+                "name": "Number of frequency ranges",
+                "type": "i"
+            },
+            {
+                "name": "Frequency ranges (Hz)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Resolution index",
+                "type": "H"
+            },
+            {
+                "name": "Number of frequency resolutions",
+                "type": "i"
+            },
+            {
+                "name": "Frequency resolutions (Hz)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "FFT window index",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "I"
+            },
+            {
+                "name": "AC coupling",
+                "type": "I"
+            },
+            {
+                "name": "Position X Cursor 1 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position X Cursor 2 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position Y Cursor 1",
+                "type": "d"
+            },
+            {
+                "name": "Band RMS",
+                "type": "d"
+            },
+            {
+                "name": "Minimum frequency (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Maximum frequency (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "DC value",
+                "type": "d"
+            },
+            {
+                "name": "Periods left",
+                "type": "i"
+            },
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            },
+            {
+                "name": "Idle value",
+                "type": "f"
+            },
+            {
+                "name": "Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Add/Zero",
+                "type": "H"
+            },
+            {
+                "name": "Shape",
+                "type": "H"
+            }
+        ]
+    },
+    "Util.SessionPathGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Session path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Session path",
+                "type": "s"
+            }
+        ]
+    },
+    "Util.SessionPathSet": {
+        "args": [
+            {
+                "name": "Session path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Session path",
+                "type": "s"
+            },
+            {
+                "name": "Save settings to previous",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.SettingsLoad": {
+        "args": [
+            {
+                "name": "Settings file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session settings",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.SettingsSave": {
+        "args": [
+            {
+                "name": "Settings file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings file path",
+                "type": "s"
+            },
+            {
+                "name": "Save session settings",
+                "type": "I"
+            },
+            {
+                "name": "Layout file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Layout file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session layout",
+                "type": "I"
+            },
+            {
+                "name": "Save session layout",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.Lock": {
+        "args": [],
+        "resp": []
+    },
+    "Util.UnLock": {
+        "args": [
+            {
+                "name": "RT frequency",
+                "type": "f"
+            },
+            {
+                "name": "Acquisition Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "RT oversampling",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "RT frequency",
+                "type": "f"
+            },
+            {
+                "name": "Acquisition Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "RT oversampling",
+                "type": "i"
+            }
+        ]
+    },
+    "Util.Quit": {
+        "args": [
+            {
+                "name": "Use the stored values",
+                "type": "I"
+            },
+            {
+                "name": "Settings name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings name",
+                "type": "s"
+            },
+            {
+                "name": "Layout name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Layout name",
+                "type": "s"
+            },
+            {
+                "name": "Save signals",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.VersionGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Product Line size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Product Line",
+                "type": "s"
+            },
+            {
+                "name": "Version size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Version",
+                "type": "s"
+            },
+            {
+                "name": "Host App. Release",
+                "type": "I"
+            },
+            {
+                "name": "RT Engine release",
+                "type": "I"
+            }
+        ]
+    },
+    "File.datLoad": {
+        "args": [
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "Read only header",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Header rows",
+                "type": "i"
+            },
+            {
+                "name": "Header columns",
+                "type": "i"
+            },
+            {
+                "name": "Header",
+                "type": "2D array string"
+            }
+        ]
+    },
+    "MCVA5.UserInSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "User Input",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.UserInGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "User Input",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.GainSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Gain",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.GainGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Gain",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.InputModeSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Input mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.InputModeGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input mode",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.CouplingSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Coupling",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.CouplingGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Coupling",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.SingleStateUpdate": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel 1 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 1 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 2 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 2 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 3 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 3 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 4 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 4 Overload",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.ContStateUpdateSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.ContStateUpdateGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.SingleTempUpdate": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel 1",
+                "type": "H"
+            },
+            {
+                "name": "Channel 2",
+                "type": "H"
+            },
+            {
+                "name": "Channel 3",
+                "type": "H"
+            },
+            {
+                "name": "Channel 4",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.ContTempUpdateSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.ContTempUpdateGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ]
+    },
+    "MProbeBias.Set": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.Get": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeBias.RangeSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.RangeGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ]
+    },
+    "MProbeBias.CalibrSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.CalibrGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeBias.Pulse": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Wait until done",
+                "type": "I"
+            },
+            {
+                "name": "Bias pulse width (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller on hold",
+                "type": "H"
+            },
+            {
+                "name": "Pulse absolute/relative",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeCurrent.Get": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Current value (A)",
+                "type": "f"
+            },
+            {
+                "name": "Gains size",
+                "type": "i"
+            },
+            {
+                "name": "Number of gains",
+                "type": "i"
+            },
+            {
+                "name": "Gains",
+                "type": "1D array string"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of filters",
+                "type": "i"
+            },
+            {
+                "name": "Filters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Scanner index",
+                "type": "i"
+            },
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ]
+    },
+    "ZCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.SetpntGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.SetpntSet": {
+        "args": [
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.HomePropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.HomePropsSet": {
+        "args": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.Home": {
+        "args": [],
+        "resp": []
+    },
+    "ZCtrl.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z -Controller Status",
+                "type": "H"
+            }
+        ]
+    },
+    "ZCtrl.ZPosGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.ZPosSet": {
+        "args": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.Withdraw": {
+        "args": [
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "FolMe.XYPosGet": {
+        "args": [
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            }
+        ]
+    },
+    "FolMe.XYPosSet": {
+        "args": [
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            },
+            {
+                "name": "Wait end of move",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.DriftCompGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Compensation status",
+                "type": "I"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "X saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Y saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Z saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.DriftCompSet": {
+        "args": [
+            {
+                "name": "Compensation status",
+                "type": "I"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.Start": {
+        "args": [
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Save base name string size",
+                "type": "i"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "BiasSpectr.Open": {
+        "args": [],
+        "resp": []
+    },
+    "Scan.Action": {
+        "args": [
+            {
+                "name": "Scan action",
+                "type": "H"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Scan status",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.WaitEndOfScan": {
+        "args": [
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timeout status status",
+                "type": "I"
+            },
+            {
+                "name": "File path size",
+                "type": "I"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ]
+    },
+    "Scan.WaitEndOfLine": {
+        "args": [
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timeout status status",
+                "type": "I"
+            },
+            {
+                "name": "Line number",
+                "type": "i"
+            },
+            {
+                "name": "Type of movement",
+                "type": "H"
+            },
+            {
+                "name": "Pass number",
+                "type": "i"
+            }
+        ]
+    },
+    "Scan.FrameGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "Scan.PropsSet": {
+        "args": [
+            {
+                "name": "Continuous scan",
+                "type": "I"
+            },
+            {
+                "name": "Bouncy scan",
+                "type": "I"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Series name size",
+                "type": "i"
+            },
+            {
+                "name": "Series name",
+                "type": "s"
+            },
+            {
+                "name": "Comment size",
+                "type": "i"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Continuous scan",
+                "type": "I"
+            },
+            {
+                "name": "Bouncy scan",
+                "type": "I"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Series name size",
+                "type": "i"
+            },
+            {
+                "name": "Series name",
+                "type": "s"
+            },
+            {
+                "name": "Comment size",
+                "type": "i"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Size of Number of Parameters per Module array",
+                "type": "i"
+            },
+            {
+                "name": "Number of Parameters per Module array",
+                "type": "1D array int"
+            },
+            {
+                "name": "Parameters rows",
+                "type": "i"
+            },
+            {
+                "name": "Parameters columns",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "2D array string"
+            },
+            {
+                "name": "Autopaste",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.BufferSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.BufferGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "I"
+            },
+            {
+                "name": "Lines",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.FrameDataGrab": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "I"
+            },
+            {
+                "name": "Data direction",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels name size",
+                "type": "i"
+            },
+            {
+                "name": "Channel name",
+                "type": "s"
+            },
+            {
+                "name": "Scan data rows",
+                "type": "i"
+            },
+            {
+                "name": "Scan data columns",
+                "type": "i"
+            },
+            {
+                "name": "Scan data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            }
+        ]
+    },
+    "LockIn.DemodPhasSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodPhasGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.DemodSignalGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            }
+        ]
+    },
+    "Current.GainSet": {
+        "args": [
+            {
+                "name": "Gain index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Start value (V)",
+                "type": "f"
+            },
+            {
+                "name": "End value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "BiasSpectr.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "BiasSpectr.ChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "i"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Channels size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
+            },
+            {
+                "name": "Parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Fixed parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of fixed parameters",
+                "type": "i"
+            },
+            {
+                "name": "Fixed parameters",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "BiasSpectr.AdvPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Reset Bias",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller Hold",
+                "type": "H"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            }
+        ]
+    },
+    "BiasSpectr.TimingGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "Signals.NamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Signals names number",
+                "type": "i"
+            },
+            {
+                "name": "Signals names",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.MeasNamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Measurement channels list size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Measurement channels",
+                "type": "i"
+            },
+            {
+                "name": "Measurement channels list",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.ValGet": {
+        "args": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal value",
+                "type": "f"
+            }
+        ]
+    },
+    "AutoApproach.OnOffSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "AutoApproach.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "H"
+            }
+        ]
+    },
+    "AutoApproach.Open": {
+        "args": [],
+        "resp": []
+    },
+    "Motor.StartMove": {
+        "args": [
+            {
+                "name": "Direction",
+                "type": "I"
+            },
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Group",
+                "type": "I"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Motor.FreqAmpGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Motor.PosGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "X(m)",
+                "type": "f"
+            },
+            {
+                "name": "Y(m)",
+                "type": "f"
+            },
+            {
+                "name": "Z(m)",
+                "type": "f"
+            }
+        ]
+    },
+    "Marks.PointDraw": {
+        "args": [
+            {
+                "name": "X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "s"
+            },
+            {
+                "name": "Color",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    }
+}

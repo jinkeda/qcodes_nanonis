@@ -1,0 +1,12 @@
+{
+    "Interface": {
+        "IP-Adress": "127.0.0.1",
+        "Port":  6501
+    },
+    "CoarseMotionConstants": {
+        "+X": 0.1,
+        "-X": 0.1,
+        "+Y":0.1,
+        "-Y":0.1
+    }
+}
