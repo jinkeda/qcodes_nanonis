@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Created on Thu Aug 17 17:36:23 2023
 
@@ -472,6 +472,6 @@ class NanonisIPInstrument(NanonisIPInstrumentbase):
             if movement_type == 1 and line_number == 1:
                 self.scan_action(action = 1, direction=scan_direction, blocking=False)
 
-                print("First downward line completed → stopping scan.")
+                print("First downward line completed - stopping scan.")
                 break
 
