@@ -158,9 +158,6 @@
             "Wait end of move": "I"
         },
         "argValues": {
-            "X (m)": 0,
-            "Y (m)": 0,
-            "Wait end of move": 1
         },
         "args": [
             "X (m)",
