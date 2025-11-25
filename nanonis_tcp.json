@@ -213,9 +213,6 @@
             "Save base name": "s"
         },
         "argValues": {
-            "Get data": 1,
-            "Save base name string size": 0,
-            "Save base name": ""
         },
         "args": [
             "Get data",
@@ -390,18 +387,50 @@
             "Scan direction": "I"
         }
     },
+
+
+
+    "LockIn.ModOnOffSet": {
+        "argTypes": {
+            "Modulator number": "i",
+            "Lock-In On/Off": "I"
+        },
+
+        "argValues": {
+        },
+        "args": [
+            "Modulator number",
+            "Lock-In On/Off"
+        ],
+        "respTypes": {}
+    },
+
+        "LockIn.ModOnOffGet": {
+        "argTypes": {
+            "Modulator number": "i"
+        },
+
+        "argValues": {
+        },
+        "args": [
+            "Modulator number"
+        ],
+        "respTypes": {"Lock-In On/Off": "I"}
+    },
+
+
+    
     "LockIn.DemodPhasSet": {
         "argTypes": {
             "Demodulator number": "i",
             "Phase (deg)": "f"
         },
+
         "argValues": {
-            "Demodulator number": 1,
-            "Phase (deg)": 0
         },
         "args": [
-            "Demodulator number",
-            "Phase (deg)"
+            "Modulator number",
+            "Modulator Signal Index"
         ],
         "respTypes": {}
     },
@@ -433,6 +462,38 @@
             "Demodulator Signal Index": "i"
         }
     },
+
+        "LockIn.ModAmpSet": {
+        "argTypes": {
+            "Demodulator number": "i",
+            "Amplitude": "f"
+        },
+        "argValues": {
+        },
+        "args": [
+            "Demodulator number",
+            "Amplitude"
+        ],
+        "respTypes": {
+        }
+    },
+
+    
+        "LockIn.ModAmpGet": {
+        "argTypes": {
+            "Demodulator number": "i"
+        },
+        "argValues": {
+        },
+        "args": [
+            "Demodulator number"
+        ],
+        "respTypes": {
+            "Amplitude":"f"
+        }
+    },
+
+
     "Current.GainSet": {
         "argTypes": {
             "Gain index": "H"
@@ -484,15 +545,14 @@
             "Number of sweeps": "i",
             "Backward sweep": "H",
             "Number of points": "i",
-            "Channels size": "i",
-            "Number of channels": "i",
-            "Channels": "1D array string",
             "Parameters size": "i",
             "Number of parameters": "i",
             "Parameters": "1D array string",
             "Fixed parameters size": "i",
             "Number of fixed parameters": "i",
-            "Fixed parameters": "1D array string"
+            "Fixed parameters": "1D array string",
+            "Autosave": "H",
+            "Show save dialog": "H"
         }
     },
     "BiasSpectr.AdvPropsGet": {
@@ -521,6 +581,21 @@
             "Z control time (s) ": "f"
         }
     },
+
+    "BiasSpectr.LimitsSet":{
+        "argTypes": {
+            "Start value (V)": "f",
+            "End value (V)":"f"
+    
+    },
+        "argValues": {},
+        "args": ["Start value (V)", "End value (V)"],
+        "respTypes": {
+
+        }
+    },
+
+
     "Signals.NamesGet": {
         "argTypes": {},
         "argValues": {},
@@ -634,5 +709,42 @@
             "Color"
         ],
         "respTypes": {}
+    },
+
+    "Pattern.ExpStart": {
+        "argTypes": {
+            "Pattern": "H"
+            
+        },
+        "argValues": {},
+        "args": [
+        "Pattern"
+        ],
+        "respTypes": {}
+    },
+
+    "Pattern.ExpStatusGet": {
+        "argTypes": {
+    
+        },
+        "argValues": {},
+        "args": [
+        ],
+       "respTypes": {
+            "Status": "i"
+        }
+    },
+
+    "Script.Open":{
+
+             "argTypes": {
+    
+        },
+        "argValues": {},
+        "args": [
+        ],
+       "respTypes": {
+        }
     }
+
 }

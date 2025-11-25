@@ -14,7 +14,7 @@ from typing import Dict,List,Union,Any,Tuple
 import qcodes.validators as vals
 from qcodes.utils.validators import Arrays,Enum
 from qcodes import logger
-from Nanonis_ipinstrumentbase import NanonisIPInstrumentbase
+from .Nanonis_ipinstrumentbase import NanonisIPInstrumentbase
 from typing import Literal
 #from Nanonis_biasspectra import Bias_spctra
 
@@ -191,7 +191,7 @@ class NanonisIPInstrument(NanonisIPInstrumentbase):
             raise TypeError(f'{value} is not a float.')
         if not -10 < value < 10:
             raise ValueError(f'{value} is out of the range. The valid range is [-10, 10]')
-        self.write(f'setBias {value}')
+        self.write(f'Bias.Set {value}')
 
     def get_topo(self) -> float:
         return self.ask('ZCtrl.ZPosGet')['Z position (m)']
@@ -373,7 +373,7 @@ class NanonisIPInstrument(NanonisIPInstrumentbase):
 
 
     def get_bias_spec_props(self) ->dict:
-        props = self.ask_raw('getBiasprops',[])
+        props = self.ask('BiasSpectr.PropsGet')
         return props
     
     def update_bias_spec_props(self) -> None:
