@@ -26,6 +26,14 @@ The library uses a **3-layer architecture**:
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Features
+
+- **Configuration-driven**: Commands defined in YAML, easy to extend
+- **Type coercion**: Automatic conversion to correct numpy types
+- **Error detection**: Parses Nanonis error responses
+- **Debug mode**: Verbose logging for troubleshooting
+- **QCoDeS integration**: Full support for QCoDeS Station and Measurement
+
 ## Installation
 
 ```bash
@@ -61,6 +69,15 @@ with NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml') as ctrl:
     print(ctrl.list_commands('Bias'))
 ```
 
+### Debug Mode
+
+```python
+ctrl = NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml')
+ctrl.debug = True  # Enable verbose logging
+ctrl.connect()
+ctrl.send('Bias.Get')  # Will log type coercion, bytes, errors
+```
+
 ### QCoDeS Integration (Layer 3)
 
 ```python
@@ -83,44 +100,49 @@ print(nanonis.bias.voltage())
 station = Station()
 station.add_component(nanonis)
 
-# Use in Measurement
-meas = Measurement()
-meas.register_parameter(nanonis.bias.voltage)
-
 # Direct Layer 2 access if needed
 nanonis.send('Custom.Command', arg1, arg2)
 
-# Clean up
 nanonis.close()
 ```
+
+## Configuration Files
+
+| File | Commands | Source |
+|------|----------|--------|
+| `configs/nanonis_tcp.yaml` | 148 | Original JSON (SPM) |
+| `configs/nanonis_tramea.yaml` | 264 | nanonis_tramea package (TRAMEA) |
+
+### Command Modules (tramea)
+
+| Module | Commands | Description |
+|--------|----------|-------------|
+| 3DSwp | 44 | 3D Sweeper |
+| OsciHR | 40 | High-Resolution Oscilloscope |
+| HSSwp | 34 | High-Speed Sweeper |
+| LockIn | 30 | Lock-In Amplifier |
+| Script | 15 | Script Control |
+| Util | 15 | Utilities |
+| 1DSwp | 14 | 1D Sweeper |
+| MCVA5 | 14 | Multichannel Voltage Amplifier |
+| UserOut | 14 | User Outputs |
+| PICtrl | 10 | PI Controller |
 
 ## Directory Structure
 
 ```
 qcodes_nanonis/
 ├── src/nanonis/
-│   ├── __init__.py
 │   ├── protocol/           # Layer 1: TCP Communication
-│   │   ├── exceptions.py   # Custom exceptions
-│   │   └── tcp_client.py   # Low-level TCP client
 │   ├── command/            # Layer 2: Command Interface
-│   │   ├── registry.py     # Command definitions loader
-│   │   ├── encoder.py      # Value encoding/decoding
-│   │   ├── controller.py   # Main controller class
-│   │   └── proxies.py      # Convenience wrappers
 │   └── qcodes/             # Layer 3: QCoDeS Integration
-│       ├── instrument.py   # NanonisInstrument class
-│       └── channels/       # QCoDeS channels
-│           ├── bias.py
-│           └── scan.py
 ├── configs/
-│   └── nanonis_tcp.yaml    # Command definitions (148 commands)
+│   ├── nanonis_tcp.yaml    # SPM commands (148)
+│   └── nanonis_tramea.yaml # TRAMEA commands (264)
 ├── tests/
-│   ├── test_protocol.py
-│   ├── test_encoder.py
-│   └── test_controller.py
 ├── scripts/
-│   └── convert_json_to_yaml.py  # Config conversion tool
+│   ├── convert_json_to_yaml.py
+│   └── extract_tramea_commands.py
 └── pyproject.toml
 ```
 
@@ -130,34 +152,17 @@ qcodes_nanonis/
 |------|--------|-------------|
 | `float32` | float | 32-bit float |
 | `float64` | float | 64-bit float |
-| `int16` | int | 16-bit signed |
-| `int32` | int | 32-bit signed |
-| `uint16` | int | 16-bit unsigned |
-| `uint32` | int | 32-bit unsigned |
+| `int16` / `int32` | int | Signed integers |
+| `uint16` / `uint32` | int | Unsigned integers |
 | `bool` | bool | Boolean (4 bytes) |
 | `string` | str | Length-prefixed UTF-8 |
-| `array_float32` | np.ndarray | 1D float32 array |
-| `array_int32` | np.ndarray | 1D int32 array |
-| `array_string` | list[str] | 1D string array |
-| `matrix_float32` | np.ndarray | 2D float32 array |
-| `matrix_string` | list[list[str]] | 2D string array |
+| `array_*` | np.ndarray | 1D arrays |
+| `matrix_*` | np.ndarray | 2D arrays |
 
 ## Running Tests
 
 ```bash
-# Install dev dependencies
-pip install -e ".[dev]"
-
-# Run tests
 pytest tests/ -v
-```
-
-## Configuration
-
-Commands are defined in `configs/nanonis_tcp.yaml`. To regenerate from JSON:
-
-```bash
-python scripts/convert_json_to_yaml.py
 ```
 
 ## License
@@ -168,4 +173,4 @@ MIT License
 
 - [Nanonis TCP Protocol Documentation](TCPProtocol_SPM.pdf)
 - [QCoDeS Documentation](https://qcodes.github.io/Qcodes/)
-- [nanonisTCP](https://github.com/New-Horizons-SPM/nanonisTCP)
+- [nanonis_tramea](https://pypi.org/project/nanonis-tramea/)
