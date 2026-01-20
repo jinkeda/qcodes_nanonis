@@ -1,74 +1,171 @@
-﻿# QCoDeS Nanonis Interface
+﻿# QCoDeS Nanonis
 
-A Python driver layer that connects Nanonis SPM control software with the [QCoDeS](https://qcodes.github.io/Qcodes/) measurement framework.  
-The package wraps the Nanonis TCP/IP protocol in higher-level abstractions so you can configure experiments, trigger scans, and collect data while staying inside a QCoDeS workflow.
+A Python library for communicating with Nanonis SPM controllers, with optional QCoDeS integration.
 
-## Features
-- **Drop-in QCoDeS instruments** – `NanonisIPInstrument` and `NanonisIPInstrumentbase` extend `IPInstrument`, exposing signals as QCoDeS parameters.
-- **Command catalogue loading** – reads the official TCP command descriptions from `nanonis_tcp.json` (or the auto-generated variant) and sigma configuration.
-- **Robust encoding/decoding** – handles strings, scalars, and array payloads according to the Nanonis protocol, including error parsing.
-- **Higher-level utilities** – helpers for bias spectroscopy, coarse motion, scan control, Z regulation, and TCP diagnostics.
-- **Generation tooling** – `generate_nanonis_tcp.py` extracts protocol metadata into JSON, keeping the driver in sync with new Nanonis releases.
-- **Interactive examples** – `demo.ipynb` demonstrates typical measurement flows and can serve as a starting point for lab notebooks.
+## Architecture
 
-## Getting Started
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/jinkeda/qcodes_nanonis.git
-   cd qcodes_nanonis
-   ```
-2. **Install dependencies**  
-   A minimal environment requires:
-   - Python 3.10+
-   - `qcodes`
-   - `numpy`
-   - `ipykernel` / `jupyter` (for the notebook demo)
+The library uses a **3-layer architecture**:
 
-   Install with pip:
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate         # Use `source .venv/bin/activate` on Unix
-   pip install -r requirements.txt  # If you create one
-   ```
-   or install packages manually:
-   ```bash
-   pip install qcodes numpy jupyter
-   ```
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 3: QCoDeS Integration (Optional)                     │
+│  NanonisInstrument + BiasChannel + ScanChannel              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 2: Command Interface (Core)                          │
+│  NanonisController.send(command_name, *args) → result       │
+│  CommandRegistry + CommandEncoder + CommandDecoder          │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 1: Protocol/Transport                                │
+│  NanonisTCPClient.send_raw(command, body) → response        │
+└─────────────────────────────────────────────────────────────┘
+```
 
-3. **Configure Nanonis connection**
-   - Copy your lab-specific configuration JSONs (`nanonis_tcp.json`, `sigma.json`, etc.) into the repository directory or update paths accordingly.
-   - Ensure the target Nanonis system exposes the TCP interface and that the IP/port in `sigma.json` matches your setup.
+## Installation
 
-4. **Instantiate the instrument**
-   ```python
-   from Nanonis_ipinstrument import NanonisIPInstrument
+```bash
+# Basic installation (Layer 1 + 2)
+pip install -e .
 
-   nanonis = NanonisIPInstrument(
-       name="nanonis",
-       configpath="C:/path/to/configs",
-       timeout=10.0,
-   )
+# With QCoDeS support (Layer 3)
+pip install -e ".[qcodes]"
 
-   print(nanonis.bias())        # Read the current bias
-   nanonis.bias.set(0.5)        # Set new bias
-   print(nanonis.It.get())      # Read tunneling current
-   ```
+# Development
+pip install -e ".[dev]"
+```
 
-## Repository Structure
-- `Nanonis_ipinstrumentbase.py` – core TCP encoder/decoder, logging, and response parsing.
-- `Nanonis_ipinstrument.py` – QCoDeS instrument exposing measurement parameters and scan helpers.
-- `generate_nanonis_tcp.py` – script to build `nanonis_tcp_auto.json` from upstream protocol docs.
-- `demo.ipynb` – example Jupyter notebook demonstrating common tasks.
-- `terminal.py`, `_tmp_inspect*.py` – assorted utilities used during development/testing.
-- `TCPProtocol_SPM.pdf` – vendor documentation for the TCP protocol.
+## Quick Start
 
-## Development Workflow
-- Run `generate_nanonis_tcp.py` when the protocol changes to refresh command definitions.
-- Use `pytest` or custom scripts for regression testing of command encoders/decoders.
-- Before contributing, format code with `black` or your preferred formatter and run linting if available.
+### Standalone Usage (Layer 2)
+
+```python
+from nanonis.command import NanonisController
+
+with NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml') as ctrl:
+    # Set bias voltage
+    ctrl.send('Bias.Set', 0.5)
+    
+    # Get bias voltage
+    voltage = ctrl.send('Bias.Get')
+    print(f"Bias: {voltage} V")
+    
+    # Set scan frame
+    ctrl.send('Scan.FrameSet', 0, 0, 100e-9, 100e-9, 0)
+    
+    # List available commands
+    print(ctrl.list_commands('Bias'))
+```
+
+### QCoDeS Integration (Layer 3)
+
+```python
+from nanonis.qcodes import NanonisInstrument
+from qcodes import Station, Measurement
+
+# Create instrument
+nanonis = NanonisInstrument(
+    'nanonis',
+    host='127.0.0.1',
+    port=6501,
+    config_path='configs/nanonis_tcp.yaml'
+)
+
+# Use QCoDeS parameters
+nanonis.bias.voltage(0.5)
+print(nanonis.bias.voltage())
+
+# Use in Station
+station = Station()
+station.add_component(nanonis)
+
+# Use in Measurement
+meas = Measurement()
+meas.register_parameter(nanonis.bias.voltage)
+
+# Direct Layer 2 access if needed
+nanonis.send('Custom.Command', arg1, arg2)
+
+# Clean up
+nanonis.close()
+```
+
+## Directory Structure
+
+```
+qcodes_nanonis/
+├── src/nanonis/
+│   ├── __init__.py
+│   ├── protocol/           # Layer 1: TCP Communication
+│   │   ├── exceptions.py   # Custom exceptions
+│   │   └── tcp_client.py   # Low-level TCP client
+│   ├── command/            # Layer 2: Command Interface
+│   │   ├── registry.py     # Command definitions loader
+│   │   ├── encoder.py      # Value encoding/decoding
+│   │   ├── controller.py   # Main controller class
+│   │   └── proxies.py      # Convenience wrappers
+│   └── qcodes/             # Layer 3: QCoDeS Integration
+│       ├── instrument.py   # NanonisInstrument class
+│       └── channels/       # QCoDeS channels
+│           ├── bias.py
+│           └── scan.py
+├── configs/
+│   └── nanonis_tcp.yaml    # Command definitions (148 commands)
+├── tests/
+│   ├── test_protocol.py
+│   ├── test_encoder.py
+│   └── test_controller.py
+├── scripts/
+│   └── convert_json_to_yaml.py  # Config conversion tool
+└── pyproject.toml
+```
+
+## Supported Types
+
+| Type | Python | Description |
+|------|--------|-------------|
+| `float32` | float | 32-bit float |
+| `float64` | float | 64-bit float |
+| `int16` | int | 16-bit signed |
+| `int32` | int | 32-bit signed |
+| `uint16` | int | 16-bit unsigned |
+| `uint32` | int | 32-bit unsigned |
+| `bool` | bool | Boolean (4 bytes) |
+| `string` | str | Length-prefixed UTF-8 |
+| `array_float32` | np.ndarray | 1D float32 array |
+| `array_int32` | np.ndarray | 1D int32 array |
+| `array_string` | list[str] | 1D string array |
+| `matrix_float32` | np.ndarray | 2D float32 array |
+| `matrix_string` | list[list[str]] | 2D string array |
+
+## Running Tests
+
+```bash
+# Install dev dependencies
+pip install -e ".[dev]"
+
+# Run tests
+pytest tests/ -v
+```
+
+## Configuration
+
+Commands are defined in `configs/nanonis_tcp.yaml`. To regenerate from JSON:
+
+```bash
+python scripts/convert_json_to_yaml.py
+```
 
 ## License
-No license has been provided yet. When you are ready to share the project publicly, add a license statement here (e.g., MIT, BSD, or proprietary notice).
 
-## Acknowledgements
-Developed by **Keda Jin** and collaborators. Built on top of QCoDeS and the Nanonis TCP protocol.
+MIT License
+
+## References
+
+- [Nanonis TCP Protocol Documentation](TCPProtocol_SPM.pdf)
+- [QCoDeS Documentation](https://qcodes.github.io/Qcodes/)
+- [nanonisTCP](https://github.com/New-Horizons-SPM/nanonisTCP)
