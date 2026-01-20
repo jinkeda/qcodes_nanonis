@@ -1,0 +1,2570 @@
+# Nanonis TRAMEA Command Definitions
+# Extracted from nanonis_tramea-1.0.7
+# Total commands: 264
+
+3DSwp.AcqChsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+3DSwp.SaveOptionsSet:
+  send:
+  - name: series_name
+    type: string
+    original_name: Series_Name
+  - name: create_date_time_folder
+    type: int32
+    original_name: Create_Date_Time_Folder
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_names
+    type: string
+    original_name: Modules_Names
+  recv: []
+3DSwp.SaveOptionsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: uint32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: array_string
+  - name: return_6
+    type: int32
+  - name: return_7
+    type: string
+  - name: return_8
+    type: int32
+  - name: return_9
+    type: int32
+  - name: return_10
+    type: string
+3DSwp.Start:
+  send:
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait_until_finished
+  recv: []
+3DSwp.Stop:
+  send: []
+  recv: []
+3DSwp.Open:
+  send: []
+  recv: []
+3DSwp.StatusGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint32
+3DSwp.SwpChSignalSet:
+  send:
+  - name: swp_channel_index
+    type: int32
+    original_name: Swp_Channel_Index
+  recv: []
+3DSwp.SwpChSignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: array_string
+3DSwp.SwpChLimitsSet:
+  send:
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  recv: []
+3DSwp.SwpChLimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+3DSwp.SwpChPropsSet:
+  send:
+  - name: numofpoints
+    type: int32
+    original_name: NumOfPoints
+  - name: numofsweeps
+    type: int32
+    original_name: NumOfSweeps
+  - name: bwdsweep
+    type: int32
+    original_name: BwdSweep
+  - name: endofsweep
+    type: int32
+    original_name: EndOfSweep
+  - name: endofsweeparbval
+    type: float32
+    original_name: EndOfSweepArbVal
+  - name: saveall
+    type: int32
+    original_name: SaveAll
+  recv: []
+3DSwp.SwpChPropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: uint32
+  - name: return_3
+    type: uint32
+  - name: return_4
+    type: float32
+  - name: return_5
+    type: uint32
+3DSwp.SwpChTimingSet:
+  send:
+  - name: initsettlingtime
+    type: float32
+    original_name: InitSettlingTime
+  - name: settlingtime
+    type: float32
+    original_name: SettlingTime
+  - name: integrationtime
+    type: float32
+    original_name: IntegrationTime
+  - name: endsettlingtime
+    type: float32
+    original_name: EndSettlingTime
+  - name: maxslewrate
+    type: float32
+    original_name: MaxSlewRate
+  recv: []
+3DSwp.SwpChTimingGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+  - name: return_3
+    type: float32
+  - name: return_4
+    type: float32
+3DSwp.SwpChModeSet:
+  send:
+  - name: segments_mode
+    type: string
+    original_name: Segments_Mode
+  recv: []
+3DSwp.SwpChModeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+3DSwp.SwpChMLSSet:
+  send:
+  - name: numofsegments
+    type: int32
+    original_name: NumOfSegments
+  - name: startvals
+    type: array_float32
+    original_name: StartVals
+  - name: stopvals
+    type: array_float32
+    original_name: StopVals
+  - name: settlingtimes
+    type: array_float32
+    original_name: SettlingTimes
+  - name: integrationtimes
+    type: array_float32
+    original_name: IntegrationTimes
+  - name: noofsteps
+    type: array_int32
+    original_name: NoOfSteps
+  - name: lastsegmentarray
+    type: array_uint32
+    original_name: LastSegmentArray
+  recv: []
+3DSwp.SwpChMLSGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_float32
+  - name: return_2
+    type: array_float32
+  - name: return_3
+    type: array_float32
+  - name: return_4
+    type: array_float32
+  - name: return_5
+    type: array_int32
+  - name: return_6
+    type: array_uint32
+3DSwp.StpCh1SignalSet:
+  send:
+  - name: stepchanneloneindex
+    type: int32
+    original_name: StepChannelOneIndex
+  recv: []
+3DSwp.StpCh1SignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: array_string
+3DSwp.StpCh1LimitsSet:
+  send:
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  recv: []
+3DSwp.StpCh1LimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+3DSwp.StpCh1PropsSet:
+  send:
+  - name: noofpoints
+    type: int32
+    original_name: NoOfPoints
+  - name: bwdsweep
+    type: int32
+    original_name: BwdSweep
+  - name: endofsweep
+    type: int32
+    original_name: EndOfSweep
+  - name: endofsweepval
+    type: float32
+    original_name: EndOfSweepVal
+  recv: []
+3DSwp.StpCh1PropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: uint32
+  - name: return_2
+    type: uint32
+  - name: return_3
+    type: float32
+3DSwp.StpCh1TimingSet:
+  send:
+  - name: initsettlingtime
+    type: float32
+    original_name: InitSettlingTime
+  - name: endsettlingtime
+    type: float32
+    original_name: EndSettlingTime
+  - name: maxslewrate
+    type: float32
+    original_name: MaxSlewRate
+  recv: []
+3DSwp.StpCh1TimingGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+3DSwp.StpCh2SignalSet:
+  send:
+  - name: stepchannel2name
+    type: string
+    original_name: StepChannel2Name
+  recv: []
+3DSwp.StpCh2SignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+3DSwp.StpCh2LimitsSet:
+  send:
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  recv: []
+3DSwp.StpCh2LimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+3DSwp.StpCh2PropsSet:
+  send:
+  - name: numofpoints
+    type: int32
+    original_name: NumOfPoints
+  - name: bwdsweep
+    type: int32
+    original_name: BwdSweep
+  - name: endofsweep
+    type: int32
+    original_name: EndOfSweep
+  - name: endofsweepval
+    type: float32
+    original_name: EndOfSweepVal
+  recv: []
+3DSwp.StpCh2PropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: uint32
+  - name: return_2
+    type: uint32
+  - name: return_3
+    type: float32
+3DSwp.StpCh2TimingSet:
+  send:
+  - name: initsettlingtime
+    type: float32
+    original_name: InitSettlingTime
+  - name: endsettlingtime
+    type: float32
+    original_name: EndSettlingTime
+  - name: maxslewrate
+    type: float32
+    original_name: MaxSlewRate
+  recv: []
+3DSwp.StpCh2TimingGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+3DSwp.TimingRowLimitSet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  - name: maxtime
+    type: float32
+    original_name: MaxTime
+  - name: channelindex
+    type: int32
+    original_name: ChannelIndex
+  recv: []
+3DSwp.TimingRowLimitGet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+3DSwp.TimingRowMethodsSet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  - name: methodlower
+    type: int32
+    original_name: MethodLower
+  - name: methodmiddle
+    type: int32
+    original_name: MethodMiddle
+  - name: methodupper
+    type: int32
+    original_name: MethodUpper
+  - name: methodalt
+    type: int32
+    original_name: MethodAlt
+  recv: []
+3DSwp.TimingRowMethodsGet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+3DSwp.TimingRowValsSet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  - name: middlerangefrom
+    type: float64
+    original_name: MiddleRangeFrom
+  - name: lowerrangeval
+    type: float64
+    original_name: LowerRangeVal
+  - name: middlerangeval
+    type: float64
+    original_name: MiddleRangeVal
+  - name: middlerangeto
+    type: float64
+    original_name: MiddleRangeTo
+  - name: upperrangeval
+    type: float64
+    original_name: UpperRangeVal
+  - name: altrangeval
+    type: float64
+    original_name: AltRangeVal
+  recv: []
+3DSwp.TimingRowValsGet:
+  send:
+  - name: rowindex
+    type: int32
+    original_name: RowIndex
+  recv:
+  - name: return_0
+    type: float64
+  - name: return_1
+    type: float64
+  - name: return_2
+    type: float64
+  - name: return_3
+    type: float64
+  - name: return_4
+    type: float64
+  - name: return_5
+    type: float64
+3DSwp.TimingEnable:
+  send:
+  - name: enable
+    type: uint32
+    original_name: Enable
+  recv: []
+3DSwp.TimingSend:
+  send: []
+  recv: []
+3DSwp.FilePathsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+1DSwp.AcqChsSet:
+  send:
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel_indexes
+  - name: channel_names
+    type: array_string
+    original_name: Channel_names
+  recv: []
+1DSwp.AcqChsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+1DSwp.SwpSignalSet:
+  send:
+  - name: sweepchannelname
+    type: string
+    original_name: SweepChannelName
+  recv: []
+1DSwp.SwpSignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+1DSwp.SwpSignalListGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+1DSwp.LimitsSet:
+  send:
+  - name: lowerlimit
+    type: float32
+    original_name: LowerLimit
+  - name: upperlimit
+    type: float32
+    original_name: UpperLimit
+  recv: []
+1DSwp.LimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+1DSwp.PropsSet:
+  send:
+  - name: initial_settling_time_ms
+    type: float32
+    original_name: Initial_Settling_time_ms
+  - name: maximum_slew_rate_unitsdivs
+    type: float32
+    original_name: Maximum_slew_rate_unitsdivs
+  - name: number_of_steps
+    type: int32
+    original_name: Number_of_steps
+  - name: period_ms
+    type: uint16
+    original_name: Period_ms
+  - name: autosave
+    type: int32
+    original_name: Autosave
+  - name: save_dialog_box
+    type: int32
+    original_name: Save_dialog_box
+  - name: settling_time_ms
+    type: float32
+    original_name: Settling_time_ms
+  recv: []
+1DSwp.PropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: uint16
+  - name: return_4
+    type: uint32
+  - name: return_5
+    type: uint32
+  - name: return_6
+    type: float32
+1DSwp.Start:
+  send:
+  - name: getdata
+    type: uint32
+    original_name: GetData
+  - name: sweepdirection
+    type: uint32
+    original_name: SweepDirection
+  - name: savebasename
+    type: string
+    original_name: SaveBaseName
+  - name: resetsignal
+    type: uint32
+    original_name: ResetSignal
+  - name: dummyvalue
+    type: uint16
+    original_name: DummyValue
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: matrix_float32
+1DSwp.Stop:
+  send: []
+  recv: []
+1DSwp.Open:
+  send: []
+  recv: []
+1DSwp.ModeSet:
+  send:
+  - name: sweep_mode
+    type: uint16
+    original_name: Sweep_Mode
+  recv: []
+1DSwp.ModeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+LockIn.ModOnOffSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: lock_in_ondivoff
+    type: uint32
+    original_name: Lock_In_OndivOff
+  recv: []
+LockIn.ModOnOffGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: uint32
+LockIn.ModSignalSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: modulator_signal_index
+    type: int32
+    original_name: Modulator_Signal_Index
+  recv: []
+LockIn.ModSignalGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.ModPhasRegSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: phase_register_index
+    type: int32
+    original_name: Phase_Register_Index
+  recv: []
+LockIn.ModPhasRegGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.ModHarmonicSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: harmonic
+    type: int32
+    original_name: Harmonic_
+  recv: []
+LockIn.ModHarmonicGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.ModPhasSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: phase_deg
+    type: float32
+    original_name: Phase_deg_
+  recv: []
+LockIn.ModPhasGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: float32
+LockIn.ModAmpSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: amplitude
+    type: float32
+    original_name: Amplitude_
+  recv: []
+LockIn.ModAmpGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: float32
+LockIn.ModPhasFreqSet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  - name: frequency_hz
+    type: float64
+    original_name: Frequency_Hz_
+  recv: []
+LockIn.ModPhasFreqGet:
+  send:
+  - name: modulator_number
+    type: int32
+    original_name: Modulator_number
+  recv:
+  - name: return_0
+    type: float64
+LockIn.DemodSignalSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: demodulator_signal_index
+    type: int32
+    original_name: Demodulator_Signal_Index
+  recv: []
+LockIn.DemodSignalGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.DemodHarmonicSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: harmonic
+    type: int32
+    original_name: Harmonic_
+  recv: []
+LockIn.DemodHarmonicGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.DemodHPFilterSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: hp_filter_order
+    type: int32
+    original_name: HP_Filter_Order
+  - name: hp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: HP_Filter_Cutoff_Frequency_Hz
+  recv: []
+LockIn.DemodHPFilterGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: float32
+LockIn.DemodLPFilterSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: lp_filter_order
+    type: int32
+    original_name: LP_Filter_Order
+  - name: lp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: LP_Filter_Cutoff_Frequency_Hz
+  recv: []
+LockIn.DemodLPFilterGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: float32
+LockIn.DemodPhasRegSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: phase_register_index
+    type: int32
+    original_name: Phase_Register_Index
+  recv: []
+LockIn.DemodPhasRegGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: int32
+LockIn.DemodPhasSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: phase_deg
+    type: float32
+    original_name: Phase_deg_
+  recv: []
+LockIn.DemodPhasGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: float32
+LockIn.DemodSyncFilterSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: sync_filter
+    type: uint32
+    original_name: Sync_Filter_
+  recv: []
+LockIn.DemodSyncFilterGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: uint32
+LockIn.DemodRTSignalsSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  - name: rt_signals
+    type: uint32
+    original_name: RT_Signals_
+  recv: []
+LockIn.DemodRTSignalsGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator_number
+  recv:
+  - name: return_0
+    type: uint32
+LockInFreqSwp.Open:
+  send: []
+  recv: []
+LockInFreqSwp.Start:
+  send:
+  - name: get_data
+    type: uint32
+    original_name: Get_Data
+  - name: direction
+    type: uint32
+    original_name: Direction
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: matrix_float32
+LockInFreqSwp.SignalSet:
+  send:
+  - name: sweep_signal_index
+    type: int32
+    original_name: Sweep_signal_index
+  recv: []
+LockInFreqSwp.SignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+LockInFreqSwp.LimitsSet:
+  send:
+  - name: lower_limit_hz
+    type: float32
+    original_name: Lower_limit_Hz
+  - name: upper_limit_hz
+    type: float32
+    original_name: Upper_limit_Hz
+  recv: []
+LockInFreqSwp.LimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+LockInFreqSwp.PropsSet:
+  send:
+  - name: number_of_steps
+    type: uint16
+    original_name: Number_of_steps
+  - name: integration_periods
+    type: uint16
+    original_name: Integration_periods
+  - name: minimum_integration_time_s
+    type: float32
+    original_name: Minimum_integration_time_s
+  - name: settling_periods
+    type: uint16
+    original_name: Settling_periods
+  - name: minimum_settling_time_s
+    type: float32
+    original_name: Minimum_Settling_time_s
+  - name: autosave
+    type: uint32
+    original_name: Autosave
+  - name: save_dialog
+    type: uint32
+    original_name: Save_dialog
+  - name: basename
+    type: string
+    original_name: Basename
+  recv: []
+LockInFreqSwp.PropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+  - name: return_1
+    type: uint16
+  - name: return_2
+    type: float32
+  - name: return_3
+    type: uint16
+  - name: return_4
+    type: float32
+  - name: return_5
+    type: uint32
+  - name: return_6
+    type: uint32
+  - name: return_7
+    type: int32
+  - name: return_8
+    type: string
+Script.Open:
+  send: []
+  recv: []
+Script.Load:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: script_file_path
+    type: string
+    original_name: Script_file_path
+  - name: load_session
+    type: uint32
+    original_name: Load_session
+  recv: []
+Script.Save:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: script_file_path
+    type: string
+    original_name: Script_file_path
+  - name: save_session
+    type: uint32
+    original_name: Save_session
+  recv: []
+Script.Deploy:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  recv: []
+Script.Undeploy:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  recv: []
+Script.Run:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: wait_until_script_finishes
+    type: uint32
+    original_name: Wait_until_script_finishes
+  recv: []
+Script.Stop:
+  send: []
+  recv: []
+Script.ChsGet:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire_buffer
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_int32
+Script.ChsSet:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire_buffer
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel_indexes
+  recv: []
+Script.DataGet:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire_buffer
+  - name: sweep_number
+    type: int32
+    original_name: Sweep_number
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: matrix_float32
+Script.Autosave:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire_buffer
+  - name: sweep_number
+    type: int32
+    original_name: Sweep_number
+  - name: all_sweeps_to_same_file
+    type: uint32
+    original_name: All_sweeps_to_same_file
+  - name: folder_path
+    type: string
+    original_name: Folder_path
+  - name: basename
+    type: string
+    original_name: Basename
+  recv: []
+Script.LUTOpen:
+  send: []
+  recv: []
+Script.LUTLoad:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: script_file_path
+    type: string
+    original_name: Script_file_path
+  - name: lut_values
+    type: array_float32
+    original_name: LUT_Values
+  recv: []
+Script.LUTSave:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: script_file_path
+    type: string
+    original_name: Script_file_path
+  recv: []
+Script.LUTDeploy:
+  send:
+  - name: script_index
+    type: int32
+    original_name: Script_index
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait_until_finished
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout_ms
+  recv: []
+HSSwp.AcqChsSet:
+  send:
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel_Indexes
+  recv: []
+HSSwp.AcqChsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_uint32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: array_int32
+HSSwp.AutoReverseSet:
+  send:
+  - name: onoff
+    type: int32
+    original_name: OnOff
+  - name: condition
+    type: int32
+    original_name: Condition
+  - name: signal
+    type: int32
+    original_name: Signal
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: linktoone
+    type: int32
+    original_name: LinkToOne
+  - name: condition2
+    type: int32
+    original_name: Condition2
+  - name: signal2
+    type: int32
+    original_name: Signal2
+  - name: threshold2
+    type: float32
+    original_name: Threshold2
+  recv: []
+HSSwp.AutoReverseGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: float32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: int32
+  - name: return_7
+    type: float32
+HSSwp.EndSettlSet:
+  send:
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  recv: []
+HSSwp.EndSettlGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+HSSwp.NumSweepsSet:
+  send:
+  - name: number_of_sweeps
+    type: uint32
+    original_name: Number_Of_Sweeps
+  - name: continuous
+    type: int32
+    original_name: Continuous
+  recv: []
+HSSwp.NumSweepsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint32
+  - name: return_1
+    type: int32
+HSSwp.ResetSignalsSet:
+  send:
+  - name: resetsignals
+    type: int32
+    original_name: ResetSignals
+  recv: []
+HSSwp.ResetSignalsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+HSSwp.SaveBasenameSet:
+  send:
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: path
+    type: string
+    original_name: Path
+  recv: []
+HSSwp.SaveBasenameGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: string
+HSSwp.SaveDataSet:
+  send:
+  - name: savedata
+    type: int32
+    original_name: SaveData
+  recv: []
+HSSwp.SaveDataGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+HSSwp.SaveOptionsSet:
+  send:
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modulesnames
+    type: string
+    original_name: ModulesNames
+  recv: []
+HSSwp.SaveOptionsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_string
+HSSwp.Start:
+  send:
+  - name: wait_until_done
+    type: int32
+    original_name: Wait_Until_Done
+  - name: timeout
+    type: int32
+    original_name: Timeout
+  recv: []
+HSSwp.Stop:
+  send: []
+  recv: []
+HSSwp.StatusGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint32
+HSSwp.SwpChSigListGet:
+  send: []
+  recv:
+  - name: return_0
+    type: string
+  - name: return_1
+    type: array_int32
+HSSwp.SwpChSignalSet:
+  send:
+  - name: sweep_signal_index
+    type: int32
+    original_name: Sweep_Signal_Index
+  - name: timed_sweep
+    type: int32
+    original_name: Timed_Sweep
+  recv: []
+HSSwp.SwpChSignalGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+HSSwp.SwpChLimitsSet:
+  send:
+  - name: relative_limits
+    type: int32
+    original_name: Relative_Limits
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  recv: []
+HSSwp.SwpChLimitsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+HSSwp.SwpChNumPtsSet:
+  send:
+  - name: number_of_points
+    type: uint32
+    original_name: Number_Of_Points
+  recv: []
+HSSwp.SwpChNumPtsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+HSSwp.SwpChTimingSet:
+  send:
+  - name: initial_settling_time
+    type: float32
+    original_name: Initial_Settling_Time
+  - name: settling_time
+    type: float32
+    original_name: Settling_Time
+  - name: integration_time
+    type: float32
+    original_name: Integration_Time
+  - name: max_slew_time
+    type: float32
+    original_name: Max_Slew_Time
+  recv: []
+HSSwp.SwpChTimingGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+  - name: return_3
+    type: float32
+HSSwp.SwpChBwdSwSet:
+  send:
+  - name: bwd_sweep
+    type: uint32
+    original_name: Bwd_Sweep
+  recv: []
+HSSwp.SwpChBwdSwGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint32
+HSSwp.SwpChBwdDelaySet:
+  send:
+  - name: bwd_delay
+    type: float32
+    original_name: Bwd_Delay
+  recv: []
+HSSwp.SwpChBwdDelayGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+HSSwp.ZCtrlOffSet:
+  send:
+  - name: z_controller_off
+    type: int32
+    original_name: Z_Controller_Off
+  - name: z_controller_index
+    type: int32
+    original_name: Z_Controller_Index
+  - name: z_averaging_time
+    type: float32
+    original_name: Z_Averaging_Time
+  - name: z_offset
+    type: float32
+    original_name: Z_Offset
+  - name: z_control_time
+    type: float32
+    original_name: Z_Control_Time
+  recv: []
+HSSwp.ZCtrlOffGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: float32
+  - name: return_3
+    type: float32
+  - name: return_4
+    type: float32
+Signals.NamesGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+Signals.CalibrGet:
+  send:
+  - name: signal_index
+    type: int32
+    original_name: Signal_index
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+Signals.RangeGet:
+  send:
+  - name: signal_index
+    type: int32
+    original_name: Signal_index
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+Signals.ValGet:
+  send:
+  - name: signal_index
+    type: int32
+    original_name: Signal_index
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait_for_newest_data
+  recv:
+  - name: return_0
+    type: float32
+Signals.ValsGet:
+  send:
+  - name: signals_indexes
+    type: array_int32
+    original_name: Signals_indexes
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait_for_newest_data
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_float32
+Signals.MeasNamesGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+Signals.AddRTGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: array_string
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: string
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: string
+Signals.AddRTSet:
+  send:
+  - name: additional_rt_signal_1
+    type: int32
+    original_name: Additional_RT_signal_1
+  - name: additional_rt_signal_2
+    type: int32
+    original_name: Additional_RT_signal_2
+  recv: []
+UserIn.CalibrSet:
+  send:
+  - name: input_index
+    type: int32
+    original_name: Input_index
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration_per_volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset_in_physical_units
+  recv: []
+UserOut.ModeSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: output_mode
+    type: uint16
+    original_name: Output_mode
+  recv: []
+UserOut.ModeGet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  recv:
+  - name: return_0
+    type: uint16
+UserOut.MonitorChSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: monitor_channel_index
+    type: int32
+    original_name: Monitor_channel_index
+  recv: []
+UserOut.MonitorChGet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  recv:
+  - name: return_0
+    type: int32
+UserOut.ValSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: output_value
+    type: float32
+    original_name: Output_value
+  recv: []
+UserOut.CalibrSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration_per_volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset_in_physical_units
+  recv: []
+UserOut.CalcSignalNameSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: calculated_signal_name
+    type: string
+    original_name: Calculated_signal_name
+  recv: []
+UserOut.CalcSignalNameGet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+UserOut.CalcSignalConfigSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: operation_1
+    type: uint16
+    original_name: Operation_1
+  - name: value_1
+    type: float32
+    original_name: Value_1
+  - name: operation_2
+    type: uint16
+    original_name: Operation_2
+  - name: value_2
+    type: float32
+    original_name: Value_2
+  - name: operation_3
+    type: uint16
+    original_name: Operation_3
+  - name: value_3
+    type: float32
+    original_name: Value_3
+  - name: operation_4
+    type: uint16
+    original_name: Operation_4
+  - name: value_4
+    type: float32
+    original_name: Value_4
+  recv: []
+UserOut.CalcSignalConfigGet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  recv:
+  - name: return_0
+    type: uint16
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: uint16
+  - name: return_3
+    type: float32
+  - name: return_4
+    type: uint16
+  - name: return_5
+    type: float32
+  - name: return_6
+    type: uint16
+  - name: return_7
+    type: float32
+UserOut.LimitsSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: upper_limit
+    type: float32
+    original_name: Upper_limit
+  - name: lower_limit
+    type: float32
+    original_name: Lower_limit
+  - name: raw_limits
+    type: uint32
+    original_name: Raw_limits
+  recv: []
+UserOut.LimitsGet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_index
+  - name: raw_limits
+    type: uint32
+    original_name: Raw_limits
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+UserOut.SlewRateSet:
+  send:
+  - name: output_index
+    type: int32
+    original_name: Output_Index
+  - name: slew_rate
+    type: float64
+    original_name: Slew_Rate
+  recv: []
+UserOut.SlewRateGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float64
+DigLines.PropsSet:
+  send:
+  - name: digital_line
+    type: uint32
+    original_name: Digital_line
+  - name: port
+    type: uint32
+    original_name: Port
+  - name: direction
+    type: uint32
+    original_name: Direction
+  - name: polarity
+    type: uint32
+    original_name: Polarity
+  recv: []
+DigLines.OutStatusSet:
+  send:
+  - name: port
+    type: uint32
+    original_name: Port
+  - name: digital_line
+    type: uint32
+    original_name: Digital_line
+  - name: status
+    type: uint32
+    original_name: Status
+  recv: []
+DigLines.TTLValGet:
+  send:
+  - name: port
+    type: uint16
+    original_name: Port
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_uint32
+DigLines.Pulse:
+  send:
+  - name: port
+    type: uint16
+    original_name: Port
+  - name: digital_lines
+    type: UNKNOWN:+*b
+    original_name: Digital_lines
+  - name: pulse_width_s
+    type: float32
+    original_name: Pulse_width_s
+  - name: pulse_pause_s
+    type: float32
+    original_name: Pulse_pause_s
+  - name: number_of_pulses
+    type: int32
+    original_name: Number_of_pulses
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait_until_finished
+  recv: []
+DataLog.Open:
+  send: []
+  recv: []
+DataLog.Start:
+  send: []
+  recv: []
+DataLog.Stop:
+  send: []
+  recv: []
+DataLog.StatusGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: uint16
+  - name: return_3
+    type: uint16
+  - name: return_4
+    type: float32
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: string
+  - name: return_7
+    type: int32
+  - name: return_8
+    type: string
+  - name: return_9
+    type: int32
+DataLog.ChsSet:
+  send:
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel_indexes
+  recv: []
+DataLog.ChsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: array_int32
+DataLog.PropsSet:
+  send:
+  - name: acquisition_mode
+    type: uint16
+    original_name: Acquisition_mode
+  - name: acquisition_duration_hours
+    type: int32
+    original_name: Acquisition_duration_hours
+  - name: acquisition_duration_minutes
+    type: int32
+    original_name: Acquisition_duration_minutes
+  - name: acquisition_duration_seconds
+    type: float32
+    original_name: Acquisition_duration_seconds
+  - name: averaging
+    type: int32
+    original_name: Averaging
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: list_of_modules
+    type: string
+    original_name: List_of_modules
+  recv: []
+DataLog.PropsGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: float32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: string
+  - name: return_7
+    type: int32
+  - name: return_8
+    type: string
+TCPLog.Start:
+  send: []
+  recv: []
+TCPLog.Stop:
+  send: []
+  recv: []
+TCPLog.ChsSet:
+  send:
+  - name: num_channels
+    type: int32
+    original_name: Num_channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel_indexes
+  recv: []
+TCPLog.OversamplSet:
+  send:
+  - name: oversampling_value
+    type: int32
+    original_name: Oversampling_value
+  recv: []
+TCPLog.StatusGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.ChSet:
+  send:
+  - name: osci_index
+    type: int32
+    original_name: Osci_index
+  - name: signal_index
+    type: int32
+    original_name: Signal_index
+  recv: []
+OsciHR.ChGet:
+  send:
+  - name: osci_index
+    type: int32
+    original_name: Osci_index
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.OversamplSet:
+  send:
+  - name: oversampling_index
+    type: int32
+    original_name: Oversampling_index
+  recv: []
+OsciHR.OversamplGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.CalibrModeSet:
+  send:
+  - name: osci_index
+    type: int32
+    original_name: Osci_index
+  - name: calibration_mode
+    type: uint16
+    original_name: Calibration_mode
+  recv: []
+OsciHR.CalibrModeGet:
+  send:
+  - name: osci_index
+    type: int32
+    original_name: Osci_index
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.SamplesSet:
+  send:
+  - name: number_of_samples
+    type: int32
+    original_name: Number_of_samples
+  recv: []
+OsciHR.SamplesGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.PreTrigSet:
+  send:
+  - name: pre_trigger_samples
+    type: uint32
+    original_name: Pre_Trigger_samples
+  - name: pre_trigger_s
+    type: float64
+    original_name: Pre_Trigger_s
+  recv: []
+OsciHR.PreTrigGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.Run:
+  send: []
+  recv: []
+OsciHR.OsciDataGet:
+  send:
+  - name: osci_index
+    type: int32
+    original_name: Osci_index
+  - name: data_to_get
+    type: uint16
+    original_name: Data_to_get
+  - name: timeout_s
+    type: float64
+    original_name: Timeout_s
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+  - name: return_2
+    type: float64
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: array_float32
+  - name: return_5
+    type: uint32
+OsciHR.TrigModeSet:
+  send:
+  - name: trigger_mode
+    type: uint16
+    original_name: Trigger_mode
+  recv: []
+OsciHR.TrigModeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.TrigLevChSet:
+  send:
+  - name: level_trigger_channel_index
+    type: int32
+    original_name: Level_trigger_channel_index
+  recv: []
+OsciHR.TrigLevChGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.TrigLevValSet:
+  send:
+  - name: level_trigger_value
+    type: float64
+    original_name: Level_trigger_value
+  recv: []
+OsciHR.TrigLevValGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float64
+OsciHR.TrigLevHystSet:
+  send:
+  - name: level_trigger_hysteresis
+    type: float64
+    original_name: Level_trigger_Hysteresis
+  recv: []
+OsciHR.TrigLevHystGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float64
+OsciHR.TrigLevSlopeSet:
+  send:
+  - name: level_trigger_slope
+    type: uint16
+    original_name: Level_trigger_slope
+  recv: []
+OsciHR.TrigLevSlopeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.TrigDigChSet:
+  send:
+  - name: digital_trigger_channel_index
+    type: int32
+    original_name: Digital_trigger_channel_index
+  recv: []
+OsciHR.TrigDigChGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.TrigArmModeSet:
+  send:
+  - name: trigger_arming_mode
+    type: uint16
+    original_name: Trigger_arming_mode
+  recv: []
+OsciHR.TrigArmModeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.TrigDigSlopeSet:
+  send:
+  - name: digital_trigger_slope
+    type: uint16
+    original_name: Digital_trigger_slope
+  recv: []
+OsciHR.TrigDigSlopeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.TrigRearm:
+  send: []
+  recv: []
+OsciHR.PSDShow:
+  send:
+  - name: show_psd_section
+    type: uint32
+    original_name: Show_PSD_section
+  recv: []
+OsciHR.PSDWeightSet:
+  send:
+  - name: psd_weighting
+    type: uint16
+    original_name: PSD_Weighting
+  recv: []
+OsciHR.PSDWeightGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.PSDWindowSet:
+  send:
+  - name: psd_window_type
+    type: uint16
+    original_name: PSD_window_type
+  recv: []
+OsciHR.PSDWindowGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.PSDAvrgTypeSet:
+  send:
+  - name: psd_averaging_type
+    type: uint16
+    original_name: PSD_averaging_type
+  recv: []
+OsciHR.PSDAvrgTypeGet:
+  send: []
+  recv:
+  - name: return_0
+    type: uint16
+OsciHR.PSDAvrgCountSet:
+  send:
+  - name: psd_averaging_count
+    type: int32
+    original_name: PSD_averaging_count
+  recv: []
+OsciHR.PSDAvrgCountGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+OsciHR.PSDAvrgRestart:
+  send: []
+  recv: []
+OsciHR.PSDDataGet:
+  send:
+  - name: data_to_get
+    type: uint16
+    original_name: Data_to_get
+  - name: timeout_s
+    type: float64
+    original_name: Timeout_s
+  recv:
+  - name: return_0
+    type: float64
+  - name: return_1
+    type: float64
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: array_float64
+  - name: return_4
+    type: uint32
+Util.SessionPathGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: string
+Util.SettingsLoad:
+  send:
+  - name: settings_file_path
+    type: string
+    original_name: Settings_file_path
+  - name: load_session_settings
+    type: uint32
+    original_name: Load_session_settings
+  recv: []
+Util.SettingsSave:
+  send:
+  - name: settings_file_path
+    type: string
+    original_name: Settings_file_path
+  - name: save_session_settings
+    type: uint32
+    original_name: Save_session_settings
+  recv: []
+Util.LayoutLoad:
+  send:
+  - name: layout_file_path
+    type: string
+    original_name: Layout_file_path
+  - name: load_session_layout
+    type: uint32
+    original_name: Load_session_layout
+  recv: []
+Util.LayoutSave:
+  send:
+  - name: layout_file_path
+    type: string
+    original_name: Layout_file_path
+  - name: save_session_layout
+    type: uint32
+    original_name: Save_session_layout
+  recv: []
+Util.Lock:
+  send: []
+  recv: []
+Util.UnLock:
+  send: []
+  recv: []
+Util.RTFreqSet:
+  send:
+  - name: rt_frequency
+    type: float32
+    original_name: RT_frequency
+  recv: []
+Util.RTFreqGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+Util.AcqPeriodSet:
+  send:
+  - name: acquisition_period_s
+    type: float32
+    original_name: Acquisition_Period_s
+  recv: []
+Util.AcqPeriodGet:
+  send: []
+  recv:
+  - name: return_0
+    type: float32
+Util.RTOversamplSet:
+  send:
+  - name: rt_oversampling
+    type: int32
+    original_name: RT_oversampling
+  recv: []
+Util.RTOversamplGet:
+  send: []
+  recv:
+  - name: return_0
+    type: int32
+Util.Quit:
+  send:
+  - name: use_stored_values
+    type: uint32
+    original_name: Use_Stored_Values
+  - name: settings_name
+    type: string
+    original_name: Settings_Name
+  - name: layout_name
+    type: string
+    original_name: Layout_Name
+  - name: save_signals
+    type: uint32
+    original_name: Save_Signals
+  recv: []
+Util.VersionGet:
+  send: []
+  recv:
+  - name: return_0
+    type: string
+  - name: return_1
+    type: string
+  - name: return_2
+    type: uint32
+  - name: return_3
+    type: uint32
+MCVA5.UserInSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  - name: user_input
+    type: uint32
+    original_name: User_Input
+  recv: []
+MCVA5.UserInGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  recv:
+  - name: return_0
+    type: uint32
+MCVA5.GainSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  - name: gain
+    type: uint16
+    original_name: Gain
+  recv: []
+MCVA5.GainGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  recv:
+  - name: return_0
+    type: uint16
+MCVA5.InputModeSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  - name: input_mode
+    type: uint16
+    original_name: Input_Mode
+  recv: []
+MCVA5.InputModeGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  recv:
+  - name: return_0
+    type: uint16
+MCVA5.CouplingSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  - name: coupling
+    type: uint16
+    original_name: Coupling
+  recv: []
+MCVA5.CouplingGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: channel_nr
+    type: uint16
+    original_name: Channel_Nr
+  recv:
+  - name: return_0
+    type: uint16
+MCVA5.SingleStateUpdate:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: int32
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: int32
+  - name: return_6
+    type: int32
+  - name: return_7
+    type: int32
+MCVA5.ContStateUpdateSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous_Read
+  recv: []
+MCVA5.ContStateUpdateGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  recv:
+  - name: return_0
+    type: uint32
+MCVA5.SingleTempUpdate:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  recv:
+  - name: return_0
+    type: uint16
+  - name: return_1
+    type: uint16
+  - name: return_2
+    type: uint16
+  - name: return_3
+    type: uint16
+MCVA5.ContTempUpdateSet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous_Read
+  recv: []
+MCVA5.ContTempUpdateGet:
+  send:
+  - name: preamp_nr
+    type: uint16
+    original_name: Preamp_Nr
+  recv:
+  - name: return_0
+    type: uint32
+PICtrl.OnOffSet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  - name: controller_status
+    type: uint32
+    original_name: Controller_Status
+  recv: []
+PICtrl.OnOffGet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  recv:
+  - name: return_0
+    type: uint32
+PICtrl.CtrlChSet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  - name: ctrlsignal_index
+    type: int32
+    original_name: CtrlSignal_Index
+  recv: []
+PICtrl.CtrlChGet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: array_string
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: array_int32
+PICtrl.InputChSet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  - name: input_index
+    type: int32
+    original_name: Input_Index
+  recv: []
+PICtrl.InputChGet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  recv:
+  - name: return_0
+    type: int32
+  - name: return_1
+    type: int32
+  - name: return_2
+    type: int32
+  - name: return_3
+    type: array_string
+  - name: return_4
+    type: int32
+  - name: return_5
+    type: array_int32
+PICtrl.PropsSet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: p_gain
+    type: float32
+    original_name: P_Gain
+  - name: i_gain
+    type: float32
+    original_name: I_Gain
+  - name: slope
+    type: uint16
+    original_name: Slope
+  recv: []
+PICtrl.PropsGet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32
+  - name: return_2
+    type: float32
+  - name: return_3
+    type: uint16
+PICtrl.CtrlChPropsSet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  - name: lower_limit
+    type: float32
+    original_name: Lower_Limit
+  - name: upper_limit
+    type: float32
+    original_name: Upper_Limit
+  recv: []
+PICtrl.CtrlChPropsGet:
+  send:
+  - name: controller_index
+    type: int32
+    original_name: Controller_Index
+  recv:
+  - name: return_0
+    type: float32
+  - name: return_1
+    type: float32

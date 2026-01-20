@@ -7,8 +7,13 @@ based on the type definitions in the command registry.
 """
 
 import struct
-from typing import Any, Dict, List, Tuple
+import logging
+from typing import Any, Dict, List, Tuple, Optional
 import numpy as np
+
+from ..protocol.exceptions import NanonisCommandError
+
+logger = logging.getLogger(__name__)
 
 
 class CommandEncoder:
@@ -20,17 +25,21 @@ class CommandEncoder:
     - String: length-prefixed UTF-8
     - 1D Arrays: array_float32, array_int32, array_string
     - 2D Arrays: matrix_float32, matrix_string
+    
+    Features:
+    - Automatic type coercion to prevent precision loss
+    - Debug logging support
     """
     
-    # Scalar type formats (struct format, size)
+    # Scalar type formats (struct format, size, numpy dtype)
     SCALAR_FORMATS = {
-        'float32': ('>f', 4),
-        'float64': ('>d', 8),
-        'int16': ('>h', 2),
-        'int32': ('>i', 4),
-        'uint16': ('>H', 2),
-        'uint32': ('>I', 4),
-        'bool': ('>I', 4),  # Nanonis uses 4-byte bool
+        'float32': ('>f', 4, np.float32),
+        'float64': ('>d', 8, np.float64),
+        'int16': ('>h', 2, np.int16),
+        'int32': ('>i', 4, np.int32),
+        'uint16': ('>H', 2, np.uint16),
+        'uint32': ('>I', 4, np.uint32),
+        'bool': ('>I', 4, np.uint32),  # Nanonis uses 4-byte bool
     }
     
     # NumPy dtype mapping for arrays
@@ -41,6 +50,40 @@ class CommandEncoder:
         'uint16': '>u2',
         'uint32': '>u4',
     }
+    
+    def __init__(self, debug: bool = False):
+        """
+        Initialize encoder.
+        
+        Args:
+            debug: Enable debug logging
+        """
+        self.debug = debug
+    
+    def _coerce_type(self, dtype: str, value: Any) -> Any:
+        """
+        Coerce value to correct numpy type to prevent precision loss.
+        
+        This is critical for Nanonis which expects exact binary representations.
+        For example, a Python float (64-bit) sent as float32 needs explicit conversion.
+        """
+        if dtype not in self.SCALAR_FORMATS:
+            return value
+        
+        _, _, np_type = self.SCALAR_FORMATS[dtype]
+        
+        # Already correct type
+        if isinstance(value, np_type):
+            return value
+        
+        # Coerce to correct numpy type
+        try:
+            coerced = np_type(value)
+            if self.debug:
+                logger.debug(f"Coerced {type(value).__name__}({value}) -> {dtype}({coerced})")
+            return coerced
+        except (ValueError, OverflowError) as e:
+            raise ValueError(f"Cannot coerce {value} to {dtype}: {e}") from e
     
     def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
         """
@@ -61,7 +104,13 @@ class CommandEncoder:
         result = b''
         for (name, dtype), value in zip(args, values):
             try:
-                result += self._encode_value(dtype, value)
+                # Apply type coercion before encoding
+                coerced_value = self._coerce_type(dtype, value)
+                encoded = self._encode_value(dtype, coerced_value)
+                result += encoded
+                
+                if self.debug:
+                    logger.debug(f"Encoded {name}: {value} -> {len(encoded)} bytes")
             except Exception as e:
                 raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
         return result
@@ -71,7 +120,7 @@ class CommandEncoder:
         
         # Handle scalar types
         if dtype in self.SCALAR_FORMATS:
-            fmt, _ = self.SCALAR_FORMATS[dtype]
+            fmt, _, _ = self.SCALAR_FORMATS[dtype]
             if dtype == 'bool':
                 value = 1 if value else 0
             return struct.pack(fmt, value)
@@ -104,7 +153,7 @@ class CommandEncoder:
                 result += struct.pack('>I', len(encoded)) + encoded
             return result
         else:
-            # Numeric array
+            # Numeric array - force correct dtype
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
             return struct.pack('>I', len(arr)) + arr.tobytes()
@@ -135,21 +184,43 @@ class CommandEncoder:
 class CommandDecoder:
     """
     Decodes bytes to Python values from Nanonis protocol.
+    
+    Features:
+    - Automatic error detection and parsing from response
+    - Debug logging support
     """
     
-    SCALAR_FORMATS = CommandEncoder.SCALAR_FORMATS
+    SCALAR_FORMATS = {k: (v[0], v[1]) for k, v in CommandEncoder.SCALAR_FORMATS.items()}
     NUMPY_DTYPES = CommandEncoder.NUMPY_DTYPES
     
-    def decode(self, args: List[Tuple[str, str]], data: bytes) -> Dict[str, Any]:
+    def __init__(self, debug: bool = False):
+        """
+        Initialize decoder.
+        
+        Args:
+            debug: Enable debug logging
+        """
+        self.debug = debug
+    
+    def decode(
+        self, 
+        args: List[Tuple[str, str]], 
+        data: bytes,
+        check_error: bool = True,
+    ) -> Dict[str, Any]:
         """
         Decode bytes according to type definitions.
         
         Args:
             args: List of (name, type) tuples
             data: Bytes to decode
+            check_error: Whether to check for Nanonis error at end of response
             
         Returns:
             Dictionary mapping argument names to decoded values
+            
+        Raises:
+            NanonisCommandError: If Nanonis returned an error
         """
         result = {}
         offset = 0
@@ -159,10 +230,44 @@ class CommandDecoder:
                 value, consumed = self._decode_value(dtype, data[offset:])
                 result[name] = value
                 offset += consumed
+                
+                if self.debug:
+                    logger.debug(f"Decoded {name}: {consumed} bytes -> {type(value).__name__}")
             except Exception as e:
                 raise ValueError(f"Failed to decode '{name}' as {dtype}: {e}") from e
         
+        # Check for error in remaining bytes
+        if check_error and offset < len(data):
+            error_info = self._parse_error(data[offset:])
+            if error_info:
+                raise NanonisCommandError("command", error_info)
+        
         return result
+    
+    def _parse_error(self, data: bytes) -> Optional[str]:
+        """
+        Parse error information from response tail.
+        
+        Nanonis error format:
+        - 4 bytes: error status (uint32, 0 = no error)
+        - 4 bytes: error string length (uint32)
+        - N bytes: error string (UTF-8)
+        """
+        if len(data) < 8:
+            return None
+        
+        error_status = struct.unpack('>I', data[:4])[0]
+        if error_status == 0:
+            return None
+        
+        error_length = struct.unpack('>I', data[4:8])[0]
+        if error_length > 0 and len(data) >= 8 + error_length:
+            error_string = data[8:8 + error_length].decode('utf-8', errors='replace')
+            if self.debug:
+                logger.warning(f"Nanonis error: {error_string}")
+            return error_string
+        
+        return f"Unknown error (status={error_status})"
     
     def _decode_value(self, dtype: str, data: bytes) -> Tuple[Any, int]:
         """
