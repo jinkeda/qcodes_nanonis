@@ -8,6 +8,7 @@ Handles connection, header encoding/decoding, and raw byte transmission.
 
 import socket
 import struct
+import logging
 from typing import Optional
 
 from .exceptions import (
@@ -15,6 +16,17 @@ from .exceptions import (
     NanonisProtocolError,
     NanonisTimeoutError,
 )
+
+logger = logging.getLogger(__name__)
+
+# Try to import Rust backend
+try:
+    import nanonis_core
+    RUST_BACKEND = True
+    logger.info("Using optimized Rust backend for Nanonis TCP")
+except ImportError:
+    RUST_BACKEND = False
+    logger.warning("Rust backend not found, using slower Python implementation")
 
 
 class NanonisTCPClient:
@@ -48,10 +60,20 @@ class NanonisTCPClient:
         self.port = port
         self.timeout = timeout
         self._socket: Optional[socket.socket] = None
+        self._rust_client = None
+        
+        if RUST_BACKEND:
+            try:
+                self._rust_client = nanonis_core.NanonisTcpClient(host, port, timeout)
+            except Exception as e:
+                logger.error(f"Failed to initialize Rust client: {e}")
+                self._rust_client = None
     
     @property
     def is_connected(self) -> bool:
         """Check if socket is connected."""
+        if self._rust_client:
+            return self._rust_client.is_connected
         return self._socket is not None
     
     def connect(self) -> None:
@@ -61,9 +83,19 @@ class NanonisTCPClient:
         Raises:
             NanonisConnectionError: If connection fails
         """
-        if self._socket is not None:
+        if self.is_connected:
             self.disconnect()
         
+        # Use Rust backend if available
+        if self._rust_client:
+            try:
+                self._rust_client.connect()
+                return
+            except Exception as e:
+                # Convert Rust error to Python exception
+                raise NanonisConnectionError(str(e)) from e
+        
+        # Python fallback
         try:
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self._socket.settimeout(self.timeout)
@@ -81,6 +113,12 @@ class NanonisTCPClient:
     
     def disconnect(self) -> None:
         """Close the TCP connection."""
+        if self._rust_client:
+            try:
+                self._rust_client.disconnect()
+            except Exception:
+                pass
+                
         if self._socket is not None:
             try:
                 self._socket.close()
@@ -105,6 +143,27 @@ class NanonisTCPClient:
             NanonisProtocolError: If response is malformed
             NanonisTimeoutError: If response times out
         """
+        # Use Rust backend if available
+        if self._rust_client:
+            try:
+                # Rust client handles header encoding/decoding internally
+                # and returns bytes directly
+                if not self.is_connected:
+                     raise NanonisConnectionError("Not connected to Nanonis")
+                return self._rust_client.send_raw(command_name, body)
+            except Exception as e:
+                # Map errors
+                msg = str(e)
+                if "Timeout" in msg:
+                    raise NanonisTimeoutError(msg) from e
+                elif "Protocol" in msg:
+                    raise NanonisProtocolError(msg) from e
+                elif "Connection" in msg or "connected" in msg:
+                    raise NanonisConnectionError(msg) from e
+                else:
+                    raise NanonisProtocolError(f"Rust client error: {msg}") from e
+        
+        # Python fallback implementation
         if self._socket is None:
             raise NanonisConnectionError("Not connected to Nanonis")
         
@@ -127,13 +186,6 @@ class NanonisTCPClient:
         - Bytes 32-35: Body size (big-endian int32)
         - Bytes 36-37: Send flag (big-endian uint16, always 1)
         - Bytes 38-39: Reserved (big-endian uint16, always 0)
-        
-        Args:
-            command_name: Command name string
-            body_size: Size of the body in bytes
-            
-        Returns:
-            40-byte header
         """
         # Command name: 32 bytes, null-padded
         cmd_bytes = command_name.encode('utf-8')[:self.COMMAND_NAME_SIZE]
@@ -163,10 +215,7 @@ class NanonisTCPClient:
             header = self._recv_exact(self.HEADER_SIZE)
             
             # Parse header
-            # command_name = header[:32].rstrip(b'\x00').decode('utf-8')
             body_size = struct.unpack('>i', header[32:36])[0]
-            # response_flag = struct.unpack('>H', header[36:38])[0]
-            # error_flag = struct.unpack('>H', header[38:40])[0]
             
             # Receive body
             if body_size > 0:
@@ -177,19 +226,7 @@ class NanonisTCPClient:
             raise NanonisTimeoutError("Response timed out") from e
     
     def _recv_exact(self, size: int) -> bytes:
-        """
-        Receive exactly `size` bytes from the socket.
-        
-        Args:
-            size: Number of bytes to receive
-            
-        Returns:
-            Received bytes
-            
-        Raises:
-            NanonisConnectionError: If connection is closed
-            NanonisProtocolError: If not enough data received
-        """
+        """Receive exactly `size` bytes from the socket."""
         data = b''
         while len(data) < size:
             try:
@@ -215,4 +252,5 @@ class NanonisTCPClient:
     
     def __repr__(self) -> str:
         status = "connected" if self.is_connected else "disconnected"
-        return f"NanonisTCPClient({self.host}:{self.port}, {status})"
+        backend = "Rust" if self._rust_client else "Python"
+        return f"NanonisTCPClient({self.host}:{self.port}, {status}, backend={backend})"

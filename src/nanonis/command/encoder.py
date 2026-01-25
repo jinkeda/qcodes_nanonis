@@ -15,6 +15,57 @@ from ..protocol.exceptions import NanonisCommandError
 
 logger = logging.getLogger(__name__)
 
+# Try to import Rust backend
+try:
+    import nanonis_core
+    RUST_BACKEND = True
+    logger.info("Using optimized Rust backend for Nanonis codec")
+    
+    # Map types to Rust functions
+    RUST_ENCODERS = {
+        'float32': nanonis_core.encode_float32,
+        'float64': nanonis_core.encode_float64,
+        'int16': nanonis_core.encode_int16,
+        'int32': nanonis_core.encode_int32,
+        'uint16': nanonis_core.encode_uint16,
+        'uint32': nanonis_core.encode_uint32,
+        'bool': nanonis_core.encode_bool,
+        'string': nanonis_core.encode_string,
+        
+        # Arrays
+        'array_float32': nanonis_core.encode_array_float32,
+        'array_float64': nanonis_core.encode_array_float64,
+        'array_int32': nanonis_core.encode_array_int32,
+        'array_string': nanonis_core.encode_array_string,
+        
+        # Matrices
+        'matrix_float32': nanonis_core.encode_matrix_float32,
+    }
+    
+    RUST_DECODERS = {
+        'float32': nanonis_core.decode_float32,
+        'float64': nanonis_core.decode_float64,
+        'int16': nanonis_core.decode_int16,
+        'int32': nanonis_core.decode_int32,
+        'uint16': nanonis_core.decode_uint16,
+        'uint32': nanonis_core.decode_uint32,
+        'bool': nanonis_core.decode_bool,
+        'string': nanonis_core.decode_string,
+        
+        # Arrays
+        'array_float32': nanonis_core.decode_array_float32,
+        'array_float64': nanonis_core.decode_array_float64,
+        'array_int32': nanonis_core.decode_array_int32,
+        'array_string': nanonis_core.decode_array_string,
+        
+        # Matrices
+        'matrix_float32': nanonis_core.decode_matrix_float32,
+    }
+    
+except ImportError:
+    RUST_BACKEND = False
+    logger.warning("Rust backend not found, using slower Python implementation")
+
 
 class CommandEncoder:
     """
@@ -63,9 +114,6 @@ class CommandEncoder:
     def _coerce_type(self, dtype: str, value: Any) -> Any:
         """
         Coerce value to correct numpy type to prevent precision loss.
-        
-        This is critical for Nanonis which expects exact binary representations.
-        For example, a Python float (64-bit) sent as float32 needs explicit conversion.
         """
         if dtype not in self.SCALAR_FORMATS:
             return value
@@ -78,10 +126,7 @@ class CommandEncoder:
         
         # Coerce to correct numpy type
         try:
-            coerced = np_type(value)
-            if self.debug:
-                logger.debug(f"Coerced {type(value).__name__}({value}) -> {dtype}({coerced})")
-            return coerced
+            return np_type(value)
         except (ValueError, OverflowError) as e:
             raise ValueError(f"Cannot coerce {value} to {dtype}: {e}") from e
     
@@ -104,19 +149,33 @@ class CommandEncoder:
         result = b''
         for (name, dtype), value in zip(args, values):
             try:
-                # Apply type coercion before encoding
+                # Apply type coercion first
                 coerced_value = self._coerce_type(dtype, value)
-                encoded = self._encode_value(dtype, coerced_value)
-                result += encoded
+                
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+                    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+                        
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
                 
                 if self.debug:
-                    logger.debug(f"Encoded {name}: {value} -> {len(encoded)} bytes")
+                    logger.debug(f"Encoded {name} ({dtype})")
             except Exception as e:
                 raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
         return result
     
     def _encode_value(self, dtype: str, value: Any) -> bytes:
-        """Encode a single value based on its type."""
+        """Encode a single value (Python fallback)."""
         
         # Handle scalar types
         if dtype in self.SCALAR_FORMATS:
@@ -141,11 +200,10 @@ class CommandEncoder:
         raise ValueError(f"Unknown type: {dtype}")
     
     def _encode_1d_array(self, dtype: str, value: Any) -> bytes:
-        """Encode a 1D array."""
+        """Encode a 1D array (Python fallback)."""
         elem_type = dtype.replace('array_', '')
         
         if elem_type == 'string':
-            # Array of strings: size + each string
             strings = list(value) if not isinstance(value, list) else value
             result = struct.pack('>I', len(strings))
             for s in strings:
@@ -153,53 +211,30 @@ class CommandEncoder:
                 result += struct.pack('>I', len(encoded)) + encoded
             return result
         else:
-            # Numeric array - force correct dtype
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
             return struct.pack('>I', len(arr)) + arr.tobytes()
     
     def _encode_2d_array(self, dtype: str, value: Any) -> bytes:
-        """Encode a 2D array (matrix)."""
+        """Encode a 2D array (Python fallback)."""
         elem_type = dtype.replace('matrix_', '')
         
-        if elem_type == 'string':
-            # 2D array of strings: rows + cols + each string
-            matrix = list(value)
-            rows = len(matrix)
-            cols = len(matrix[0]) if rows > 0 else 0
-            result = struct.pack('>II', rows, cols)
-            for row in matrix:
-                for s in row:
-                    encoded = s.encode('utf-8') if isinstance(s, str) else s
-                    result += struct.pack('>I', len(encoded)) + encoded
-            return result
-        else:
-            # Numeric 2D array
-            np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
-            arr = np.asarray(value, dtype=np_dtype)
-            rows, cols = arr.shape
-            return struct.pack('>II', rows, cols) + arr.tobytes()
+        # Only matrix_float32 is common
+        np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
+        arr = np.asarray(value, dtype=np_dtype)
+        rows, cols = arr.shape
+        return struct.pack('>II', rows, cols) + arr.tobytes()
 
 
 class CommandDecoder:
     """
     Decodes bytes to Python values from Nanonis protocol.
-    
-    Features:
-    - Automatic error detection and parsing from response
-    - Debug logging support
     """
     
     SCALAR_FORMATS = {k: (v[0], v[1]) for k, v in CommandEncoder.SCALAR_FORMATS.items()}
     NUMPY_DTYPES = CommandEncoder.NUMPY_DTYPES
     
     def __init__(self, debug: bool = False):
-        """
-        Initialize decoder.
-        
-        Args:
-            debug: Enable debug logging
-        """
         self.debug = debug
     
     def decode(
@@ -208,32 +243,81 @@ class CommandDecoder:
         data: bytes,
         check_error: bool = True,
     ) -> Dict[str, Any]:
-        """
-        Decode bytes according to type definitions.
-        
-        Args:
-            args: List of (name, type) tuples
-            data: Bytes to decode
-            check_error: Whether to check for Nanonis error at end of response
-            
-        Returns:
-            Dictionary mapping argument names to decoded values
-            
-        Raises:
-            NanonisCommandError: If Nanonis returned an error
-        """
+        """Decode bytes according to type definitions."""
         result = {}
         offset = 0
         
+        # Convert to bytes if needed (Rust needs &[u8])
+        data_bytes = bytes(data) if not isinstance(data, bytes) else data
+        
         for name, dtype in args:
             try:
-                value, consumed = self._decode_value(dtype, data[offset:])
-                result[name] = value
-                offset += consumed
+                # Use Rust backend if available
+                if RUST_BACKEND and dtype in RUST_DECODERS:
+                    decoder = RUST_DECODERS[dtype]
+                    
+                    # Pass slice of remaining data
+                    remaining = data_bytes[offset:]
+                    
+                    # Rust decoders return:
+                    # - Scalars: value (we calculate size)
+                    # - Strings: (value, consumed_bytes)
+                    # - Arrays: NumPy array (we calculate size)
+                    
+                    decoded = decoder(remaining)
+                    
+                    if dtype == 'string':
+                        # String decoder returns tuple (str, size)
+                        value, size = decoded
+                    elif dtype in self.SCALAR_FORMATS:
+                        # Scalar decoder returns value only
+                        value = decoded
+                        _, size = self.SCALAR_FORMATS[dtype]
+                    elif dtype.startswith('array_') and dtype != 'array_string':
+                        # Numeric array decoder returns numpy array
+                        value = decoded
+                        # Calculate size: 4 (len) + elems * itemsize
+                        size = 4 + value.size * value.itemsize
+                    elif dtype == 'array_string':
+                        # String array decoder returns list[str]
+                        # Need to calculate consumed bytes... simpler to use Python for complex var-len arrays
+                        # Or update Rust to return consumed bytes.
+                        # For now, let's fallback for complex types if needed, 
+                        # but decode_array_string returns Vec<String>.
+                        # Calculating consumed size properly requires iterating strings.
+                        # Let's fallback to Python for array_string to be safe on offset.
+                        raise NotImplementedError("Rust array_string size calc TODO")
+                    elif dtype.startswith('matrix_'):
+                        value = decoded
+                        # Matrix: 4 (rows) + 4 (cols) + elems * itemsize
+                        size = 8 + value.size * value.itemsize
+                    else:
+                        # Fallback
+                        raise NotImplementedError(f"Rust decoder size calc for {dtype}")
+                        
+                    result[name] = value
+                    offset += size
+                    
+                else:
+                    # Fallback to Python
+                    value, consumed = self._decode_value(dtype, data[offset:])
+                    result[name] = value
+                    offset += consumed
                 
                 if self.debug:
-                    logger.debug(f"Decoded {name}: {consumed} bytes -> {type(value).__name__}")
-            except Exception as e:
+                    logger.debug(f"Decoded {name} ({dtype})")
+                    
+            except (Exception, NotImplementedError) as e:
+                # Retry with Python fallback immediately if Rust failed/skipped
+                if RUST_BACKEND and isinstance(e, NotImplementedError):
+                    try:
+                        value, consumed = self._decode_value(dtype, data[offset:])
+                        result[name] = value
+                        offset += consumed
+                        continue
+                    except Exception:
+                        pass
+                
                 raise ValueError(f"Failed to decode '{name}' as {dtype}: {e}") from e
         
         # Check for error in remaining bytes
@@ -245,14 +329,7 @@ class CommandDecoder:
         return result
     
     def _parse_error(self, data: bytes) -> Optional[str]:
-        """
-        Parse error information from response tail.
-        
-        Nanonis error format:
-        - 4 bytes: error status (uint32, 0 = no error)
-        - 4 bytes: error string length (uint32)
-        - N bytes: error string (UTF-8)
-        """
+        """Parse error information from response tail."""
         if len(data) < 8:
             return None
         
@@ -262,20 +339,12 @@ class CommandDecoder:
         
         error_length = struct.unpack('>I', data[4:8])[0]
         if error_length > 0 and len(data) >= 8 + error_length:
-            error_string = data[8:8 + error_length].decode('utf-8', errors='replace')
-            if self.debug:
-                logger.warning(f"Nanonis error: {error_string}")
-            return error_string
+            return data[8:8 + error_length].decode('utf-8', errors='replace')
         
         return f"Unknown error (status={error_status})"
     
     def _decode_value(self, dtype: str, data: bytes) -> Tuple[Any, int]:
-        """
-        Decode a single value from bytes.
-        
-        Returns:
-            Tuple of (decoded_value, bytes_consumed)
-        """
+        """Decode a single value (Python fallback)."""
         # Handle scalar types
         if dtype in self.SCALAR_FORMATS:
             fmt, size = self.SCALAR_FORMATS[dtype]
@@ -301,22 +370,28 @@ class CommandDecoder:
         raise ValueError(f"Unknown type: {dtype}")
     
     def _decode_1d_array(self, dtype: str, data: bytes) -> Tuple[Any, int]:
-        """Decode a 1D array."""
+        """Decode a 1D array (Python fallback)."""
         elem_type = dtype.replace('array_', '')
+        
+        if len(data) < 4:
+            raise ValueError("Not enough data for array length")
+            
         size = struct.unpack('>I', data[:4])[0]
         offset = 4
         
         if elem_type == 'string':
-            # Array of strings
             strings = []
             for _ in range(size):
+                if len(data) < offset + 4:
+                    raise ValueError("Not enough data for string length")
                 str_len = struct.unpack('>I', data[offset:offset+4])[0]
                 offset += 4
+                if len(data) < offset + str_len:
+                    raise ValueError("Not enough data for string body")
                 strings.append(data[offset:offset+str_len].decode('utf-8'))
                 offset += str_len
             return strings, offset
         else:
-            # Numeric array
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             elem_size = np.dtype(np_dtype).itemsize
             arr_data = data[4:4 + size * elem_size]
@@ -324,28 +399,20 @@ class CommandDecoder:
             return arr, 4 + size * elem_size
     
     def _decode_2d_array(self, dtype: str, data: bytes) -> Tuple[Any, int]:
-        """Decode a 2D array (matrix)."""
+        """Decode a 2D array (Python fallback)."""
         elem_type = dtype.replace('matrix_', '')
+        
+        if len(data) < 8:
+            raise ValueError("Not enough data for matrix dimensions")
+            
         rows = struct.unpack('>I', data[:4])[0]
         cols = struct.unpack('>I', data[4:8])[0]
-        offset = 8
         
-        if elem_type == 'string':
-            # 2D array of strings
-            matrix = []
-            for _ in range(rows):
-                row = []
-                for _ in range(cols):
-                    str_len = struct.unpack('>I', data[offset:offset+4])[0]
-                    offset += 4
-                    row.append(data[offset:offset+str_len].decode('utf-8'))
-                    offset += str_len
-                matrix.append(row)
-            return matrix, offset
-        else:
-            # Numeric 2D array
-            np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
-            elem_size = np.dtype(np_dtype).itemsize
-            arr_data = data[8:8 + rows * cols * elem_size]
-            arr = np.frombuffer(arr_data, dtype=np_dtype).reshape(rows, cols).copy()
-            return arr, 8 + rows * cols * elem_size
+        # Only matrix_float32 is typical
+        np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
+        elem_size = np.dtype(np_dtype).itemsize
+        expected = 8 + rows * cols * elem_size
+        
+        arr_data = data[8:expected]
+        arr = np.frombuffer(arr_data, dtype=np_dtype).reshape(rows, cols).copy()
+        return arr, expected

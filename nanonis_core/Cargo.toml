@@ -1,0 +1,22 @@
+[package]
+name = "nanonis_core"
+version = "0.1.0"
+edition = "2021"
+description = "Rust core for Nanonis TCP protocol and binary encoding"
+license = "MIT"
+
+[lib]
+name = "nanonis_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3-stub-gen = "0.6"
+pyo3 = { version = "0.23", features = ["extension-module"] }
+numpy = "0.23"
+thiserror = "2.0"
+byteorder = "1.5"
+
+
+[dev-dependencies]
+proptest = "1.4"
+pretty_assertions = "1.4"
