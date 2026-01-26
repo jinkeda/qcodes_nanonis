@@ -25,6 +25,9 @@
 //! - `encode_matrix_float32`: Encodes a 2D numpy array (must be rectangular).
 //! - `decode_matrix_float32`: Decodes a 2D float32 matrix.
 //!
+//! ### Batch Decode
+//! - `decode_message`: Decode a full response payload in one FFI call.
+//!
 
 use pyo3::prelude::*;
 use pyo3_stub_gen::define_stub_info_gatherer;
@@ -82,6 +85,16 @@ fn nanonis_core(m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Matrix encoders/decoders
     m.add_function(wrap_pyfunction!(codec::encode_matrix_float32, m)?)?;
     m.add_function(wrap_pyfunction!(codec::decode_matrix_float32, m)?)?;
+
+    // External count/dims decoders (Nanonis standard format)
+    m.add_function(wrap_pyfunction!(codec::decode_array_float32_ext, m)?)?;
+    m.add_function(wrap_pyfunction!(codec::decode_array_float64_ext, m)?)?;
+    m.add_function(wrap_pyfunction!(codec::decode_array_int32_ext, m)?)?;
+    m.add_function(wrap_pyfunction!(codec::decode_array_string_ext, m)?)?;
+    m.add_function(wrap_pyfunction!(codec::decode_matrix_float32_ext, m)?)?;
+
+    // Batch decoder
+    m.add_function(wrap_pyfunction!(codec::decode_message, m)?)?;
 
     Ok(())
 }

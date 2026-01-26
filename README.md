@@ -262,7 +262,7 @@ qcodes_nanonis/
 
 ## Performance
 
-The optional Rust backend (`nanonis_core`) provides performance benefits for complex operations.
+The optional Rust backend (`nanonis_core`) provides significant performance benefits through zero-copy decoding and batch processing.
 
 ### Benchmark Results
 
@@ -270,21 +270,43 @@ Benchmarks run on Python 3.12.8 (Windows, AMD64):
 
 | Operation | Python | Rust | Speedup |
 |-----------|--------|------|---------|
-| encode_float32 | 93 ns | 1.2 us | 0.1x |
-| encode_float64 | 100 ns | 1.1 us | 0.1x |
-| encode_int32 | 138 ns | 1.6 us | 0.1x |
-| encode_string | 372 ns | 1.4 us | 0.3x |
-| encode_array_float32 (1000 elem) | 210 us | 241 us | 0.9x |
-| encode_array_float64 (1000 elem) | 198 us | 239 us | 0.8x |
-| decode_array_float32 (1000 elem) | 32 us | 86 us | 0.4x |
-| **encode_matrix_float32 (100×100)** | **11.6 ms** | **3.7 ms** | **3.2x** |
-| decode_matrix_float32 (100×100) | 512 us | 706 us | 0.7x |
+| encode_string | 306 ns | 146 ns | **2.1x** |
+| decode_string | 378 ns | 280 ns | **1.4x** |
+| encode_matrix_float32 (100×100) | 11.8 ms | 243 us | **48.8x** |
+| decode_matrix_float32 (100×100) | 547 us | 36 us | **15.2x** |
+| array_string decode | 52 us | 11 us | **4.7x** |
+
+### End-to-End Performance (BiasSpectr.Start)
+
+| Backend | Time (ms/decode) | Relative |
+|---------|------------------|----------|
+| Python | 0.025 | 1.0x (baseline) |
+| Rust (auto) | 0.022 | **1.2x faster** |
+| Rust (batch) | 0.006 | **4.1x faster** |
+
+### Key Optimizations
+
+- **Zero-Copy Array Decoding**: Direct NumPy allocation with `PyArray::zeros()` + in-place fill
+- **Flat Matrix Allocation**: Eliminated nested `Vec<Vec<T>>` allocations
+- **Batch Decoding API**: Single FFI call per message reduces overhead
+- **Threshold-Based Dispatch**: Automatically selects Rust or Python per operation
+
+### When Rust is Faster
+
+| Type | Use Rust When | Speedup |
+|------|---------------|---------|
+| Strings | Always | 1.3-2.1x |
+| Array decode | size ≤ 250 elements | 1.3-2.5x |
+| Array encode | size ≤ 50 elements | 1.3x |
+| Matrix encode | Always | 48x |
+| Matrix decode | total ≤ 100 elements | 1.1-15x |
+| Batch decode | Multiple fields | 4x+ |
 
 ### Analysis
 
-- **FFI Overhead**: For simple scalar operations, Python's built-in `struct` module (C-based) is faster than crossing the Python↔Rust FFI boundary.
-- **Rust Wins on Complex Operations**: The `encode_matrix_float32` shows **3.2x speedup** where Rust's performance advantage overcomes FFI overhead.
-- **Best Use Case**: The Rust backend is most beneficial for large matrix operations and batch processing where FFI overhead is amortized.
+- **FFI Overhead**: ~0.1μs per call makes Rust slower for scalar operations
+- **Zero-Copy Wins**: Direct NumPy allocation eliminates intermediate copies
+- **Batch Processing**: Decoding entire messages in one call amortizes FFI overhead
 
 ### Run Benchmarks
 
