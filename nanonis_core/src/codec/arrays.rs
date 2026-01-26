@@ -249,6 +249,7 @@ pub fn decode_matrix_float32<'py>(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn test_array_float32_encode() {
@@ -295,5 +296,89 @@ mod tests {
         .unwrap();
 
         assert_eq!(values, vec![1.0, 2.0]);
+    }
+
+    #[test]
+    fn test_array_string_empty() {
+        let encoded = encode_array_string(Vec::new());
+        assert_eq!(&encoded[..4], &[0, 0, 0, 0]);
+    }
+
+    #[test]
+    fn test_array_float32_large() {
+        let values: Vec<f32> = (0..4096).map(|v| v as f32).collect();
+        let encoded = encode_array_float32(values.clone());
+        let decoded: Vec<f32> = super::decode_numeric_array_generic(
+            &encoded,
+            4,
+            "float32",
+            |b| f32::from_be_bytes(b.try_into().unwrap()),
+        )
+        .unwrap();
+        assert_eq!(decoded.len(), values.len());
+        for (a, b) in decoded.iter().zip(values.iter()) {
+            assert_eq!(a.to_bits(), b.to_bits());
+        }
+    }
+
+    #[test]
+    fn test_array_int32_single() {
+        let values = vec![42i32];
+        let encoded = encode_array_int32(values.clone());
+        let decoded: Vec<i32> = super::decode_numeric_array_generic(
+            &encoded,
+            4,
+            "int32",
+            |b| i32::from_be_bytes(b.try_into().unwrap()),
+        )
+        .unwrap();
+        assert_eq!(decoded, values);
+    }
+
+    proptest! {
+        #[test]
+        fn proptest_array_float32_roundtrip(values in proptest::collection::vec(any::<f32>(), 0..256)) {
+            let encoded = encode_array_float32(values.clone());
+            let decoded: Vec<f32> = super::decode_numeric_array_generic(
+                &encoded,
+                4,
+                "float32",
+                |b| f32::from_be_bytes(b.try_into().unwrap()),
+            )
+            .unwrap();
+            prop_assert_eq!(decoded.len(), values.len());
+            for (a, b) in decoded.iter().zip(values.iter()) {
+                prop_assert_eq!(a.to_bits(), b.to_bits());
+            }
+        }
+
+        #[test]
+        fn proptest_array_float64_roundtrip(values in proptest::collection::vec(any::<f64>(), 0..128)) {
+            let encoded = encode_array_float64(values.clone());
+            let decoded: Vec<f64> = super::decode_numeric_array_generic(
+                &encoded,
+                8,
+                "float64",
+                |b| f64::from_be_bytes(b.try_into().unwrap()),
+            )
+            .unwrap();
+            prop_assert_eq!(decoded.len(), values.len());
+            for (a, b) in decoded.iter().zip(values.iter()) {
+                prop_assert_eq!(a.to_bits(), b.to_bits());
+            }
+        }
+
+        #[test]
+        fn proptest_array_int32_roundtrip(values in proptest::collection::vec(any::<i32>(), 0..256)) {
+            let encoded = encode_array_int32(values.clone());
+            let decoded: Vec<i32> = super::decode_numeric_array_generic(
+                &encoded,
+                4,
+                "int32",
+                |b| i32::from_be_bytes(b.try_into().unwrap()),
+            )
+            .unwrap();
+            prop_assert_eq!(decoded, values);
+        }
     }
 }

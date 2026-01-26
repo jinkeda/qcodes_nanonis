@@ -35,6 +35,10 @@ dev = [
     "mypy>=1.0",
     "ruff>=0.1",
 ]
+docs = [
+    "sphinx>=7.0",
+    "sphinx-rtd-theme>=2.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/jinkeda/qcodes_nanonis"

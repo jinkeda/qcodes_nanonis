@@ -90,7 +90,11 @@ class CommandEncoder:
         'int32': ('>i', 4, np.int32),
         'uint16': ('>H', 2, np.uint16),
         'uint32': ('>I', 4, np.uint32),
-        'bool': ('>I', 4, np.uint32),  # Nanonis uses 4-byte bool
+        # NOTE: Nanonis uses 4-byte booleans (uint32), not 1-byte.
+        # This is a protocol quirk - True = 0x00000001, False = 0x00000000.
+        # The reason is unknown but may relate to memory alignment on the
+        # Nanonis controller hardware.
+        'bool': ('>I', 4, np.uint32),
     }
     
     # NumPy dtype mapping for arrays
@@ -114,7 +118,28 @@ class CommandEncoder:
     def _coerce_type(self, dtype: str, value: Any) -> Any:
         """
         Coerce value to correct numpy type to prevent precision loss.
+
+        The Nanonis protocol uses specific binary formats (e.g., IEEE 754 float32).
+        Python's native float is 64-bit, so passing a Python float to struct.pack('>f', ...)
+        may lose precision silently. By explicitly converting to np.float32 first,
+        we ensure the user sees the actual value that will be transmitted.
+
+        Example:
+            >>> value = 0.1  # Python float64
+            >>> np.float32(value)  # Shows actual transmitted value: 0.1000000014901161
+
+        Args:
+            dtype: Target type name (e.g., 'float32', 'int16')
+            value: Input value to coerce
+
+        Returns:
+            Value converted to appropriate numpy type, or original if not a scalar type
+
+        Raises:
+            ValueError: If value cannot be coerced (e.g., overflow)
         """
+        if dtype == 'bool':
+            return bool(value)
         if dtype not in self.SCALAR_FORMATS:
             return value
         
@@ -219,6 +244,13 @@ class CommandEncoder:
         """Encode a 2D array (Python fallback)."""
         elem_type = dtype.replace('matrix_', '')
         
+        # matrix_string is not supported
+        if elem_type == 'string':
+            raise NotImplementedError(
+                "matrix_string encoding is not supported. "
+                "Use array_string for 1D string arrays or flatten your data."
+            )
+        
         # Only matrix_float32 is common
         np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
         arr = np.asarray(value, dtype=np_dtype)
@@ -269,6 +301,10 @@ class CommandDecoder:
                     if dtype == 'string':
                         # String decoder returns tuple (str, size)
                         value, size = decoded
+                    elif dtype == 'bool':
+                        # Bool decoder returns int, convert to Python bool
+                        value = bool(decoded)
+                        _, size = self.SCALAR_FORMATS[dtype]
                     elif dtype in self.SCALAR_FORMATS:
                         # Scalar decoder returns value only
                         value = decoded
@@ -315,8 +351,14 @@ class CommandDecoder:
                         result[name] = value
                         offset += consumed
                         continue
-                    except Exception:
-                        pass
+                    except Exception as fallback_error:
+                        logger.warning(
+                            f"Both Rust and Python decoding failed for {name} ({dtype}): "
+                            f"Rust: {e}, Python: {fallback_error}"
+                        )
+                        raise ValueError(
+                            f"Failed to decode '{name}' as {dtype}: {fallback_error}"
+                        ) from fallback_error
                 
                 raise ValueError(f"Failed to decode '{name}' as {dtype}: {e}") from e
         
@@ -329,7 +371,24 @@ class CommandDecoder:
         return result
     
     def _parse_error(self, data: bytes) -> Optional[str]:
-        """Parse error information from response tail."""
+        """
+        Parse error information from response tail.
+
+        Nanonis appends error information after the normal response data.
+
+        Error format (variable length):
+            Bytes 0-3:   Error status (uint32, big-endian)
+                         - 0 = Success (no error)
+                         - Non-zero = Error code
+            Bytes 4-7:   Error message length (uint32, big-endian)
+            Bytes 8+:    UTF-8 encoded error message
+
+        Args:
+            data: Remaining bytes after decoding expected response fields
+
+        Returns:
+            Error message string if error detected, None otherwise
+        """
         if len(data) < 8:
             return None
         
@@ -355,7 +414,11 @@ class CommandDecoder:
         
         # Handle string
         if dtype == 'string':
+            if len(data) < 4:
+                raise ValueError("Not enough data for string length")
             length = struct.unpack('>I', data[:4])[0]
+            if len(data) < 4 + length:
+                raise ValueError("Not enough data for string body")
             string_data = data[4:4+length].decode('utf-8')
             return string_data, 4 + length
         
@@ -394,9 +457,12 @@ class CommandDecoder:
         else:
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             elem_size = np.dtype(np_dtype).itemsize
+            expected = 4 + size * elem_size
+            if len(data) < expected:
+                raise ValueError("Not enough data for array values")
             arr_data = data[4:4 + size * elem_size]
             arr = np.frombuffer(arr_data, dtype=np_dtype).copy()
-            return arr, 4 + size * elem_size
+            return arr, expected
     
     def _decode_2d_array(self, dtype: str, data: bytes) -> Tuple[Any, int]:
         """Decode a 2D array (Python fallback)."""
@@ -413,6 +479,8 @@ class CommandDecoder:
         elem_size = np.dtype(np_dtype).itemsize
         expected = 8 + rows * cols * elem_size
         
+        if len(data) < expected:
+            raise ValueError("Not enough data for matrix values")
         arr_data = data[8:expected]
         arr = np.frombuffer(arr_data, dtype=np_dtype).reshape(rows, cols).copy()
         return arr, expected

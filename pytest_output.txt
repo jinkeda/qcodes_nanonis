@@ -1,0 +1,2362 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.8, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\k.jin\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis
+configfile: pyproject.toml
+plugins: anyio-4.12.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 49 items
+
+tests/test_controller.py::TestCommandRegistry::test_empty_registry PASSED [  2%]
+tests/test_controller.py::TestCommandRegistry::test_load_from_yaml PASSED [  4%]
+tests/test_controller.py::TestCommandRegistry::test_get_command PASSED   [  6%]
+tests/test_controller.py::TestCommandRegistry::test_get_unknown_command PASSED [  8%]
+tests/test_controller.py::TestCommandRegistry::test_list_commands_with_prefix PASSED [ 10%]
+tests/test_controller.py::TestCommandRegistry::test_list_modules PASSED  [ 12%]
+tests/test_controller.py::TestNanonisController::test_init PASSED        [ 14%]
+tests/test_controller.py::TestNanonisController::test_init_with_config PASSED [ 16%]
+tests/test_controller.py::TestNanonisController::test_connect_disconnect PASSED [ 18%]
+tests/test_controller.py::TestNanonisController::test_send_command_no_args PASSED [ 20%]
+tests/test_controller.py::TestNanonisController::test_send_command_with_args PASSED [ 22%]
+tests/test_controller.py::TestNanonisController::test_context_manager PASSED [ 24%]
+tests/test_controller.py::TestNanonisController::test_list_commands PASSED [ 26%]
+tests/test_controller.py::TestNanonisController::test_get_command_info PASSED [ 28%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_float32 PASSED    [ 30%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_float64 PASSED    [ 32%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_int32 PASSED      [ 34%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_negative_int32 PASSED [ 36%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_uint16 PASSED     [ 38%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_uint32 PASSED     [ 40%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_bool_true FAILED  [ 42%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_bool_false FAILED [ 44%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_string PASSED     [ 46%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_empty_string PASSED [ 48%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_unicode_string PASSED [ 51%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_float32 PASSED [ 53%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_int32 PASSED [ 55%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_string PASSED [ 57%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_float32 PASSED [ 59%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_string FAILED [ 61%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_multiple_args PASSED [ 63%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_arg_count_mismatch PASSED [ 65%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_unknown_type PASSED [ 67%]
+tests/test_encoder.py::TestRoundtrip::test_scan_frame_roundtrip PASSED   [ 69%]
+tests/test_encoder.py::TestRoundtrip::test_complex_command_roundtrip FAILED [ 71%]
+tests/test_protocol.py::TestNanonisTCPClient::test_init PASSED           [ 73%]
+tests/test_protocol.py::TestNanonisTCPClient::test_init_custom_timeout PASSED [ 75%]
+pytest : Windows fatal 
+exception: access violation
+At line:1 char:1
++ pytest tests/ -v 2>&1 | 
+Out-File -FilePath 
+pytest_output.txt -Encodin 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Windows  
+   fatal e...ccess violati   
+ on:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 44 in 
+test_connect_success
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 44 in 
+test_connect_success
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+tests/test_protocol.py::TestNanonisTCPClient::test_connect_success FAILED [ 77%]
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 59 in 
+test_connect_failure
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 59 in 
+test_connect_failure
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+tests/test_protocol.py::TestNanonisTCPClient::test_connect_failure FAILED [ 79%]
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 70 in test_disconnect
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 70 in test_disconnect
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+tests/test_protocol.py::TestNanonisTCPClient::test_disconnect FAILED     [ 81%]
+tests/test_protocol.py::TestNanonisTCPClient::test_encode_header PASSED  [ 83%]
+tests/test_protocol.py::TestNanonisTCPClient::test_encode_header_with_body PASSED [ 85%]
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 246 in __enter__
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 99 in 
+test_context_manager
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 246 in __enter__
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 99 in 
+test_context_manager
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+tests/test_protocol.py::TestNanonisTCPClient::test_context_manager FAILED [ 87%]
+tests/test_protocol.py::TestNanonisTCPClient::test_repr_disconnected PASSED [ 89%]
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 116 in 
+test_repr_connected
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+Windows fatal exception: 
+access violation
+
+Current thread 0x000011d4 
+(most recent call first):
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+src\nanonis\protocol\tcp_clie
+nt.py", line 92 in connect
+  File "C:\Users\k.jin\OneDri
+ve\PhD\claude\qcodes_Nanonis\
+tests\test_protocol.py", 
+line 116 in 
+test_repr_connected
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\unittest\mock.py", 
+line 1396 in patched
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 166 in 
+pytest_pyfunc_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\python.py", line 1720 in 
+runtest
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 179 in 
+pytest_runtest_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 245 in 
+<lambda>
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 353 in 
+from_call
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 244 in 
+call_and_report
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 137 in 
+runtestprotocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\runner.py", line 118 in 
+pytest_runtest_protocol
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 396 in 
+pytest_runtestloop
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 372 in _main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 318 in 
+wrap_session
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\main.py", line 365 in 
+pytest_cmdline_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_callers.py", line 121 in 
+_multicall
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_manager.py", line 120 in 
+_hookexec
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\pluggy
+\_hooks.py", line 512 in 
+__call__
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+197 in main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Lib\site-packages\_pytes
+t\config\__init__.py", line 
+221 in console_main
+  File "C:\Users\k.jin\AppDat
+a\Local\Programs\Python\Pytho
+n312\Scripts\pytest.exe\__mai
+n__.py", line 6 in <module>
+  File "<frozen runpy>", 
+line 88 in _run_code
+  File "<frozen runpy>", 
+line 198 in 
+_run_module_as_main
+tests/test_protocol.py::TestNanonisTCPClient::test_repr_connected PASSED [ 91%]
+tests/test_protocol.py::TestExceptions::test_nanonis_error PASSED        [ 93%]
+tests/test_protocol.py::TestExceptions::test_connection_error_inheritance PASSED [ 95%]
+tests/test_protocol.py::TestExceptions::test_protocol_error_inheritance PASSED [ 97%]
+tests/test_protocol.py::TestExceptions::test_timeout_error_inheritance PASSED [100%]
+
+================================== FAILURES ===================================
+__________________ TestCommandEncoder.test_encode_bool_true ___________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC60AE40>
+args = [('value', 'bool')], values = (True,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x0000016ABC58B260>
+
+    def test_encode_bool_true(self):
+        """Test bool encoding (True)."""
+        args = [('value', 'bool')]
+>       encoded = self.encoder.encode(args, (True,))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC60AE40>
+args = [('value', 'bool')], values = (True,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'value' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+__________________ TestCommandEncoder.test_encode_bool_false __________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC61F050>
+args = [('value', 'bool')], values = (False,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x0000016ABC5C1970>
+
+    def test_encode_bool_false(self):
+        """Test bool encoding (False)."""
+        args = [('value', 'bool')]
+>       encoded = self.encoder.encode(args, (False,))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC61F050>
+args = [('value', 'bool')], values = (False,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'value' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+________________ TestCommandEncoder.test_encode_matrix_string _________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC683860>
+args = [('values', 'matrix_string')], values = ([['a', 'b'], ['c', 'd']],)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+>                   result += self._encode_value(dtype, coerced_value)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\nanonis\command\encoder.py:169: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\nanonis\command\encoder.py:198: in _encode_value
+    return self._encode_2d_array(dtype, value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC683860>
+dtype = 'matrix_string', value = [['a', 'b'], ['c', 'd']]
+
+    def _encode_2d_array(self, dtype: str, value: Any) -> bytes:
+        """Encode a 2D array (Python fallback)."""
+        elem_type = dtype.replace('matrix_', '')
+    
+        # Only matrix_float32 is common
+        np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
+>       arr = np.asarray(value, dtype=np_dtype)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: data type '>s4' not understood
+
+src\nanonis\command\encoder.py:224: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x0000016ABC5C2E40>
+
+    def test_encode_matrix_string(self):
+        """Test string 2D array encoding."""
+        args = [('values', 'matrix_string')]
+        matrix = [['a', 'b'], ['c', 'd']]
+>       encoded = self.encoder.encode(args, (matrix,))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC683860>
+args = [('values', 'matrix_string')], values = ([['a', 'b'], ['c', 'd']],)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'values' as matrix_string: data type '>s4' not understood
+
+src\nanonis\command\encoder.py:174: ValueError
+________________ TestRoundtrip.test_complex_command_roundtrip _________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC69E5D0>
+args = [('enabled', 'bool'), ('setpoint', 'float32'), ('channels', 'array_int32'), ('name', 'string')]
+values = (True, 1e-10, array([0, 1, 2]), 'Current')
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestRoundtrip object at 0x0000016ABC58B800>
+
+    def test_complex_command_roundtrip(self):
+        """Test complex command with mixed types."""
+        args = [
+            ('enabled', 'bool'),
+            ('setpoint', 'float32'),
+            ('channels', 'array_int32'),
+            ('name', 'string'),
+        ]
+        values = (True, 1e-10, np.array([0, 1, 2]), 'Current')
+    
+>       encoded = self.encoder.encode(args, values)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000016ABC69E5D0>
+args = [('enabled', 'bool'), ('setpoint', 'float32'), ('channels', 'array_int32'), ('name', 'string')]
+values = (True, 1e-10, array([0, 1, 2]), 'Current')
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'enabled' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+__________________ TestNanonisTCPClient.test_connect_success __________________
+
+self = <tests.test_protocol.TestNanonisTCPClient object at 0x0000016ABC5C1D00>
+mock_socket_class = <MagicMock name='socket' id='1557939109040'>
+
+    @patch('socket.socket')
+    def test_connect_success(self, mock_socket_class):
+        """Test successful connection."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+    
+        client = NanonisTCPClient('127.0.0.1', 6501)
+        client.connect()
+    
+>       mock_socket.settimeout.assert_called_once_with(10.0)
+
+tests\test_protocol.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <MagicMock name='socket().settimeout' id='1557938661392'>, args = (10.0,)
+kwargs = {}, msg = "Expected 'settimeout' to be called once. Called 0 times."
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected 'settimeout' to be called once. Called 0 times.
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:960: AssertionError
+__________________ TestNanonisTCPClient.test_connect_failure __________________
+
+self = <tests.test_protocol.TestNanonisTCPClient object at 0x0000016ABC5C0080>
+mock_socket_class = <MagicMock name='socket' id='1557938664944'>
+
+    @patch('socket.socket')
+    def test_connect_failure(self, mock_socket_class):
+        """Test connection failure."""
+        mock_socket = MagicMock()
+        mock_socket.connect.side_effect = socket.error("Connection refused")
+        mock_socket_class.return_value = mock_socket
+    
+        client = NanonisTCPClient('127.0.0.1', 6501)
+>       with pytest.raises(NanonisConnectionError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'nanonis.protocol.exceptions.NanonisConnectionError'>
+
+tests\test_protocol.py:58: Failed
+____________________ TestNanonisTCPClient.test_disconnect _____________________
+
+self = <tests.test_protocol.TestNanonisTCPClient object at 0x0000016ABC5C1820>
+mock_socket_class = <MagicMock name='socket' id='1557938612816'>
+
+    @patch('socket.socket')
+    def test_disconnect(self, mock_socket_class):
+        """Test disconnection."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+    
+        client = NanonisTCPClient('127.0.0.1', 6501)
+        client.connect()
+        client.disconnect()
+    
+>       mock_socket.close.assert_called_once()
+
+tests\test_protocol.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <MagicMock name='socket().close' id='1557938605568'>
+
+    def assert_called_once(self):
+        """assert that the mock was called only once.
+        """
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to have been called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected 'close' to have been called once. Called 0 times.
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:928: AssertionError
+__________________ TestNanonisTCPClient.test_context_manager __________________
+
+self = <tests.test_protocol.TestNanonisTCPClient object at 0x0000016ABC5DC380>
+mock_socket_class = <MagicMock name='socket' id='1557938554064'>
+
+    @patch('socket.socket')
+    def test_context_manager(self, mock_socket_class):
+        """Test context manager usage."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+    
+        with NanonisTCPClient('127.0.0.1', 6501) as client:
+            assert client.is_connected
+    
+>       mock_socket.close.assert_called_once()
+
+tests\test_protocol.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <MagicMock name='socket().close' id='1557938558960'>
+
+    def assert_called_once(self):
+        """assert that the mock was called only once.
+        """
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to have been called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected 'close' to have been called once. Called 0 times.
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:928: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_bool_true - Val...
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_bool_false - Va...
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_string
+FAILED tests/test_encoder.py::TestRoundtrip::test_complex_command_roundtrip
+FAILED tests/test_protocol.py::TestNanonisTCPClient::test_connect_success - A...
+FAILED tests/test_protocol.py::TestNanonisTCPClient::test_connect_failure - F...
+FAILED tests/test_protocol.py::TestNanonisTCPClient::test_disconnect - Assert...
+FAILED tests/test_protocol.py::TestNanonisTCPClient::test_context_manager - A...
+======================== 8 failed, 41 passed in 2.57s =========================

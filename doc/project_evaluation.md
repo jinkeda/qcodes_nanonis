@@ -51,16 +51,6 @@ The optional `nanonis_core` Rust crate provides:
 
 ### Areas for Improvement
 
-**1.4 Consider Async Support for Layer 1**
-While synchronous I/O is correct for current use cases, consider designing the API to accommodate future async support:
-
-```python
-# Future-compatible API design
-class NanonisTCPClient:
-    def send_raw(self, command: str, body: bytes) -> bytes: ...
-    async def send_raw_async(self, command: str, body: bytes) -> bytes: ...
-```
-
 **1.5 Add Connection Pooling Support**
 For applications requiring multiple concurrent connections:
 
@@ -102,20 +92,14 @@ Current failing tests require attention:
 
 **Recommendation**: Fix these before beta release. The boolean encoding issue may indicate a protocol mismatch with actual Nanonis hardware.
 
-**2.5 Potential Thread Safety Issue**
-`NanonisController` is not thread-safe. Document this or add locking:
+**2.5 Protocol Ambiguities**
+Some areas where the original protocol intent is unclear:
 
-```python
-import threading
-
-class NanonisController:
-    def __init__(self, ...):
-        self._lock = threading.Lock()
-
-    def send(self, command: str, *args):
-        with self._lock:
-            return self._send_impl(command, *args)
-```
+| Location | Uncertainty | Current Assumption |
+|----------|-------------|--------------------|
+| `encoder.py:302` | `array_string` consumed bytes calculation | Falls back to Python (TODO comment) |
+| `encoder.py:224-229` | `matrix_string` support | Explicitly not implemented |
+| `tcp_client.py:196-198` | Why `send_flag` is always `1` | Magic value, meaning unknown |
 
 ---
 

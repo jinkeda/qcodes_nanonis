@@ -1,0 +1,483 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.8, pytest-9.0.1, pluggy-1.6.0 -- C:\Users\k.jin\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis
+configfile: pyproject.toml
+plugins: anyio-4.12.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 21 items
+
+tests/test_encoder.py::TestCommandEncoder::test_encode_float32 PASSED    [  4%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_float64 PASSED    [  9%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_int32 PASSED      [ 14%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_negative_int32 PASSED [ 19%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_uint16 PASSED     [ 23%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_uint32 PASSED     [ 28%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_bool_true FAILED  [ 33%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_bool_false FAILED [ 38%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_string PASSED     [ 42%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_empty_string PASSED [ 47%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_unicode_string PASSED [ 52%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_float32 PASSED [ 57%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_int32 PASSED [ 61%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_array_string PASSED [ 66%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_float32 PASSED [ 71%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_string FAILED [ 76%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_multiple_args PASSED [ 80%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_arg_count_mismatch PASSED [ 85%]
+tests/test_encoder.py::TestCommandEncoder::test_encode_unknown_type PASSED [ 90%]
+tests/test_encoder.py::TestRoundtrip::test_scan_frame_roundtrip PASSED   [ 95%]
+tests/test_encoder.py::TestRoundtrip::test_complex_command_roundtrip FAILED [100%]
+
+================================== FAILURES ===================================
+__________________ TestCommandEncoder.test_encode_bool_true ___________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x00000233368A8470>
+args = [('value', 'bool')], values = (True,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x0000023336886300>
+
+    def test_encode_bool_true(self):
+        """Test bool encoding (True)."""
+        args = [('value', 'bool')]
+>       encoded = self.encoder.encode(args, (True,))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x00000233368A8470>
+args = [('value', 'bool')], values = (True,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'value' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+__________________ TestCommandEncoder.test_encode_bool_false __________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x00000233368A8A40>
+args = [('value', 'bool')], values = (False,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x00000233368865D0>
+
+    def test_encode_bool_false(self):
+        """Test bool encoding (False)."""
+        args = [('value', 'bool')]
+>       encoded = self.encoder.encode(args, (False,))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x00000233368A8A40>
+args = [('value', 'bool')], values = (False,)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'value' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+________________ TestCommandEncoder.test_encode_matrix_string _________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000023336911CA0>
+args = [('values', 'matrix_string')], values = ([['a', 'b'], ['c', 'd']],)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+>                   result += self._encode_value(dtype, coerced_value)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\nanonis\command\encoder.py:169: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\nanonis\command\encoder.py:198: in _encode_value
+    return self._encode_2d_array(dtype, value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000023336911CA0>
+dtype = 'matrix_string', value = [['a', 'b'], ['c', 'd']]
+
+    def _encode_2d_array(self, dtype: str, value: Any) -> bytes:
+        """Encode a 2D array (Python fallback)."""
+        elem_type = dtype.replace('matrix_', '')
+    
+        # matrix_string is not supported
+        if elem_type == 'string':
+>           raise NotImplementedError(
+                "matrix_string encoding is not supported. "
+                "Use array_string for 1D string arrays or flatten your data."
+            )
+E           NotImplementedError: matrix_string encoding is not supported. Use array_string for 1D string arrays or flatten your data.
+
+src\nanonis\command\encoder.py:224: NotImplementedError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestCommandEncoder object at 0x0000023336886D20>
+
+    def test_encode_matrix_string(self):
+        """Test string 2D array encoding - should raise NotImplementedError."""
+        args = [('values', 'matrix_string')]
+        matrix = [['a', 'b'], ['c', 'd']]
+        with pytest.raises(NotImplementedError, match='matrix_string encoding is not supported'):
+>           self.encoder.encode(args, (matrix,))
+
+tests\test_encoder.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000023336911CA0>
+args = [('values', 'matrix_string')], values = ([['a', 'b'], ['c', 'd']],)
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'values' as matrix_string: matrix_string encoding is not supported. Use array_string for 1D string arrays or flatten your data.
+
+src\nanonis\command\encoder.py:174: ValueError
+________________ TestRoundtrip.test_complex_command_roundtrip _________________
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000023336913E60>
+args = [('enabled', 'bool'), ('setpoint', 'float32'), ('channels', 'array_int32'), ('name', 'string')]
+values = (True, 1e-10, array([0, 1, 2]), 'Current')
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+>                       encoded = encoder(coerced_value)
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+E                       TypeError: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:163: TypeError
+
+The above exception was the direct cause of the following exception:
+
+self = <tests.test_encoder.TestRoundtrip object at 0x0000023336887E90>
+
+    def test_complex_command_roundtrip(self):
+        """Test complex command with mixed types."""
+        args = [
+            ('enabled', 'bool'),
+            ('setpoint', 'float32'),
+            ('channels', 'array_int32'),
+            ('name', 'string'),
+        ]
+        values = (True, 1e-10, np.array([0, 1, 2]), 'Current')
+    
+>       encoded = self.encoder.encode(args, values)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_encoder.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <nanonis.command.encoder.CommandEncoder object at 0x0000023336913E60>
+args = [('enabled', 'bool'), ('setpoint', 'float32'), ('channels', 'array_int32'), ('name', 'string')]
+values = (True, 1e-10, array([0, 1, 2]), 'Current')
+
+    def encode(self, args: List[Tuple[str, str]], values: tuple) -> bytes:
+        """
+        Encode multiple values according to their type definitions.
+    
+        Args:
+            args: List of (name, type) tuples
+            values: Tuple of values to encode
+    
+        Returns:
+            Encoded bytes
+        """
+        if len(args) != len(values):
+            raise ValueError(
+                f"Argument count mismatch: expected {len(args)}, got {len(values)}"
+            )
+    
+        result = b''
+        for (name, dtype), value in zip(args, values):
+            try:
+                # Apply type coercion first
+                coerced_value = self._coerce_type(dtype, value)
+    
+                # Use Rust backend if available and supported
+                if RUST_BACKEND and dtype in RUST_ENCODERS:
+                    encoder = RUST_ENCODERS[dtype]
+    
+                    # Special handling for arrays/matrices - need lists/vecs
+                    if dtype.startswith(('array_', 'matrix_')) and isinstance(coerced_value, np.ndarray):
+                        encoded = encoder(coerced_value.tolist())
+                    else:
+                        encoded = encoder(coerced_value)
+    
+                    # Rust returns bytearray/Vec<u8> (bytes)
+                    result += bytes(encoded)
+                else:
+                    # Fallback to Python implementation
+                    result += self._encode_value(dtype, coerced_value)
+    
+                if self.debug:
+                    logger.debug(f"Encoded {name} ({dtype})")
+            except Exception as e:
+>               raise ValueError(f"Failed to encode '{name}' as {dtype}: {e}") from e
+E               ValueError: Failed to encode 'enabled' as bool: argument 'value': 'uint32' object cannot be converted to 'PyBool'
+
+src\nanonis\command\encoder.py:174: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_bool_true - Val...
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_bool_false - Va...
+FAILED tests/test_encoder.py::TestCommandEncoder::test_encode_matrix_string
+FAILED tests/test_encoder.py::TestRoundtrip::test_complex_command_roundtrip
+======================== 4 failed, 17 passed in 0.88s =========================

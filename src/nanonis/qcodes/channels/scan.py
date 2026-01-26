@@ -24,10 +24,10 @@ class ScanChannel(InstrumentChannel):
         height: Scan height (m)
         angle: Scan angle (degrees)
         
-    Methods:
-        start(): Start scanning
-        stop(): Stop scanning
-        set_frame(): Set all frame parameters at once
+    Operations:
+        - start: Start scanning
+        - stop: Stop scanning
+        - set_frame: Set all frame parameters at once
         
     Example:
         >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'config.yaml')

@@ -1,0 +1,1007 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; QCoDeS Nanonis  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="QCoDeS Nanonis" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            QCoDeS Nanonis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-nanonis.command">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.ArgDefinition"><code class="docutils literal notranslate"><span class="pre">ArgDefinition</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.BiasProxy"><code class="docutils literal notranslate"><span class="pre">BiasProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.BiasProxy.get"><code class="docutils literal notranslate"><span class="pre">BiasProxy.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.BiasProxy.pulse"><code class="docutils literal notranslate"><span class="pre">BiasProxy.pulse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.BiasProxy.set"><code class="docutils literal notranslate"><span class="pre">BiasProxy.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.BiasProxy.voltage"><code class="docutils literal notranslate"><span class="pre">BiasProxy.voltage</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.CommandDecoder"><code class="docutils literal notranslate"><span class="pre">CommandDecoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandDecoder.decode"><code class="docutils literal notranslate"><span class="pre">CommandDecoder.decode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.CommandDefinition"><code class="docutils literal notranslate"><span class="pre">CommandDefinition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandDefinition.get_recv_types"><code class="docutils literal notranslate"><span class="pre">CommandDefinition.get_recv_types()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandDefinition.get_send_types"><code class="docutils literal notranslate"><span class="pre">CommandDefinition.get_send_types()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.CommandEncoder"><code class="docutils literal notranslate"><span class="pre">CommandEncoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandEncoder.encode"><code class="docutils literal notranslate"><span class="pre">CommandEncoder.encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.CommandRegistry"><code class="docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.get"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.has"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.has()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.list_commands"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.list_commands()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.list_modules"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.list_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.load_from_json"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.load_from_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.CommandRegistry.load_from_yaml"><code class="docutils literal notranslate"><span class="pre">CommandRegistry.load_from_yaml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.MotorProxy"><code class="docutils literal notranslate"><span class="pre">MotorProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.MotorProxy.move"><code class="docutils literal notranslate"><span class="pre">MotorProxy.move()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.NanonisController"><code class="docutils literal notranslate"><span class="pre">NanonisController</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.connect"><code class="docutils literal notranslate"><span class="pre">NanonisController.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.debug"><code class="docutils literal notranslate"><span class="pre">NanonisController.debug</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.disconnect"><code class="docutils literal notranslate"><span class="pre">NanonisController.disconnect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.get_command_info"><code class="docutils literal notranslate"><span class="pre">NanonisController.get_command_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.is_connected"><code class="docutils literal notranslate"><span class="pre">NanonisController.is_connected</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.list_commands"><code class="docutils literal notranslate"><span class="pre">NanonisController.list_commands()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.list_modules"><code class="docutils literal notranslate"><span class="pre">NanonisController.list_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.load_config"><code class="docutils literal notranslate"><span class="pre">NanonisController.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.send"><code class="docutils literal notranslate"><span class="pre">NanonisController.send()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.NanonisController.send_raw"><code class="docutils literal notranslate"><span class="pre">NanonisController.send_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.ScanProxy"><code class="docutils literal notranslate"><span class="pre">ScanProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.get_frame"><code class="docutils literal notranslate"><span class="pre">ScanProxy.get_frame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.pause"><code class="docutils literal notranslate"><span class="pre">ScanProxy.pause()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.resume"><code class="docutils literal notranslate"><span class="pre">ScanProxy.resume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.set_frame"><code class="docutils literal notranslate"><span class="pre">ScanProxy.set_frame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.start"><code class="docutils literal notranslate"><span class="pre">ScanProxy.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ScanProxy.stop"><code class="docutils literal notranslate"><span class="pre">ScanProxy.stop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.TipProxy"><code class="docutils literal notranslate"><span class="pre">TipProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.TipProxy.approach"><code class="docutils literal notranslate"><span class="pre">TipProxy.approach()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.TipProxy.withdraw"><code class="docutils literal notranslate"><span class="pre">TipProxy.withdraw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.command.ZControllerProxy"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.get_setpoint"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.get_setpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.is_on"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.is_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.off"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.on"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.set_setpoint"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.set_setpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.command.ZControllerProxy.setpoint"><code class="docutils literal notranslate"><span class="pre">ZControllerProxy.setpoint</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisCommandError"><code class="docutils literal notranslate"><span class="pre">NanonisCommandError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisConnectionError"><code class="docutils literal notranslate"><span class="pre">NanonisConnectionError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisError"><code class="docutils literal notranslate"><span class="pre">NanonisError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisProtocolError"><code class="docutils literal notranslate"><span class="pre">NanonisProtocolError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisTCPClient"><code class="docutils literal notranslate"><span class="pre">NanonisTCPClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.protocol.NanonisTCPClient.connect"><code class="docutils literal notranslate"><span class="pre">NanonisTCPClient.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.protocol.NanonisTCPClient.disconnect"><code class="docutils literal notranslate"><span class="pre">NanonisTCPClient.disconnect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.protocol.NanonisTCPClient.is_connected"><code class="docutils literal notranslate"><span class="pre">NanonisTCPClient.is_connected</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.protocol.NanonisTCPClient.send_raw"><code class="docutils literal notranslate"><span class="pre">NanonisTCPClient.send_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.protocol.NanonisTimeoutError"><code class="docutils literal notranslate"><span class="pre">NanonisTimeoutError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#qcodes-integration">QCoDeS Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.close"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.controller"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.controller</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.get_idn"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.get_idn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.list_commands"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.list_commands()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.list_modules"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.list_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.instrument.NanonisInstrument.send"><code class="docutils literal notranslate"><span class="pre">NanonisInstrument.send()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.bias.BiasChannel"><code class="docutils literal notranslate"><span class="pre">BiasChannel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nanonis.qcodes.channels.bias.BiasChannel.pulse"><code class="docutils literal notranslate"><span class="pre">BiasChannel.pulse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel"><code class="docutils literal notranslate"><span class="pre">ScanChannel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel.set_frame"><code class="docutils literal notranslate"><span class="pre">ScanChannel.set_frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel.start"><code class="docutils literal notranslate"><span class="pre">ScanChannel.start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel.stop"><code class="docutils literal notranslate"><span class="pre">ScanChannel.stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel.pause"><code class="docutils literal notranslate"><span class="pre">ScanChannel.pause()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nanonis.qcodes.channels.scan.ScanChannel.resume"><code class="docutils literal notranslate"><span class="pre">ScanChannel.resume()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QCoDeS Nanonis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<section id="module-nanonis.command">
+<span id="core-modules"></span><h2>Core Modules<a class="headerlink" href="#module-nanonis.command" title="Link to this heading"></a></h2>
+<p>Nanonis Command Layer</p>
+<p>Provides command encoding/decoding and the main controller interface.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.ArgDefinition">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">ArgDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.ArgDefinition" title="Link to this definition"></a></dt>
+<dd><p>Definition of a single argument.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.BiasProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">BiasProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.BiasProxy" title="Link to this definition"></a></dt>
+<dd><p>Convenience proxy for Bias commands.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span> <span class="o">=</span> <span class="n">NanonisController</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bias</span> <span class="o">=</span> <span class="n">BiasProxy</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bias</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bias</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.BiasProxy.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#nanonis.command.BiasProxy.get" title="Link to this definition"></a></dt>
+<dd><p>Get the current bias voltage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.BiasProxy.pulse">
+<span class="sig-name descname"><span class="pre">pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#nanonis.command.BiasProxy.pulse" title="Link to this definition"></a></dt>
+<dd><p>Execute a bias pulse.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.BiasProxy.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.BiasProxy.set" title="Link to this definition"></a></dt>
+<dd><p>Set the bias voltage.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.command.BiasProxy.voltage">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">voltage</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#nanonis.command.BiasProxy.voltage" title="Link to this definition"></a></dt>
+<dd><p>Current bias voltage (property-style access).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.CommandDecoder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">CommandDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.CommandDecoder" title="Link to this definition"></a></dt>
+<dd><p>Decodes bytes to Python values from Nanonis protocol.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandDecoder.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.CommandDecoder.decode" title="Link to this definition"></a></dt>
+<dd><p>Decode bytes according to type definitions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.CommandDefinition">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">CommandDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#nanonis.command.ArgDefinition" title="nanonis.command.registry.ArgDefinition"><span class="pre">ArgDefinition</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recv_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#nanonis.command.ArgDefinition" title="nanonis.command.registry.ArgDefinition"><span class="pre">ArgDefinition</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.CommandDefinition" title="Link to this definition"></a></dt>
+<dd><p>Definition of a Nanonis command.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandDefinition.get_recv_types">
+<span class="sig-name descname"><span class="pre">get_recv_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.CommandDefinition.get_recv_types" title="Link to this definition"></a></dt>
+<dd><p>Get list of (name, type) tuples for receive arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandDefinition.get_send_types">
+<span class="sig-name descname"><span class="pre">get_send_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.CommandDefinition.get_send_types" title="Link to this definition"></a></dt>
+<dd><p>Get list of (name, type) tuples for send arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.CommandEncoder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">CommandEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.CommandEncoder" title="Link to this definition"></a></dt>
+<dd><p>Encodes Python values to bytes for Nanonis protocol.</p>
+<p>Supports:
+- Scalar types: float32, float64, int16, int32, uint16, uint32, bool
+- String: length-prefixed UTF-8
+- 1D Arrays: array_float32, array_int32, array_string
+- 2D Arrays: matrix_float32, matrix_string</p>
+<p>Features:
+- Automatic type coercion to prevent precision loss
+- Debug logging support</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandEncoder.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#nanonis.command.CommandEncoder.encode" title="Link to this definition"></a></dt>
+<dd><p>Encode multiple values according to their type definitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – List of (name, type) tuples</p></li>
+<li><p><strong>values</strong> – Tuple of values to encode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Encoded bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">CommandRegistry</span></span><a class="headerlink" href="#nanonis.command.CommandRegistry" title="Link to this definition"></a></dt>
+<dd><p>Registry of all available Nanonis commands.</p>
+<p>Loads command definitions from YAML and provides lookup.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">registry</span> <span class="o">=</span> <span class="n">CommandRegistry</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">registry</span><span class="o">.</span><span class="n">load_from_yaml</span><span class="p">(</span><span class="s1">&#39;configs/nanonis_tcp.yaml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cmd</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Bias.Set&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">send_args</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nanonis.command.CommandDefinition" title="nanonis.command.registry.CommandDefinition"><span class="pre">CommandDefinition</span></a></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.get" title="Link to this definition"></a></dt>
+<dd><p>Get a command definition by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Command name (e.g., ‘Bias.Set’)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CommandDefinition for the command</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If command not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.has">
+<span class="sig-name descname"><span class="pre">has</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.has" title="Link to this definition"></a></dt>
+<dd><p>Check if a command exists.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.list_commands">
+<span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.list_commands" title="Link to this definition"></a></dt>
+<dd><p>List available commands, optionally filtered by prefix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prefix</strong> – Optional prefix to filter commands (e.g., ‘Bias.’)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of command names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.list_modules">
+<span class="sig-name descname"><span class="pre">list_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.list_modules" title="Link to this definition"></a></dt>
+<dd><p>List available command modules (prefixes before the first dot).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted list of module names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.load_from_json">
+<span class="sig-name descname"><span class="pre">load_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.load_from_json" title="Link to this definition"></a></dt>
+<dd><p>Load command definitions from a JSON file (legacy format).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the JSON configuration file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.CommandRegistry.load_from_yaml">
+<span class="sig-name descname"><span class="pre">load_from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.CommandRegistry.load_from_yaml" title="Link to this definition"></a></dt>
+<dd><p>Load command definitions from a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the YAML configuration file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.MotorProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">MotorProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.MotorProxy" title="Link to this definition"></a></dt>
+<dd><p>Convenience proxy for coarse motor commands.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.MotorProxy.move">
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.MotorProxy.move" title="Link to this definition"></a></dt>
+<dd><p>Move the coarse motor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> – One of ‘+X’, ‘-X’, ‘+Y’, ‘-Y’, ‘+Z’, ‘-Z’</p></li>
+<li><p><strong>steps</strong> – Number of steps to move</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">NanonisController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.NanonisController" title="Link to this definition"></a></dt>
+<dd><p>Layer 2: Main command interface for Nanonis.</p>
+<p>This is the primary entry point for sending commands to Nanonis.
+It combines the TCP client, command registry, and encoder/decoder.</p>
+<p>Features:
+- Configuration-driven command dispatch
+- Automatic type coercion
+- Error detection from Nanonis responses
+- Debug mode for verbose logging</p>
+<dl>
+<dt>Example (standalone):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">NanonisController</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6501</span><span class="p">,</span> <span class="s1">&#39;configs/nanonis_tcp.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ctrl</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">ctrl</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;Bias.Set&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">voltage</span> <span class="o">=</span> <span class="n">ctrl</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;Bias.Get&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bias: </span><span class="si">{</span><span class="n">voltage</span><span class="si">}</span><span class="s2"> V&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example (with debug mode):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span> <span class="o">=</span> <span class="n">NanonisController</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6501</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Enable verbose logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;Bias.Get&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.connect" title="Link to this definition"></a></dt>
+<dd><p>Establish connection to Nanonis.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.debug">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">debug</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#nanonis.command.NanonisController.debug" title="Link to this definition"></a></dt>
+<dd><p>Get debug mode status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Close connection to Nanonis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.get_command_info">
+<span class="sig-name descname"><span class="pre">get_command_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.get_command_info" title="Link to this definition"></a></dt>
+<dd><p>Get detailed information about a command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command</strong> – Command name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with command details</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.is_connected">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_connected</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#nanonis.command.NanonisController.is_connected" title="Link to this definition"></a></dt>
+<dd><p>Check if connected to Nanonis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.list_commands">
+<span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.list_commands" title="Link to this definition"></a></dt>
+<dd><p>List available commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prefix</strong> – Optional filter prefix (e.g., ‘Bias.’)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of command names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.list_modules">
+<span class="sig-name descname"><span class="pre">list_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.list_modules" title="Link to this definition"></a></dt>
+<dd><p>List available command modules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of module names (e.g., [‘Bias’, ‘Scan’, ‘ZCtrl’])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.load_config">
+<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.load_config" title="Link to this definition"></a></dt>
+<dd><p>Load command configuration from file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to YAML or JSON config file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.send" title="Link to this definition"></a></dt>
+<dd><p>Send a command to Nanonis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> – Command name (e.g., ‘Bias.Set’, ‘Scan.FrameGet’)</p></li>
+<li><p><strong>*args</strong> – Command arguments in order</p></li>
+<li><p><strong>check_error</strong> – Whether to check for Nanonis errors in response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If command has no return values
+- Single value: If command has one return value
+- Dict: If command has multiple return values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>None</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – If command not found in registry</p></li>
+<li><p><strong>ValueError</strong> – If argument encoding fails</p></li>
+<li><p><a class="reference internal" href="#nanonis.protocol.NanonisConnectionError" title="nanonis.protocol.NanonisConnectionError"><strong>NanonisConnectionError</strong></a> – If not connected</p></li>
+<li><p><a class="reference internal" href="#nanonis.protocol.NanonisCommandError" title="nanonis.protocol.NanonisCommandError"><strong>NanonisCommandError</strong></a> – If Nanonis returned an error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.NanonisController.send_raw">
+<span class="sig-name descname"><span class="pre">send_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#nanonis.command.NanonisController.send_raw" title="Link to this definition"></a></dt>
+<dd><p>Send a raw command without encoding/decoding.</p>
+<p>Useful for debugging or custom commands not in the registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> – Command name</p></li>
+<li><p><strong>body</strong> – Raw body bytes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Raw response bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">ScanProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.ScanProxy" title="Link to this definition"></a></dt>
+<dd><p>Convenience proxy for Scan commands.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span> <span class="o">=</span> <span class="n">NanonisController</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scan</span> <span class="o">=</span> <span class="n">ScanProxy</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scan</span><span class="o">.</span><span class="n">set_frame</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">100e-9</span><span class="p">,</span> <span class="mf">100e-9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scan</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.get_frame">
+<span class="sig-name descname"><span class="pre">get_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.get_frame" title="Link to this definition"></a></dt>
+<dd><p>Get the current scan frame parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.pause" title="Link to this definition"></a></dt>
+<dd><p>Pause scanning.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.resume">
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.resume" title="Link to this definition"></a></dt>
+<dd><p>Resume scanning.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.set_frame">
+<span class="sig-name descname"><span class="pre">set_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.set_frame" title="Link to this definition"></a></dt>
+<dd><p>Set the scan frame parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'up'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'down'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'up'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.start" title="Link to this definition"></a></dt>
+<dd><p>Start scanning.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ScanProxy.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ScanProxy.stop" title="Link to this definition"></a></dt>
+<dd><p>Stop scanning.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.TipProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">TipProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.TipProxy" title="Link to this definition"></a></dt>
+<dd><p>Convenience proxy for tip-related commands.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.TipProxy.approach">
+<span class="sig-name descname"><span class="pre">approach</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.TipProxy.approach" title="Link to this definition"></a></dt>
+<dd><p>Approach the surface.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.TipProxy.withdraw">
+<span class="sig-name descname"><span class="pre">withdraw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.TipProxy.withdraw" title="Link to this definition"></a></dt>
+<dd><p>Withdraw the tip.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.command.</span></span><span class="sig-name descname"><span class="pre">ZControllerProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.command.ZControllerProxy" title="Link to this definition"></a></dt>
+<dd><p>Convenience proxy for Z-Controller commands.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl</span> <span class="o">=</span> <span class="n">NanonisController</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zctrl</span> <span class="o">=</span> <span class="n">ZControllerProxy</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zctrl</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">zctrl</span><span class="o">.</span><span class="n">setpoint</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.get_setpoint">
+<span class="sig-name descname"><span class="pre">get_setpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.get_setpoint" title="Link to this definition"></a></dt>
+<dd><p>Get the current setpoint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.is_on">
+<span class="sig-name descname"><span class="pre">is_on</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.is_on" title="Link to this definition"></a></dt>
+<dd><p>Check if Z-controller is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.off">
+<span class="sig-name descname"><span class="pre">off</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.off" title="Link to this definition"></a></dt>
+<dd><p>Turn off the Z-controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.on">
+<span class="sig-name descname"><span class="pre">on</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.on" title="Link to this definition"></a></dt>
+<dd><p>Turn on the Z-controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.set_setpoint">
+<span class="sig-name descname"><span class="pre">set_setpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.set_setpoint" title="Link to this definition"></a></dt>
+<dd><p>Set the setpoint.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.command.ZControllerProxy.setpoint">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">setpoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#nanonis.command.ZControllerProxy.setpoint" title="Link to this definition"></a></dt>
+<dd><p>Current setpoint (property-style access).</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-nanonis.protocol">Nanonis Protocol Layer</p>
+<p>Provides low-level TCP communication with the Nanonis controller.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisCommandError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisCommandError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.protocol.NanonisCommandError" title="Link to this definition"></a></dt>
+<dd><p>Raised when a command fails on the Nanonis side.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisConnectionError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisConnectionError</span></span><a class="headerlink" href="#nanonis.protocol.NanonisConnectionError" title="Link to this definition"></a></dt>
+<dd><p>Raised when connection to Nanonis fails.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisError</span></span><a class="headerlink" href="#nanonis.protocol.NanonisError" title="Link to this definition"></a></dt>
+<dd><p>Base exception for all Nanonis-related errors.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisProtocolError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisProtocolError</span></span><a class="headerlink" href="#nanonis.protocol.NanonisProtocolError" title="Link to this definition"></a></dt>
+<dd><p>Raised when a protocol-level error occurs (malformed response, etc.).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTCPClient">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisTCPClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.protocol.NanonisTCPClient" title="Link to this definition"></a></dt>
+<dd><p>Layer 1: Low-level TCP communication with Nanonis.</p>
+<p>This class handles:
+- TCP socket connection management
+- Nanonis protocol header encoding (40 bytes)
+- Sending commands and receiving responses</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">NanonisTCPClient</span><span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6501</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">send_raw</span><span class="p">(</span><span class="s1">&#39;Bias.Get&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTCPClient.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.protocol.NanonisTCPClient.connect" title="Link to this definition"></a></dt>
+<dd><p>Establish TCP connection to Nanonis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nanonis.protocol.NanonisConnectionError" title="nanonis.protocol.NanonisConnectionError"><strong>NanonisConnectionError</strong></a> – If connection fails</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTCPClient.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.protocol.NanonisTCPClient.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Close the TCP connection.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTCPClient.is_connected">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_connected</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#nanonis.protocol.NanonisTCPClient.is_connected" title="Link to this definition"></a></dt>
+<dd><p>Check if socket is connected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTCPClient.send_raw">
+<span class="sig-name descname"><span class="pre">send_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#nanonis.protocol.NanonisTCPClient.send_raw" title="Link to this definition"></a></dt>
+<dd><p>Send a raw command to Nanonis and receive the response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command_name</strong> – The Nanonis command name (e.g., ‘Bias.Get’)</p></li>
+<li><p><strong>body</strong> – The encoded command body bytes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response body bytes (excluding header)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#nanonis.protocol.NanonisConnectionError" title="nanonis.protocol.NanonisConnectionError"><strong>NanonisConnectionError</strong></a> – If not connected</p></li>
+<li><p><a class="reference internal" href="#nanonis.protocol.NanonisProtocolError" title="nanonis.protocol.NanonisProtocolError"><strong>NanonisProtocolError</strong></a> – If response is malformed</p></li>
+<li><p><a class="reference internal" href="#nanonis.protocol.NanonisTimeoutError" title="nanonis.protocol.NanonisTimeoutError"><strong>NanonisTimeoutError</strong></a> – If response times out</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="nanonis.protocol.NanonisTimeoutError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.protocol.</span></span><span class="sig-name descname"><span class="pre">NanonisTimeoutError</span></span><a class="headerlink" href="#nanonis.protocol.NanonisTimeoutError" title="Link to this definition"></a></dt>
+<dd><p>Raised when a command times out.</p>
+</dd></dl>
+
+</section>
+<section id="qcodes-integration">
+<h2>QCoDeS Integration<a class="headerlink" href="#qcodes-integration" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.qcodes.instrument.</span></span><span class="sig-name descname"><span class="pre">NanonisInstrument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument" title="Link to this definition"></a></dt>
+<dd><p>QCoDeS Instrument for Nanonis SPM controller.</p>
+<p>This is Layer 3 of the architecture, providing QCoDeS integration
+on top of the NanonisController (Layer 2).</p>
+<dl class="simple">
+<dt>Submodules:</dt><dd><p>bias: BiasChannel for voltage control
+scan: ScanChannel for scan control</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">nanonis.qcodes</span><span class="w"> </span><span class="kn">import</span> <span class="n">NanonisInstrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">qcodes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Station</span><span class="p">,</span> <span class="n">Measurement</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create instrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span> <span class="o">=</span> <span class="n">NanonisInstrument</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;nanonis&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">port</span><span class="o">=</span><span class="mi">6501</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">config_path</span><span class="o">=</span><span class="s1">&#39;configs/nanonis_tcp.yaml&#39;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use QCoDeS parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">voltage</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nanonis</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">voltage</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in Station</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">station</span> <span class="o">=</span> <span class="n">Station</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">station</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">nanonis</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in Measurement</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">meas</span> <span class="o">=</span> <span class="n">Measurement</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">meas</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">nanonis</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">voltage</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Direct Layer 2 access if needed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;Custom.Command&#39;</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Clean up</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.close" title="Link to this definition"></a></dt>
+<dd><p>Close the instrument and disconnect.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.controller">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">controller</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nanonis.command.NanonisController" title="nanonis.command.controller.NanonisController"><span class="pre">NanonisController</span></a></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.controller" title="Link to this definition"></a></dt>
+<dd><p>Access to underlying controller for advanced usage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.get_idn">
+<span class="sig-name descname"><span class="pre">get_idn</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.get_idn" title="Link to this definition"></a></dt>
+<dd><p>Get instrument identification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with vendor, model, serial, firmware info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.list_commands">
+<span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.list_commands" title="Link to this definition"></a></dt>
+<dd><p>List available commands, optionally filtered by prefix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.list_modules">
+<span class="sig-name descname"><span class="pre">list_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.list_modules" title="Link to this definition"></a></dt>
+<dd><p>List available command modules.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.instrument.NanonisInstrument.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#nanonis.qcodes.instrument.NanonisInstrument.send" title="Link to this definition"></a></dt>
+<dd><p>Send a command directly via Layer 2.</p>
+<p>This provides direct access to any command in the registry,
+bypassing the QCoDeS parameter system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> – Command name (e.g., ‘ZCtrl.OnOffSet’)</p></li>
+<li><p><strong>*args</strong> – Command arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Command result</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.bias.BiasChannel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.qcodes.channels.bias.</span></span><span class="sig-name descname"><span class="pre">BiasChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.qcodes.channels.bias.BiasChannel" title="Link to this definition"></a></dt>
+<dd><p>QCoDeS channel for Nanonis Bias control.</p>
+<p>Provides parameters and methods for controlling the bias voltage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>voltage</strong> – Current bias voltage (V), gettable and settable</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span> <span class="o">=</span> <span class="n">NanonisInstrument</span><span class="p">(</span><span class="s1">&#39;nanonis&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6501</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">voltage</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Set to 0.5V</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nanonis</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">voltage</span><span class="p">())</span>  <span class="c1"># Read current value</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.bias.BiasChannel.pulse">
+<span class="sig-name descname"><span class="pre">pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_hold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.bias.BiasChannel.pulse" title="Link to this definition"></a></dt>
+<dd><p>Apply a bias pulse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – Pulse width in seconds</p></li>
+<li><p><strong>voltage</strong> – Pulse voltage in V</p></li>
+<li><p><strong>z_hold</strong> – Whether to hold Z-controller during pulse</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nanonis.qcodes.channels.scan.</span></span><span class="sig-name descname"><span class="pre">ScanChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel" title="Link to this definition"></a></dt>
+<dd><p>QCoDeS channel for Nanonis Scan control.</p>
+<p>Provides parameters and methods for controlling the scanner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center_x</strong> – Scan center X position (m)</p></li>
+<li><p><strong>center_y</strong> – Scan center Y position (m)</p></li>
+<li><p><strong>width</strong> – Scan width (m)</p></li>
+<li><p><strong>height</strong> – Scan height (m)</p></li>
+<li><p><strong>angle</strong> – Scan angle (degrees)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Operations:</dt><dd><ul class="simple">
+<li><p>start: Start scanning</p></li>
+<li><p>stop: Stop scanning</p></li>
+<li><p>set_frame: Set all frame parameters at once</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span> <span class="o">=</span> <span class="n">NanonisInstrument</span><span class="p">(</span><span class="s1">&#39;nanonis&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6501</span><span class="p">,</span> <span class="s1">&#39;config.yaml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="mf">100e-9</span><span class="p">)</span>  <span class="c1"># Set 100nm scan width</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nanonis</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel.set_frame">
+<span class="sig-prename descclassname"><span class="pre">ScanChannel.</span></span><span class="sig-name descname"><span class="pre">set_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel.set_frame" title="Link to this definition"></a></dt>
+<dd><p>Set all scan frame parameters at once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center_x</strong> – X position of scan center (m)</p></li>
+<li><p><strong>center_y</strong> – Y position of scan center (m)</p></li>
+<li><p><strong>width</strong> – Width of scan frame (m)</p></li>
+<li><p><strong>height</strong> – Height of scan frame (m)</p></li>
+<li><p><strong>angle</strong> – Rotation angle (degrees)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel.start">
+<span class="sig-prename descclassname"><span class="pre">ScanChannel.</span></span><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'up'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'down'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'up'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel.start" title="Link to this definition"></a></dt>
+<dd><p>Start scanning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction</strong> – Scan direction, ‘up’ or ‘down’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel.stop">
+<span class="sig-prename descclassname"><span class="pre">ScanChannel.</span></span><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel.stop" title="Link to this definition"></a></dt>
+<dd><p>Stop scanning.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel.pause">
+<span class="sig-prename descclassname"><span class="pre">ScanChannel.</span></span><span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel.pause" title="Link to this definition"></a></dt>
+<dd><p>Pause scanning.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nanonis.qcodes.channels.scan.ScanChannel.resume">
+<span class="sig-prename descclassname"><span class="pre">ScanChannel.</span></span><span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nanonis.qcodes.channels.scan.ScanChannel.resume" title="Link to this definition"></a></dt>
+<dd><p>Resume scanning.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="QCoDeS Nanonis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, K. Jin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

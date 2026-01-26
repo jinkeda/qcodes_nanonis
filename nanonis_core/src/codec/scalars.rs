@@ -13,6 +13,7 @@ use pyo3_stub_gen::derive::gen_stub_pyfunction;
 /// Encode a 32-bit float to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_float32(value: f32) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -20,6 +21,7 @@ pub fn encode_float32(value: f32) -> Vec<u8> {
 /// Encode a 64-bit float to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_float64(value: f64) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -27,6 +29,7 @@ pub fn encode_float64(value: f64) -> Vec<u8> {
 /// Encode a 16-bit signed integer to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_int16(value: i16) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -34,6 +37,7 @@ pub fn encode_int16(value: i16) -> Vec<u8> {
 /// Encode a 32-bit signed integer to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_int32(value: i32) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -41,6 +45,7 @@ pub fn encode_int32(value: i32) -> Vec<u8> {
 /// Encode a 16-bit unsigned integer to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_uint16(value: u16) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -48,6 +53,7 @@ pub fn encode_uint16(value: u16) -> Vec<u8> {
 /// Encode a 32-bit unsigned integer to big-endian bytes
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_uint32(value: u32) -> Vec<u8> {
     value.to_be_bytes().to_vec()
 }
@@ -55,6 +61,7 @@ pub fn encode_uint32(value: u32) -> Vec<u8> {
 /// Encode a boolean as 4-byte big-endian uint32 (Nanonis uses 4-byte bools)
 #[gen_stub_pyfunction]
 #[pyfunction]
+#[inline]
 pub fn encode_bool(value: bool) -> Vec<u8> {
     let int_val: u32 = if value { 1 } else { 0 };
     int_val.to_be_bytes().to_vec()
@@ -151,6 +158,7 @@ pub fn decode_bool(data: Vec<u8>) -> PyResult<bool> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn test_float32_roundtrip() {
@@ -192,5 +200,49 @@ mod tests {
         assert_eq!(encode_bool(false), vec![0, 0, 0, 0]);
         assert!(decode_bool(vec![0, 0, 0, 1]).unwrap());
         assert!(!decode_bool(vec![0, 0, 0, 0]).unwrap());
+    }
+
+    proptest! {
+        #[test]
+        fn proptest_float32_roundtrip(value in any::<f32>()) {
+            let encoded = encode_float32(value);
+            let decoded = decode_float32(encoded).unwrap();
+            prop_assert_eq!(value.to_bits(), decoded.to_bits());
+        }
+
+        #[test]
+        fn proptest_float64_roundtrip(value in any::<f64>()) {
+            let encoded = encode_float64(value);
+            let decoded = decode_float64(encoded).unwrap();
+            prop_assert_eq!(value.to_bits(), decoded.to_bits());
+        }
+
+        #[test]
+        fn proptest_int32_roundtrip(value in any::<i32>()) {
+            let encoded = encode_int32(value);
+            let decoded = decode_int32(encoded).unwrap();
+            prop_assert_eq!(value, decoded);
+        }
+
+        #[test]
+        fn proptest_uint32_roundtrip(value in any::<u32>()) {
+            let encoded = encode_uint32(value);
+            let decoded = decode_uint32(encoded).unwrap();
+            prop_assert_eq!(value, decoded);
+        }
+
+        #[test]
+        fn proptest_int16_roundtrip(value in any::<i16>()) {
+            let encoded = encode_int16(value);
+            let decoded = decode_int16(encoded).unwrap();
+            prop_assert_eq!(value, decoded);
+        }
+
+        #[test]
+        fn proptest_uint16_roundtrip(value in any::<u16>()) {
+            let encoded = encode_uint16(value);
+            let decoded = decode_uint16(encoded).unwrap();
+            prop_assert_eq!(value, decoded);
+        }
     }
 }

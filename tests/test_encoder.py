@@ -5,6 +5,7 @@ Tests for Encoder/Decoder
 Tests for CommandEncoder and CommandDecoder roundtrip encoding.
 """
 
+import struct
 import pytest
 import numpy as np
 
@@ -68,18 +69,18 @@ class TestCommandEncoder:
         assert result['value'] == 100000
     
     def test_encode_bool_true(self):
-        """Test bool encoding (True)."""
+        """Test bool encoding (True) uses 4-byte big-endian format."""
         args = [('value', 'bool')]
         encoded = self.encoder.encode(args, (True,))
-        
+        assert encoded == struct.pack('>I', 1)
         result = self.decoder.decode(args, encoded)
         assert result['value'] is True
     
     def test_encode_bool_false(self):
-        """Test bool encoding (False)."""
+        """Test bool encoding (False) uses 4-byte big-endian format."""
         args = [('value', 'bool')]
         encoded = self.encoder.encode(args, (False,))
-        
+        assert encoded == struct.pack('>I', 0)
         result = self.decoder.decode(args, encoded)
         assert result['value'] is False
     
@@ -133,6 +134,32 @@ class TestCommandEncoder:
         
         result = self.decoder.decode(args, encoded)
         assert result['values'] == strings
+
+    def test_encode_empty_array_float32(self):
+        """Test empty float32 array encoding."""
+        args = [('values', 'array_float32')]
+        arr = np.array([], dtype=np.float32)
+        encoded = self.encoder.encode(args, (arr,))
+
+        result = self.decoder.decode(args, encoded)
+        assert result['values'].size == 0
+
+    def test_encode_empty_array_int32(self):
+        """Test empty int32 array encoding."""
+        args = [('values', 'array_int32')]
+        arr = np.array([], dtype=np.int32)
+        encoded = self.encoder.encode(args, (arr,))
+
+        result = self.decoder.decode(args, encoded)
+        assert result['values'].size == 0
+
+    def test_encode_empty_array_string(self):
+        """Test empty string array encoding."""
+        args = [('values', 'array_string')]
+        encoded = self.encoder.encode(args, ([],))
+
+        result = self.decoder.decode(args, encoded)
+        assert result['values'] == []
     
     def test_encode_matrix_float32(self):
         """Test float32 2D array encoding."""
@@ -144,13 +171,11 @@ class TestCommandEncoder:
         np.testing.assert_array_almost_equal(result['values'], arr)
     
     def test_encode_matrix_string(self):
-        """Test string 2D array encoding."""
+        """Test string 2D array encoding is not supported."""
         args = [('values', 'matrix_string')]
         matrix = [['a', 'b'], ['c', 'd']]
-        encoded = self.encoder.encode(args, (matrix,))
-        
-        result = self.decoder.decode(args, encoded)
-        assert result['values'] == matrix
+        with pytest.raises(ValueError, match='matrix_string encoding is not supported'):
+            self.encoder.encode(args, (matrix,))
     
     def test_encode_multiple_args(self):
         """Test encoding multiple arguments."""
@@ -180,6 +205,22 @@ class TestCommandEncoder:
         args = [('value', 'unknown_type')]
         with pytest.raises(ValueError, match='Unknown type'):
             self.encoder.encode(args, ('test',))
+
+    def test_encode_int32_boundaries(self):
+        """Test int32 boundary values."""
+        args = [('value', 'int32')]
+        for value in (np.iinfo(np.int32).min, np.iinfo(np.int32).max):
+            encoded = self.encoder.encode(args, (value,))
+            result = self.decoder.decode(args, encoded)
+            assert result['value'] == value
+
+    def test_encode_uint32_max(self):
+        """Test uint32 max value."""
+        args = [('value', 'uint32')]
+        value = np.iinfo(np.uint32).max
+        encoded = self.encoder.encode(args, (value,))
+        result = self.decoder.decode(args, encoded)
+        assert result['value'] == value
 
 
 class TestRoundtrip:
@@ -223,6 +264,97 @@ class TestRoundtrip:
         result = self.decoder.decode(args, encoded)
         
         assert result['enabled'] is True
-        assert abs(result['setpoint'] - 1e-10) < 1e-16
+        assert abs(result['setpoint'] - np.float32(1e-10)) < 1e-12
         np.testing.assert_array_equal(result['channels'], [0, 1, 2])
         assert result['name'] == 'Current'
+
+
+class TestDecoderEdgeCases:
+    """Decoder edge case tests."""
+
+    def setup_method(self):
+        self.decoder = CommandDecoder()
+
+    def test_decode_string_truncated(self):
+        args = [('value', 'string')]
+        data = struct.pack('>I', 4) + b'a'
+        with pytest.raises(ValueError, match='Not enough'):
+            self.decoder.decode(args, data)
+
+    def test_decode_array_string_truncated(self):
+        args = [('values', 'array_string')]
+        data = struct.pack('>I', 1) + struct.pack('>I', 5) + b'hi'
+        with pytest.raises(ValueError, match='Not enough'):
+            self.decoder.decode(args, data)
+
+    def test_decode_matrix_truncated(self):
+        args = [('values', 'matrix_float32')]
+        data = struct.pack('>II', 2, 2) + b'\x00\x00\x00\x00'
+        with pytest.raises(ValueError, match='Not enough'):
+            self.decoder.decode(args, data)
+
+
+class TestEdgeCases:
+    """Edge case tests for encoder/decoder."""
+
+    def setup_method(self):
+        self.encoder = CommandEncoder()
+        self.decoder = CommandDecoder()
+
+    def test_float32_nan(self):
+        """Test NaN encoding/decoding."""
+        args = [('value', 'float32')]
+        encoded = self.encoder.encode(args, (float('nan'),))
+        result = self.decoder.decode(args, encoded)
+        assert np.isnan(result['value'])
+
+    def test_float32_positive_inf(self):
+        """Test positive infinity encoding/decoding."""
+        args = [('value', 'float32')]
+        encoded = self.encoder.encode(args, (float('inf'),))
+        result = self.decoder.decode(args, encoded)
+        assert np.isinf(result['value']) and result['value'] > 0
+
+    def test_float32_negative_inf(self):
+        """Test negative infinity encoding/decoding."""
+        args = [('value', 'float32')]
+        encoded = self.encoder.encode(args, (float('-inf'),))
+        result = self.decoder.decode(args, encoded)
+        assert np.isinf(result['value']) and result['value'] < 0
+
+    def test_float64_special_values(self):
+        """Test float64 special values roundtrip."""
+        args = [('value', 'float64')]
+        for value in [float('nan'), float('inf'), float('-inf')]:
+            encoded = self.encoder.encode(args, (value,))
+            result = self.decoder.decode(args, encoded)
+            if np.isnan(value):
+                assert np.isnan(result['value'])
+            else:
+                assert result['value'] == value
+
+    def test_string_with_null_bytes(self):
+        """Test string containing null bytes."""
+        args = [('value', 'string')]
+        value = "hello\x00world"
+        encoded = self.encoder.encode(args, (value,))
+        result = self.decoder.decode(args, encoded)
+        assert result['value'] == value
+
+    def test_large_array_float32(self):
+        """Test large array encoding (stress test)."""
+        args = [('values', 'array_float32')]
+        # 100k elements (smaller than 1M for faster tests)
+        arr = np.random.randn(100_000).astype(np.float32)
+        encoded = self.encoder.encode(args, (arr,))
+        result = self.decoder.decode(args, encoded)
+        np.testing.assert_array_almost_equal(result['values'], arr)
+
+    def test_large_array_int32(self):
+        """Test large int32 array encoding."""
+        args = [('values', 'array_int32')]
+        arr = np.arange(100_000, dtype=np.int32)
+        encoded = self.encoder.encode(args, (arr,))
+        result = self.decoder.decode(args, encoded)
+        np.testing.assert_array_equal(result['values'], arr)
+

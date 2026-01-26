@@ -18,6 +18,31 @@ from nanonis.protocol import (
 )
 
 
+class _FakeRustClient:
+    def __init__(self) -> None:
+        self._connected = False
+        self.connect = Mock(side_effect=self._connect)
+        self.disconnect = Mock(side_effect=self._disconnect)
+
+    @property
+    def is_connected(self) -> bool:
+        return self._connected
+
+    def _connect(self) -> None:
+        self._connected = True
+
+    def _disconnect(self) -> None:
+        self._connected = False
+
+
+def _attach_fake_rust_client(client: NanonisTCPClient) -> _FakeRustClient | None:
+    if client._rust_client is None:
+        return None
+    fake = _FakeRustClient()
+    client._rust_client = fake
+    return fake
+
+
 class TestNanonisTCPClient:
     """Tests for NanonisTCPClient."""
     
@@ -41,10 +66,15 @@ class TestNanonisTCPClient:
         mock_socket_class.return_value = mock_socket
         
         client = NanonisTCPClient('127.0.0.1', 6501)
+        rust_client = _attach_fake_rust_client(client)
         client.connect()
         
-        mock_socket.settimeout.assert_called_once_with(10.0)
-        mock_socket.connect.assert_called_once_with(('127.0.0.1', 6501))
+        if rust_client:
+            rust_client.connect.assert_called_once_with()
+            mock_socket_class.assert_not_called()
+        else:
+            mock_socket.settimeout.assert_called_once_with(10.0)
+            mock_socket.connect.assert_called_once_with(('127.0.0.1', 6501))
         assert client.is_connected
     
     @patch('socket.socket')
@@ -55,9 +85,14 @@ class TestNanonisTCPClient:
         mock_socket_class.return_value = mock_socket
         
         client = NanonisTCPClient('127.0.0.1', 6501)
+        rust_client = _attach_fake_rust_client(client)
+        if rust_client:
+            rust_client.connect.side_effect = Exception("Connection refused")
         with pytest.raises(NanonisConnectionError):
             client.connect()
         
+        if rust_client:
+            mock_socket_class.assert_not_called()
         assert not client.is_connected
     
     @patch('socket.socket')
@@ -67,10 +102,15 @@ class TestNanonisTCPClient:
         mock_socket_class.return_value = mock_socket
         
         client = NanonisTCPClient('127.0.0.1', 6501)
+        rust_client = _attach_fake_rust_client(client)
         client.connect()
         client.disconnect()
         
-        mock_socket.close.assert_called_once()
+        if rust_client:
+            rust_client.disconnect.assert_called_once_with()
+            mock_socket_class.assert_not_called()
+        else:
+            mock_socket.close.assert_called_once()
         assert not client.is_connected
     
     def test_encode_header(self):
@@ -96,10 +136,16 @@ class TestNanonisTCPClient:
         mock_socket = MagicMock()
         mock_socket_class.return_value = mock_socket
         
-        with NanonisTCPClient('127.0.0.1', 6501) as client:
+        client = NanonisTCPClient('127.0.0.1', 6501)
+        rust_client = _attach_fake_rust_client(client)
+        with client as client:
             assert client.is_connected
         
-        mock_socket.close.assert_called_once()
+        if rust_client:
+            rust_client.disconnect.assert_called_once_with()
+            mock_socket_class.assert_not_called()
+        else:
+            mock_socket.close.assert_called_once()
     
     def test_repr_disconnected(self):
         """Test string representation when disconnected."""
@@ -113,8 +159,11 @@ class TestNanonisTCPClient:
         mock_socket_class.return_value = mock_socket
         
         client = NanonisTCPClient('127.0.0.1', 6501)
+        rust_client = _attach_fake_rust_client(client)
         client.connect()
         assert 'connected' in repr(client)
+        if rust_client:
+            assert 'backend=Rust' in repr(client)
 
 
 class TestExceptions:

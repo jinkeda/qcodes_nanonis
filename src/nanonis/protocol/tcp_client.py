@@ -194,7 +194,14 @@ class NanonisTCPClient:
         # Body size: 4 bytes, big-endian int32
         size_bytes = struct.pack('>i', body_size)
         
-        # Flags: 4 bytes (send=1, reserved=0)
+        # Flags: 4 bytes total
+        # - Bytes 0-1: Send flag (uint16, big-endian)
+        #   - 1 = Request (client -> Nanonis)
+        #   - 0 = Response (Nanonis -> client, never set by us)
+        #   - Other values: Unknown/undocumented
+        # - Bytes 2-3: Reserved (uint16, always 0)
+        # Note: These values were determined by protocol analysis;
+        # official documentation may not exist.
         flags = struct.pack('>HH', 1, 0)
         
         return cmd_bytes + size_bytes + flags

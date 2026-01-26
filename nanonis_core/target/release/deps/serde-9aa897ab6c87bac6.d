@@ -1,0 +1,14 @@
+C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\deps\serde-9aa897ab6c87bac6.d: C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\build\serde-fa1d945d8b5feaec\out/private.rs
+
+C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\deps\libserde-9aa897ab6c87bac6.rlib: C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\build\serde-fa1d945d8b5feaec\out/private.rs
+
+C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\deps\libserde-9aa897ab6c87bac6.rmeta: C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\build\serde-fa1d945d8b5feaec\out/private.rs
+
+C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\k.jin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core\target\release\build\serde-fa1d945d8b5feaec\out/private.rs:
+
+# env-dep:OUT_DIR=C:\\Users\\k.jin\\OneDrive\\PhD\\claude\\qcodes_Nanonis\\nanonis_core\\target\\release\\build\\serde-fa1d945d8b5feaec\\out

@@ -192,6 +192,41 @@ with NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml') as ctrl:
 | `array_string` | list[str] | variable | 1D string array |
 | `matrix_float32` | np.ndarray | variable | 2D float32 matrix |
 
+## Protocol Specification
+
+The Nanonis TCP protocol uses a simple request-response pattern over TCP.
+
+### Message Format
+
+```
++----------------+----------------+----------------+
+|    Header      |      Body      |   (Response)   |
+|   (40 bytes)   | (variable len) |  Error Info    |
++----------------+----------------+----------------+
+```
+
+### Header Format (40 bytes)
+
+| Offset | Size | Type   | Description                       |
+|--------|------|--------|-----------------------------------|
+| 0      | 32   | ASCII  | Command name (null-padded)        |
+| 32     | 4    | int32  | Body size (big-endian)            |
+| 36     | 2    | uint16 | Send flag (1=request, 0=response) |
+| 38     | 2    | uint16 | Reserved (always 0)               |
+
+### Data Type Wire Formats
+
+| Type          | Size    | Format               |
+|---------------|---------|----------------------|
+| float32       | 4 bytes | IEEE 754, big-endian |
+| float64       | 8 bytes | IEEE 754, big-endian |
+| int16/uint16  | 2 bytes | Two's complement, big-endian |
+| int32/uint32  | 4 bytes | Two's complement, big-endian |
+| bool          | 4 bytes | uint32 (0=false, 1=true) |
+| string        | 4+N     | uint32 length + UTF-8 bytes |
+| array_T       | 4+N*S   | uint32 count + elements |
+| matrix_T      | 8+R*C*S | uint32 rows, cols + elements |
+
 ## Directory Structure
 
 ```
@@ -227,15 +262,37 @@ qcodes_nanonis/
 
 ## Performance
 
-The optional Rust backend provides significant speedups for encoding/decoding:
+The optional Rust backend (`nanonis_core`) provides performance benefits for complex operations.
+
+### Benchmark Results
+
+Benchmarks run on Python 3.12.8 (Windows, AMD64):
 
 | Operation | Python | Rust | Speedup |
 |-----------|--------|------|---------|
-| encode_float32 | ~1.0 us | ~0.1 us | ~10x |
-| encode_array (1000 floats) | ~100 us | ~5 us | ~20x |
-| decode_matrix (100x100) | ~2 ms | ~0.05 ms | ~40x |
+| encode_float32 | 93 ns | 1.2 us | 0.1x |
+| encode_float64 | 100 ns | 1.1 us | 0.1x |
+| encode_int32 | 138 ns | 1.6 us | 0.1x |
+| encode_string | 372 ns | 1.4 us | 0.3x |
+| encode_array_float32 (1000 elem) | 210 us | 241 us | 0.9x |
+| encode_array_float64 (1000 elem) | 198 us | 239 us | 0.8x |
+| decode_array_float32 (1000 elem) | 32 us | 86 us | 0.4x |
+| **encode_matrix_float32 (100×100)** | **11.6 ms** | **3.7 ms** | **3.2x** |
+| decode_matrix_float32 (100×100) | 512 us | 706 us | 0.7x |
 
-Check backend status:
+### Analysis
+
+- **FFI Overhead**: For simple scalar operations, Python's built-in `struct` module (C-based) is faster than crossing the Python↔Rust FFI boundary.
+- **Rust Wins on Complex Operations**: The `encode_matrix_float32` shows **3.2x speedup** where Rust's performance advantage overcomes FFI overhead.
+- **Best Use Case**: The Rust backend is most beneficial for large matrix operations and batch processing where FFI overhead is amortized.
+
+### Run Benchmarks
+
+```bash
+python -m benchmarks.bench_codec
+```
+
+### Check Backend Status
 
 ```python
 from nanonis.command.encoder import RUST_BACKEND
@@ -264,6 +321,10 @@ except NanonisCommandError as e:
     print(f"Nanonis returned error: {e}")
 ```
 
+## Thread Safety
+
+Nanonis controllers and QCoDeS instruments are not thread-safe. The library does not add internal locks, so serialize access in your application and avoid concurrent `send` calls from multiple threads.
+
 ## Running Tests
 
 ```bash
@@ -275,9 +336,32 @@ pytest tests/ --cov=nanonis --cov-report=html
 
 # Run only fast unit tests
 pytest tests/ -v -m "not slow"
+
+# Run Rust tests
+cd nanonis_core && cargo test
 ```
 
+```powershell
+# Windows (if LNK1318/PDB errors occur)
+powershell -ExecutionPolicy Bypass -File scripts/run_rust_tests.ps1
+```
+
+## Building Docs
+
+```bash
+python -m pip install ".[docs]"
+sphinx-build -b html docs docs/_build/html
+```
+
+HTML output: `docs/_build/html/index.html`
+
 ## Troubleshooting
+
+### Hardware Setup (Nanonis TCP Server)
+- In Nanonis, enable the TCP server in the software settings.
+- Set the TCP port (default 6501) and confirm the IP address.
+- Allow remote connections if prompted and restart Nanonis if required.
+- Ensure the host firewall allows inbound connections on the chosen port.
 
 ### Connection Refused
 - Verify Nanonis TCP server is enabled in software settings
