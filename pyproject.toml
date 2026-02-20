@@ -1,0 +1,65 @@
+[project]
+name = "qcodes-nanonis"
+version = "0.1.0"
+description = "QCoDeS driver for Nanonis SPM controllers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "K. Jin", email = "k.jin@fz-juelich.de"}
+]
+keywords = ["nanonis", "spm", "stm", "afm", "qcodes", "measurement"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+    "numpy>=1.20",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+qcodes = [
+    "qcodes>=0.40",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "mypy>=1.0",
+    "ruff>=0.1",
+]
+docs = [
+    "sphinx>=7.0",
+    "sphinx-rtd-theme>=2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jinkeda/qcodes_nanonis"
+Repository = "https://github.com/jinkeda/qcodes_nanonis"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true

@@ -1,0 +1,5284 @@
+# Nanonis TCP Command Definitions
+# Auto-generated from nanonis_tcp_auto.json
+# Do not edit manually - regenerate using convert_json_to_yaml.py
+
+Bias.Set:
+  send:
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+  recv: []
+Bias.Get:
+  send: []
+  recv:
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+Bias.RangeSet:
+  send:
+  - name: bias_range_index
+    type: uint16
+    original_name: Bias range index
+  recv: []
+Bias.RangeGet:
+  send: []
+  recv:
+  - name: bias_ranges_size
+    type: int32
+    original_name: Bias ranges size
+  - name: num_ranges
+    type: int32
+    original_name: Number of ranges
+  - name: bias_ranges
+    type: array_string
+    original_name: Bias ranges
+  - name: bias_range_index
+    type: uint16
+    original_name: Bias range index
+Bias.CalibrSet:
+  send:
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+  recv: []
+Bias.CalibrGet:
+  send: []
+  recv:
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+Bias.Pulse:
+  send:
+  - name: wait_until_done
+    type: uint32
+    original_name: Wait until done
+  - name: bias_pulse_width_s
+    type: float32
+    original_name: Bias pulse width (s)
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+  - name: z_controller_on_hold
+    type: uint16
+    original_name: Z-Controller on hold
+  - name: pulse_absolute_relative
+    type: uint16
+    original_name: Pulse absolute/relative
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  - name: sweep_direction
+    type: uint32
+    original_name: Sweep direction
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  - name: save_base_name
+    type: string
+    original_name: Save base name
+  - name: reset_bias
+    type: uint32
+    original_name: Reset bias
+  - name: num_steps
+    type: uint16
+    original_name: Number of steps
+  - name: period_ms
+    type: uint16
+    original_name: Period (ms)
+  - name: autosave
+    type: uint16
+    original_name: Autosave
+  - name: save_dialog_box
+    type: uint16
+    original_name: Save dialog box
+  - name: lower_limit
+    type: float32
+    original_name: Lower limit
+  - name: upper_limit
+    type: float32
+    original_name: Upper limit
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: save_all
+    type: uint16
+    original_name: Save all
+  - name: num_sweeps
+    type: int32
+    original_name: Number of sweeps
+  - name: backward_sweep
+    type: uint16
+    original_name: Backward sweep
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: z_offset_m
+    type: float32
+    original_name: Z offset (m)
+  - name: show_save_dialog
+    type: uint16
+    original_name: Show save dialog
+  - name: reset_bias
+    type: uint16
+    original_name: Reset Bias
+  - name: z_controller_hold
+    type: uint16
+    original_name: Z-Controller Hold
+  - name: record_final_z
+    type: uint16
+    original_name: Record final Z
+  - name: lockin_run
+    type: uint16
+    original_name: Lockin Run
+  - name: start_value_v
+    type: float32
+    original_name: Start value (V)
+  - name: end_value_v
+    type: float32
+    original_name: End value (V)
+  - name: z_averaging_time_s
+    type: float32
+    original_name: Z averaging time (s)
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: maximum_slew_rate_v_s
+    type: float32
+    original_name: Maximum slew rate (V/s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: end_settling_time_s
+    type: float32
+    original_name: End settling time (s)
+  - name: z_control_time_s
+    type: float32
+    original_name: Z control time (s)
+  - name: digital_sync
+    type: uint16
+    original_name: Digital Sync.
+  - name: ttl_line
+    type: uint16
+    original_name: TTL line
+  - name: ttl_polarity
+    type: uint16
+    original_name: TTL polarity
+  - name: time_to_on_s
+    type: float32
+    original_name: Time to on (s)
+  - name: on_duration_s
+    type: float32
+    original_name: On duration (s)
+  - name: pulse_sequence_nr
+    type: uint16
+    original_name: Pulse Sequence Nr.
+  - name: nr_periods
+    type: uint32
+    original_name: Nr. Periods
+  - name: alternate_z_controller_setpoint
+    type: uint16
+    original_name: Alternate Z -controller setpoint
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: z_offset_revert
+    type: uint16
+    original_name: Z Offset Revert
+  - name: lock_in_per_segment
+    type: uint32
+    original_name: Lock -In per segment
+  - name: sweep_mode_int
+    type: string
+    original_name: Sweep mode (int)
+  - name: sweep_mode
+    type: string
+    original_name: Sweep mode
+  - name: num_segments
+    type: int32
+    original_name: Number of segments
+  - name: bias_start_v
+    type: array_float32
+    original_name: Bias start (V)
+  - name: bias_end_v
+    type: array_float32
+    original_name: Bias end (V)
+  - name: steps
+    type: array_int32
+    original_name: Steps
+  - name: lock_in_run_1d_array
+    type: uint32
+    original_name: Lock -In run (1D array
+  recv:
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: lower_limit
+    type: float32
+    original_name: Lower limit
+  - name: upper_limit
+    type: float32
+    original_name: Upper limit
+  - name: num_parameters
+    type: int32
+    original_name: Number of parameters
+  - name: parameters
+    type: array_float32
+    original_name: Parameters
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: channels_size_int
+    type: string
+    original_name: Channels size (int)
+  - name: num_channels_names
+    type: int32
+    original_name: Number of channels names
+  - name: channels
+    type: array_string
+    original_name: Channels
+  - name: save_all
+    type: uint16
+    original_name: Save all
+  - name: num_sweeps
+    type: int32
+    original_name: Number of sweeps
+  - name: backward_sweep
+    type: uint16
+    original_name: Backward sweep
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: parameters_size_int
+    type: string
+    original_name: Parameters size (int)
+  - name: num_parameters_int
+    type: string
+    original_name: Number of parameters (int)
+  - name: fixed_parameters_size_int
+    type: string
+    original_name: Fixed parameters size (int)
+  - name: num_fixed_parameters_int
+    type: string
+    original_name: Number of fixed parameters (int)
+  - name: fixed_parameters
+    type: array_string
+    original_name: Fixed parameters
+  - name: autosave
+    type: uint16
+    original_name: Autosave
+  - name: show_save_dialog
+    type: uint16
+    original_name: Show save dialog
+  - name: reset_bias
+    type: uint16
+    original_name: Reset Bias
+  - name: z_controller_hold
+    type: uint16
+    original_name: Z-Controller Hold
+  - name: record_final_z
+    type: uint16
+    original_name: Record final Z
+  - name: lockin_run
+    type: uint16
+    original_name: Lockin Run
+  - name: start_value_v
+    type: float32
+    original_name: Start value (V)
+  - name: end_value_v
+    type: float32
+    original_name: End value (V)
+  - name: z_averaging_time_s
+    type: float32
+    original_name: Z averaging time (s)
+  - name: z_offset_m
+    type: float32
+    original_name: Z offset (m)
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: maximum_slew_rate_v_s
+    type: float32
+    original_name: Maximum slew rate (V/s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: end_settling_time_s
+    type: float32
+    original_name: End settling time (s)
+  - name: z_control_time_s
+    type: float32
+    original_name: Z control time (s)
+  - name: digital_sync
+    type: uint16
+    original_name: Digital Sync.
+  - name: ttl_line
+    type: uint16
+    original_name: TTL line
+  - name: ttl_polarity
+    type: uint16
+    original_name: TTL polarity
+  - name: time_to_on_s
+    type: float32
+    original_name: Time to on (s)
+  - name: on_duration_s
+    type: float32
+    original_name: On duration (s)
+  - name: pulse_sequence_nr
+    type: uint16
+    original_name: Pulse Sequence Nr.
+  - name: nr_periods
+    type: uint32
+    original_name: Nr. Periods
+  - name: alternate_z_controller_setpoint
+    type: uint16
+    original_name: Alternate Z -controller setpoint
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: z_offset_revert
+    type: uint16
+    original_name: Z Offset Revert
+  - name: lock_in_per_segment
+    type: uint32
+    original_name: Lock -In per segment
+  - name: sweep_mode_int
+    type: string
+    original_name: Sweep mode (int)
+  - name: sweep_mode
+    type: string
+    original_name: Sweep mode
+  - name: num_segments
+    type: int32
+    original_name: Number of segments
+  - name: bias_start_v
+    type: array_float32
+    original_name: Bias start (V)
+  - name: bias_end_v
+    type: array_float32
+    original_name: Bias end (V)
+  - name: steps
+    type: array_int32
+    original_name: Steps
+  - name: lock_in_run_1d_array
+    type: uint32
+    original_name: Lock -In run (1D array
+BiasSpectr.SafeCond1Set:
+  send:
+  - name: condition
+    type: uint16
+    original_name: Condition
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: comparison
+    type: uint16
+    original_name: Comparison
+  recv: []
+BiasSpectr.SafeCond1Get:
+  send: []
+  recv:
+  - name: condition
+    type: uint16
+    original_name: Condition
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: comparison
+    type: uint16
+    original_name: Comparison
+BiasSpectr.SafeCond2Set:
+  send:
+  - name: condition
+    type: int32
+    original_name: Condition
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: comparison
+    type: uint16
+    original_name: Comparison
+  recv: []
+BiasSpectr.SafeCond2Get:
+  send:
+  - name: control_on_off
+    type: uint32
+    original_name: Control On/Off
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: p_gain
+    type: float32
+    original_name: P-gain
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  - name: slope
+    type: uint16
+    original_name: Slope
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: amplitude
+    type: float32
+    original_name: Amplitude
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  - name: ac_mode_on_off
+    type: uint16
+    original_name: AC mode On/Off
+  - name: modulation_on_off
+    type: uint16
+    original_name: Modulation On/Off
+  - name: demodulated_control_signal_index
+    type: int32
+    original_name: Demodulated/Control signal index
+  - name: bias_high_limit_v
+    type: float32
+    original_name: Bias high limit (V)
+  - name: bias_low_limit_v
+    type: float32
+    original_name: Bias low limit (V)
+  - name: speed_hz
+    type: float32
+    original_name: Speed (Hz)
+  - name: range_v
+    type: float32
+    original_name: Range (V)
+  - name: averaging
+    type: int32
+    original_name: Averaging
+  - name: gain_index
+    type: int32
+    original_name: Gain index
+  - name: filter_index
+    type: int32
+    original_name: Filter index
+  - name: calibration
+    type: float64
+    original_name: Calibration
+  - name: offset
+    type: float64
+    original_name: Offset
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+  - name: i_gain
+    type: float32
+    original_name: I-gain
+  - name: z_controller_switch_off_delay_s
+    type: float32
+    original_name: Z-Controller switch off delay (s)
+  - name: tiplift_m
+    type: float32
+    original_name: TipLift (m)
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+  - name: z_controller_index
+    type: int32
+    original_name: Z-Controller index
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  - name: withdraw_slew_rate_m_s
+    type: float32
+    original_name: Withdraw slew rate (m/s)
+  - name: limit_z_status
+    type: uint32
+    original_name: Limit Z status
+  - name: z_high_limit_m
+    type: float32
+    original_name: Z high limit (m)
+  - name: z_low_limit_m
+    type: float32
+    original_name: Z low limit (m)
+  - name: safe_tip_status
+    type: uint16
+    original_name: Safe Tip status
+  - name: auto_recovery
+    type: uint16
+    original_name: Auto recovery
+  - name: auto_pause_scan
+    type: uint16
+    original_name: Auto pause scan
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: on_off
+    type: uint16
+    original_name: On/Off
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  - name: save_base_name
+    type: string
+    original_name: Save base name
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: backward_sweep
+    type: uint16
+    original_name: Backward sweep
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: num_sweeps
+    type: uint16
+    original_name: Number of sweeps
+  - name: autosave
+    type: uint16
+    original_name: Autosave
+  - name: show_save_dialog
+    type: uint16
+    original_name: Show save dialog
+  - name: save_all
+    type: uint16
+    original_name: Save all
+  - name: time_between_forward_and_backward_sweep_s
+    type: float32
+    original_name: Time between forward and backward sweep (s)
+  - name: record_final_z
+    type: uint16
+    original_name: Record final Z
+  - name: lockin_run
+    type: uint16
+    original_name: Lockin Run
+  - name: reset_z
+    type: uint16
+    original_name: Reset Z
+  - name: z_offset_m
+    type: float32
+    original_name: Z offset (m)
+  - name: z_sweep_distance_m
+    type: float32
+    original_name: Z sweep distance (m )
+  - name: z_averaging_time_s
+    type: float32
+    original_name: Z averaging time (s)
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: maximum_slew_rate_v_s
+    type: float32
+    original_name: Maximum slew rate (V/s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: end_settling_time_s
+    type: float32
+    original_name: End settling time (s)
+  - name: z_control_time_s
+    type: float32
+    original_name: Z control time (s)
+  - name: retract_delay_s
+    type: float32
+    original_name: Retract delay (s)
+  - name: enable
+    type: uint16
+    original_name: Enable
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: comparison
+    type: uint16
+    original_name: Comparison
+  - name: 2nd_condition
+    type: int32
+    original_name: 2nd condition
+  - name: digital_sync
+    type: uint16
+    original_name: Digital Sync.
+  - name: ttl_line
+    type: uint16
+    original_name: TTL line
+  - name: ttl_polarity
+    type: uint16
+    original_name: TTL polarity
+  - name: time_to_on_s
+    type: float32
+    original_name: Time to on (s)
+  - name: on_duration_s
+    type: float32
+    original_name: On duration (s)
+  - name: pulse_sequence_nr
+    type: uint16
+    original_name: Pulse Sequence Nr.
+  - name: nr_periods
+    type: uint32
+    original_name: Nr. Periods
+  - name: tilt_x_deg
+    type: float32
+    original_name: Tilt X (deg)
+  - name: tilt_y_deg
+    type: float32
+    original_name: Tilt Y (deg)
+  - name: range_x_m
+    type: float32
+    original_name: Range X (m)
+  - name: range_y_m
+    type: float32
+    original_name: Range Y (m)
+  - name: range_z_m
+    type: float32
+    original_name: Range Z (m)
+  - name: calibration_x_m_v
+    type: float32
+    original_name: Calibration X (m/V)
+  - name: calibration_y_m_v
+    type: float32
+    original_name: Calibration Y (m/V)
+  - name: calibration_z_m_v
+    type: float32
+    original_name: Calibration Z (m/V)
+  - name: compensation_on_off
+    type: int32
+    original_name: Compensation on/off
+  - name: vx_m_s
+    type: float32
+    original_name: Vx (m/s)
+  - name: vy_m_s
+    type: float32
+    original_name: Vy (m/s)
+  - name: vz_m_s
+    type: float32
+    original_name: Vz (m/s)
+  - name: saturation_limit
+    type: float32
+    original_name: Saturation limit (%)
+  - name: enable_limits
+    type: uint16
+    original_name: Enable limits
+  - name: voltage_limit_x_low_v
+    type: float32
+    original_name: Voltage limit X Low (V)
+  - name: voltage_limit_x_high_v
+    type: float32
+    original_name: Voltage limit X High (V)
+  - name: voltage_limit_y_low_v
+    type: float32
+    original_name: Voltage limit Y Low (V)
+  - name: voltage_limit_y_high_v
+    type: float32
+    original_name: Voltage limit Y High (V)
+  - name: voltage_limit_z_low_v
+    type: float32
+    original_name: Voltage limit Z Low (V)
+  - name: voltage_limit_z_high_v
+    type: float32
+    original_name: Voltage limit Z High (V)
+  - name: num_fast_axis_po
+    type: int32
+    original_name: Number of fast axis po
+  - name: fast_axis_x_hysteresis_points
+    type: array_float32
+    original_name: Fast axis X hysteresis points
+  - name: fast_axis_y_hysteresis_points
+    type: array_float32
+    original_name: Fast axis Y hysteresis points
+  - name: num_slow_axis_po
+    type: int32
+    original_name: Number of slow axis po
+  - name: slow_axis_x_hysteresis_points
+    type: array_float32
+    original_name: Slow axis X hysteresis points
+  - name: slow_axis_y_hysteresis_points
+    type: array_float32
+    original_name: Slow axis Y hysteresis points
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  - name: scan_action
+    type: uint16
+    original_name: Scan action
+  - name: scan_direction
+    type: uint32
+    original_name: Scan direction
+  - name: center_x_m
+    type: float32
+    original_name: Center X (m)
+  - name: center_y_m
+    type: float32
+    original_name: Center Y (m)
+  - name: width_m
+    type: float32
+    original_name: Width (m)
+  - name: height_m
+    type: float32
+    original_name: Height (m)
+  - name: angle_deg
+    type: float32
+    original_name: Angle (deg)
+  - name: pixels
+    type: int32
+    original_name: Pixels
+  - name: lines
+    type: int32
+    original_name: Lines
+  - name: continuous_scan
+    type: uint32
+    original_name: Continuous scan
+  - name: bouncy_scan
+    type: uint32
+    original_name: Bouncy scan
+  - name: series_name_size_int
+    type: string
+    original_name: Series name size (int)
+  - name: series_name
+    type: string
+    original_name: Series name
+  - name: comment_size_int
+    type: string
+    original_name: Comment size (int)
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_names_size
+    type: int32
+    original_name: Modules names size
+  - name: modules_names_number
+    type: int32
+    original_name: Modules names number
+  - name: modules_names
+    type: array_string
+    original_name: Modules names
+  - name: autopaste
+    type: uint32
+    original_name: Autopaste
+  - name: forward_linear_speed_m_s
+    type: float32
+    original_name: Forward linear speed (m/s)
+  - name: backward_linear_speed_m_s
+    type: float32
+    original_name: Backward linear speed (m/s)
+  - name: forward_time_per_line_s
+    type: float32
+    original_name: Forward time per line (s)
+  - name: backward_time_per_line_s
+    type: float32
+    original_name: Backward time per line (s)
+  - name: keep_parameter_constant
+    type: uint16
+    original_name: Keep parameter constant
+  - name: speed_ratio
+    type: float32
+    original_name: Speed ratio
+  - name: channel_index
+    type: uint32
+    original_name: Channel index
+  - name: data_d_irection
+    type: uint32
+    original_name: Data d irection
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait for newest data
+  - name: wait_until_saved
+    type: uint32
+    original_name: Wait until saved
+  - name: wait_until_pasted
+    type: uint32
+    original_name: Wait until pasted
+  - name: wait_until_deleted
+    type: uint32
+    original_name: Wait until deleted
+  - name: which_background_to_delete
+    type: uint32
+    original_name: Which background to delete
+  - name: x_m
+    type: float64
+    original_name: X (m)
+  - name: y_m
+    type: float64
+    original_name: Y (m)
+  - name: wait_end_of_move
+    type: uint32
+    original_name: Wait end of move
+  - name: speed_m_s
+    type: float32
+    original_name: Speed (m/s)
+  - name: custom_speed
+    type: uint32
+    original_name: Custom speed
+  - name: oversampling
+    type: int32
+    original_name: Oversampling
+  - name: point_shoot_status
+    type: uint32
+    original_name: Point & Shoot status
+  - name: point_shoot_experiment
+    type: uint16
+    original_name: Point & Shoot experiment
+  - name: auto_resume
+    type: uint32
+    original_name: Auto resume
+  - name: use_own_basename
+    type: uint32
+    original_name: Use own basename
+  - name: basename_size_int
+    type: string
+    original_name: Basename size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: external_vi_path_size_int
+    type: string
+    original_name: External VI path size (int)
+  - name: external_vi_path
+    type: string
+    original_name: External VI path
+  - name: pre_measure_delay_s
+    type: float32
+    original_name: Pre-measure delay (s)
+  - name: buffer_size
+    type: int32
+    original_name: Buffer size
+  - name: clear_buffer
+    type: uint32
+    original_name: Clear buffer
+  - name: pattern
+    type: uint16
+    original_name: Pattern
+  - name: pause_resume
+    type: uint32
+    original_name: Pause/Resume
+  - name: set_active_pattern
+    type: uint32
+    original_name: Set active pattern
+  - name: gridscan_frame
+    type: uint32
+    original_name: Grid=Scan frame
+  - name: linescan_frame
+    type: uint32
+    original_name: Line=Scan frame
+  - name: line_point_1_x_m
+    type: float32
+    original_name: Line Point 1 X (m)
+  - name: line_point_1_y_m
+    type: float32
+    original_name: Line Point 1 Y (m)
+  - name: line_point_2_x_m
+    type: float32
+    original_name: Line Point 2 X (m)
+  - name: line_point_2_y_m
+    type: float32
+    original_name: Line Point 2 Y (m)
+  - name: x_coordinates_m
+    type: array_float32
+    original_name: X coordinates (m)
+  - name: y_coordinates_m
+    type: array_float32
+    original_name: Y coordinates (m)
+  - name: selected_experiment_size_int
+    type: string
+    original_name: Selected experiment size (int)
+  - name: selected_experiment
+    type: string
+    original_name: Selected experiment
+  - name: save_scan_channels
+    type: uint32
+    original_name: Save scan channels
+  - name: x_coordinate_m
+    type: float32
+    original_name: X coordinate (m)
+  - name: y_coordinate_m
+    type: float32
+    original_name: Y coordinate (m)
+  - name: text_size
+    type: int32
+    original_name: Text size
+  - name: text
+    type: string
+    original_name: Text
+  - name: color
+    type: uint32
+    original_name: Color
+  - name: text_size_int
+    type: string
+    original_name: Text size (int)
+  - name: color_1d_array
+    type: uint32
+    original_name: Color (1D array
+  - name: start_point_x_coordinate_m
+    type: float32
+    original_name: Start point X coordinate (m)
+  - name: start_point_y_coordinate_m
+    type: float32
+    original_name: Start point Y coordinate (m)
+  - name: end_point_x_coordinate_m
+    type: float32
+    original_name: End point X coordinate (m)
+  - name: end_point_y_coordinate_m
+    type: float32
+    original_name: End point Y coordinate (m)
+  - name: num_lines
+    type: int32
+    original_name: Number of lines
+  - name: po
+    type: int32
+    original_name: Po
+  - name: line_index
+    type: int32
+    original_name: Line index
+  - name: show_hide
+    type: uint16
+    original_name: Show/hide
+  recv:
+  - name: condition
+    type: int32
+    original_name: Condition
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: comparison
+    type: uint16
+    original_name: Comparison
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: p_gain
+    type: float32
+    original_name: P-gain
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  - name: slope
+    type: uint16
+    original_name: Slope
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: amplitude
+    type: float32
+    original_name: Amplitude
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  - name: ac_mode_status
+    type: uint16
+    original_name: AC mode status
+  - name: modulation_status
+    type: uint16
+    original_name: Modulation status
+  - name: demodulated_control_signal_index
+    type: int32
+    original_name: Demodulated/Control signal index
+  - name: bias_high_limit_v
+    type: float32
+    original_name: Bias high limit (V)
+  - name: bias_low_limit_v
+    type: float32
+    original_name: Bias low limit (V)
+  - name: speed_hz
+    type: float32
+    original_name: Speed (Hz)
+  - name: range_v
+    type: float32
+    original_name: Range (V)
+  - name: averaging
+    type: int32
+    original_name: Averaging
+  - name: size_1
+    type: int32
+    original_name: Size 1
+  - name: bias_forward_data
+    type: array_float32
+    original_name: Bias forward data
+  - name: frequency_shift_forward_data
+    type: array_float32
+    original_name: Frequency Shift forward data
+  - name: frequency_shift_forward_fit_data
+    type: array_float32
+    original_name: Frequency Shift forward fit data
+  - name: size_2
+    type: int32
+    original_name: Size 2
+  - name: bias_backward_data
+    type: array_float32
+    original_name: Bias backward data
+  - name: frequency_shift_backward_data
+    type: array_float32
+    original_name: Frequency Shift backward data
+  - name: frequency_shift_backward_fit_data
+    type: array_float32
+    original_name: Frequency Shift backward fit data
+  - name: cpd_estimate
+    type: float32
+    original_name: CPD estimate
+  - name: a_coefficient
+    type: float64
+    original_name: a coefficient
+  - name: b_coefficient
+    type: float64
+    original_name: b coefficient
+  - name: current_value_a
+    type: float32
+    original_name: Current value (A)
+  - name: current_100_value_a
+    type: float32
+    original_name: Current 100 value (A)
+  - name: current_beem_value_a
+    type: float32
+    original_name: Current BEEM value (A)
+  - name: gains_size
+    type: int32
+    original_name: Gains size
+  - name: num_gains
+    type: int32
+    original_name: Number of gains
+  - name: gains
+    type: array_string
+    original_name: Gains
+  - name: gain_index
+    type: int32
+    original_name: Gain index
+  - name: filters_size
+    type: int32
+    original_name: Filters size
+  - name: num_filters
+    type: int32
+    original_name: Number of filters
+  - name: filters
+    type: array_string
+    original_name: Filters
+  - name: filter_index
+    type: int32
+    original_name: Filter index
+  - name: calibration
+    type: float64
+    original_name: Calibration
+  - name: offset
+    type: float64
+    original_name: Offset
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+  - name: i_gain
+    type: float32
+    original_name: I-gain
+  - name: z_controller_switch_off_delay_s
+    type: float32
+    original_name: Z-Controller switch off delay (s)
+  - name: tiplift_m
+    type: float32
+    original_name: TipLift (m)
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+  - name: list_of_controllers_size
+    type: int32
+    original_name: List of controllers size
+  - name: num_controllers
+    type: int32
+    original_name: Number of controllers
+  - name: list_of_controllers
+    type: array_string
+    original_name: List of controllers
+  - name: active_z_controller_index
+    type: int32
+    original_name: Active Z -Controller index
+  - name: withdraw_slew_rate_m_s
+    type: float32
+    original_name: Withdraw slew rate (m/s)
+  - name: limit_z_status
+    type: uint32
+    original_name: Limit Z status
+  - name: z_high_limit_m
+    type: float32
+    original_name: Z high limit (m)
+  - name: z_low_limit_m
+    type: float32
+    original_name: Z low limit (m)
+  - name: z_controller_status
+    type: uint16
+    original_name: Z -Controller Status
+  - name: safe_tip_status
+    type: uint16
+    original_name: Safe Tip status
+  - name: signal_value
+    type: float32
+    original_name: Signal value
+  - name: auto_recovery
+    type: uint16
+    original_name: Auto recovery
+  - name: auto_pause_scan
+    type: uint16
+    original_name: Auto pause scan
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: num_parameters
+    type: int32
+    original_name: Number of parameters
+  - name: parameters
+    type: array_float32
+    original_name: Parameters
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: channels_size_int
+    type: string
+    original_name: Channels size (int)
+  - name: num_channels_names
+    type: int32
+    original_name: Number of channels names
+  - name: channels
+    type: array_string
+    original_name: Channels
+  - name: backward_sweep
+    type: uint16
+    original_name: Backward sweep
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: parameters_size_int
+    type: string
+    original_name: Parameters size (int)
+  - name: num_parameters_int
+    type: string
+    original_name: Number of parameters (int)
+  - name: fixed_parameters_size_int
+    type: string
+    original_name: Fixed parameters size (int)
+  - name: num_fixed_parameters_int
+    type: string
+    original_name: Number of fixed parameters (int)
+  - name: fixed_parameters
+    type: array_string
+    original_name: Fixed parameters
+  - name: num_sweeps
+    type: uint16
+    original_name: Number of sweeps
+  - name: autosave
+    type: uint16
+    original_name: Autosave
+  - name: show_save_dialog
+    type: uint16
+    original_name: Show save dialog
+  - name: save_all
+    type: uint16
+    original_name: Save all
+  - name: time_between_forward_and_backward_sweep_s
+    type: float32
+    original_name: Time between forward and backward sweep (s)
+  - name: record_final_z
+    type: uint16
+    original_name: Record final Z
+  - name: lockin_run
+    type: uint16
+    original_name: Lockin Run
+  - name: reset_z
+    type: uint16
+    original_name: Reset Z
+  - name: z_offset_m
+    type: float32
+    original_name: Z offset (m)
+  - name: z_sweep_distance_m
+    type: float32
+    original_name: Z sweep distance (m)
+  - name: z_averaging_time_s
+    type: float32
+    original_name: Z averaging time (s)
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: maximum_slew_rate_v_s
+    type: float32
+    original_name: Maximum slew rate (V/s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: end_settling_time_s
+    type: float32
+    original_name: End settling time (s)
+  - name: z_control_time_s
+    type: float32
+    original_name: Z control time (s)
+  - name: retract_delay_s
+    type: float32
+    original_name: Retract delay (s)
+  - name: enable
+    type: uint16
+    original_name: Enable
+  - name: 2nd_condition
+    type: int32
+    original_name: 2nd condition
+  - name: digital_sync
+    type: uint16
+    original_name: Digital Sync.
+  - name: ttl_line
+    type: uint16
+    original_name: TTL line
+  - name: ttl_polarity
+    type: uint16
+    original_name: TTL polarity
+  - name: time_to_on_s
+    type: float32
+    original_name: Time to on (s)
+  - name: on_duration_s
+    type: float32
+    original_name: On duration (s)
+  - name: pulse_sequence_nr
+    type: uint16
+    original_name: Pulse Sequence Nr.
+  - name: nr_periods
+    type: uint32
+    original_name: Nr. Periods
+  - name: tilt_x_deg
+    type: float32
+    original_name: Tilt X (deg)
+  - name: tilt_y_deg
+    type: float32
+    original_name: Tilt Y (deg)
+  - name: range_x_m
+    type: float32
+    original_name: Range X (m)
+  - name: range_y_m
+    type: float32
+    original_name: Range Y (m)
+  - name: range_z_m
+    type: float32
+    original_name: Range Z (m)
+  - name: calibration_x_m_v
+    type: float32
+    original_name: Calibration X (m/V)
+  - name: calibration_y_m_v
+    type: float32
+    original_name: Calibration Y (m/V)
+  - name: calibration_z_m_v
+    type: float32
+    original_name: Calibration Z (m/V)
+  - name: compensation_status
+    type: uint32
+    original_name: Compensation status
+  - name: vx_m_s
+    type: float32
+    original_name: Vx (m/s)
+  - name: vy_m_s
+    type: float32
+    original_name: Vy (m/s)
+  - name: vz_m_s
+    type: float32
+    original_name: Vz (m/s)
+  - name: x_saturated_status
+    type: uint32
+    original_name: X saturated status
+  - name: y_saturated_status
+    type: uint32
+    original_name: Y saturated status
+  - name: z_saturated_status
+    type: uint32
+    original_name: Z saturated status
+  - name: saturation_limit
+    type: float32
+    original_name: Saturation limit (%)
+  - name: gain_aux
+    type: float32
+    original_name: Gain AUX
+  - name: gain_x
+    type: float32
+    original_name: Gain X
+  - name: gain_y
+    type: float32
+    original_name: Gain Y
+  - name: gain_z
+    type: float32
+    original_name: Gain Z
+  - name: x_y_enabled_status
+    type: uint32
+    original_name: X/Y enabled status
+  - name: z_enabled_status
+    type: uint32
+    original_name: Z enabled status
+  - name: aux_enabled_status
+    type: uint32
+    original_name: AUX enabled status
+  - name: overheated_status
+    type: uint32
+    original_name: Overheated status
+  - name: hv_supply_status
+    type: uint32
+    original_name: HV supply status
+  - name: high_temperature_status
+    type: uint32
+    original_name: High temperature status
+  - name: output_connector_status
+    type: uint32
+    original_name: Output connector status
+  - name: enable_limits
+    type: uint16
+    original_name: Enable limits
+  - name: voltage_limit_x_low_v
+    type: float32
+    original_name: Voltage limit X Low (V)
+  - name: voltage_limit_x_high_v
+    type: float32
+    original_name: Voltage limit X High (V)
+  - name: voltage_limit_y_low_v
+    type: float32
+    original_name: Voltage limit Y Low (V)
+  - name: voltage_limit_y_high_v
+    type: float32
+    original_name: Voltage limit Y High (V)
+  - name: voltage_limit_z_low_v
+    type: float32
+    original_name: Voltage limit Z Low (V)
+  - name: voltage_limit_z_high_v
+    type: float32
+    original_name: Voltage limit Z High (V)
+  - name: on_off
+    type: uint32
+    original_name: On/Off
+  - name: num_fast_axis_po
+    type: int32
+    original_name: Number of fast axis po
+  - name: fast_axis_x_hysteresis_points
+    type: array_float32
+    original_name: Fast axis X hysteresis points
+  - name: fast_axis_y_hysteresis_points
+    type: array_float32
+    original_name: Fast axis Y hysteresis points
+  - name: num_slow_axis_po
+    type: int32
+    original_name: Number of slow axis po
+  - name: slow_axis_x_hysteresis_points
+    type: array_float32
+    original_name: Slow axis X hysteresis points
+  - name: slow_axis_y_hysteresis_points
+    type: array_float32
+    original_name: Slow axis Y hysteresis points
+  - name: scan_status
+    type: uint32
+    original_name: Scan status
+  - name: timeout_status_status
+    type: uint32
+    original_name: Timeout status status
+  - name: file_path_size
+    type: uint32
+    original_name: File path size
+  - name: file_path
+    type: string
+    original_name: File path
+  - name: line_number
+    type: int32
+    original_name: Line number
+  - name: type_of_movement
+    type: uint16
+    original_name: Type of movement
+  - name: pass_number
+    type: int32
+    original_name: Pass number
+  - name: center_x_m
+    type: float32
+    original_name: Center X (m)
+  - name: center_y_m
+    type: float32
+    original_name: Center Y (m)
+  - name: width_m
+    type: float32
+    original_name: Width (m)
+  - name: height_m
+    type: float32
+    original_name: Height (m)
+  - name: angle_deg
+    type: float32
+    original_name: Angle (deg)
+  - name: pixels
+    type: int32
+    original_name: Pixels
+  - name: lines
+    type: int32
+    original_name: Lines
+  - name: continuous_scan
+    type: uint32
+    original_name: Continuous scan
+  - name: bouncy_scan
+    type: uint32
+    original_name: Bouncy scan
+  - name: series_name_size_int
+    type: string
+    original_name: Series name size (int)
+  - name: series_name
+    type: string
+    original_name: Series name
+  - name: comment_size_int
+    type: string
+    original_name: Comment size (int)
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_names_size
+    type: int32
+    original_name: Modules names size
+  - name: modules_names_number
+    type: int32
+    original_name: Modules names number
+  - name: modules_names
+    type: array_string
+    original_name: Modules names
+  - name: size_of_num_parameters_per_module_array
+    type: int32
+    original_name: Size of Number of Parameters per Module array
+  - name: num_parameters_per_module_array
+    type: array_int32
+    original_name: Number of Parameters per Module array
+  - name: parameters_rows
+    type: int32
+    original_name: Parameters rows
+  - name: parameters_columns
+    type: int32
+    original_name: Parameters columns
+  - name: autopaste
+    type: uint32
+    original_name: Autopaste
+  - name: forward_linear_speed_m_s
+    type: float32
+    original_name: Forward linear speed (m/s)
+  - name: backward_linear_speed_m_s
+    type: float32
+    original_name: Backward linear speed (m/s)
+  - name: forward_time_per_line_s
+    type: float32
+    original_name: Forward time per line (s)
+  - name: backward_time_per_line_s
+    type: float32
+    original_name: Backward time per line (s)
+  - name: keep_parameter_constant
+    type: uint16
+    original_name: Keep parameter constant
+  - name: speed_ratio
+    type: float32
+    original_name: Speed ratio
+  - name: channels_name_size_int
+    type: string
+    original_name: Channels name size (int)
+  - name: channel_name
+    type: string
+    original_name: Channel name
+  - name: scan_data_rows
+    type: int32
+    original_name: Scan data rows
+  - name: scan_data_columns
+    type: int32
+    original_name: Scan data columns
+  - name: scan_d_ata
+    type: matrix_float32
+    original_name: Scan d ata
+  - name: scan_direction
+    type: uint32
+    original_name: Scan direction
+  - name: x_m
+    type: float32
+    original_name: X (m)
+  - name: y_m
+    type: float32
+    original_name: Y (m)
+  - name: timed_out
+    type: uint32
+    original_name: Timed out?
+  - name: speed_m_s
+    type: float32
+    original_name: Speed (m/s)
+  - name: custom_speed
+    type: uint32
+    original_name: Custom speed
+  - name: oversampling
+    type: int32
+    original_name: Oversampling
+  - name: sampling_rate_samples_s
+    type: float32
+    original_name: Sampling rate (Samples/s)
+  - name: point_shoot_status
+    type: uint32
+    original_name: Point & Shoot status
+  - name: point_shoot_experiment
+    type: uint16
+    original_name: Point & Shoot experiment
+  - name: size_of_the_list_of_experiments_int
+    type: string
+    original_name: Size of the list of experiments (int)
+  - name: num_experiments_int
+    type: string
+    original_name: Number of experiments (int)
+  - name: list_of_experiments
+    type: array_string
+    original_name: List of experiments
+  - name: auto_resume
+    type: uint32
+    original_name: Auto resume
+  - name: use_own_basename
+    type: uint32
+    original_name: Use own basename
+  - name: basename_size_int
+    type: string
+    original_name: Basename size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: external_vi_path_size_int
+    type: string
+    original_name: External VI path size (int)
+  - name: external_vi_path
+    type: string
+    original_name: External VI path
+  - name: pre_measure_delay_s
+    type: float32
+    original_name: Pre-measure delay (s)
+  - name: buffer_size
+    type: int32
+    original_name: Buffer size
+  - name: line_point_1_x_m
+    type: float32
+    original_name: Line Point 1 X (m)
+  - name: line_point_1_y_m
+    type: float32
+    original_name: Line Point 1 Y (m)
+  - name: line_point_2_x_m
+    type: float32
+    original_name: Line Point 2 X (m)
+  - name: line_point_2_y_m
+    type: float32
+    original_name: Line Point 2 Y (m)
+  - name: x_coordinates_m
+    type: array_float32
+    original_name: X coordinates (m)
+  - name: y_coordinates_m
+    type: array_float32
+    original_name: Y coordinates (m)
+  - name: selected_experiment_size_int
+    type: string
+    original_name: Selected experiment size (int)
+  - name: selected_experiment
+    type: string
+    original_name: Selected experiment
+  - name: save_scan_channels
+    type: uint32
+    original_name: Save scan channels
+  - name: x_coordinate_m
+    type: array_float32
+    original_name: X coordinate (m)
+  - name: y_coordinate_m
+    type: array_float32
+    original_name: Y coordinate (m)
+  - name: text_size
+    type: int32
+    original_name: Text size
+  - name: text
+    type: array_string
+    original_name: Text
+  - name: color_1d_array
+    type: uint32
+    original_name: Color (1D array
+  - name: visible_1d_array
+    type: uint32
+    original_name: Visible (1D array
+  - name: num_lines
+    type: int32
+    original_name: Number of lines
+  - name: start_point_x_coordinate_m
+    type: array_float32
+    original_name: Start point X coordinate (m)
+  - name: start_point_y_coordinate_m
+    type: array_float32
+    original_name: Start point Y coordinate (m)
+  - name: end_point_x_coordinate_m
+    type: array_float32
+    original_name: End point X coordinate (m)
+  - name: end_point_y_coordinate_m
+    type: array_float32
+    original_name: End point Y coordinate (m)
+MPass.Activate:
+  send:
+  - name: on_off
+    type: uint32
+    original_name: On/Off
+  recv: []
+MPass.Load:
+  send:
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  recv: []
+MPass.Save:
+  send:
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  recv: []
+TipShaper.Start:
+  send:
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  recv: []
+TipShaper.PropsSet:
+  send:
+  - name: switch_off_delay
+    type: float32
+    original_name: Switch Off Delay
+  - name: change_bias
+    type: uint32
+    original_name: Change Bias?
+  - name: bias_v
+    type: float32
+    original_name: Bias (V)
+  - name: tip_lift_m
+    type: float32
+    original_name: Tip Lift (m)
+  - name: lift_time_1_s
+    type: float32
+    original_name: Lift Time 1 (s)
+  - name: bias_lift_v
+    type: float32
+    original_name: Bias Lift (V)
+  - name: bias_settling_time_s
+    type: float32
+    original_name: Bias Settling Time (s)
+  - name: lift_height_m
+    type: float32
+    original_name: Lift Height (m)
+  - name: lift_time_2_s
+    type: float32
+    original_name: Lift Time 2 (s)
+  - name: end_wait_time_s
+    type: float32
+    original_name: End Wait Time (s)
+  - name: restore_feedback
+    type: uint32
+    original_name: Restore Feedback?
+  recv: []
+TipShaper.PropsGet:
+  send:
+  - name: direction
+    type: uint32
+    original_name: Direction
+  - name: num_steps
+    type: uint16
+    original_name: Number of steps
+  - name: group
+    type: uint32
+    original_name: Group
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: absolute_relative
+    type: uint32
+    original_name: Absolute/relative
+  - name: target_x_m
+    type: float64
+    original_name: Target X(m)
+  - name: target_y_m
+    type: float64
+    original_name: Target Y(m)
+  - name: target_z_m
+    type: float64
+    original_name: Target Z(m)
+  - name: timeout
+    type: uint32
+    original_name: Timeout
+  - name: reset_x
+    type: uint32
+    original_name: Reset X
+  - name: reset_y
+    type: uint32
+    original_name: Reset Y
+  - name: reset_z
+    type: uint32
+    original_name: Reset Z
+  - name: axis
+    type: uint16
+    original_name: Axis
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz )
+  - name: amplitude_v
+    type: float32
+    original_name: Amplitude (V )
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: channel_names_size
+    type: int32
+    original_name: Channel names size
+  - name: channel_names_number
+    type: int32
+    original_name: Channel names number
+  - name: channel_names
+    type: array_string
+    original_name: Channel names
+  - name: sweep_channel_name_size_int
+    type: string
+    original_name: Sweep channel name size (int)
+  - name: sweep_channel_name
+    type: string
+    original_name: Sweep channel name
+  - name: lower_limit
+    type: float32
+    original_name: Lower limit
+  - name: upper_limit
+    type: float32
+    original_name: Upper limit
+  - name: initial_settling_time_ms
+    type: float32
+    original_name: Initial Settling time (ms)
+  - name: maximum_slew_rate_units_s
+    type: float32
+    original_name: Maximum slew rate (units/s)
+  - name: period_ms
+    type: uint16
+    original_name: Period (ms)
+  - name: autosave
+    type: int32
+    original_name: Autosave
+  - name: save_dialog_box
+    type: int32
+    original_name: Save dialog box
+  - name: settling_time_ms
+    type: float32
+    original_name: Settling time (ms)
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  - name: sweep_direction
+    type: uint32
+    original_name: Sweep direction
+  - name: save_base_name
+    type: string
+    original_name: Save base name
+  - name: reset_signal
+    type: uint32
+    original_name: Reset signal
+  - name: z_controller
+    type: uint16
+    original_name: Z-Controller
+  - name: on_off
+    type: int32
+    original_name: On/Off
+  - name: condition
+    type: int32
+    original_name: Condition
+  - name: signal
+    type: int32
+    original_name: Signal
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: linkage_to_1
+    type: int32
+    original_name: Linkage to 1
+  - name: condition_2
+    type: int32
+    original_name: Condition 2
+  - name: signal_2
+    type: int32
+    original_name: Signal 2
+  - name: threshold_2
+    type: float32
+    original_name: Threshold 2
+  - name: num_sweeps
+    type: uint32
+    original_name: Number of sweeps
+  - name: continuous
+    type: int32
+    original_name: Continuous
+  - name: reset_signals
+    type: int32
+    original_name: Reset Signals
+  - name: basename_size_int
+    type: string
+    original_name: Basename size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: path_size_int
+    type: string
+    original_name: Path size (int)
+  - name: path
+    type: string
+    original_name: Path
+  - name: save_data
+    type: int32
+    original_name: Save Data
+  - name: comment_size_int
+    type: string
+    original_name: Comment size (int)
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_names_size
+    type: int32
+    original_name: Modules names size
+  - name: modules_names_number
+    type: int32
+    original_name: Modules names number
+  - name: modules_names
+    type: array_string
+    original_name: Modules names
+  - name: wait_until_done
+    type: int32
+    original_name: Wait until done
+  - name: sweep_signal_index
+    type: int32
+    original_name: Sweep signal index
+  - name: timed_sweep
+    type: int32
+    original_name: Timed Sweep
+  - name: relative_limits
+    type: int32
+    original_name: Relative Limits
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  - name: num_points
+    type: uint32
+    original_name: Number of points
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: bwd_sweep
+    type: uint32
+    original_name: Bwd Sweep
+  - name: bwd_delay
+    type: float32
+    original_name: Bwd Delay
+  - name: z_controller_off
+    type: int32
+    original_name: Z-Controller Off
+  - name: z_controller_index
+    type: int32
+    original_name: Z-Controller index
+  - name: z_averaging_time
+    type: float32
+    original_name: Z Averaging Time
+  - name: z_offset
+    type: float32
+    original_name: Z Offset
+  - name: z_control_time
+    type: float32
+    original_name: Z Control Time
+  - name: controller_status
+    type: uint32
+    original_name: Controller status
+  - name: output_value
+    type: float32
+    original_name: Output value
+  - name: signal_name_size_int
+    type: string
+    original_name: Signal name size (int)
+  - name: signal_name
+    type: string
+    original_name: Signal name
+  - name: units_size_int
+    type: string
+    original_name: Units size (int)
+  - name: units
+    type: string
+    original_name: Units
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration per volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset in physical units
+  - name: output_index
+    type: int32
+    original_name: Output index
+  - name: input_index
+    type: int32
+    original_name: Input index
+  - name: ac_mode
+    type: uint16
+    original_name: AC mode
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: p_gain
+    type: float32
+    original_name: P gain
+  - name: time_constant
+    type: float32
+    original_name: Time constant
+  - name: slope
+    type: uint16
+    original_name: Slope
+  - name: controller_index
+    type: int32
+    original_name: Controller index
+  - name: control_signal_index
+    type: int32
+    original_name: Control signal index
+  - name: i_gain
+    type: float32
+    original_name: I gain
+  - name: at_control
+    type: uint16
+    original_name: AT control
+  - name: status
+    type: uint16
+    original_name: Status
+  - name: integral_gain
+    type: float32
+    original_name: Integral gain
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: amplitude_m
+    type: float32
+    original_name: Amplitude (m )
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  - name: switch_off_delay_s
+    type: float32
+    original_name: Switch Off delay (s)
+  - name: modulator_number
+    type: int32
+    original_name: Modulator number
+  - name: lock_in_on_off
+    type: uint32
+    original_name: Lock -In On/Off
+  - name: modulator_signal_index
+    type: int32
+    original_name: Modulator Signal Index
+  - name: phase_register_index
+    type: int32
+    original_name: Phase Register Index
+  - name: harmonic
+    type: int32
+    original_name: Harmonic
+  - name: amplitude
+    type: float32
+    original_name: Amplitude
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator number
+  - name: demodulator_signal_index
+    type: int32
+    original_name: Demodulator Signal Index
+  - name: hp_filter_order
+    type: int32
+    original_name: HP Filter Order
+  - name: hp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: HP Filter Cutoff Frequency (Hz)
+  - name: lp_filter_order
+    type: int32
+    original_name: LP Filter Order
+  - name: lp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: LP Filter Cutoff Frequency (Hz)
+  - name: sync_filter
+    type: uint32
+    original_name: Sync Filter
+  - name: rt_signals
+    type: uint32
+    original_name: RT Signals
+  - name: get_data
+    type: uint32
+    original_name: Get Data
+  - name: lower_limit_hz
+    type: float32
+    original_name: Lower limit (Hz)
+  - name: upper_limit_hz
+    type: float32
+    original_name: Upper limit (Hz)
+  - name: integration_periods
+    type: uint16
+    original_name: Integration periods
+  - name: minimum_integration_time_s
+    type: float32
+    original_name: Minimum integration time (s)
+  - name: settling_periods
+    type: uint16
+    original_name: Settling periods
+  - name: minimum_settling_time_s
+    type: float32
+    original_name: Minimum Settling time (s)
+  - name: save_dialog
+    type: uint32
+    original_name: Save dialog
+  recv:
+  - name: switch_off_delay
+    type: float32
+    original_name: Switch Off Delay
+  - name: change_bias
+    type: uint32
+    original_name: Change Bias?
+  - name: bias_v
+    type: float32
+    original_name: Bias (V)
+  - name: tip_lift_m
+    type: float32
+    original_name: Tip Lift (m)
+  - name: lift_time_1_s
+    type: float32
+    original_name: Lift Time 1 (s)
+  - name: bias_lift_v
+    type: float32
+    original_name: Bias Lift (V)
+  - name: bias_settling_time_s
+    type: float32
+    original_name: Bias Settling Time (s)
+  - name: lift_height_m
+    type: float32
+    original_name: Lift Height (m)
+  - name: lift_time_2_s
+    type: float32
+    original_name: Lift Time 2 (s)
+  - name: end_wait_time_s
+    type: float32
+    original_name: End Wait Time (s)
+  - name: restore_feedback
+    type: uint32
+    original_name: Restore Feedback?
+  - name: x_m
+    type: float64
+    original_name: X(m)
+  - name: y_m
+    type: float64
+    original_name: Y(m)
+  - name: z_m
+    type: float64
+    original_name: Z(m)
+  - name: step_counter_x
+    type: int32
+    original_name: Step counter X
+  - name: step_counter_y
+    type: int32
+    original_name: Step counter Y
+  - name: step_counter_z
+    type: int32
+    original_name: Step counter Z
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz )
+  - name: amplitude_v
+    type: float32
+    original_name: Amplitude (V )
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: sweep_channel_name_size_int
+    type: string
+    original_name: Sweep channel name size (int)
+  - name: sweep_channel_name
+    type: string
+    original_name: Sweep channel name
+  - name: lower_limit
+    type: float32
+    original_name: Lower limit
+  - name: upper_limit
+    type: float32
+    original_name: Upper limit
+  - name: initial_settling_time_ms
+    type: float32
+    original_name: Initial Settling time (ms)
+  - name: maximum_slew_rate_units_s
+    type: float32
+    original_name: Maximum slew rate (units/s)
+  - name: num_steps
+    type: int32
+    original_name: Number of steps
+  - name: period_ms
+    type: uint16
+    original_name: Period (ms)
+  - name: autosave
+    type: uint32
+    original_name: Autosave
+  - name: save_dialog_box
+    type: uint32
+    original_name: Save dialog box
+  - name: settling_time_ms
+    type: float32
+    original_name: Settling time (ms)
+  - name: channels_names_1d_array
+    type: string
+    original_name: Channels names (1D array
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data_2d_array
+    type: float32
+    original_name: Data (2D array
+  - name: available_channels_names_size
+    type: int32
+    original_name: Available Channels names size
+  - name: available_channels_names_number
+    type: int32
+    original_name: Available Channels names number
+  - name: available_channels_names
+    type: array_string
+    original_name: Available Channels names
+  - name: num_available_channels
+    type: int32
+    original_name: Number of available channels
+  - name: available_channels_indexes
+    type: array_int32
+    original_name: Available Channels indexes
+  - name: on_off
+    type: int32
+    original_name: On/Off
+  - name: condition
+    type: int32
+    original_name: Condition
+  - name: signal
+    type: int32
+    original_name: Signal
+  - name: threshold
+    type: float32
+    original_name: Threshold
+  - name: linkage_to_1
+    type: int32
+    original_name: Linkage to 1
+  - name: condition_2
+    type: int32
+    original_name: Condition 2
+  - name: signal_2
+    type: int32
+    original_name: Signal 2
+  - name: threshold_2
+    type: float32
+    original_name: Threshold 2
+  - name: num_sweeps
+    type: uint32
+    original_name: Number of sweeps
+  - name: continuous
+    type: int32
+    original_name: Continuous
+  - name: reset_signals
+    type: int32
+    original_name: Reset Signals
+  - name: basename_size_int
+    type: string
+    original_name: Basename size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: path_size_int
+    type: string
+    original_name: Path size (int)
+  - name: path
+    type: string
+    original_name: Path
+  - name: save_data
+    type: int32
+    original_name: Save Data
+  - name: comment_size_int
+    type: string
+    original_name: Comment size (int)
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_parameters_size
+    type: int32
+    original_name: Modules parameters size
+  - name: modules_parameters_number
+    type: int32
+    original_name: Modules parameters number
+  - name: modules_parameters
+    type: array_string
+    original_name: Modules parameters
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: signal_names_size
+    type: int32
+    original_name: Signal names size
+  - name: signal_names_number
+    type: int32
+    original_name: Signal names number
+  - name: signal_names
+    type: array_string
+    original_name: Signal names
+  - name: num_signals
+    type: int32
+    original_name: Number of signals
+  - name: signal_indexes
+    type: array_int32
+    original_name: Signal indexes
+  - name: sweep_signal_index
+    type: int32
+    original_name: Sweep signal index
+  - name: timed_sweep
+    type: int32
+    original_name: Timed Sweep
+  - name: relative_limits
+    type: int32
+    original_name: Relative Limits
+  - name: start
+    type: float32
+    original_name: Start
+  - name: stop
+    type: float32
+    original_name: Stop
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time_s
+    type: float32
+    original_name: Integration time (s)
+  - name: bwd_sweep
+    type: uint32
+    original_name: Bwd Sweep
+  - name: bwd_delay
+    type: float32
+    original_name: Bwd Delay
+  - name: z_controller_off
+    type: int32
+    original_name: Z-Controller Off
+  - name: z_controller_index
+    type: int32
+    original_name: Z-Controller Index
+  - name: z_averaging_time
+    type: float32
+    original_name: Z Averaging Time
+  - name: z_offset
+    type: float32
+    original_name: Z Offset
+  - name: z_control_time
+    type: float32
+    original_name: Z Control Time
+  - name: controller_status
+    type: uint32
+    original_name: Controller status
+  - name: output_value
+    type: float32
+    original_name: Output value
+  - name: signal_name_size_int
+    type: string
+    original_name: Signal name size (int)
+  - name: signal_name
+    type: string
+    original_name: Signal name
+  - name: units_size_int
+    type: string
+    original_name: Units size (int)
+  - name: units
+    type: string
+    original_name: Units
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration per volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset in physical units
+  - name: output_index
+    type: int32
+    original_name: Output index
+  - name: input_index
+    type: int32
+    original_name: Input index
+  - name: setpoint
+    type: float32
+    original_name: Setpoint
+  - name: p_gain
+    type: float32
+    original_name: P gain
+  - name: time_constant
+    type: float32
+    original_name: Time constant
+  - name: slope
+    type: uint16
+    original_name: Slope
+  - name: control_signal_index
+    type: int32
+    original_name: Control signal index
+  - name: control_signals_names_size
+    type: int32
+    original_name: Control signals names size
+  - name: num_control_signals_names
+    type: int32
+    original_name: Number of Control signals names
+  - name: control_signals_names
+    type: array_string
+    original_name: Control signals names
+  - name: num_control_signals_indexes
+    type: int32
+    original_name: Number of Control signals indexes
+  - name: control_signals_indexes
+    type: array_int32
+    original_name: Control signals indexes
+  - name: input_signals_names_size
+    type: int32
+    original_name: Input signals names size
+  - name: num_input_signals_names
+    type: int32
+    original_name: Number of Input signals names
+  - name: input_signals_names
+    type: array_string
+    original_name: Input signals names
+  - name: num_input_signals_indexes
+    type: int32
+    original_name: Number of Input signals indexes
+  - name: input_signals_indexes
+    type: array_int32
+    original_name: Input signals indexes
+  - name: i_gain
+    type: float32
+    original_name: I gain
+  - name: integral_gain
+    type: float32
+    original_name: Integral gain
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: amplitude_m
+    type: float32
+    original_name: Amplitude (m )
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  - name: switch_off_delay_s
+    type: float32
+    original_name: Switch Off delay (s)
+  - name: lock_in_on_off
+    type: uint32
+    original_name: Lock -In On/Off
+  - name: modulator_signal_index
+    type: int32
+    original_name: Modulator Signal Index
+  - name: phase_register_index
+    type: int32
+    original_name: Phase Register Index
+  - name: harmonic
+    type: int32
+    original_name: Harmonic
+  - name: amplitude
+    type: float32
+    original_name: Amplitude
+  - name: demodulator_signal_index
+    type: int32
+    original_name: Demodulator Signal Index
+  - name: hp_filter_order
+    type: int32
+    original_name: HP Filter Order
+  - name: hp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: HP Filter Cutoff Frequency (Hz)
+  - name: lp_filter_order
+    type: int32
+    original_name: LP Filter Order
+  - name: lp_filter_cutoff_frequency_hz
+    type: float32
+    original_name: LP Filter Cutoff Frequency (Hz)
+  - name: sync_filter
+    type: uint32
+    original_name: Sync Filter
+  - name: rt_signals
+    type: uint32
+    original_name: RT Signals
+  - name: channels_names_size
+    type: int32
+    original_name: Channels names size
+  - name: channels_names_number
+    type: int32
+    original_name: Channels names number
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: lower_limit_hz
+    type: float32
+    original_name: Lower limit (Hz)
+  - name: upper_limit_hz
+    type: float32
+    original_name: Upper limit (Hz)
+  - name: integration_periods
+    type: uint16
+    original_name: Integration periods
+  - name: minimum_integration_time_s
+    type: float32
+    original_name: Minimum integration time (s)
+  - name: settling_periods
+    type: uint16
+    original_name: Settling periods
+  - name: minimum_settling_time_s
+    type: float32
+    original_name: Minimum Settling time (s)
+  - name: save_dialog
+    type: uint32
+    original_name: Save dialog
+PLL.InpCalibrSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: calibration_m_v
+    type: float32
+    original_name: Calibration (m/V)
+  recv: []
+PLL.InpCalibrGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: calibration_m_v
+    type: float32
+    original_name: Calibration (m/V)
+PLL.InpRangeSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: input_range_m
+    type: float32
+    original_name: Input range (m)
+  recv: []
+PLL.InpRangeGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: differential_input
+    type: uint16
+    original_name: Differential input
+  - name: 1_10_divider
+    type: uint16
+    original_name: 1/10 divider
+  recv:
+  - name: input_range_m
+    type: float32
+    original_name: Input range (m)
+PLL.InpPropsGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: differential_input
+    type: uint16
+    original_name: Differential input
+  - name: 1_10_divider
+    type: uint16
+    original_name: 1/10 divider
+PLL.AddOnOffSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: add
+    type: uint32
+    original_name: Add
+  recv: []
+PLL.AddOnOffGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: add
+    type: uint32
+    original_name: Add
+PLL.OutOnOffSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: pll_output
+    type: uint32
+    original_name: PLL output
+  recv: []
+PLL.OutOnOffGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: output_range
+    type: uint16
+    original_name: Output range
+  recv:
+  - name: pll_output
+    type: uint32
+    original_name: PLL output
+PLL.ExcRangeGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: excitation_value_v
+    type: float32
+    original_name: Excitation value (V)
+  recv:
+  - name: output_range
+    type: uint16
+    original_name: Output range
+PLL.ExcitationGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: setpoint_m
+    type: float32
+    original_name: Setpoint (m)
+  recv:
+  - name: excitation_value_v
+    type: float32
+    original_name: Excitation value (V)
+PLL.AmpCtrlSetpntGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: setpoint_m
+    type: float32
+    original_name: Setpoint (m)
+PLL.AmpCtrlOnOffSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: status
+    type: uint32
+    original_name: Status
+  recv: []
+PLL.AmpCtrlOnOffGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: p_gain_v_m
+    type: float32
+    original_name: P gain (V/m)
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  recv:
+  - name: status
+    type: uint32
+    original_name: Status
+PLL.AmpCtrlGainGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: bandwidth_hz
+    type: float32
+    original_name: Bandwidth (Hz)
+  recv:
+  - name: p_gain_v_m
+    type: float32
+    original_name: P gain (V/m)
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  - name: integral_gain_v_m_s
+    type: float32
+    original_name: Integral gain (V/m/s)
+PLL.AmpCtrlBandwidthGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: bandwidth_hz
+    type: float32
+    original_name: Bandwidth (Hz)
+PLL.PhasCtrlOnOffSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: status
+    type: uint32
+    original_name: Status
+  recv: []
+PLL.PhasCtrlOnOffGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: status
+    type: uint32
+    original_name: Status
+PLL.PhasCtrlGainSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: p_gain_hz_deg
+    type: float32
+    original_name: P gain (Hz/deg)
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  recv: []
+PLL.PhasCtrlGainGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: p_gain_hz_deg
+    type: float32
+    original_name: P gain (Hz/deg)
+  - name: time_constant_s
+    type: float32
+    original_name: Time constant (s)
+  - name: integral_gain_hz_deg_s
+    type: float32
+    original_name: Integral gain (Hz/deg/s)
+PLL.PhasCtrlBandwidthSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: bandwidth_hz
+    type: float32
+    original_name: Bandwidth (Hz)
+  recv: []
+PLL.PhasCtrlBandwidthGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: frequency_range_hz
+    type: float32
+    original_name: Frequency range (Hz)
+  recv:
+  - name: bandwidth_hz
+    type: float32
+    original_name: Bandwidth (Hz)
+PLL.FreqRangeGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: center_frequency_hz
+    type: float64
+    original_name: Center frequency (Hz)
+  recv:
+  - name: frequency_range_hz
+    type: float32
+    original_name: Frequency range (Hz)
+  - name: center_frequency_hz
+    type: float64
+    original_name: Center frequency (Hz)
+PLL.FreqShiftSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: frequency_shift_hz
+    type: float32
+    original_name: Frequency shift (Hz)
+  recv: []
+PLL.FreqShiftGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv:
+  - name: frequency_shift_hz
+    type: float32
+    original_name: Frequency shift (Hz)
+PLL.FreqShiftAutoCenter:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv: []
+PLL.FreqExcOverwriteSet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: excitation_overwrite_signal_index
+    type: int32
+    original_name: Excitation overwrite signal index
+  - name: frequency_overwrite_signal_index
+    type: int32
+    original_name: Frequency overwrite signal index
+  recv: []
+PLL.FreqExcOverwriteGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: demodulator_index
+    type: uint16
+    original_name: Demodulator index
+  - name: input
+    type: uint16
+    original_name: Input
+  - name: frequency_generator
+    type: uint16
+    original_name: Frequency generator
+  recv:
+  - name: excitation_overwrite_signal_index
+    type: int32
+    original_name: Excitation overwrite signal index
+  - name: frequency_overwrite_signal_index
+    type: int32
+    original_name: Frequency overwrite signal index
+PLL.DemodInputGet:
+  send:
+  - name: demodulator_index
+    type: uint16
+    original_name: Demodulator index
+  - name: harmonic
+    type: uint16
+    original_name: Harmonic
+  recv:
+  - name: input
+    type: uint16
+    original_name: Input
+  - name: frequency_generator
+    type: uint16
+    original_name: Frequency generator
+PLL.DemodHarmonicGet:
+  send:
+  - name: demodulator_index
+    type: uint16
+    original_name: Demodulator index
+  - name: phase_reference_deg
+    type: float32
+    original_name: Phase reference (deg)
+  - name: filter_order
+    type: uint16
+    original_name: Filter order
+  recv:
+  - name: harmonic
+    type: uint16
+    original_name: Harmonic
+  - name: phase_reference_deg
+    type: float32
+    original_name: Phase reference (deg)
+PLL.DemodFilterGet:
+  send:
+  - name: demodulator_index
+    type: uint16
+    original_name: Demodulator index
+  recv:
+  - name: filter_order
+    type: uint16
+    original_name: Filter order
+PLL.PerfectPLLApply:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv: []
+PLL.PerfectPLLUpdtZTC:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv: []
+PLLQCtrl.AccessRequest:
+  send:
+  - name: request_release
+    type: uint32
+    original_name: Request/Release
+  recv: []
+PLLQCtrl.AccessGet:
+  send: []
+  recv:
+  - name: request_release
+    type: uint32
+    original_name: Request/Release
+PLLQCtrl.OnOffSet:
+  send:
+  - name: on_off
+    type: uint32
+    original_name: On/Off
+  recv: []
+PLLQCtrl.OnOffGet:
+  send: []
+  recv:
+  - name: on_off
+    type: uint32
+    original_name: On/Off
+PLLQCtrl.QGainSet:
+  send:
+  - name: q_gain
+    type: float32
+    original_name: Q Gain
+  recv: []
+PLLQCtrl.QGainGet:
+  send: []
+  recv:
+  - name: q_gain
+    type: float32
+    original_name: Q Gain
+PLLQCtrl.PhaseSet:
+  send:
+  - name: phase_adjustment
+    type: int32
+    original_name: Phase Adjustment
+  - name: custom_phase
+    type: float32
+    original_name: Custom Phase
+  recv: []
+PLLQCtrl.PhaseGet:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: period_s
+    type: float32
+    original_name: Period (s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  - name: sweep_direction
+    type: uint32
+    original_name: Sweep direction
+  recv:
+  - name: phase_adjustment
+    type: int32
+    original_name: Phase Adjustment
+  - name: phase_custom
+    type: float32
+    original_name: Phase Custom
+  - name: num_po
+    type: int32
+    original_name: Number of po
+  - name: period_s
+    type: float32
+    original_name: Period (s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: resonance_frequency_hz
+    type: float64
+    original_name: Resonance frequency (Hz)
+  - name: q_factor
+    type: float64
+    original_name: Q factor
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  - name: amplitude_to_excitation_quotient_nm_mv
+    type: float32
+    original_name: Amplitude to excitation quotient (nm/mV)
+  - name: fit_length
+    type: int32
+    original_name: Fit length
+PLLFreqSwp.Stop:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  recv: []
+PLLPhasSwp.Start:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  recv:
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+PLLPhasSwp.Stop:
+  send:
+  - name: modulator_index
+    type: int32
+    original_name: Modulator index
+  - name: channel_index
+    type: int32
+    original_name: Channel index
+  - name: timebase
+    type: int32
+    original_name: Timebase
+  - name: update_rate
+    type: int32
+    original_name: Update rate
+  - name: trigger_mode
+    type: uint16
+    original_name: Trigger mode
+  - name: trigger_source
+    type: int32
+    original_name: Trigger source
+  - name: trigger_slope
+    type: uint16
+    original_name: Trigger slope
+  - name: trigger_level
+    type: float64
+    original_name: Trigger level
+  - name: trigger_position_s
+    type: float64
+    original_name: Trigger position (s)
+  - name: arming_mode
+    type: uint16
+    original_name: Arming mode
+  - name: fft_window
+    type: uint16
+    original_name: FFT window
+  - name: averaging_mode
+    type: uint16
+    original_name: Averaging mode
+  - name: weighting_mode
+    type: uint16
+    original_name: Weighting mode
+  - name: count
+    type: int32
+    original_name: Count
+  - name: channel_1_on_angle_deg
+    type: float32
+    original_name: Channel 1 on angle (deg)
+  - name: channel_1_off_angle_deg
+    type: float32
+    original_name: Channel 1 off angle (deg)
+  - name: channel_2_on_angle_deg
+    type: float32
+    original_name: Channel 2 on angle (deg)
+  - name: channel_3_off_angle_deg
+    type: float32
+    original_name: Channel 3 off angle (deg)
+  - name: link_angles_channel_1
+    type: uint32
+    original_name: Link angles Channel 1
+  - name: link_angles_channel_2
+    type: uint32
+    original_name: Link angles Channel 2
+  - name: script_index
+    type: int32
+    original_name: Script index
+  - name: script_file_path_size_int
+    type: string
+    original_name: Script file path size (int)
+  - name: script_file_path
+    type: string
+    original_name: Script file path
+  - name: load_session
+    type: uint32
+    original_name: Load session
+  - name: save_session
+    type: uint32
+    original_name: Save session
+  - name: wait_until_script_finishes
+    type: uint32
+    original_name: Wait until script finishes
+  recv:
+  - name: channel_index
+    type: int32
+    original_name: Channel index
+  - name: timebase
+    type: int32
+    original_name: Timebase
+  - name: update_rate
+    type: int32
+    original_name: Update rate
+  - name: timebases_size
+    type: int32
+    original_name: Timebases size
+  - name: timebases_number
+    type: int32
+    original_name: Timebases number
+  - name: timebases
+    type: array_string
+    original_name: Timebases
+  - name: trigger_mode
+    type: uint16
+    original_name: Trigger mode
+  - name: trigger_source
+    type: int32
+    original_name: Trigger source
+  - name: trigger_slope
+    type: uint16
+    original_name: Trigger slope
+  - name: trigger_level
+    type: float64
+    original_name: Trigger level
+  - name: trigger_position_s
+    type: float64
+    original_name: Trigger position (s)
+  - name: arming_mode
+    type: uint16
+    original_name: Arming mode
+  - name: trigger_source_signals_list_size
+    type: int32
+    original_name: Trigger source signals list size
+  - name: trigger_source_signals_list_number
+    type: int32
+    original_name: Trigger source signals list number
+  - name: trigger_source_signals_list
+    type: array_string
+    original_name: Trigger source signals list
+  - name: data_t0
+    type: float64
+    original_name: Data t0
+  - name: data_dt
+    type: float64
+    original_name: Data dt
+  - name: data_y_size
+    type: int32
+    original_name: Data Y size
+  - name: data_y
+    type: array_float64
+    original_name: Data Y
+  - name: fft_window
+    type: uint16
+    original_name: FFT window
+  - name: averaging_mode
+    type: uint16
+    original_name: Averaging mode
+  - name: weighting_mode
+    type: uint16
+    original_name: Weighting mode
+  - name: count
+    type: int32
+    original_name: Count
+  - name: data_f0
+    type: float64
+    original_name: Data f0
+  - name: data_df
+    type: float64
+    original_name: Data df
+  - name: channel_1_on_angle_deg
+    type: float32
+    original_name: Channel 1 on angle (deg)
+  - name: channel_1_off_angle_deg
+    type: float32
+    original_name: Channel 1 off angle (deg)
+  - name: channel_2_on_angle_deg
+    type: float32
+    original_name: Channel 2 on angle (deg)
+  - name: channel_3_off_angle_deg
+    type: float32
+    original_name: Channel 3 off angle (deg)
+  - name: link_angles_channel_1
+    type: uint32
+    original_name: Link angles Channel 1
+  - name: link_angles_channel_2
+    type: uint32
+    original_name: Link angles Channel 2
+Script.ChsGet:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire buffer
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: sweep_number
+    type: int32
+    original_name: Sweep number
+  recv:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+Script.Autosave:
+  send:
+  - name: acquire_buffer
+    type: uint16
+    original_name: Acquire buffer
+  - name: sweep_number
+    type: int32
+    original_name: Sweep number
+  - name: all_sweeps_to_same_file
+    type: uint32
+    original_name: All sweeps to same file
+  - name: folder_path_path_size_int
+    type: string
+    original_name: Folder path path size (int)
+  - name: folder_path
+    type: string
+    original_name: Folder path
+  - name: basename_path_size_int
+    type: string
+    original_name: Basename path size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  recv: []
+Script.LUTLoad:
+  send:
+  - name: lut_index
+    type: int32
+    original_name: LUT index
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  - name: lut_values_size
+    type: int32
+    original_name: LUT values size
+  - name: lut_values
+    type: array_float32
+    original_name: LUT values
+  recv: []
+Script.LUTSave:
+  send:
+  - name: lut_index
+    type: int32
+    original_name: LUT index
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  recv: []
+Script.LUTDeploy:
+  send:
+  - name: lut_index
+    type: int32
+    original_name: LUT index
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: integral
+    type: float32
+    original_name: Integral
+  - name: proportional
+    type: float32
+    original_name: Proportional
+  - name: sign
+    type: uint32
+    original_name: Sign
+  - name: w_piezo
+    type: float32
+    original_name: W-piezo
+  - name: laser_setpoint
+    type: float32
+    original_name: Laser Setpoint
+  - name: name_size_int
+    type: string
+    original_name: Name size (int)
+  - name: name
+    type: string
+    original_name: Name
+  - name: units_size_int
+    type: string
+    original_name: Units size (int)
+  - name: units
+    type: string
+    original_name: Units
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+  - name: deflection_signal
+    type: uint16
+    original_name: Deflection signal
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait for newest data
+  - name: signals_indexes_size
+    type: int32
+    original_name: Signals indexes size
+  - name: signals_indexes
+    type: array_int32
+    original_name: Signals indexes
+  - name: additional_rt_signal_1
+    type: int32
+    original_name: Additional RT signal 1
+  - name: additional_rt_signal_2
+    type: int32
+    original_name: Additional RT signal 2
+  - name: input_index
+    type: int32
+    original_name: Input index
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration per volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset in physical units
+  - name: output_index
+    type: int32
+    original_name: Output index
+  - name: output_mode
+    type: uint16
+    original_name: Output mode
+  - name: monitor_channel_index
+    type: int32
+    original_name: Monitor channel index
+  - name: output_value
+    type: float32
+    original_name: Output value
+  - name: calculated_signal_name_size_int
+    type: string
+    original_name: Calculated signal name size (int)
+  - name: calculated_signal_name
+    type: string
+    original_name: Calculated signal name
+  - name: signal_1
+    type: uint16
+    original_name: Signal 1
+  - name: operation
+    type: uint16
+    original_name: Operation
+  - name: signal_2
+    type: uint16
+    original_name: Signal 2
+  - name: upper_limit
+    type: float32
+    original_name: Upper limit
+  - name: lower_limit
+    type: float32
+    original_name: Lower limit
+  - name: raw_limits
+    type: uint32
+    original_name: Raw limits?
+  - name: digital_line
+    type: uint32
+    original_name: Digital line
+  - name: port
+    type: uint32
+    original_name: Port
+  - name: direction
+    type: uint32
+    original_name: Direction
+  - name: polarity
+    type: uint32
+    original_name: Polarity
+  - name: digital_lines_size
+    type: int32
+    original_name: Digital lines size
+  - name: digital_line_s_1d_array_unsigned
+    type: int32
+    original_name: Digital line s (1D array unsigned
+  - name: pulse_width_s
+    type: float32
+    original_name: Pulse width (s)
+  - name: pulse_pause_s
+    type: float32
+    original_name: Pulse pause (s)
+  - name: num_pulses
+    type: int32
+    original_name: Number of pulses
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: acquisition_mode
+    type: uint16
+    original_name: Acquisition mode
+  - name: acquisition_duration_hours
+    type: int32
+    original_name: Acquisition duration( hours)
+  - name: acquisition_duration_minutes
+    type: int32
+    original_name: Acquisition duration (minutes)
+  - name: acquisition_duration_seconds
+    type: float32
+    original_name: Acquisition duration (seconds)
+  - name: averaging
+    type: int32
+    original_name: Averaging
+  - name: basename_size_int
+    type: string
+    original_name: Basename size (int)
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: comment_size_int
+    type: string
+    original_name: Comment size (int)
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: size_of_the_list_of_moduless_int
+    type: string
+    original_name: Size of the list of moduless (int)
+  - name: num_modules_int
+    type: string
+    original_name: Number of modules (int)
+  - name: list_of_modules
+    type: array_string
+    original_name: List of modules
+  recv:
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: integral
+    type: float32
+    original_name: Integral
+  - name: proportional
+    type: float32
+    original_name: Proportional
+  - name: sign
+    type: uint32
+    original_name: Sign
+  - name: w_piezo
+    type: float32
+    original_name: W-piezo
+  - name: interferometer_value
+    type: float32
+    original_name: Interferometer value
+  - name: laser_setpoint
+    type: float32
+    original_name: Laser Setpoint
+  - name: laser_power
+    type: float32
+    original_name: Laser power
+  - name: name_size_int
+    type: string
+    original_name: Name size (int)
+  - name: name
+    type: string
+    original_name: Name
+  - name: units_size_int
+    type: string
+    original_name: Units size (int)
+  - name: units
+    type: string
+    original_name: Units
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+  - name: signals_names_size
+    type: int32
+    original_name: Signals names size
+  - name: signals_names_number
+    type: int32
+    original_name: Signals names number
+  - name: signals_names
+    type: array_string
+    original_name: Signals names
+  - name: calibration_per_volt
+    type: float32
+    original_name: Calibration per volt
+  - name: offset_in_physical_units
+    type: float32
+    original_name: Offset in physical units
+  - name: maximum_limit
+    type: float32
+    original_name: Maximum limit
+  - name: minimum_limit
+    type: float32
+    original_name: Minimum limit
+  - name: signal_value
+    type: float32
+    original_name: Signal value
+  - name: signals_values_size
+    type: int32
+    original_name: Signals values size
+  - name: signals_values
+    type: array_float32
+    original_name: Signals values
+  - name: measurement_channels_list_size
+    type: int32
+    original_name: Measurement channels list size
+  - name: num_measurement_channels
+    type: int32
+    original_name: Number of Measurement channels
+  - name: measurement_channels_list
+    type: array_string
+    original_name: Measurement channels list
+  - name: additional_rt_signals_names_size
+    type: int32
+    original_name: Additional RT signals names size
+  - name: num_additional_rt_signals
+    type: int32
+    original_name: Number of Additional RT signals
+  - name: additional_rt_signals_names
+    type: array_string
+    original_name: Additional RT signals names
+  - name: additional_rt_signal_1
+    type: string
+    original_name: Additional RT signal 1
+  - name: additional_rt_signal_2
+    type: string
+    original_name: Additional RT signal 2
+  - name: output_mode
+    type: uint16
+    original_name: Output mode
+  - name: monitor_channel_index
+    type: int32
+    original_name: Monitor channel index
+  - name: calculated_signal_name_size_int
+    type: string
+    original_name: Calculated signal name size (int)
+  - name: calculated_signal_name
+    type: string
+    original_name: Calculated signal name
+  - name: signal_1
+    type: uint16
+    original_name: Signal 1
+  - name: operation
+    type: uint16
+    original_name: Operation
+  - name: signal_2
+    type: uint16
+    original_name: Signal 2
+  - name: uppe_r_limit
+    type: float32
+    original_name: Uppe r limit
+  - name: lowe_r_limit
+    type: float32
+    original_name: Lowe r limit
+  - name: ttl_voltages_size
+    type: int32
+    original_name: TTL voltages size
+  - name: ttl_voltages_1d_array
+    type: uint32
+    original_name: TTL voltages (1D array
+  - name: start_time_size_int_returns_the_num_bytes_corresponding_to_the_start_time
+    type: string
+    original_name: Start time size (int) returns the number of bytes corresponding
+      to the Start time
+  - name: start_time
+    type: string
+    original_name: Start time
+  - name: acquisition_elapsed_hours
+    type: uint16
+    original_name: Acquisition elapsed hours
+  - name: acquisition_elapsed_minutes
+    type: uint16
+    original_name: Acquisition elapsed minutes
+  - name: acquisition_elapsed_seconds
+    type: float32
+    original_name: Acquisition elapsed seconds
+  - name: stop_time_size_int_returns_the_num_bytes_corresponding_to_the_stop_time
+    type: string
+    original_name: Stop time size (int) returns the number of bytes corresponding
+      to the Stop time
+  - name: stop_time
+    type: string
+    original_name: Stop time
+  - name: saved_file_path_size_int_returns_the_num_bytes_corresponding_to_the_saved_file_path
+    type: string
+    original_name: Saved file path size (int) returns the number of bytes corresponding
+      to the Saved file path
+  - name: saved_file_path
+    type: string
+    original_name: Saved file path
+  - name: po
+    type: int32
+    original_name: Po
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: acquisition_mode
+    type: uint16
+    original_name: Acquisition mode
+  - name: acquisition_duration_hours
+    type: int32
+    original_name: Acquisition duration( hours)
+  - name: acquisition_duration_minutes
+    type: int32
+    original_name: Acquisition duration (minutes)
+  - name: acquisition_duration_seconds
+    type: float32
+    original_name: Acquisition duration (seconds)
+  - name: averaging
+    type: int32
+    original_name: Averaging
+  - name: basename_size_int_returns_the_size_in_bytes_of_the_basename
+    type: string
+    original_name: Basename size (int) returns the size in bytes of the Basename
+  - name: basename
+    type: string
+    original_name: Basename
+  - name: comment_size_int_returns_the_size_in_bytes_of_the_comment
+    type: string
+    original_name: Comment size (int) returns the size in bytes of the Comment
+  - name: comment
+    type: string
+    original_name: Comment
+TCPLog.Stop:
+  send:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  recv: []
+TCPLog.OversamplSet:
+  send:
+  - name: oversampling_value
+    type: int32
+    original_name: Oversampling value
+  recv: []
+TCPLog.StatusGet:
+  send:
+  - name: channel_index
+    type: int32
+    original_name: Channel index
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: oversampling_index
+    type: int32
+    original_name: Oversampling index
+  - name: calibration_mode
+    type: uint16
+    original_name: Calibration mode
+  - name: num_samples
+    type: int32
+    original_name: Number of samples
+  - name: pre_trigger_samples
+    type: uint32
+    original_name: Pre-Trigger samples
+  - name: pre_trigger_s
+    type: float64
+    original_name: Pre-Trigger (s)
+  - name: data_to_get
+    type: uint16
+    original_name: Data to get
+  - name: timeout_s
+    type: float64
+    original_name: Timeout (s)
+  - name: trigger_mode
+    type: uint16
+    original_name: Trigger mode
+  - name: level_trigger_channel_index
+    type: int32
+    original_name: Level trigger channel index
+  - name: level_trigger_value
+    type: float64
+    original_name: Level trigger value
+  - name: level_trigger_hysteresis
+    type: float64
+    original_name: Level trigger Hysteresis
+  - name: level_trigger_slope
+    type: uint16
+    original_name: Level trigger slope
+  - name: digital_trigger_channel_index
+    type: int32
+    original_name: Digital trigger channel index
+  - name: trigger_arming_mode
+    type: uint16
+    original_name: Trigger arming mode
+  - name: digital_trigger_slope
+    type: uint16
+    original_name: Digital trigger slope
+  - name: show_psd_section
+    type: uint32
+    original_name: Show PSD section
+  - name: psd_weighting
+    type: uint16
+    original_name: PSD Weighting
+  - name: psd_window_type
+    type: uint16
+    original_name: PSD window type
+  - name: psd_averaging_type
+    type: uint16
+    original_name: PSD averaging type
+  - name: psd_averaging_count
+    type: int32
+    original_name: PSD averaging count
+  - name: timebase_index
+    type: int32
+    original_name: Timebase index
+  - name: trigger_slope
+    type: uint16
+    original_name: Trigger slope
+  - name: trigger_level
+    type: float64
+    original_name: Trigger level
+  - name: trigger_hysteresis
+    type: float64
+    original_name: Trigger hysteresis
+  - name: channel_a_index
+    type: int32
+    original_name: Channel A index
+  - name: channel_b_index
+    type: int32
+    original_name: Channel B index
+  - name: trigger_channel
+    type: uint16
+    original_name: Trigger channel
+  - name: trigger_position_s
+    type: float64
+    original_name: Trigger position (s)
+  - name: spectrum_analyzer_instance
+    type: int32
+    original_name: Spectrum Analyzer instance
+  - name: range_index
+    type: int32
+    original_name: Range index
+  - name: resolution_index
+    type: uint16
+    original_name: Resolution index
+  - name: fft_window_index
+    type: uint16
+    original_name: FFT window index
+  - name: averaging_mode
+    type: uint16
+    original_name: Averaging mode
+  - name: weighting_mode
+    type: uint16
+    original_name: Weighting mode
+  - name: count
+    type: uint32
+    original_name: Count
+  - name: ac_coupling
+    type: uint32
+    original_name: AC coupling
+  - name: cursor_type
+    type: uint16
+    original_name: Cursor type
+  - name: position_x_cursor_1_hz
+    type: float64
+    original_name: Position X Cursor 1 (Hz)
+  - name: position_x_cursor_2_hz
+    type: float64
+    original_name: Position X Cursor 2 (Hz)
+  - name: periods
+    type: int32
+    original_name: Periods
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: amplitude
+    type: float32
+    original_name: Amplitude (%)
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: polarity
+    type: uint16
+    original_name: Polarity
+  - name: direction
+    type: uint16
+    original_name: Direction
+  - name: idle_value
+    type: float32
+    original_name: Idle value
+  - name: device
+    type: int32
+    original_name: Device
+  - name: status
+    type: uint32
+    original_name: Status
+  - name: time_s
+    type: float32
+    original_name: Time (s)
+  - name: add_zero
+    type: uint16
+    original_name: Add/Zero
+  - name: shape
+    type: uint16
+    original_name: Shape
+  recv:
+  - name: status
+    type: int32
+    original_name: Status
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: oversampling_index
+    type: int32
+    original_name: Oversampling index
+  - name: calibration_mode
+    type: uint16
+    original_name: Calibration mode
+  - name: num_samples
+    type: int32
+    original_name: Number of samples
+  - name: pre_trigger_samples
+    type: int32
+    original_name: Pre-Trigger samples
+  - name: data_t0_size_int
+    type: string
+    original_name: Data t0 size (int)
+  - name: data_t0
+    type: string
+    original_name: Data t0
+  - name: data_dt
+    type: float64
+    original_name: Data dt
+  - name: data_y_size
+    type: int32
+    original_name: Data Y size
+  - name: data_y
+    type: array_float32
+    original_name: Data Y
+  - name: timeout
+    type: uint32
+    original_name: Timeout
+  - name: trigger_mode
+    type: uint16
+    original_name: Trigger mode
+  - name: level_trigger_channel_index
+    type: int32
+    original_name: Level trigger channel index
+  - name: level_trigger_value
+    type: float64
+    original_name: Level trigger value
+  - name: level_trigger_hysteresis
+    type: float64
+    original_name: Level trigger Hysteresis
+  - name: level_trigger_slope
+    type: uint16
+    original_name: Level trigger slope
+  - name: digital_trigger_channel_index
+    type: int32
+    original_name: Digital trigger channel index
+  - name: trigger_arming_mode
+    type: uint16
+    original_name: Trigger arming mode
+  - name: digital_trigger_slope
+    type: uint16
+    original_name: Digital trigger slope
+  - name: psd_weighting
+    type: uint16
+    original_name: PSD Weighting
+  - name: psd_window_type
+    type: uint16
+    original_name: PSD window type
+  - name: psd_averaging_type
+    type: uint16
+    original_name: PSD averaging type
+  - name: psd_averaging_count
+    type: int32
+    original_name: PSD averaging count
+  - name: data_f0
+    type: float64
+    original_name: Data f0
+  - name: data_df
+    type: float64
+    original_name: Data df
+  - name: channel_index
+    type: int32
+    original_name: Channel index
+  - name: timebase_index
+    type: int32
+    original_name: Timebase index
+  - name: num_timebases
+    type: int32
+    original_name: Number of timebases
+  - name: timebases_s
+    type: array_float32
+    original_name: Timebases (s)
+  - name: trigger_slope
+    type: uint16
+    original_name: Trigger slope
+  - name: trigger_level
+    type: float64
+    original_name: Trigger level
+  - name: trigger_hysteresis
+    type: float64
+    original_name: Trigger hysteresis
+  - name: channel_a_index
+    type: int32
+    original_name: Channel A index
+  - name: channel_b_index
+    type: int32
+    original_name: Channel B index
+  - name: trigger_channel
+    type: uint16
+    original_name: Trigger channel
+  - name: trigger_position_s
+    type: float64
+    original_name: Trigger position (s)
+  - name: data_size
+    type: int32
+    original_name: Data size
+  - name: data_cha
+    type: array_float64
+    original_name: Data CHA
+  - name: data_chb
+    type: array_float64
+    original_name: Data CHB
+  - name: range_index
+    type: int32
+    original_name: Range index
+  - name: num_frequency_ranges
+    type: int32
+    original_name: Number of frequency ranges
+  - name: frequency_ranges_hz
+    type: array_float32
+    original_name: Frequency ranges (Hz)
+  - name: resolution_index
+    type: uint16
+    original_name: Resolution index
+  - name: num_frequency_resolutions
+    type: int32
+    original_name: Number of frequency resolutions
+  - name: frequency_resolutions_hz
+    type: array_float32
+    original_name: Frequency resolutions (Hz)
+  - name: fft_window_index
+    type: uint16
+    original_name: FFT window index
+  - name: averaging_mode
+    type: uint16
+    original_name: Averaging mode
+  - name: weighting_mode
+    type: uint16
+    original_name: Weighting mode
+  - name: count
+    type: uint32
+    original_name: Count
+  - name: ac_coupling
+    type: uint32
+    original_name: AC coupling
+  - name: position_x_cursor_1_hz
+    type: float64
+    original_name: Position X Cursor 1 (Hz)
+  - name: position_x_cursor_2_hz
+    type: float64
+    original_name: Position X Cursor 2 (Hz)
+  - name: position_y_cursor_1
+    type: float64
+    original_name: Position Y Cursor 1
+  - name: band_rms
+    type: float64
+    original_name: Band RMS
+  - name: minimum_frequency_hz
+    type: float64
+    original_name: Minimum frequency (Hz)
+  - name: maximum_frequency_hz
+    type: float64
+    original_name: Maximum frequency (Hz)
+  - name: dc_value
+    type: float64
+    original_name: DC value
+  - name: periods_left
+    type: int32
+    original_name: Periods left
+  - name: amplitude
+    type: float32
+    original_name: Amplitude (%)
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: polarity
+    type: uint16
+    original_name: Polarity
+  - name: direction
+    type: uint16
+    original_name: Direction
+  - name: idle_value
+    type: float32
+    original_name: Idle value
+  - name: time_s
+    type: float32
+    original_name: Time (s)
+  - name: add_zero
+    type: uint16
+    original_name: Add/Zero
+  - name: shape
+    type: uint16
+    original_name: Shape
+Util.SessionPathGet:
+  send: []
+  recv:
+  - name: session_path_size_int
+    type: string
+    original_name: Session path size (int)
+  - name: session_path
+    type: string
+    original_name: Session path
+Util.SessionPathSet:
+  send:
+  - name: session_path_size_int
+    type: string
+    original_name: Session path size (int)
+  - name: session_path
+    type: string
+    original_name: Session path
+  - name: save_settings_to_previous
+    type: uint32
+    original_name: Save settings to previous
+  recv: []
+Util.SettingsLoad:
+  send:
+  - name: settings_file_path_size_int
+    type: string
+    original_name: Settings file path size (int)
+  - name: settings_file_path
+    type: string
+    original_name: Settings file path
+  - name: load_session_settings
+    type: uint32
+    original_name: Load session settings
+  recv: []
+Util.SettingsSave:
+  send:
+  - name: settings_file_path_size_int
+    type: string
+    original_name: Settings file path size (int)
+  - name: settings_file_path
+    type: string
+    original_name: Settings file path
+  - name: save_session_settings
+    type: uint32
+    original_name: Save session settings
+  - name: layout_file_path_size_int
+    type: string
+    original_name: Layout file path size (int)
+  - name: layout_file_path
+    type: string
+    original_name: Layout file path
+  - name: load_session_layout
+    type: uint32
+    original_name: Load session layout
+  - name: save_session_layout
+    type: uint32
+    original_name: Save session layout
+  recv: []
+Util.Lock:
+  send: []
+  recv: []
+Util.UnLock:
+  send:
+  - name: rt_frequency
+    type: float32
+    original_name: RT frequency
+  - name: acquisition_period_s
+    type: float32
+    original_name: Acquisition Period (s)
+  - name: rt_oversampling
+    type: int32
+    original_name: RT oversampling
+  recv:
+  - name: rt_frequency
+    type: float32
+    original_name: RT frequency
+  - name: acquisition_period_s
+    type: float32
+    original_name: Acquisition Period (s)
+  - name: rt_oversampling
+    type: int32
+    original_name: RT oversampling
+Util.Quit:
+  send:
+  - name: use_the_stored_values
+    type: uint32
+    original_name: Use the stored values
+  - name: settings_name_size_int
+    type: string
+    original_name: Settings name size (int)
+  - name: settings_name
+    type: string
+    original_name: Settings name
+  - name: layout_name_size_int
+    type: string
+    original_name: Layout name size (int)
+  - name: layout_name
+    type: string
+    original_name: Layout name
+  - name: save_signals
+    type: uint32
+    original_name: Save signals
+  recv: []
+Util.VersionGet:
+  send: []
+  recv:
+  - name: product_line_size_int
+    type: string
+    original_name: Product Line size (int)
+  - name: product_line
+    type: string
+    original_name: Product Line
+  - name: version_size_int
+    type: string
+    original_name: Version size (int)
+  - name: version
+    type: string
+    original_name: Version
+  - name: host_app_release
+    type: uint32
+    original_name: Host App. Release
+  - name: rt_engine_release
+    type: uint32
+    original_name: RT Engine release
+File.datLoad:
+  send:
+  - name: file_path_size_int
+    type: string
+    original_name: File path size (int)
+  - name: file_path
+    type: string
+    original_name: File path
+  - name: read_only_header
+    type: uint32
+    original_name: Read only header
+  recv:
+  - name: channels_names_size_int
+    type: string
+    original_name: Channels names size (int)
+  - name: num_channels_int
+    type: string
+    original_name: Number of channels (int)
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: header_rows
+    type: int32
+    original_name: Header rows
+  - name: header_columns
+    type: int32
+    original_name: Header columns
+  - name: header
+    type: matrix_string
+    original_name: Header
+MCVA5.UserInSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  - name: user_input
+    type: uint32
+    original_name: User Input
+  recv: []
+MCVA5.UserInGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  recv:
+  - name: user_input
+    type: uint32
+    original_name: User Input
+MCVA5.GainSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  - name: gain
+    type: uint16
+    original_name: Gain
+  recv: []
+MCVA5.GainGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  recv:
+  - name: gain
+    type: uint16
+    original_name: Gain
+MCVA5.InputModeSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  - name: input_mode
+    type: uint16
+    original_name: Input mode
+  recv: []
+MCVA5.InputModeGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  recv:
+  - name: input_mode
+    type: uint16
+    original_name: Input mode
+MCVA5.CouplingSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  - name: coupling
+    type: uint16
+    original_name: Coupling
+  recv: []
+MCVA5.CouplingGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: channel_nr
+    type: uint16
+    original_name: Channel Nr.
+  recv:
+  - name: coupling
+    type: uint16
+    original_name: Coupling
+MCVA5.SingleStateUpdate:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  recv:
+  - name: channel_1_ready
+    type: uint32
+    original_name: Channel 1 Ready
+  - name: channel_1_overload
+    type: uint32
+    original_name: Channel 1 Overload
+  - name: channel_2_ready
+    type: uint32
+    original_name: Channel 2 Ready
+  - name: channel_2_overload
+    type: uint32
+    original_name: Channel 2 Overload
+  - name: channel_3_ready
+    type: uint32
+    original_name: Channel 3 Ready
+  - name: channel_3_overload
+    type: uint32
+    original_name: Channel 3 Overload
+  - name: channel_4_ready
+    type: uint32
+    original_name: Channel 4 Ready
+  - name: channel_4_overload
+    type: uint32
+    original_name: Channel 4 Overload
+MCVA5.ContStateUpdateSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous Read
+  recv: []
+MCVA5.ContStateUpdateGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  recv:
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous Read
+MCVA5.SingleTempUpdate:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  recv:
+  - name: channel_1
+    type: uint16
+    original_name: Channel 1
+  - name: channel_2
+    type: uint16
+    original_name: Channel 2
+  - name: channel_3
+    type: uint16
+    original_name: Channel 3
+  - name: channel_4
+    type: uint16
+    original_name: Channel 4
+MCVA5.ContTempUpdateSet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous Read
+  recv: []
+MCVA5.ContTempUpdateGet:
+  send:
+  - name: preamplifier_nr
+    type: uint16
+    original_name: Preamplifier Nr.
+  recv:
+  - name: continuous_read
+    type: uint32
+    original_name: Continuous Read
+MProbeBias.Set:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+  recv: []
+MProbeBias.Get:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  recv:
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+MProbeBias.RangeSet:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  - name: bias_range_index
+    type: uint16
+    original_name: Bias range index
+  recv: []
+MProbeBias.RangeGet:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  recv:
+  - name: bias_range_index
+    type: uint16
+    original_name: Bias range index
+MProbeBias.CalibrSet:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+  recv: []
+MProbeBias.CalibrGet:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  recv:
+  - name: calibration
+    type: float32
+    original_name: Calibration
+  - name: offset
+    type: float32
+    original_name: Offset
+MProbeBias.Pulse:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  - name: wait_until_done
+    type: uint32
+    original_name: Wait until done
+  - name: bias_pulse_width_s
+    type: float32
+    original_name: Bias pulse width (s)
+  - name: bias_value_v
+    type: float32
+    original_name: Bias value (V)
+  - name: z_controller_on_hold
+    type: uint16
+    original_name: Z-Controller on hold
+  - name: pulse_absolute_relative
+    type: uint16
+    original_name: Pulse absolute/relative
+  recv: []
+MProbeCurrent.Get:
+  send:
+  - name: scanner_index
+    type: uint16
+    original_name: Scanner index
+  - name: gain_index
+    type: int32
+    original_name: Gain index
+  - name: filter_index
+    type: int32
+    original_name: Filter index
+  - name: calibration
+    type: float64
+    original_name: Calibration
+  - name: offset
+    type: float64
+    original_name: Offset
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+  - name: p_gain
+    type: float32
+    original_name: P-gain
+  - name: i_gain
+    type: float32
+    original_name: I-gain
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+  - name: z_high_limit_m
+    type: float32
+    original_name: Z high limit (m)
+  - name: z_low_limit_m
+    type: float32
+    original_name: Z low limit (m)
+  - name: x_m
+    type: float32
+    original_name: X (m)
+  - name: y_m
+    type: float32
+    original_name: Y (m)
+  - name: speed_m_s
+    type: float32
+    original_name: Speed (m/s)
+  - name: factor_x_m_v
+    type: float32
+    original_name: Factor X (m/V)
+  - name: factor_y_m_v
+    type: float32
+    original_name: Factor Y (m/V)
+  - name: factor_z_m_v
+    type: float32
+    original_name: Factor Z (m/V)
+  recv:
+  - name: current_value_a
+    type: float32
+    original_name: Current value (A)
+  - name: gains_size
+    type: int32
+    original_name: Gains size
+  - name: num_gains
+    type: int32
+    original_name: Number of gains
+  - name: gains
+    type: array_string
+    original_name: Gains
+  - name: gain_index
+    type: int32
+    original_name: Gain index
+  - name: filters_size
+    type: int32
+    original_name: Filters size
+  - name: num_filters
+    type: int32
+    original_name: Number of filters
+  - name: filters
+    type: array_string
+    original_name: Filters
+  - name: filter_index
+    type: int32
+    original_name: Filter index
+  - name: calibration
+    type: float64
+    original_name: Calibration
+  - name: offset
+    type: float64
+    original_name: Offset
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+  - name: p_gain
+    type: float32
+    original_name: P-gain
+  - name: i_gain
+    type: float32
+    original_name: I-gain
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+  - name: z_high_limit_m
+    type: float32
+    original_name: Z high limit (m)
+  - name: z_low_limit_m
+    type: float32
+    original_name: Z low limit (m)
+  - name: x_m
+    type: float32
+    original_name: X (m)
+  - name: y_m
+    type: float32
+    original_name: Y (m)
+  - name: speed_m_s
+    type: float32
+    original_name: Speed (m/s)
+  - name: scanner_index
+    type: int32
+    original_name: Scanner index
+  - name: factor_x_m_v
+    type: float32
+    original_name: Factor X (m/V)
+  - name: factor_y_m_v
+    type: float32
+    original_name: Factor Y (m/V)
+  - name: factor_z_m_v
+    type: float32
+    original_name: Factor Z (m/V)
+  - name: range_x_m
+    type: float32
+    original_name: Range X (m)
+  - name: range_y_m
+    type: float32
+    original_name: Range Y (m)
+  - name: range_z_m
+    type: float32
+    original_name: Range Z (m)
+ZCtrl.OnOffGet:
+  send: []
+  recv:
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+ZCtrl.OnOffSet:
+  send:
+  - name: z_controller_status
+    type: uint32
+    original_name: Z-Controller status
+  recv: []
+ZCtrl.SetpntGet:
+  send: []
+  recv:
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+ZCtrl.LimitsGet:
+  send: []
+  recv:
+  - name: z_high_limit_m
+    type: float32
+    original_name: Z high limit (m)
+  - name: z_low_limit_m
+    type: float32
+    original_name: Z low limit (m)
+ZCtrl.SetpntSet:
+  send:
+  - name: z_controller_setpoint
+    type: float32
+    original_name: Z-Controller setpoint
+  recv: []
+ZCtrl.HomePropsGet:
+  send: []
+  recv:
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+ZCtrl.HomePropsSet:
+  send:
+  - name: relative_or_absolute
+    type: uint16
+    original_name: Relative or Absolute
+  - name: home_position_m
+    type: float32
+    original_name: Home position (m)
+  recv: []
+ZCtrl.Home:
+  send: []
+  recv: []
+ZCtrl.StatusGet:
+  send: []
+  recv:
+  - name: z_controller_status
+    type: uint16
+    original_name: Z -Controller Status
+ZCtrl.ZPosGet:
+  send: []
+  recv:
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+ZCtrl.ZPosSet:
+  send:
+  - name: z_position_m
+    type: float32
+    original_name: Z position (m)
+  recv: []
+ZCtrl.Withdraw:
+  send:
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  recv: []
+FolMe.XYPosGet:
+  send:
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait for newest data
+  recv:
+  - name: x_m
+    type: float64
+    original_name: X (m)
+  - name: y_m
+    type: float64
+    original_name: Y (m)
+FolMe.XYPosSet:
+  send:
+  - name: x_m
+    type: float64
+    original_name: X (m)
+  - name: y_m
+    type: float64
+    original_name: Y (m)
+  - name: wait_end_of_move
+    type: uint32
+    original_name: Wait end of move
+  recv: []
+Piezo.DriftCompGet:
+  send: []
+  recv:
+  - name: compensation_status
+    type: uint32
+    original_name: Compensation status
+  - name: vx_m_s
+    type: float32
+    original_name: Vx (m/s)
+  - name: vy_m_s
+    type: float32
+    original_name: Vy (m/s)
+  - name: vz_m_s
+    type: float32
+    original_name: Vz (m/s)
+  - name: x_saturated_status
+    type: uint32
+    original_name: X saturated status
+  - name: y_saturated_status
+    type: uint32
+    original_name: Y saturated status
+  - name: z_saturated_status
+    type: uint32
+    original_name: Z saturated status
+  - name: saturation_limit
+    type: float32
+    original_name: Saturation limit (%)
+Piezo.DriftCompSet:
+  send:
+  - name: compensation_status
+    type: uint32
+    original_name: Compensation status
+  - name: vx_m_s
+    type: float32
+    original_name: Vx (m/s)
+  - name: vy_m_s
+    type: float32
+    original_name: Vy (m/s)
+  - name: vz_m_s
+    type: float32
+    original_name: Vz (m/s)
+  - name: saturation_limit
+    type: float32
+    original_name: Saturation limit (%)
+  recv: []
+BiasSpectr.Start:
+  send:
+  - name: get_data
+    type: uint32
+    original_name: Get data
+  - name: save_base_name_string_size
+    type: int32
+    original_name: Save base name string size
+  - name: save_base_name
+    type: string
+    original_name: Save base name
+  recv:
+  - name: channels_names_size
+    type: int32
+    original_name: Channels names size
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channels_names
+    type: array_string
+    original_name: Channels names
+  - name: data_rows
+    type: int32
+    original_name: Data rows
+  - name: data_columns
+    type: int32
+    original_name: Data columns
+  - name: data
+    type: matrix_float32
+    original_name: Data
+  - name: num_parameters
+    type: int32
+    original_name: Number of parameters
+  - name: parameters
+    type: array_float32
+    original_name: Parameters
+BiasSpectr.Open:
+  send: []
+  recv: []
+Scan.Action:
+  send:
+  - name: scan_action
+    type: uint16
+    original_name: Scan action
+  - name: scan_direction
+    type: uint32
+    original_name: Scan direction
+  recv: []
+Scan.StatusGet:
+  send: []
+  recv:
+  - name: scan_status
+    type: uint32
+    original_name: Scan status
+Scan.WaitEndOfScan:
+  send:
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  recv:
+  - name: timeout_status_status
+    type: uint32
+    original_name: Timeout status status
+  - name: file_path_size
+    type: uint32
+    original_name: File path size
+  - name: file_path
+    type: string
+    original_name: File path
+Scan.WaitEndOfLine:
+  send:
+  - name: timeout_ms
+    type: int32
+    original_name: Timeout (ms)
+  recv:
+  - name: timeout_status_status
+    type: uint32
+    original_name: Timeout status status
+  - name: line_number
+    type: int32
+    original_name: Line number
+  - name: type_of_movement
+    type: uint16
+    original_name: Type of movement
+  - name: pass_number
+    type: int32
+    original_name: Pass number
+Scan.FrameGet:
+  send: []
+  recv:
+  - name: center_x_m
+    type: float32
+    original_name: Center X (m)
+  - name: center_y_m
+    type: float32
+    original_name: Center Y (m)
+  - name: width_m
+    type: float32
+    original_name: Width (m)
+  - name: height_m
+    type: float32
+    original_name: Height (m)
+  - name: angle_deg
+    type: float32
+    original_name: Angle (deg)
+Scan.PropsSet:
+  send:
+  - name: continuous_scan
+    type: uint32
+    original_name: Continuous scan
+  - name: bouncy_scan
+    type: uint32
+    original_name: Bouncy scan
+  - name: autosave
+    type: uint32
+    original_name: Autosave
+  - name: series_name_size
+    type: int32
+    original_name: Series name size
+  - name: series_name
+    type: string
+    original_name: Series name
+  - name: comment_size
+    type: int32
+    original_name: Comment size
+  - name: comment
+    type: string
+    original_name: Comment
+  recv: []
+Scan.PropsGet:
+  send: []
+  recv:
+  - name: continuous_scan
+    type: uint32
+    original_name: Continuous scan
+  - name: bouncy_scan
+    type: uint32
+    original_name: Bouncy scan
+  - name: autosave
+    type: uint32
+    original_name: Autosave
+  - name: series_name_size
+    type: int32
+    original_name: Series name size
+  - name: series_name
+    type: string
+    original_name: Series name
+  - name: comment_size
+    type: int32
+    original_name: Comment size
+  - name: comment
+    type: string
+    original_name: Comment
+  - name: modules_names_size
+    type: int32
+    original_name: Modules names size
+  - name: modules_names_number
+    type: int32
+    original_name: Modules names number
+  - name: modules_names
+    type: array_string
+    original_name: Modules names
+  - name: size_of_num_parameters_per_module_array
+    type: int32
+    original_name: Size of Number of Parameters per Module array
+  - name: num_parameters_per_module_array
+    type: array_int32
+    original_name: Number of Parameters per Module array
+  - name: parameters_rows
+    type: int32
+    original_name: Parameters rows
+  - name: parameters_columns
+    type: int32
+    original_name: Parameters columns
+  - name: parameters
+    type: matrix_string
+    original_name: Parameters
+  - name: autopaste
+    type: uint32
+    original_name: Autopaste
+Scan.BufferSet:
+  send:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: pixels
+    type: int32
+    original_name: Pixels
+  - name: lines
+    type: int32
+    original_name: Lines
+  recv: []
+Scan.BufferGet:
+  send: []
+  recv:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  - name: pixels
+    type: uint32
+    original_name: Pixels
+  - name: lines
+    type: uint32
+    original_name: Lines
+Scan.FrameDataGrab:
+  send:
+  - name: channel_index
+    type: uint32
+    original_name: Channel index
+  - name: data_direction
+    type: uint32
+    original_name: Data direction
+  recv:
+  - name: channels_name_size
+    type: int32
+    original_name: Channels name size
+  - name: channel_name
+    type: string
+    original_name: Channel name
+  - name: scan_data_rows
+    type: int32
+    original_name: Scan data rows
+  - name: scan_data_columns
+    type: int32
+    original_name: Scan data columns
+  - name: scan_data
+    type: matrix_float32
+    original_name: Scan data
+  - name: scan_direction
+    type: uint32
+    original_name: Scan direction
+LockIn.DemodPhasSet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator number
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+  recv: []
+LockIn.DemodPhasGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator number
+  recv:
+  - name: phase_deg
+    type: float32
+    original_name: Phase (deg)
+LockIn.DemodSignalGet:
+  send:
+  - name: demodulator_number
+    type: int32
+    original_name: Demodulator number
+  recv:
+  - name: demodulator_signal_index
+    type: int32
+    original_name: Demodulator Signal Index
+Current.GainSet:
+  send:
+  - name: gain_index
+    type: uint16
+    original_name: Gain index
+  recv: []
+BiasSpectr.LimitsGet:
+  send: []
+  recv:
+  - name: start_value_v
+    type: float32
+    original_name: Start value (V)
+  - name: end_value_v
+    type: float32
+    original_name: End value (V)
+BiasSpectr.ChsGet:
+  send: []
+  recv:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+BiasSpectr.ChsSet:
+  send:
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channel_indexes
+    type: array_int32
+    original_name: Channel indexes
+  recv: []
+BiasSpectr.PropsGet:
+  send: []
+  recv:
+  - name: save_all
+    type: uint16
+    original_name: Save all
+  - name: num_sweeps
+    type: int32
+    original_name: Number of sweeps
+  - name: backward_sweep
+    type: uint16
+    original_name: Backward sweep
+  - name: num_points
+    type: int32
+    original_name: Number of points
+  - name: channels_size
+    type: int32
+    original_name: Channels size
+  - name: num_channels
+    type: int32
+    original_name: Number of channels
+  - name: channels
+    type: array_string
+    original_name: Channels
+  - name: parameters_size
+    type: int32
+    original_name: Parameters size
+  - name: num_parameters
+    type: int32
+    original_name: Number of parameters
+  - name: parameters
+    type: array_string
+    original_name: Parameters
+  - name: fixed_parameters_size
+    type: int32
+    original_name: Fixed parameters size
+  - name: num_fixed_parameters
+    type: int32
+    original_name: Number of fixed parameters
+  - name: fixed_parameters
+    type: array_string
+    original_name: Fixed parameters
+BiasSpectr.AdvPropsGet:
+  send: []
+  recv:
+  - name: reset_bias
+    type: uint16
+    original_name: Reset Bias
+  - name: z_controller_hold
+    type: uint16
+    original_name: Z-Controller Hold
+  - name: record_final_z
+    type: uint16
+    original_name: Record final Z
+  - name: lockin_run
+    type: uint16
+    original_name: Lockin Run
+BiasSpectr.TimingGet:
+  send: []
+  recv:
+  - name: z_averaging_time_s
+    type: float32
+    original_name: Z averaging time (s)
+  - name: z_offset_m
+    type: float32
+    original_name: Z offset (m)
+  - name: initial_settling_time_s
+    type: float32
+    original_name: Initial settling time (s)
+  - name: maximum_slew_rate_v_s
+    type: float32
+    original_name: Maximum slew rate (V/s)
+  - name: settling_time_s
+    type: float32
+    original_name: Settling time (s)
+  - name: integration_time
+    type: float32
+    original_name: Integration time
+  - name: end_settling_time_s
+    type: float32
+    original_name: End settling time (s)
+  - name: z_control_time_s
+    type: float32
+    original_name: Z control time (s)
+Signals.NamesGet:
+  send: []
+  recv:
+  - name: signals_names_size
+    type: int32
+    original_name: Signals names size
+  - name: signals_names_number
+    type: int32
+    original_name: Signals names number
+  - name: signals_names
+    type: array_string
+    original_name: Signals names
+Signals.MeasNamesGet:
+  send: []
+  recv:
+  - name: measurement_channels_list_size
+    type: int32
+    original_name: Measurement channels list size
+  - name: num_measurement_channels
+    type: int32
+    original_name: Number of Measurement channels
+  - name: measurement_channels_list
+    type: array_string
+    original_name: Measurement channels list
+Signals.ValGet:
+  send:
+  - name: signal_index
+    type: int32
+    original_name: Signal index
+  - name: wait_for_newest_data
+    type: uint32
+    original_name: Wait for newest data
+  recv:
+  - name: signal_value
+    type: float32
+    original_name: Signal value
+AutoApproach.OnOffSet:
+  send:
+  - name: on_off
+    type: uint16
+    original_name: On/Off
+  recv: []
+AutoApproach.OnOffGet:
+  send: []
+  recv:
+  - name: status
+    type: uint16
+    original_name: Status
+AutoApproach.Open:
+  send: []
+  recv: []
+Motor.StartMove:
+  send:
+  - name: direction
+    type: uint32
+    original_name: Direction
+  - name: num_steps
+    type: uint16
+    original_name: Number of steps
+  - name: group
+    type: uint32
+    original_name: Group
+  - name: wait_until_finished
+    type: uint32
+    original_name: Wait until finished
+  recv: []
+Motor.FreqAmpGet:
+  send: []
+  recv:
+  - name: frequency_hz
+    type: float32
+    original_name: Frequency (Hz)
+  - name: amplitude_v
+    type: float32
+    original_name: Amplitude (V)
+Motor.PosGet:
+  send: []
+  recv:
+  - name: x_m
+    type: float32
+    original_name: X(m)
+  - name: y_m
+    type: float32
+    original_name: Y(m)
+  - name: z_m
+    type: float32
+    original_name: Z(m)
+Marks.PointDraw:
+  send:
+  - name: x_coordinate_m
+    type: float32
+    original_name: X coordinate (m)
+  - name: y_coordinate_m
+    type: float32
+    original_name: Y coordinate (m)
+  - name: text_size
+    type: int32
+    original_name: Text size
+  - name: text
+    type: string
+    original_name: Text
+  - name: color
+    type: uint32
+    original_name: Color
+  recv: []

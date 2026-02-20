@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(wc:*)",
+      "Bash(tree:*)",
+      "Bash(git checkout:*)",
+      "Bash(git reset:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

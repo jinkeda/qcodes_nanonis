@@ -1,0 +1,22 @@
+    Blocking waiting for file lock on build directory
+   Compiling pyo3-build-config v0.23.5
+   Compiling pyo3-ffi v0.23.5
+   Compiling pyo3-macros-backend v0.23.5
+   Compiling pyo3 v0.23.5
+   Compiling pyo3-macros v0.23.5
+    Checking numpy v0.23.0
+    Checking pyo3-stub-gen v0.6.2
+    Checking nanonis_core v0.1.0 (C:\Users\k.jin\OneDrive\PhD\claude\qcodes_Nanonis\nanonis_core)
+error: unexpected closing delimiter: `}`
+  --> src\lib.rs:87:1
+   |
+41 | fn nanonis_core(m: &Bound<'_, PyModule>) -> PyResult<()> {
+   |                                                          - this opening brace...
+...
+83 | }
+   | - ...matches this closing brace
+...
+87 | }
+   | ^ unexpected closing delimiter
+
+error: could not compile `nanonis_core` (lib) due to 1 previous error
