@@ -1,0 +1,54 @@
+{
+    "Signals.NamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Signals names number",
+                "type": "i"
+            },
+            {
+                "name": "Signals names",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.MeasNamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Measurement channels list size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Measurement channels",
+                "type": "i"
+            },
+            {
+                "name": "Measurement channels list",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.ValGet": {
+        "args": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal value",
+                "type": "f"
+            }
+        ]
+    }
+}

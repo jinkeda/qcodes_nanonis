@@ -82,3 +82,6 @@ _tmp_*.py
 # OS files
 .DS_Store
 Thumbs.db
+
+# Live test latest-run output (curated copies are kept under reports/)
+/live_test_report.md

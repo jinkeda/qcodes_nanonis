@@ -1,0 +1,120 @@
+{
+    "MProbeBias.Set": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.Get": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeBias.RangeSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.RangeGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ]
+    },
+    "MProbeBias.CalibrSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeBias.CalibrGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeBias.Pulse": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Wait until done",
+                "type": "I"
+            },
+            {
+                "name": "Bias pulse width (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller on hold",
+                "type": "H"
+            },
+            {
+                "name": "Pulse absolute/relative",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    }
+}

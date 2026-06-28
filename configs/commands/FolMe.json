@@ -1,0 +1,37 @@
+{
+    "FolMe.XYPosGet": {
+        "args": [
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            }
+        ]
+    },
+    "FolMe.XYPosSet": {
+        "args": [
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            },
+            {
+                "name": "Wait end of move",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    }
+}

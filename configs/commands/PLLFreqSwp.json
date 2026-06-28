@@ -1,0 +1,11 @@
+{
+    "PLLFreqSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

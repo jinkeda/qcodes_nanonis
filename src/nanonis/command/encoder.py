@@ -141,44 +141,57 @@ class CommandEncoder:
         raise ValueError(f"Unknown type: {dtype}")
     
     def _encode_1d_array(self, dtype: str, value: Any) -> bytes:
-        """Encode a 1D array."""
+        """
+        Encode a 1D array.
+
+        Per the Nanonis TCP protocol (see TCPProtocol_SPM.pdf, "Data Types"),
+        a 1D array carries NO embedded length prefix: its size (number of
+        elements) is sent as an independent ``int`` argument *right before*
+        the array. That count is therefore a separate field in the command
+        definition and is encoded by the normal argument loop, not here.
+        This method only emits the raw element bytes.
+        """
         elem_type = dtype.replace('array_', '')
-        
+
         if elem_type == 'string':
-            # Array of strings: size + each string
+            # Array of strings: each element is a string preceded by its size.
             strings = list(value) if not isinstance(value, list) else value
-            result = struct.pack('>I', len(strings))
+            result = b''
             for s in strings:
                 encoded = s.encode('utf-8') if isinstance(s, str) else s
                 result += struct.pack('>I', len(encoded)) + encoded
             return result
         else:
-            # Numeric array - force correct dtype
+            # Numeric array - force correct dtype, raw bytes only.
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
-            return struct.pack('>I', len(arr)) + arr.tobytes()
-    
+            return arr.tobytes()
+
     def _encode_2d_array(self, dtype: str, value: Any) -> bytes:
-        """Encode a 2D array (matrix)."""
+        """
+        Encode a 2D array (matrix).
+
+        Like 1D arrays, a 2D array carries NO embedded size prefix: the number
+        of rows and columns are sent as two independent ``int`` arguments right
+        before the array (separate fields in the command definition). This
+        method only emits the raw element bytes.
+        """
         elem_type = dtype.replace('matrix_', '')
-        
+
         if elem_type == 'string':
-            # 2D array of strings: rows + cols + each string
+            # 2D array of strings: each element is a string preceded by its size.
             matrix = list(value)
-            rows = len(matrix)
-            cols = len(matrix[0]) if rows > 0 else 0
-            result = struct.pack('>II', rows, cols)
+            result = b''
             for row in matrix:
                 for s in row:
                     encoded = s.encode('utf-8') if isinstance(s, str) else s
                     result += struct.pack('>I', len(encoded)) + encoded
             return result
         else:
-            # Numeric 2D array
+            # Numeric 2D array - raw bytes only.
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
-            rows, cols = arr.shape
-            return struct.pack('>II', rows, cols) + arr.tobytes()
+            return arr.tobytes()
 
 
 class CommandDecoder:
@@ -192,7 +205,10 @@ class CommandDecoder:
     
     SCALAR_FORMATS = {k: (v[0], v[1]) for k, v in CommandEncoder.SCALAR_FORMATS.items()}
     NUMPY_DTYPES = CommandEncoder.NUMPY_DTYPES
-    
+
+    # Integer types that can serve as an array-size argument preceding an array.
+    INT_TYPES = ('int16', 'int32', 'uint16', 'uint32')
+
     def __init__(self, debug: bool = False):
         """
         Initialize decoder.
@@ -224,13 +240,17 @@ class CommandDecoder:
         """
         result = {}
         offset = 0
-        
+        # Ordered record of (dtype, value) for every field decoded so far, used
+        # to resolve array sizes from preceding integer arguments.
+        decoded: List[Tuple[str, Any]] = []
+
         for name, dtype in args:
             try:
-                value, consumed = self._decode_value(dtype, data[offset:])
+                value, consumed = self._decode_value(dtype, data[offset:], decoded)
                 result[name] = value
+                decoded.append((dtype, value))
                 offset += consumed
-                
+
                 if self.debug:
                     logger.debug(f"Decoded {name}: {consumed} bytes -> {type(value).__name__}")
             except Exception as e:
@@ -269,13 +289,46 @@ class CommandDecoder:
         
         return f"Unknown error (status={error_status})"
     
-    def _decode_value(self, dtype: str, data: bytes) -> Tuple[Any, int]:
+    @classmethod
+    def _trailing_ints(cls, decoded: List[Tuple[str, Any]], n: int) -> List[int]:
+        """
+        Return the values of the last ``n`` integer-typed fields decoded so far,
+        in their original (left-to-right) order.
+
+        Array sizes in the Nanonis protocol are carried by independent integer
+        arguments placed right before the array, so an array's length is
+        recovered from these preceding fields rather than from an embedded
+        prefix.
+        """
+        ints = [val for dtype, val in decoded if dtype in cls.INT_TYPES]
+        if len(ints) < n:
+            raise ValueError(
+                f"Array requires {n} preceding integer size argument(s), "
+                f"but only {len(ints)} were found in the response"
+            )
+        return [int(v) for v in ints[-n:]]
+
+    def _decode_value(
+        self,
+        dtype: str,
+        data: bytes,
+        decoded: Optional[List[Tuple[str, Any]]] = None,
+    ) -> Tuple[Any, int]:
         """
         Decode a single value from bytes.
-        
+
+        Args:
+            dtype: The type to decode.
+            data: Remaining bytes, starting at this value.
+            decoded: Ordered (dtype, value) pairs decoded so far, used to
+                resolve array sizes from preceding integer arguments.
+
         Returns:
             Tuple of (decoded_value, bytes_consumed)
         """
+        if decoded is None:
+            decoded = []
+
         # Handle scalar types
         if dtype in self.SCALAR_FORMATS:
             fmt, size = self.SCALAR_FORMATS[dtype]
@@ -283,31 +336,38 @@ class CommandDecoder:
             if dtype == 'bool':
                 value = bool(value)
             return value, size
-        
+
         # Handle string
         if dtype == 'string':
             length = struct.unpack('>I', data[:4])[0]
             string_data = data[4:4+length].decode('utf-8')
             return string_data, 4 + length
-        
+
         # Handle 1D arrays
         if dtype.startswith('array_'):
-            return self._decode_1d_array(dtype, data)
-        
+            (size,) = self._trailing_ints(decoded, 1)
+            return self._decode_1d_array(dtype, data, size)
+
         # Handle 2D arrays/matrices
         if dtype.startswith('matrix_'):
-            return self._decode_2d_array(dtype, data)
-        
+            rows, cols = self._trailing_ints(decoded, 2)
+            return self._decode_2d_array(dtype, data, rows, cols)
+
         raise ValueError(f"Unknown type: {dtype}")
-    
-    def _decode_1d_array(self, dtype: str, data: bytes) -> Tuple[Any, int]:
-        """Decode a 1D array."""
+
+    def _decode_1d_array(self, dtype: str, data: bytes, size: int) -> Tuple[Any, int]:
+        """
+        Decode a 1D array of ``size`` elements.
+
+        ``size`` (number of elements) is supplied by the caller from the
+        preceding integer argument; the array data itself has no embedded
+        length prefix.
+        """
         elem_type = dtype.replace('array_', '')
-        size = struct.unpack('>I', data[:4])[0]
-        offset = 4
-        
+
         if elem_type == 'string':
-            # Array of strings
+            # Array of strings: each element prefixed by its own size.
+            offset = 0
             strings = []
             for _ in range(size):
                 str_len = struct.unpack('>I', data[offset:offset+4])[0]
@@ -319,19 +379,24 @@ class CommandDecoder:
             # Numeric array
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             elem_size = np.dtype(np_dtype).itemsize
-            arr_data = data[4:4 + size * elem_size]
+            arr_data = data[:size * elem_size]
             arr = np.frombuffer(arr_data, dtype=np_dtype).copy()
-            return arr, 4 + size * elem_size
-    
-    def _decode_2d_array(self, dtype: str, data: bytes) -> Tuple[Any, int]:
-        """Decode a 2D array (matrix)."""
+            return arr, size * elem_size
+
+    def _decode_2d_array(
+        self, dtype: str, data: bytes, rows: int, cols: int
+    ) -> Tuple[Any, int]:
+        """
+        Decode a 2D array (matrix) of ``rows`` x ``cols`` elements.
+
+        ``rows`` and ``cols`` are supplied by the caller from the two preceding
+        integer arguments; the array data itself has no embedded size prefix.
+        """
         elem_type = dtype.replace('matrix_', '')
-        rows = struct.unpack('>I', data[:4])[0]
-        cols = struct.unpack('>I', data[4:8])[0]
-        offset = 8
-        
+
         if elem_type == 'string':
-            # 2D array of strings
+            # 2D array of strings: each element prefixed by its own size.
+            offset = 0
             matrix = []
             for _ in range(rows):
                 row = []
@@ -346,6 +411,7 @@ class CommandDecoder:
             # Numeric 2D array
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             elem_size = np.dtype(np_dtype).itemsize
-            arr_data = data[8:8 + rows * cols * elem_size]
+            n = rows * cols
+            arr_data = data[:n * elem_size]
             arr = np.frombuffer(arr_data, dtype=np_dtype).reshape(rows, cols).copy()
-            return arr, 8 + rows * cols * elem_size
+            return arr, n * elem_size

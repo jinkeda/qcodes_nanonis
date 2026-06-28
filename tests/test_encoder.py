@@ -108,49 +108,96 @@ class TestCommandEncoder:
         assert result['value'] == '日本語'
     
     def test_encode_array_float32(self):
-        """Test float32 array encoding."""
-        args = [('values', 'array_float32')]
+        """Test float32 array encoding (size carried by preceding int)."""
+        args = [('num', 'int32'), ('values', 'array_float32')]
         arr = np.array([1.0, 2.0, 3.0], dtype=np.float32)
-        encoded = self.encoder.encode(args, (arr,))
-        
+        encoded = self.encoder.encode(args, (len(arr), arr))
+
         result = self.decoder.decode(args, encoded)
+        assert result['num'] == 3
         np.testing.assert_array_almost_equal(result['values'], arr)
-    
+
     def test_encode_array_int32(self):
-        """Test int32 array encoding."""
-        args = [('values', 'array_int32')]
+        """Test int32 array encoding (size carried by preceding int)."""
+        args = [('num', 'int32'), ('values', 'array_int32')]
         arr = np.array([1, 2, 3, 4, 5], dtype=np.int32)
-        encoded = self.encoder.encode(args, (arr,))
-        
+        encoded = self.encoder.encode(args, (len(arr), arr))
+
         result = self.decoder.decode(args, encoded)
+        assert result['num'] == 5
         np.testing.assert_array_equal(result['values'], arr)
-    
+
     def test_encode_array_string(self):
-        """Test string array encoding."""
-        args = [('values', 'array_string')]
+        """Test string array encoding (count carried by preceding int)."""
+        args = [('num', 'int32'), ('values', 'array_string')]
         strings = ['hello', 'world', 'test']
-        encoded = self.encoder.encode(args, (strings,))
-        
+        encoded = self.encoder.encode(args, (len(strings), strings))
+
         result = self.decoder.decode(args, encoded)
         assert result['values'] == strings
-    
+
+    def test_encode_array_string_two_preceding_ints(self):
+        """Per spec a string array has size-in-bytes AND count before it.
+
+        The decoder must use the *nearest* preceding int (the count), not the
+        size-in-bytes field.
+        """
+        strings = ['ab', 'cde']
+        # size-in-bytes = sum(4 + len(s)) ; count = number of elements
+        size_bytes = sum(4 + len(s) for s in strings)
+        args = [
+            ('size_bytes', 'int32'),
+            ('num', 'int32'),
+            ('values', 'array_string'),
+        ]
+        encoded = self.encoder.encode(args, (size_bytes, len(strings), strings))
+
+        result = self.decoder.decode(args, encoded)
+        assert result['num'] == len(strings)
+        assert result['values'] == strings
+
     def test_encode_matrix_float32(self):
-        """Test float32 2D array encoding."""
-        args = [('values', 'matrix_float32')]
+        """Test float32 2D array encoding (rows/cols carried by preceding ints)."""
+        args = [('rows', 'int32'), ('cols', 'int32'), ('values', 'matrix_float32')]
         arr = np.array([[1.0, 2.0], [3.0, 4.0]], dtype=np.float32)
-        encoded = self.encoder.encode(args, (arr,))
-        
+        encoded = self.encoder.encode(args, (2, 2, arr))
+
         result = self.decoder.decode(args, encoded)
         np.testing.assert_array_almost_equal(result['values'], arr)
-    
+
     def test_encode_matrix_string(self):
-        """Test string 2D array encoding."""
-        args = [('values', 'matrix_string')]
+        """Test string 2D array encoding (rows/cols carried by preceding ints)."""
+        args = [('rows', 'int32'), ('cols', 'int32'), ('values', 'matrix_string')]
         matrix = [['a', 'b'], ['c', 'd']]
-        encoded = self.encoder.encode(args, (matrix,))
-        
+        encoded = self.encoder.encode(args, (2, 2, matrix))
+
         result = self.decoder.decode(args, encoded)
         assert result['values'] == matrix
+
+    def test_array_has_no_embedded_length_prefix(self):
+        """A numeric array encodes as raw element bytes only (no size prefix).
+
+        Regression test: a 3-element float32 array must be exactly 12 bytes,
+        not 16 (which would include a spurious 4-byte count prefix).
+        """
+        arr = np.array([1.0, 2.0, 3.0], dtype=np.float32)
+        body = self.encoder.encode([('values', 'array_float32')], (arr,))
+        assert len(body) == 12
+        assert body == arr.astype('>f4').tobytes()
+
+    def test_matrix_has_no_embedded_size_prefix(self):
+        """A numeric matrix encodes as raw element bytes only (no rows/cols prefix)."""
+        arr = np.array([[1.0, 2.0], [3.0, 4.0]], dtype=np.float32)
+        body = self.encoder.encode([('values', 'matrix_float32')], (arr,))
+        assert len(body) == 16
+        assert body == arr.astype('>f4').tobytes()
+
+    def test_decode_array_without_size_arg_raises(self):
+        """Decoding an array with no preceding int size must raise a clear error."""
+        arr = np.array([1.0, 2.0], dtype=np.float32)
+        body = self.encoder.encode([('values', 'array_float32')], (arr,))
+        with pytest.raises(ValueError, match='preceding integer size'):
+            self.decoder.decode([('values', 'array_float32')], body)
     
     def test_encode_multiple_args(self):
         """Test encoding multiple arguments."""
@@ -210,19 +257,45 @@ class TestRoundtrip:
         assert abs(result['angle'] - 45.0) < 1e-5
     
     def test_complex_command_roundtrip(self):
-        """Test complex command with mixed types."""
+        """Test complex command with mixed types (array preceded by its count)."""
         args = [
             ('enabled', 'bool'),
             ('setpoint', 'float32'),
+            ('num_channels', 'int32'),
             ('channels', 'array_int32'),
             ('name', 'string'),
         ]
-        values = (True, 1e-10, np.array([0, 1, 2]), 'Current')
-        
+        values = (True, 1e-10, 3, np.array([0, 1, 2]), 'Current')
+
         encoded = self.encoder.encode(args, values)
         result = self.decoder.decode(args, encoded)
-        
+
         assert result['enabled'] is True
         assert abs(result['setpoint'] - 1e-10) < 1e-16
+        assert result['num_channels'] == 3
         np.testing.assert_array_equal(result['channels'], [0, 1, 2])
         assert result['name'] == 'Current'
+
+    def test_bias_rangeget_shaped_roundtrip(self):
+        """Mirror the real Bias.RangeGet recv layout: size, count, array, scalar.
+
+        Verifies that with two preceding ints the decoder uses the nearest one
+        (the element count) for the string array, and that a trailing scalar
+        after a variable-length array is parsed at the correct offset.
+        """
+        ranges = ['0 - 1 V', '0 - 10 V']
+        size_bytes = sum(4 + len(s) for s in ranges)
+        args = [
+            ('bias_ranges_size', 'int32'),
+            ('num_ranges', 'int32'),
+            ('bias_ranges', 'array_string'),
+            ('bias_range_index', 'uint16'),
+        ]
+        values = (size_bytes, len(ranges), ranges, 1)
+
+        encoded = self.encoder.encode(args, values)
+        result = self.decoder.decode(args, encoded)
+
+        assert result['num_ranges'] == 2
+        assert result['bias_ranges'] == ranges
+        assert result['bias_range_index'] == 1

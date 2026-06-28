@@ -1,0 +1,208 @@
+{
+    "MProbeCurrent.Get": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Current value (A)",
+                "type": "f"
+            },
+            {
+                "name": "Gains size",
+                "type": "i"
+            },
+            {
+                "name": "Number of gains",
+                "type": "i"
+            },
+            {
+                "name": "Gains",
+                "type": "1D array string"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of filters",
+                "type": "i"
+            },
+            {
+                "name": "Filters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Scanner index",
+                "type": "i"
+            },
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            }
+        ]
+    }
+}

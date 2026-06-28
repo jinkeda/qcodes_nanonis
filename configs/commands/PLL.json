@@ -1,0 +1,547 @@
+{
+    "PLL.InpCalibrSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.InpCalibrGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration (m/V)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.InpRangeSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Input range (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.InpRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Differential input",
+                "type": "H"
+            },
+            {
+                "name": "1/10 divider",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input range (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.InpPropsGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Differential input",
+                "type": "H"
+            },
+            {
+                "name": "1/10 divider",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.AddOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Add",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.AddOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Add",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.OutOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "PLL output",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.OutOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "PLL output",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.ExcRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Excitation value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.ExcitationGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Setpoint (m)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Excitation value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlSetpntGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Setpoint (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.AmpCtrlOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "P gain (V/m)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.AmpCtrlGainGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "P gain (V/m)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integral gain (V/m/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.AmpCtrlBandwidthGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.PhasCtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.PhasCtrlGainSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "P gain (Hz/deg)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlGainGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "P gain (Hz/deg)",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integral gain (Hz/deg/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.PhasCtrlBandwidthSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PhasCtrlBandwidthGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.FreqRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Center frequency (Hz)",
+                "type": "d"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Center frequency (Hz)",
+                "type": "d"
+            }
+        ]
+    },
+    "PLL.FreqShiftSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency shift (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqShiftGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency shift (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.FreqShiftAutoCenter": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqExcOverwriteSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Excitation overwrite signal index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency overwrite signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.FreqExcOverwriteGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Input",
+                "type": "H"
+            },
+            {
+                "name": "Frequency generator",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Excitation overwrite signal index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency overwrite signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "PLL.DemodInputGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Harmonic",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input",
+                "type": "H"
+            },
+            {
+                "name": "Frequency generator",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.DemodHarmonicGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Phase reference (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Filter order",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Harmonic",
+                "type": "H"
+            },
+            {
+                "name": "Phase reference (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.DemodFilterGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Filter order",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.PerfectPLLApply": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.PerfectPLLUpdtZTC": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

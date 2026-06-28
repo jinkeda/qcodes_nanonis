@@ -1,0 +1,64 @@
+{
+    "Piezo.DriftCompGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Compensation status",
+                "type": "I"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "X saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Y saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Z saturated status",
+                "type": "I"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.DriftCompSet": {
+        "args": [
+            {
+                "name": "Compensation status",
+                "type": "I"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    }
+}

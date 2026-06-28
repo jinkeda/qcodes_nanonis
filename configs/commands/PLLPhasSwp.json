@@ -1,0 +1,274 @@
+{
+    "PLLPhasSwp.Start": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Number of channels (int)",
+                "type": "s"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "PLLPhasSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            },
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            },
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            },
+            {
+                "name": "Script index",
+                "type": "i"
+            },
+            {
+                "name": "Script file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Script file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session",
+                "type": "I"
+            },
+            {
+                "name": "Save session",
+                "type": "I"
+            },
+            {
+                "name": "Wait until script finishes",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            },
+            {
+                "name": "Timebases size",
+                "type": "i"
+            },
+            {
+                "name": "Timebases number",
+                "type": "i"
+            },
+            {
+                "name": "Timebases",
+                "type": "1D array string"
+            },
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source signals list size",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list number",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data t0",
+                "type": "d"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            },
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            },
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            }
+        ]
+    }
+}

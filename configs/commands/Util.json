@@ -1,0 +1,148 @@
+{
+    "Util.SessionPathGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Session path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Session path",
+                "type": "s"
+            }
+        ]
+    },
+    "Util.SessionPathSet": {
+        "args": [
+            {
+                "name": "Session path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Session path",
+                "type": "s"
+            },
+            {
+                "name": "Save settings to previous",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.SettingsLoad": {
+        "args": [
+            {
+                "name": "Settings file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session settings",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.SettingsSave": {
+        "args": [
+            {
+                "name": "Settings file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings file path",
+                "type": "s"
+            },
+            {
+                "name": "Save session settings",
+                "type": "I"
+            },
+            {
+                "name": "Layout file path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Layout file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session layout",
+                "type": "I"
+            },
+            {
+                "name": "Save session layout",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.Lock": {
+        "args": [],
+        "resp": []
+    },
+    "Util.UnLock": {
+        "args": [],
+        "resp": []
+    },
+    "Util.Quit": {
+        "args": [
+            {
+                "name": "Use the stored values",
+                "type": "I"
+            },
+            {
+                "name": "Settings name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Settings name",
+                "type": "s"
+            },
+            {
+                "name": "Layout name size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Layout name",
+                "type": "s"
+            },
+            {
+                "name": "Save signals",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.VersionGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Product Line size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Product Line",
+                "type": "s"
+            },
+            {
+                "name": "Version size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Version",
+                "type": "s"
+            },
+            {
+                "name": "Host App. Release",
+                "type": "I"
+            },
+            {
+                "name": "RT Engine release",
+                "type": "I"
+            }
+        ]
+    }
+}

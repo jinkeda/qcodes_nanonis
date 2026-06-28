@@ -1,0 +1,15 @@
+{
+    "Current.GainSet": {
+        "args": [
+            {
+                "name": "gain_index",
+                "type": "i"
+            },
+            {
+                "name": "filter_index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

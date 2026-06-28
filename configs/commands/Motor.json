@@ -1,0 +1,67 @@
+{
+    "Motor.StartMove": {
+        "args": [
+            {
+                "name": "Direction",
+                "type": "I"
+            },
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Group",
+                "type": "I"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Motor.FreqAmpGet": {
+        "args": [
+            {
+                "name": "axis",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "frequency_hz",
+                "type": "f"
+            },
+            {
+                "name": "amplitude_v",
+                "type": "f"
+            }
+        ]
+    },
+    "Motor.PosGet": {
+        "args": [
+            {
+                "name": "group",
+                "type": "I"
+            },
+            {
+                "name": "timeout_ms",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "x_m",
+                "type": "d"
+            },
+            {
+                "name": "y_m",
+                "type": "d"
+            },
+            {
+                "name": "z_m",
+                "type": "d"
+            }
+        ]
+    }
+}

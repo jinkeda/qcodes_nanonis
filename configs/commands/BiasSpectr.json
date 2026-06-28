@@ -1,0 +1,294 @@
+{
+    "BiasSpectr.SafeCond1Set": {
+        "args": [
+            {
+                "name": "Condition",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.SafeCond1Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Condition",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ]
+    },
+    "BiasSpectr.SafeCond2Set": {
+        "args": [
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.SafeCond2Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "condition",
+                "type": "i"
+            },
+            {
+                "name": "threshold",
+                "type": "f"
+            },
+            {
+                "name": "signal_index",
+                "type": "i"
+            },
+            {
+                "name": "comparison",
+                "type": "H"
+            }
+        ]
+    },
+    "BiasSpectr.Start": {
+        "args": [
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Save base name string size",
+                "type": "i"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "BiasSpectr.Open": {
+        "args": [],
+        "resp": []
+    },
+    "BiasSpectr.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Start value (V)",
+                "type": "f"
+            },
+            {
+                "name": "End value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "BiasSpectr.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "BiasSpectr.ChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "i"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Channels size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
+            },
+            {
+                "name": "Parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Fixed parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of fixed parameters",
+                "type": "i"
+            },
+            {
+                "name": "Fixed parameters",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "BiasSpectr.AdvPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Reset Bias",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller Hold",
+                "type": "H"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            }
+        ]
+    },
+    "BiasSpectr.TimingGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            }
+        ]
+    }
+}

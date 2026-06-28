@@ -1,0 +1,27 @@
+{
+    "Marks.PointDraw": {
+        "args": [
+            {
+                "name": "X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "s"
+            },
+            {
+                "name": "Color",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    }
+}

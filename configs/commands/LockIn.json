@@ -1,0 +1,43 @@
+{
+    "LockIn.DemodPhasSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodPhasGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.DemodSignalGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            }
+        ]
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "Script.ChsGet": {
+        "args": [
+            {
+                "name": "acquire_buffer",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "num_channels",
+                "type": "i"
+            },
+            {
+                "name": "channel_indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "Script.Autosave": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Sweep number",
+                "type": "i"
+            },
+            {
+                "name": "All sweeps to same file",
+                "type": "I"
+            },
+            {
+                "name": "Folder path path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Folder path",
+                "type": "s"
+            },
+            {
+                "name": "Basename path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTLoad": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "LUT values size",
+                "type": "i"
+            },
+            {
+                "name": "LUT values",
+                "type": "1D array float32"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTSave": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path size (int)",
+                "type": "s"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTDeploy": {
+        "args": [
+            {
+                "name": "lut_index",
+                "type": "i"
+            },
+            {
+                "name": "wait_until_finished",
+                "type": "I"
+            },
+            {
+                "name": "timeout_ms",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

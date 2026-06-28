@@ -1,0 +1,121 @@
+{
+    "ZCtrl.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ]
+    },
+    "ZCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.SetpntGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.SetpntSet": {
+        "args": [
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.HomePropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.HomePropsSet": {
+        "args": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.Home": {
+        "args": [],
+        "resp": []
+    },
+    "ZCtrl.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z -Controller Status",
+                "type": "H"
+            }
+        ]
+    },
+    "ZCtrl.ZPosGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.ZPosSet": {
+        "args": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.Withdraw": {
+        "args": [
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}
