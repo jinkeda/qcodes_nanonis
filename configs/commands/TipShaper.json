@@ -65,47 +65,47 @@
         "args": [],
         "resp": [
             {
-                "name": "switch_off_delay_s",
+                "name": "Switch off delay",
                 "type": "f"
             },
             {
-                "name": "change_bias",
+                "name": "Change Bias?",
                 "type": "I"
             },
             {
-                "name": "bias_v",
+                "name": "Bias (V)",
                 "type": "f"
             },
             {
-                "name": "tip_lift_m",
+                "name": "Tip Lift (m)",
                 "type": "f"
             },
             {
-                "name": "lift_time_1_s",
+                "name": "Lift Time 1 (s)",
                 "type": "f"
             },
             {
-                "name": "bias_lift_v",
+                "name": "Bias Lift (V)",
                 "type": "f"
             },
             {
-                "name": "bias_settling_time_s",
+                "name": "Bias Settling Time (s)",
                 "type": "f"
             },
             {
-                "name": "lift_height_m",
+                "name": "Lift Height (m)",
                 "type": "f"
             },
             {
-                "name": "lift_time_2_s",
+                "name": "Lift Time 2 (s)",
                 "type": "f"
             },
             {
-                "name": "end_wait_time_s",
+                "name": "End Wait Time (s)",
                 "type": "f"
             },
             {
-                "name": "restore_feedback",
+                "name": "Restore Feedback?",
                 "type": "I"
             }
         ]

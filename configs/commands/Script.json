@@ -2,17 +2,17 @@
     "Script.ChsGet": {
         "args": [
             {
-                "name": "acquire_buffer",
+                "name": "Acquire buffer",
                 "type": "H"
             }
         ],
         "resp": [
             {
-                "name": "num_channels",
+                "name": "Num_channels",
                 "type": "i"
             },
             {
-                "name": "channel_indexes",
+                "name": "Channel indexes",
                 "type": "1D array int"
             }
         ]
@@ -32,16 +32,16 @@
                 "type": "I"
             },
             {
-                "name": "Folder path path size (int)",
-                "type": "s"
+                "name": "Folder path size",
+                "type": "i"
             },
             {
                 "name": "Folder path",
                 "type": "s"
             },
             {
-                "name": "Basename path size (int)",
-                "type": "s"
+                "name": "Basename size",
+                "type": "i"
             },
             {
                 "name": "Basename",
@@ -95,15 +95,15 @@
     "Script.LUTDeploy": {
         "args": [
             {
-                "name": "lut_index",
+                "name": "Lut index",
                 "type": "i"
             },
             {
-                "name": "wait_until_finished",
+                "name": "Wait until finished",
                 "type": "I"
             },
             {
-                "name": "timeout_ms",
+                "name": "Timeout (ms)",
                 "type": "i"
             }
         ],

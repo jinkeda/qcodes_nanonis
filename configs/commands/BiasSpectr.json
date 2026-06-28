@@ -160,6 +160,18 @@
             {
                 "name": "Channel indexes",
                 "type": "1D array int"
+            },
+            {
+                "name": "Channels size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels names",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
             }
         ]
     },

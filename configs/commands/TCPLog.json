@@ -25,7 +25,7 @@
         "args": [],
         "resp": [
             {
-                "name": "status",
+                "name": "Status",
                 "type": "i"
             }
         ]

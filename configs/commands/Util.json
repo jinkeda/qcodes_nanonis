@@ -15,8 +15,8 @@
     "Util.SessionPathSet": {
         "args": [
             {
-                "name": "Session path size (int)",
-                "type": "s"
+                "name": "Session path size",
+                "type": "i"
             },
             {
                 "name": "Session path",
@@ -32,8 +32,8 @@
     "Util.SettingsLoad": {
         "args": [
             {
-                "name": "Settings file path size (int)",
-                "type": "s"
+                "name": "Settings file path size",
+                "type": "i"
             },
             {
                 "name": "Settings file path",
@@ -49,8 +49,8 @@
     "Util.SettingsSave": {
         "args": [
             {
-                "name": "Settings file path size (int)",
-                "type": "s"
+                "name": "Settings file path size",
+                "type": "i"
             },
             {
                 "name": "Settings file path",
@@ -58,22 +58,6 @@
             },
             {
                 "name": "Save session settings",
-                "type": "I"
-            },
-            {
-                "name": "Layout file path size (int)",
-                "type": "s"
-            },
-            {
-                "name": "Layout file path",
-                "type": "s"
-            },
-            {
-                "name": "Load session layout",
-                "type": "I"
-            },
-            {
-                "name": "Save session layout",
                 "type": "I"
             }
         ],
