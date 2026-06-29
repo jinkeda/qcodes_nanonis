@@ -208,18 +208,6 @@
                 "type": "i"
             },
             {
-                "name": "Channels size",
-                "type": "i"
-            },
-            {
-                "name": "Number of channels",
-                "type": "i"
-            },
-            {
-                "name": "Channels",
-                "type": "1D array string"
-            },
-            {
                 "name": "Parameters size",
                 "type": "i"
             },
@@ -242,8 +230,49 @@
             {
                 "name": "Fixed parameters",
                 "type": "1D array string"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
             }
         ]
+    },
+    "BiasSpectr.PropsSet": {
+        "args": [
+            {
+                "name": "Save all",
+                "type": "H"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "i"
+            },
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            }
+        ],
+        "resp": []
     },
     "BiasSpectr.AdvPropsGet": {
         "args": [],
