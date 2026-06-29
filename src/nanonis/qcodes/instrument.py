@@ -6,7 +6,7 @@ Main QCoDeS Instrument class for Nanonis integration.
 """
 
 from pathlib import Path
-from typing import Any, Union, Optional
+from typing import Any, Union
 from qcodes.instrument import Instrument
 
 from ..command import NanonisController
@@ -71,8 +71,8 @@ class NanonisInstrument(Instrument):
             name: QCoDeS instrument name
             host: Nanonis host IP address
             port: Nanonis TCP port (typically 6501)
-            config_path: Path to command config - a directory of per-module JSON
-                files (e.g. 'configs/commands'), a single JSON file, or a YAML file
+            config_path: Directory of per-module JSON command files
+                (e.g. 'configs/commands')
             timeout: Socket timeout in seconds
             **kwargs: Additional arguments passed to Instrument base class
         """

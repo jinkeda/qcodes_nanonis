@@ -5,18 +5,22 @@ Tests for Controller
 Tests for NanonisController and CommandRegistry.
 """
 
+import json
 import pytest
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch, MagicMock
 import struct
 
 from nanonis.command import (
     NanonisController,
     CommandRegistry,
-    CommandDefinition,
-    CommandEncoder,
-    CommandDecoder,
 )
+
+
+def write_command_config(tmp_path, commands):
+    config_dir = tmp_path / "commands"
+    config_dir.mkdir()
+    (config_dir / "Test.json").write_text(json.dumps(commands), encoding="utf-8")
+    return config_dir
 
 
 class TestCommandRegistry:
@@ -28,25 +32,14 @@ class TestCommandRegistry:
         assert len(registry) == 0
         assert registry.list_commands() == []
     
-    def test_load_from_yaml(self, tmp_path):
-        """Test loading from YAML file."""
-        yaml_content = """
-Bias.Set:
-  send:
-    - name: voltage
-      type: float32
-  recv: []
-Bias.Get:
-  send: []
-  recv:
-    - name: voltage
-      type: float32
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
+    def test_load_from_directory(self, tmp_path):
+        """Test loading per-module JSON files from a directory."""
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [{"name": "Voltage", "type": "f"}], "resp": []},
+            "Bias.Get": {"args": [], "resp": [{"name": "Voltage", "type": "f"}]},
+        })
         registry = CommandRegistry()
-        registry.load_from_yaml(yaml_file)
+        registry.load_from_dir(config_dir)
         
         assert len(registry) == 2
         assert 'Bias.Set' in registry
@@ -54,18 +47,11 @@ Bias.Get:
     
     def test_get_command(self, tmp_path):
         """Test getting command definition."""
-        yaml_content = """
-Bias.Set:
-  send:
-    - name: voltage
-      type: float32
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [{"name": "Voltage", "type": "f"}], "resp": []},
+        })
         registry = CommandRegistry()
-        registry.load_from_yaml(yaml_file)
+        registry.load_from_dir(config_dir)
         
         cmd = registry.get('Bias.Set')
         assert cmd.name == 'Bias.Set'
@@ -81,22 +67,13 @@ Bias.Set:
     
     def test_list_commands_with_prefix(self, tmp_path):
         """Test listing commands with prefix filter."""
-        yaml_content = """
-Bias.Set:
-  send: []
-  recv: []
-Bias.Get:
-  send: []
-  recv: []
-Scan.Start:
-  send: []
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [], "resp": []},
+            "Bias.Get": {"args": [], "resp": []},
+            "Scan.Start": {"args": [], "resp": []},
+        })
         registry = CommandRegistry()
-        registry.load_from_yaml(yaml_file)
+        registry.load_from_dir(config_dir)
         
         bias_cmds = registry.list_commands('Bias.')
         assert len(bias_cmds) == 2
@@ -105,22 +82,13 @@ Scan.Start:
     
     def test_list_modules(self, tmp_path):
         """Test listing modules."""
-        yaml_content = """
-Bias.Set:
-  send: []
-  recv: []
-Scan.Start:
-  send: []
-  recv: []
-ZCtrl.On:
-  send: []
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [], "resp": []},
+            "Scan.Start": {"args": [], "resp": []},
+            "ZCtrl.On": {"args": [], "resp": []},
+        })
         registry = CommandRegistry()
-        registry.load_from_yaml(yaml_file)
+        registry.load_from_dir(config_dir)
         
         modules = registry.list_modules()
         assert modules == ['Bias', 'Scan', 'ZCtrl']
@@ -136,17 +104,10 @@ class TestNanonisController:
     
     def test_init_with_config(self, tmp_path):
         """Test controller initialization with config."""
-        yaml_content = """
-Bias.Get:
-  send: []
-  recv:
-    - name: voltage
-      type: float32
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
-        ctrl = NanonisController('127.0.0.1', 6501, yaml_file)
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Get": {"args": [], "resp": [{"name": "Voltage", "type": "f"}]},
+        })
+        ctrl = NanonisController('127.0.0.1', 6501, config_dir)
         assert 'Bias.Get' in ctrl.list_commands()
     
     @patch('nanonis.command.controller.NanonisTCPClient')
@@ -172,18 +133,10 @@ Bias.Get:
         mock_client.send_raw.return_value = struct.pack('>f', 0.5)
         mock_client_class.return_value = mock_client
         
-        # Create config
-        yaml_content = """
-Bias.Get:
-  send: []
-  recv:
-    - name: voltage
-      type: float32
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
-        ctrl = NanonisController('127.0.0.1', 6501, yaml_file)
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Get": {"args": [], "resp": [{"name": "Voltage", "type": "f"}]},
+        })
+        ctrl = NanonisController('127.0.0.1', 6501, config_dir)
         ctrl.connect()
         
         result = ctrl.send('Bias.Get')
@@ -198,17 +151,10 @@ Bias.Get:
         mock_client.send_raw.return_value = b''
         mock_client_class.return_value = mock_client
         
-        yaml_content = """
-Bias.Set:
-  send:
-    - name: voltage
-      type: float32
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
-        ctrl = NanonisController('127.0.0.1', 6501, yaml_file)
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [{"name": "Voltage", "type": "f"}], "resp": []},
+        })
+        ctrl = NanonisController('127.0.0.1', 6501, config_dir)
         ctrl.connect()
         
         result = ctrl.send('Bias.Set', 0.5)
@@ -224,25 +170,18 @@ Bias.Set:
         mock_client = MagicMock()
         mock_client_class.return_value = mock_client
         
-        with NanonisController('127.0.0.1', 6501) as ctrl:
+        with NanonisController('127.0.0.1', 6501):
             mock_client.connect.assert_called_once()
         
         mock_client.disconnect.assert_called_once()
     
     def test_list_commands(self, tmp_path):
         """Test listing available commands."""
-        yaml_content = """
-Bias.Set:
-  send: []
-  recv: []
-Bias.Get:
-  send: []
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
-        ctrl = NanonisController('127.0.0.1', 6501, yaml_file)
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [], "resp": []},
+            "Bias.Get": {"args": [], "resp": []},
+        })
+        ctrl = NanonisController('127.0.0.1', 6501, config_dir)
         commands = ctrl.list_commands()
         
         assert 'Bias.Set' in commands
@@ -250,17 +189,10 @@ Bias.Get:
     
     def test_get_command_info(self, tmp_path):
         """Test getting command info."""
-        yaml_content = """
-Bias.Set:
-  send:
-    - name: voltage
-      type: float32
-  recv: []
-"""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text(yaml_content)
-        
-        ctrl = NanonisController('127.0.0.1', 6501, yaml_file)
+        config_dir = write_command_config(tmp_path, {
+            "Bias.Set": {"args": [{"name": "Voltage", "type": "f"}], "resp": []},
+        })
+        ctrl = NanonisController('127.0.0.1', 6501, config_dir)
         info = ctrl.get_command_info('Bias.Set')
         
         assert info['name'] == 'Bias.Set'

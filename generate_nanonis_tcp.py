@@ -45,8 +45,8 @@ COMMAND_PATTERN = re.compile(r"^[A-Za-z][\w]*(?:\.[A-Za-z0-9_]+)+$")
 NAME_TRIM_PATTERN = re.compile(r"\s+is\s+", re.IGNORECASE)
 
 USAGE = (
-    "Usage: python generate_nanonis_tcp.py <pdf> <output> "
-    "[--start-page <int>] [--existing <path>]"
+    "Usage: python generate_nanonis_tcp.py <pdf> <output-directory> "
+    "[--start-page <int>] [--existing <command-directory>]"
 )
 
 
@@ -258,6 +258,28 @@ def merge_with_existing(new_data: Mapping[str, Dict[str, Any]], existing: Mappin
     return merged
 
 
+def load_command_directory(path: Path) -> Dict[str, Any]:
+    commands: Dict[str, Any] = {}
+    for command_file in sorted(path.glob("*.json")):
+        commands.update(json.loads(command_file.read_text(encoding="utf-8")))
+    return commands
+
+
+def write_command_directory(commands: Mapping[str, Any], path: Path) -> None:
+    modules: Dict[str, Dict[str, Any]] = {}
+    for command_name, payload in commands.items():
+        module = command_name.split(".", 1)[0]
+        modules.setdefault(module, {})[command_name] = payload
+
+    path.mkdir(parents=True, exist_ok=True)
+    for module, module_commands in sorted(modules.items()):
+        output_file = path / f"{module}.json"
+        output_file.write_text(
+            json.dumps(module_commands, indent=4, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
+
 def parse_cli_args(argv: Sequence[str]) -> Tuple[Path, Path, int, Optional[Path]]:
     if not argv or argv[0] in {"-h", "--help"}:
         raise HelpRequested
@@ -315,13 +337,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     commands = parse_pdf(pdf_path, start_page=start_page)
     commands = {cmd: sanitize_payload(payload) for cmd, payload in commands.items()}
 
-    if existing_path and existing_path.exists():
-        LOGGER.info("Merging definitions from existing JSON: %s", existing_path)
-        existing_data = json.loads(existing_path.read_text(encoding="utf-8"))
+    if existing_path and existing_path.is_dir():
+        LOGGER.info("Merging definitions from command directory: %s", existing_path)
+        existing_data = load_command_directory(existing_path)
         commands = merge_with_existing(commands, existing_data)
 
-    output_path.write_text(json.dumps(commands, indent=4, ensure_ascii=False), encoding="utf-8")
-    LOGGER.info("Wrote output to %s", output_path)
+    write_command_directory(commands, output_path)
+    LOGGER.info("Wrote %s commands to %s", len(commands), output_path)
     return 0
 
 

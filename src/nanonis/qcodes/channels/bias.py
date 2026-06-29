@@ -20,7 +20,7 @@ class BiasChannel(InstrumentChannel):
         voltage: Current bias voltage (V), gettable and settable
         
     Example:
-        >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'config.yaml')
+        >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'configs/commands')
         >>> nanonis.bias.voltage(0.5)  # Set to 0.5V
         >>> print(nanonis.bias.voltage())  # Read current value
     """

@@ -20,7 +20,7 @@ Usage
 -----
     python scripts/live_test_commands.py
     python scripts/live_test_commands.py --host 127.0.0.1 --port 6501 \
-        --config configs/nanonis_tcp.yaml --report live_test_report.md
+        --config configs/commands --report live_test_report.md
 """
 
 import argparse
@@ -29,8 +29,6 @@ import sys
 import traceback
 from pathlib import Path
 from typing import Any, List, Tuple
-
-import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
@@ -63,6 +61,11 @@ _MODULE_MARKERS = (
     'not available', 'make sure', 'module is running', 'cannot access',
     'could not access', 'incorrect scanner index',
 )
+
+
+def order_commands_for_live_test(commands: List[str]) -> List[str]:
+    """Run module-opening commands before commands that depend on them."""
+    return sorted(commands, key=lambda name: (not name.endswith('.Open'), name))
 
 
 def classify_nanonis_error(message: str) -> str:
@@ -272,8 +275,9 @@ def build_report(records: List[dict], host: str, port: int, config: Path) -> str
     # (as opposed to environment limitations like a missing module).
     bug_cats = (PROTOCOL_MISMATCH, DECODE_ERROR, STRUCTURE_MISMATCH, ENCODE_ERROR)
     bugs = [r for r in records if r['category'] in bug_cats]
+    bug_names = ', '.join(f"`{record['name']}`" for record in bugs) if bugs else 'none'
     lines.append(f"**Likely command-definition bugs (actionable): {len(bugs)}** "
-                 f"— {', '.join(f'`{r['name']}`' for r in bugs) if bugs else 'none'}")
+                 f"— {bug_names}")
     lines.append("")
 
     if failed == 0:
@@ -310,7 +314,7 @@ def main(argv=None) -> int:
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=6501)
     parser.add_argument('--config', type=Path,
-                        default=PROJECT_ROOT / 'configs' / 'nanonis_tcp.yaml')
+                        default=PROJECT_ROOT / 'configs' / 'commands')
     parser.add_argument('--report', type=Path,
                         default=PROJECT_ROOT / 'live_test_report.md')
     parser.add_argument('--timeout', type=float, default=5.0)
@@ -322,7 +326,7 @@ def main(argv=None) -> int:
 
     ctrl = NanonisController(args.host, args.port, args.config, timeout=args.timeout)
     ctrl.connect()
-    commands = ctrl.list_commands()
+    commands = order_commands_for_live_test(ctrl.list_commands())
     print(f"Testing {len(commands)} commands against {args.host}:{args.port} "
           f"(skipping {len(skip & set(commands))}) ...\n")
 

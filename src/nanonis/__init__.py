@@ -20,7 +20,7 @@ Example (standalone, Layer 2):
 Example (QCoDeS, Layer 3):
     >>> from nanonis.qcodes import NanonisInstrument
     >>> 
-    >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'config.yaml')
+    >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'configs/commands')
     >>> nanonis.bias.voltage(0.5)
     >>> print(nanonis.bias.voltage())
     >>> nanonis.close()

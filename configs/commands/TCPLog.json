@@ -1,4 +1,8 @@
 {
+    "TCPLog.Start": {
+        "args": [],
+        "resp": []
+    },
     "TCPLog.Stop": {
         "args": [
             {

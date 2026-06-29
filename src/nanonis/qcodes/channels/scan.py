@@ -5,7 +5,7 @@ Scan Channel for QCoDeS
 QCoDeS InstrumentChannel wrapper for Nanonis Scan commands.
 """
 
-from typing import Dict, Literal, Any
+from typing import Dict, Literal
 from qcodes.instrument import InstrumentChannel
 from qcodes.parameters import Parameter
 from qcodes.validators import Numbers
@@ -30,7 +30,7 @@ class ScanChannel(InstrumentChannel):
         set_frame(): Set all frame parameters at once
         
     Example:
-        >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'config.yaml')
+        >>> nanonis = NanonisInstrument('nanonis', '127.0.0.1', 6501, 'configs/commands')
         >>> nanonis.scan.width(100e-9)  # Set 100nm scan width
         >>> nanonis.scan.start()
     """

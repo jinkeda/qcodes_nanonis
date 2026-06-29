@@ -12,6 +12,7 @@ import os
 import re
 import struct
 from itertools import product
+from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 import numpy as np
@@ -41,11 +42,18 @@ class NanonisIPInstrumentbase(IPInstrument):
         name: str,
         configpath: str,
         timeout: float = DEFAULT_TIMEOUT,
+        command_configpath: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
-        # Loading command lists from JSON files (as in the NanonisInterface)
+        # Connection settings remain in legacy/sigma.json. Command definitions
+        # come exclusively from the canonical per-module JSON directory.
         self.configpath = configpath
-        self.command_list = self._load_command_list("nanonis_tcp.json")
+        command_dir = (
+            Path(command_configpath)
+            if command_configpath
+            else Path(__file__).resolve().parent.parent / "configs" / "commands"
+        )
+        self.command_list = self._load_command_directory(command_dir)
         self.commandList = self.command_list  # backwards compatibility
 
         self.config = self._load_command_list("sigma.json")
@@ -65,6 +73,22 @@ class NanonisIPInstrumentbase(IPInstrument):
         filepath = os.path.join(self.configpath, filename)
         with open(filepath, "r", encoding="utf-8") as cmd_file:
             return json.load(cmd_file)
+
+    def _load_command_directory(self, path: Path) -> Dict[str, Any]:
+        files = sorted(path.glob("*.json"))
+        if not files:
+            raise FileNotFoundError(f"No command JSON files found in {path}")
+
+        commands: Dict[str, Any] = {}
+        for file in files:
+            with file.open("r", encoding="utf-8") as command_file:
+                module_commands = json.load(command_file)
+            duplicates = commands.keys() & module_commands.keys()
+            if duplicates:
+                names = ", ".join(sorted(duplicates))
+                raise ValueError(f"Duplicate command definitions: {names}")
+            commands.update(module_commands)
+        return commands
 
     def loadCommandList(self, filename: str) -> Dict[str, Any]:
         """Backward-compatible camelCase wrapper."""

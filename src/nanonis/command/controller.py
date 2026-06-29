@@ -37,7 +37,7 @@ class NanonisController:
         ...     print(f"Bias: {voltage} V")
     
     Example (with debug mode):
-        >>> ctrl = NanonisController('127.0.0.1', 6501, 'config.yaml')
+        >>> ctrl = NanonisController('127.0.0.1', 6501, 'configs/commands')
         >>> ctrl.debug = True  # Enable verbose logging
         >>> ctrl.connect()
         >>> ctrl.send('Bias.Get')
@@ -57,7 +57,7 @@ class NanonisController:
         Args:
             host: Nanonis host IP address
             port: Nanonis TCP port (typically 6501)
-            config_path: Optional path to YAML/JSON config file
+            config_path: Optional path to a directory of per-module JSON files
             timeout: Socket timeout in seconds
             debug: Enable debug mode for verbose logging
         """
@@ -99,22 +99,15 @@ class NanonisController:
         """
         Load command configuration.
 
-        Accepts:
-        - a directory of raw per-module command files (``configs/commands/``) -
-          the canonical source, loaded directly;
-        - a single raw JSON command file;
-        - a pre-generated YAML file (``.yaml``/``.yml``).
+        The command directory is the sole runtime source of command definitions.
 
         Args:
-            path: Path to a command directory, JSON file, or YAML file
+            path: Path to a directory of per-module JSON command files
         """
         path = Path(path)
-        if path.is_dir():
-            self._registry.load_from_dir(path)
-        elif path.suffix in ('.yaml', '.yml'):
-            self._registry.load_from_yaml(path)
-        else:
-            self._registry.load_from_json(path)
+        if not path.is_dir():
+            raise ValueError(f"Command config must be a directory: {path}")
+        self._registry.load_from_dir(path)
 
         if self._debug:
             logger.info(f"Loaded {len(self._registry)} commands from {path}")

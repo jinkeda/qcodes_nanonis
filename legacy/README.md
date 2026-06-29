@@ -8,7 +8,6 @@ part of the `src/nanonis` package and not covered by the test suite.
 | `terminal.py` | PyQt5 GUI to send raw Nanonis commands manually |
 | `Nanonis_ipinstrumentbase.py` | QCoDeS `IPInstrument` driver used by the terminal |
 | `Nanonis_ipinstrument.py` | Older instrument wrapper (uses a relative import; orphaned) |
-| `nanonis_tcp.json` | Legacy command definitions (the refactored package uses `configs/*.yaml`) |
 | `sigma.json` | Connection config (`IP-Adress`, `Port`) read by the driver |
 
 ## Running the terminal
@@ -20,5 +19,5 @@ Requires `qcodes`, `PyQt5`, `numpy` and a Nanonis TCP server reachable at the
 python legacy/terminal.py
 ```
 
-The driver loads `nanonis_tcp.json` and `sigma.json` from this same directory,
-so keep these files together.
+The driver loads connection settings from `sigma.json` and command definitions
+directly from `../configs/commands/*.json`.

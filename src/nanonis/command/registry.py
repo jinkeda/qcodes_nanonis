@@ -7,16 +7,13 @@ Loads and manages command definitions for the Nanonis TCP protocol.
 The canonical source of truth is the per-module command files in
 ``configs/commands/*.json`` (raw protocol form: ``args``/``resp`` with short
 type codes such as ``i`` / ``s`` / ``1D array int``). The registry converts
-these to the codec's readable types at load time, so no separate generated
-YAML is required. YAML loading is still supported for the pre-generated
-``nanonis_tcp.yaml`` (already-converted form).
+these to the codec's readable types at load time.
 """
 
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Union
-import yaml
+from typing import Dict, List, Tuple, Union
 
 
 # --- Raw JSON -> codec type conversion --------------------------------------
@@ -143,35 +140,17 @@ class CommandRegistry:
     """
     Registry of all available Nanonis commands.
     
-    Loads command definitions from YAML and provides lookup.
+    Loads command definitions from per-module JSON files and provides lookup.
     
     Example:
         >>> registry = CommandRegistry()
-        >>> registry.load_from_yaml('configs/nanonis_tcp.yaml')
+        >>> registry.load_from_dir('configs/commands')
         >>> cmd = registry.get('Bias.Set')
         >>> print(cmd.send_args)
     """
     
     def __init__(self):
         self._commands: Dict[str, CommandDefinition] = {}
-    
-    def load_from_yaml(self, path: Union[str, Path]) -> None:
-        """
-        Load command definitions from a YAML file.
-        
-        Args:
-            path: Path to the YAML configuration file
-        """
-        path = Path(path)
-        with open(path, 'r', encoding='utf-8') as f:
-            data = yaml.safe_load(f)
-        
-        if data is None:
-            return
-        
-        for name, cmd_data in data.items():
-            if isinstance(cmd_data, dict):
-                self._commands[name] = CommandDefinition.from_dict(name, cmd_data)
     
     def load_from_json(self, path: Union[str, Path]) -> None:
         """
