@@ -31,7 +31,7 @@ class NanonisController:
     - Debug mode for verbose logging
     
     Example (standalone):
-        >>> with NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml') as ctrl:
+        >>> with NanonisController('127.0.0.1', 6501, 'configs/commands') as ctrl:
         ...     ctrl.send('Bias.Set', 0.5)
         ...     voltage = ctrl.send('Bias.Get')
         ...     print(f"Bias: {voltage} V")
@@ -97,17 +97,25 @@ class NanonisController:
     
     def load_config(self, path: Union[str, Path]) -> None:
         """
-        Load command configuration from file.
-        
+        Load command configuration.
+
+        Accepts:
+        - a directory of raw per-module command files (``configs/commands/``) -
+          the canonical source, loaded directly;
+        - a single raw JSON command file;
+        - a pre-generated YAML file (``.yaml``/``.yml``).
+
         Args:
-            path: Path to YAML or JSON config file
+            path: Path to a command directory, JSON file, or YAML file
         """
         path = Path(path)
-        if path.suffix in ('.yaml', '.yml'):
+        if path.is_dir():
+            self._registry.load_from_dir(path)
+        elif path.suffix in ('.yaml', '.yml'):
             self._registry.load_from_yaml(path)
         else:
             self._registry.load_from_json(path)
-        
+
         if self._debug:
             logger.info(f"Loaded {len(self._registry)} commands from {path}")
     

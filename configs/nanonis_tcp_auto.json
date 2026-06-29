@@ -2864,12 +2864,24 @@
         "args": [],
         "resp": [
             {
-                "name": "Number of channels",
+                "name": "num_channels",
                 "type": "i"
             },
             {
-                "name": "Channel indexes",
+                "name": "channel_indexes",
                 "type": "1D array int"
+            },
+            {
+                "name": "channels_size",
+                "type": "i"
+            },
+            {
+                "name": "num_channels_names",
+                "type": "i"
+            },
+            {
+                "name": "channels",
+                "type": "1D array string"
             }
         ]
     },

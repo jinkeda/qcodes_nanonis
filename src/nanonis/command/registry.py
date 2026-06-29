@@ -2,13 +2,103 @@
 """
 Command Registry
 
-Loads and manages command definitions from YAML configuration.
+Loads and manages command definitions for the Nanonis TCP protocol.
+
+The canonical source of truth is the per-module command files in
+``configs/commands/*.json`` (raw protocol form: ``args``/``resp`` with short
+type codes such as ``i`` / ``s`` / ``1D array int``). The registry converts
+these to the codec's readable types at load time, so no separate generated
+YAML is required. YAML loading is still supported for the pre-generated
+``nanonis_tcp.yaml`` (already-converted form).
 """
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Union
 import yaml
+
+
+# --- Raw JSON -> codec type conversion --------------------------------------
+# Short type codes used in configs/commands/*.json mapped to the readable types
+# understood by CommandEncoder/CommandDecoder.
+TYPE_MAPPING = {
+    # Scalars
+    'f': 'float32',
+    'd': 'float64',
+    'i': 'int32',
+    'I': 'uint32',
+    'H': 'uint16',
+    'h': 'int16',
+    's': 'string',
+    # Arrays (spelled out in the JSON)
+    '1D array float32': 'array_float32',
+    '1D array float64': 'array_float64',
+    '1D array int': 'array_int32',
+    '1D array int32': 'array_int32',
+    '1D array string': 'array_string',
+    '2D array float32': 'matrix_float32',
+    '2D array string': 'matrix_string',
+}
+
+_INT_TYPES = {'int16', 'int32', 'uint16', 'uint32'}
+
+
+def sanitize_name(name: str) -> str:
+    """Convert a raw argument name into a snake_case Python-friendly identifier."""
+    name = name.replace('-', '_').replace(' ', '_').replace('/', '_').replace('.', '_')
+    name = re.sub(r'\(([^)]+)\)', r'_\1', name)       # keep unit hints e.g. (V)
+    name = re.sub(r'[^a-zA-Z0-9_]', '', name).lower()
+    name = re.sub(r'_+', '_', name).strip('_')
+    name = name.replace('number_of_', 'num_')
+    return name or 'unnamed'
+
+
+def map_type(type_str: str) -> str:
+    """Map a JSON short type code to the codec's readable type."""
+    if type_str in TYPE_MAPPING:
+        return TYPE_MAPPING[type_str]
+    for key, value in TYPE_MAPPING.items():
+        if type_str.lower() == key.lower():
+            return value
+    return f'UNKNOWN:{type_str}'
+
+
+def normalize_size_fields(args: List[dict]) -> List[dict]:
+    """
+    Drop the redundant byte-size field that precedes each *scalar* string.
+
+    The protocol PDF lists a scalar string as ``<x> size`` (int) then ``<x>``
+    (string), but on the wire a body string is ``[int32 length][chars]`` - the
+    "size" *is* the string's own length prefix. The ``string`` codec is
+    self-describing, so a separate ``<x> size`` field is redundant and would
+    corrupt the byte stream. String *arrays* are left untouched: their byte-size
+    and element-count are independent, real wire fields.
+    """
+    def is_size_marker(arg: dict) -> bool:
+        return 'size' in arg['name'].lower() and (
+            arg['type'] in _INT_TYPES or arg['type'] == 'string'
+        )
+
+    out: List[dict] = []
+    for arg in args:
+        if arg['type'] == 'string' and out and is_size_marker(out[-1]):
+            out.pop()
+        out.append(arg)
+    return out
+
+
+def convert_raw_args(raw_args: List[dict]) -> List[dict]:
+    """Convert raw JSON ``args``/``resp`` entries to normalized codec args."""
+    converted = [
+        {
+            'name': sanitize_name(a['name']),
+            'type': map_type(a['type']),
+            'original_name': a['name'],
+        }
+        for a in raw_args or []
+    ]
+    return normalize_size_fields(converted)
 
 
 @dataclass
@@ -85,24 +175,49 @@ class CommandRegistry:
     
     def load_from_json(self, path: Union[str, Path]) -> None:
         """
-        Load command definitions from a JSON file (legacy format).
-        
+        Load command definitions from a raw protocol JSON file.
+
+        This is the per-module form in ``configs/commands/*.json``: each command
+        uses ``args``/``resp`` with short type codes (``i``, ``s``,
+        ``1D array int`` ...). Types are mapped to the codec's readable types and
+        redundant scalar-string size fields are normalized away at load time.
+
         Args:
-            path: Path to the JSON configuration file
+            path: Path to a raw JSON command file
         """
         import json
-        
+
         path = Path(path)
         with open(path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        
-        # JSON format uses 'args' and 'resp' instead of 'send' and 'recv'
+
         for name, cmd_data in data.items():
             converted = {
-                'send': cmd_data.get('args', []),
-                'recv': cmd_data.get('resp', []),
+                'send': convert_raw_args(cmd_data.get('args', [])),
+                'recv': convert_raw_args(cmd_data.get('resp', [])),
             }
             self._commands[name] = CommandDefinition.from_dict(name, converted)
+
+    def load_from_dir(self, path: Union[str, Path], pattern: str = '*.json') -> None:
+        """
+        Load command definitions from a directory of raw protocol JSON files.
+
+        Every ``*.json`` file in the directory is loaded via
+        :meth:`load_from_json`, so the whole ``configs/commands/`` folder can be
+        used directly as the runtime command source (no generated YAML needed).
+
+        Args:
+            path: Path to the directory of per-module command files
+            pattern: Glob pattern for command files (default ``*.json``)
+        """
+        path = Path(path)
+        files = sorted(path.glob(pattern))
+        if not files:
+            raise FileNotFoundError(
+                f"No command files matching '{pattern}' found in {path}"
+            )
+        for file in files:
+            self.load_from_json(file)
     
     def get(self, name: str) -> CommandDefinition:
         """

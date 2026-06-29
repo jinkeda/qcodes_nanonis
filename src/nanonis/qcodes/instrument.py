@@ -33,7 +33,7 @@ class NanonisInstrument(Instrument):
         ...     'nanonis',
         ...     host='127.0.0.1',
         ...     port=6501,
-        ...     config_path='configs/nanonis_tcp.yaml'
+        ...     config_path='configs/commands'
         ... )
         >>> 
         >>> # Use QCoDeS parameters
@@ -71,7 +71,8 @@ class NanonisInstrument(Instrument):
             name: QCoDeS instrument name
             host: Nanonis host IP address
             port: Nanonis TCP port (typically 6501)
-            config_path: Path to command configuration file (YAML or JSON)
+            config_path: Path to command config - a directory of per-module JSON
+                files (e.g. 'configs/commands'), a single JSON file, or a YAML file
             timeout: Socket timeout in seconds
             **kwargs: Additional arguments passed to Instrument base class
         """

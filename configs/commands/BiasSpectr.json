@@ -154,23 +154,23 @@
         "args": [],
         "resp": [
             {
-                "name": "Number of channels",
+                "name": "num_channels",
                 "type": "i"
             },
             {
-                "name": "Channel indexes",
+                "name": "channel_indexes",
                 "type": "1D array int"
             },
             {
-                "name": "Channels size",
+                "name": "channels_size",
                 "type": "i"
             },
             {
-                "name": "Number of channels names",
+                "name": "num_channels_names",
                 "type": "i"
             },
             {
-                "name": "Channels",
+                "name": "channels",
                 "type": "1D array string"
             }
         ]

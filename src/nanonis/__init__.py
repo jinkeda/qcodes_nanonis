@@ -12,7 +12,7 @@ Layers:
 Example (standalone, Layer 2):
     >>> from nanonis.command import NanonisController
     >>> 
-    >>> with NanonisController('127.0.0.1', 6501, 'configs/nanonis_tcp.yaml') as ctrl:
+    >>> with NanonisController('127.0.0.1', 6501, 'configs/commands') as ctrl:
     ...     ctrl.send('Bias.Set', 0.5)
     ...     voltage = ctrl.send('Bias.Get')
     ...     print(f"Voltage: {voltage} V")

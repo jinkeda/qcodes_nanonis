@@ -97,47 +97,39 @@
     "Scan.PropsSet": {
         "args": [
             {
-                "name": "Continuous_scan",
+                "name": "continuous_scan",
                 "type": "I"
             },
             {
-                "name": "Bouncy_scan",
+                "name": "bouncy_scan",
                 "type": "I"
             },
             {
-                "name": "Autosave",
+                "name": "autosave",
                 "type": "I"
             },
             {
-                "name": "Series_name_size",
-                "type": "i"
-            },
-            {
-                "name": "Series_name",
+                "name": "series_name",
                 "type": "s"
             },
             {
-                "name": "Comment_size",
-                "type": "i"
-            },
-            {
-                "name": "Comment",
+                "name": "comment",
                 "type": "s"
             },
             {
-                "name": "Modules_names_size",
+                "name": "modules_names_size",
                 "type": "i"
             },
             {
-                "name": "Modules_names_number",
+                "name": "modules_names_number",
                 "type": "i"
             },
             {
-                "name": "Modules_names",
+                "name": "modules_names",
                 "type": "1D array string"
             },
             {
-                "name": "Autopaste",
+                "name": "autopaste",
                 "type": "I"
             }
         ],

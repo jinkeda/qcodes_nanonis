@@ -50,6 +50,15 @@ BiasSpectr.SafeCond2Get:
     - {name: signal_index, type: int32}
     - {name: comparison, type: uint16}
 
+BiasSpectr.ChsGet:        # auto omitted the recorded-channel-names string array
+  send: []
+  recv:
+    - {name: num_channels, type: int32}
+    - {name: channel_indexes, type: array_int32}
+    - {name: channels_size, type: int32}
+    - {name: num_channels_names, type: int32}
+    - {name: channels, type: array_string}
+
 TipShaper.PropsGet:
   send: []
   recv:

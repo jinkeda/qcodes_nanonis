@@ -1954,10 +1954,19 @@ BiasSpectr.ChsGet:
   recv:
   - name: num_channels
     type: int32
-    original_name: Number of channels
+    original_name: num_channels
   - name: channel_indexes
     type: array_int32
-    original_name: Channel indexes
+    original_name: channel_indexes
+  - name: channels_size
+    type: int32
+    original_name: channels_size
+  - name: num_channels_names
+    type: int32
+    original_name: num_channels_names
+  - name: channels
+    type: array_string
+    original_name: channels
 BiasSpectr.ChsSet:
   send:
   - name: num_channels

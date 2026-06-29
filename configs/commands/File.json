@@ -2,53 +2,49 @@
     "File.datLoad": {
         "args": [
             {
-                "name": "File_path_size",
-                "type": "i"
-            },
-            {
-                "name": "File_path",
+                "name": "file_path",
                 "type": "s"
             },
             {
-                "name": "Read_only_header",
+                "name": "read_only_header",
                 "type": "I"
             }
         ],
         "resp": [
             {
-                "name": "Channels_names_size",
+                "name": "channels_names_size",
                 "type": "i"
             },
             {
-                "name": "Num_channels",
+                "name": "num_channels",
                 "type": "i"
             },
             {
-                "name": "Channels_names",
+                "name": "channels_names",
                 "type": "1D array string"
             },
             {
-                "name": "Data_rows",
+                "name": "data_rows",
                 "type": "i"
             },
             {
-                "name": "Data_columns",
+                "name": "data_columns",
                 "type": "i"
             },
             {
-                "name": "Data",
+                "name": "data",
                 "type": "2D array float32"
             },
             {
-                "name": "Header_rows",
+                "name": "header_rows",
                 "type": "i"
             },
             {
-                "name": "Header_columns",
+                "name": "header_columns",
                 "type": "i"
             },
             {
-                "name": "Header",
+                "name": "header",
                 "type": "2D array string"
             }
         ]
