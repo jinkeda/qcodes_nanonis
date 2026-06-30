@@ -30,7 +30,7 @@
         ],
         "resp": [
             {
-                "name": "Timeout status status",
+                "name": "Timeout status",
                 "type": "I"
             },
             {
@@ -93,6 +93,16 @@
                 "type": "f"
             }
         ]
+    },
+    "Scan.FrameSet": {
+        "args": [
+            {"name": "Center X (m)", "type": "f"},
+            {"name": "Center Y (m)", "type": "f"},
+            {"name": "Width (m)", "type": "f"},
+            {"name": "Height (m)", "type": "f"},
+            {"name": "Angle (deg)", "type": "f"}
+        ],
+        "resp": []
     },
     "Scan.PropsSet": {
         "args": [
@@ -238,12 +248,34 @@
             },
             {
                 "name": "Pixels",
-                "type": "I"
+                "type": "i"
             },
             {
                 "name": "Lines",
-                "type": "I"
+                "type": "i"
             }
+        ]
+    },
+    "Scan.SpeedSet": {
+        "args": [
+            {"name": "Forward linear speed (m/s)", "type": "f"},
+            {"name": "Backward linear speed (m/s)", "type": "f"},
+            {"name": "Forward time per line (s)", "type": "f"},
+            {"name": "Backward time per line (s)", "type": "f"},
+            {"name": "Keep parameter constant", "type": "H"},
+            {"name": "Speed ratio", "type": "f"}
+        ],
+        "resp": []
+    },
+    "Scan.SpeedGet": {
+        "args": [],
+        "resp": [
+            {"name": "Forward linear speed (m/s)", "type": "f"},
+            {"name": "Backward linear speed (m/s)", "type": "f"},
+            {"name": "Forward time per line (s)", "type": "f"},
+            {"name": "Backward time per line (s)", "type": "f"},
+            {"name": "Keep parameter constant", "type": "H"},
+            {"name": "Speed ratio", "type": "f"}
         ]
     },
     "Scan.FrameDataGrab": {

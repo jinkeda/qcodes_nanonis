@@ -12,6 +12,7 @@ from nanonis.workflows.state import (
     RestorationTransaction,
     TipState,
     recover_bias_spectroscopy,
+    recover_module,
 )
 
 from .conftest import FakeController, RecoverableFakeController
@@ -165,6 +166,31 @@ def test_restoration_allowed_requires_both_conditions():
     assert not RecoveryReport(False, True).restoration_allowed
     assert not RecoveryReport(True, False).restoration_allowed
     assert not RecoveryReport(True, None).restoration_allowed
+
+
+def test_recover_module_is_generic_and_report_alias_is_compatible():
+    client = RecoverableFakeController().script("Module.Status", 1, 1, 0)
+    report = recover_module(
+        client,
+        stop=lambda value: value.send("Module.Stop"),
+        status_stopped=lambda value: int(value.send("Module.Status")) == 0,
+        timeout=1,
+        poll_interval=0.001,
+    )
+
+    assert report.module_stopped is True
+    assert report.spectroscopy_stopped is True
+    assert [entry[0] for entry in client.sent] == [
+        "Module.Status",
+        "Module.Stop",
+        "Module.Status",
+        "Module.Status",
+    ]
+
+
+def test_record_recovery_accepts_no_origin():
+    with RestorationTransaction(FakeController()) as tx:
+        tx.record_recovery(RecoveryReport(True, True))
 
 
 class _does_not_raise:

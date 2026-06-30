@@ -441,7 +441,18 @@ Keep scan's validators in `scan/workflow.py` until a third vertical proves a sha
   1. Add/correct schemas: `Scan.FrameSet` (5×f, no flag), `Scan.SpeedSet`/`SpeedGet`,
      `Piezo.RangeGet`, and fix `Scan.BufferGet` pixels/lines to `i`; schema
      regression tests; add to the live-test selection. Fixes the already-broken
-     `FrameSet` call path.
+     `FrameSet` call path. **Also corrects the reversed `Scan.Action` direction
+     encoding** in `ScanChannel.start()` ([`scan.py:124`](../src/nanonis/qcodes/channels/scan.py))
+     **and** `ScanProxy.start()` ([`proxies.py:79`](../src/nanonis/command/proxies.py)),
+     both of which sent `up=0, down=1` — the inverse of the PDF (p.98: `1=up, 0=down`),
+     so `start("up")` physically scanned *down*. Now `up=1, down=0`. The
+     regression guard lives in the **qcodes-independent** command layer
+     ([`tests/test_scan_direction.py`](../tests/test_scan_direction.py), no qcodes
+     import) asserting `start("up")` → `Scan.Action(0, 1)` and `start("down")` →
+     `Scan.Action(0, 0)`; the qcodes `ScanChannel.start()` mirror is the same one-line
+     fix. The M4 scan **workflow** owns direction encoding centrally (`DIRECTION_UP/DOWN`
+     constants) and must not re-derive it — the proxy/channel are thin shims over the
+     same constants.
   2. Wire-value enums + Get/Set conversion functions (props, speed) with round-trip
      tests.
   3. **Read-only live-hardware characterization** (real socket, getters only): row/

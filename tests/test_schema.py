@@ -76,6 +76,32 @@ def test_propsset_and_new_setter_shapes_match_the_manual():
     ]
 
 
+def test_scan_setters_and_piezo_range_match_the_manual():
+    commands = registry()
+    assert [value.type for value in commands.get("Scan.FrameSet").send_args] == [
+        "float32"
+    ] * 5
+    expected_speed = [
+        "float32",
+        "float32",
+        "float32",
+        "float32",
+        "uint16",
+        "float32",
+    ]
+    assert [value.type for value in commands.get("Scan.SpeedSet").send_args] == expected_speed
+    assert [value.type for value in commands.get("Scan.SpeedGet").recv_args] == expected_speed
+    assert commands.get("Scan.BufferGet").get_recv_types()[-2:] == [
+        ("pixels", "int32"),
+        ("lines", "int32"),
+    ]
+    assert commands.get("Piezo.RangeGet").get_recv_types() == [
+        ("range_x_m", "float32"),
+        ("range_y_m", "float32"),
+        ("range_z_m", "float32"),
+    ]
+
+
 def test_decoder_rejects_missing_or_incomplete_error_trailer():
     decoder = CommandDecoder()
     types = [("value", "float32")]

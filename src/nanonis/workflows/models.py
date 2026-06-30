@@ -41,6 +41,26 @@ ExternalBiasRestorer = Callable[[CommandClient, float], None]
 
 
 @dataclass(frozen=True)
+class TipRestorePolicy:
+    """Vertical-neutral policy for restoring tunnel conditions."""
+
+    bias_restore_mode: BiasRestoreMode
+    bias_ramp: BiasRampPolicy | None
+    allow_zero_crossing: bool
+    feedback_off_during_restore: bool = True
+    external_bias_restorer: ExternalBiasRestorer | None = None
+
+    def __post_init__(self) -> None:
+        if self.bias_restore_mode is BiasRestoreMode.STEPPED and self.bias_ramp is None:
+            raise ValueError("STEPPED bias restoration requires bias_ramp")
+        if (
+            self.bias_restore_mode is BiasRestoreMode.EXTERNAL
+            and self.external_bias_restorer is None
+        ):
+            raise ValueError("EXTERNAL bias restoration requires a callback")
+
+
+@dataclass(frozen=True)
 class BiasSpectroscopySafetyPolicy:
     max_abs_bias: float
     max_abs_z_offset: float
@@ -58,13 +78,18 @@ class BiasSpectroscopySafetyPolicy:
             raise ValueError("absolute limits and min_slew_rate must be finite and > 0")
         if not isfinite(self.max_slew_rate) or self.max_slew_rate < self.min_slew_rate:
             raise ValueError("max_slew_rate must be finite and >= min_slew_rate")
-        if self.bias_restore_mode is BiasRestoreMode.STEPPED and self.bias_ramp is None:
-            raise ValueError("STEPPED bias restoration requires bias_ramp")
-        if (
-            self.bias_restore_mode is BiasRestoreMode.EXTERNAL
-            and self.external_bias_restorer is None
-        ):
-            raise ValueError("EXTERNAL bias restoration requires a callback")
+        self.tip  # validate the composed, shared policy
+
+    @property
+    def tip(self) -> TipRestorePolicy:
+        """Return the shared tip-restoration portion of this policy."""
+        return TipRestorePolicy(
+            bias_restore_mode=self.bias_restore_mode,
+            bias_ramp=self.bias_ramp,
+            allow_zero_crossing=self.allow_zero_crossing,
+            feedback_off_during_restore=self.feedback_off_during_restore,
+            external_bias_restorer=self.external_bias_restorer,
+        )
 
 
 @dataclass(frozen=True)

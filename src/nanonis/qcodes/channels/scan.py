@@ -121,7 +121,7 @@ class ScanChannel(InstrumentChannel):
         Args:
             direction: Scan direction, 'up' or 'down'
         """
-        dir_val = 0 if direction == 'up' else 1
+        dir_val = 1 if direction == 'up' else 0  # PDF p.98: 1=up, 0=down
         self._ctrl.send('Scan.Action', 0, dir_val)
     
     def stop(self) -> None:

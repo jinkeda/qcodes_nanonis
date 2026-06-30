@@ -1,10 +1,95 @@
-"""Full scan workflow (planned).
+"""Public API for the transactional one-frame scan workflow."""
 
-The useful sequence from ``doScan``: position at the correct corner, configure
-frame/buffer/speed, start, wait, validate timeout, and return the saved file or
-dataset, with snapshot/restore and stop-and-wait recovery matching the bias
-spectroscopy contract.
+from .models import (
+    DataDirection,
+    KeepConstant,
+    SaveMode,
+    ScanConfig,
+    ScanDirection,
+    ScanFrame,
+    ScanProps,
+    ScanSafetyPolicy,
+    ScanSettings,
+    ScanSpeed,
+    decode_autopaste_get,
+    decode_autosave_get,
+    decode_keep_constant_get,
+    decode_on_off_get,
+    decode_save_mode_get,
+    decode_speed_keep_get,
+    encode_autopaste_set,
+    encode_autosave_set,
+    encode_keep_constant_set,
+    encode_on_off_set,
+    encode_save_mode_set,
+    encode_speed_keep_set,
+)
+from .result import (
+    ScanChannelImage,
+    ScanResult,
+    apply_scan_nan_policy,
+    inspect_non_finite_scan_data,
+    normalize_scan,
+    normalize_scan_images,
+)
+from .workflow import (
+    ACTION_START,
+    ACTION_STOP,
+    DATA_BACKWARD,
+    DATA_FORWARD,
+    DIRECTION_DOWN,
+    DIRECTION_UP,
+    ScanWorkflow,
+    estimate_scan_duration,
+    grab_frame,
+    nanonis_timeout_ms,
+    preflight_scan,
+    recover_scan,
+    resolve_acquisition_timeout,
+    scan,
+)
 
-Not yet implemented; the likely next vertical. See ``reports/blueprint.md``
-(Next milestone) and ``reports/workflow_layer_walkthrough.md`` (M4) for scope.
-"""
+__all__ = [
+    "ACTION_START",
+    "ACTION_STOP",
+    "DATA_BACKWARD",
+    "DATA_FORWARD",
+    "DIRECTION_DOWN",
+    "DIRECTION_UP",
+    "DataDirection",
+    "KeepConstant",
+    "SaveMode",
+    "ScanChannelImage",
+    "ScanConfig",
+    "ScanDirection",
+    "ScanFrame",
+    "ScanProps",
+    "ScanResult",
+    "ScanSafetyPolicy",
+    "ScanSettings",
+    "ScanSpeed",
+    "ScanWorkflow",
+    "apply_scan_nan_policy",
+    "decode_autopaste_get",
+    "decode_autosave_get",
+    "decode_keep_constant_get",
+    "decode_on_off_get",
+    "decode_save_mode_get",
+    "decode_speed_keep_get",
+    "encode_autopaste_set",
+    "encode_autosave_set",
+    "encode_keep_constant_set",
+    "encode_on_off_set",
+    "encode_save_mode_set",
+    "encode_speed_keep_set",
+    "estimate_scan_duration",
+    "grab_frame",
+    "inspect_non_finite_scan_data",
+    "nanonis_timeout_ms",
+    "normalize_scan",
+    "normalize_scan_images",
+    "preflight_scan",
+    "recover_scan",
+    "resolve_acquisition_timeout",
+    "scan",
+]

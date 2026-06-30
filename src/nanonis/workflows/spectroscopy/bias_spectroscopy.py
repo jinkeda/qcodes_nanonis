@@ -77,7 +77,7 @@ class BiasSpectroscopyWorkflow:
                 tx.preserve(
                     "tip",
                     tip,
-                    restorer=lambda state: state.restore(self._client, self._safety),
+                    restorer=lambda state: state.restore(self._client, self._safety.tip),
                 )
 
             self._client.send("BiasSpectr.Open")

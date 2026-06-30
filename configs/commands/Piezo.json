@@ -1,4 +1,12 @@
 {
+    "Piezo.RangeGet": {
+        "args": [],
+        "resp": [
+            {"name": "Range X (m)", "type": "f"},
+            {"name": "Range Y (m)", "type": "f"},
+            {"name": "Range Z (m)", "type": "f"}
+        ]
+    },
     "Piezo.DriftCompGet": {
         "args": [],
         "resp": [

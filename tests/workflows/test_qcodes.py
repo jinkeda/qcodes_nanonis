@@ -1,11 +1,13 @@
 from datetime import datetime, timezone
 
 import numpy as np
+import pytest
 
 from nanonis.qcodes.spectroscopy import (
     add_bias_spectroscopy_result,
     register_bias_spectroscopy,
 )
+from nanonis.qcodes.scan import add_scan_result, register_scan_result
 from nanonis.workflows import (
     BiasSpectroscopyAdvanced,
     BiasSpectroscopyConfig,
@@ -120,3 +122,10 @@ def test_add_result_writes_axes_traces_and_acquisition_metadata():
     assert pairs["current_a"].tolist() == [0, 1, 2]
     assert "acquisition_started_at" in datasaver.dataset.metadata
     assert "effective_settings" in datasaver.dataset.metadata
+
+
+def test_scan_persistence_seam_is_explicitly_deferred():
+    with pytest.raises(NotImplementedError, match="deferred"):
+        register_scan_result(None, None)
+    with pytest.raises(NotImplementedError, match="deferred"):
+        add_scan_result(None, None, None)

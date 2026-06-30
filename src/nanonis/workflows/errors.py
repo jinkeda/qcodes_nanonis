@@ -14,6 +14,26 @@ class SpectroscopyResponseError(WorkflowError):
     """A fully received BiasSpectr response has inconsistent semantics."""
 
 
+class ScanResponseError(WorkflowError):
+    """A fully received scan response has inconsistent semantics."""
+
+
+class ScanTimeoutError(WorkflowError):
+    """Nanonis did not complete a scan inside its controller-side timeout."""
+
+
+class NonFiniteScanDataError(ScanResponseError):
+    """Raised by NaNPolicy.RAISE while retaining the normalized scan result."""
+
+    def __init__(self, result: Any, diagnostics: Any) -> None:
+        self.result = result
+        self.diagnostics = diagnostics
+        super().__init__(
+            f"scan data contains {diagnostics.nan_count} NaN and "
+            f"{diagnostics.inf_count} infinite values"
+        )
+
+
 class SafetyPreflightError(WorkflowError):
     """A live or configured safety check failed before acquisition."""
 

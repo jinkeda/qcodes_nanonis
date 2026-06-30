@@ -13,7 +13,7 @@ from nanonis.protocol import TransportState
 from .errors import RecoveryError, StateRestorationError, WorkflowError
 from .models import (
     BiasRestoreMode,
-    BiasSpectroscopySafetyPolicy,
+    TipRestorePolicy,
     ZeroCrossingPolicy,
 )
 from .protocols import CommandClient, RecoverableCommandClient
@@ -24,21 +24,32 @@ logger = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class RecoveryReport:
     transport_ready: bool
-    spectroscopy_stopped: bool | None
+    module_stopped: bool | None
     errors: tuple[BaseException, ...] = ()
 
     @property
+    def spectroscopy_stopped(self) -> bool | None:
+        """Compatibility alias retained for the spectroscopy vertical."""
+        return self.module_stopped
+
+    @property
     def restoration_allowed(self) -> bool:
-        return self.transport_ready and self.spectroscopy_stopped is True
+        return self.transport_ready and self.module_stopped is True
 
 
-def recover_bias_spectroscopy(
+StopOperation = Callable[[CommandClient], None]
+StoppedPredicate = Callable[[CommandClient], bool]
+
+
+def recover_module(
     client: RecoverableCommandClient,
     *,
+    stop: StopOperation,
+    status_stopped: StoppedPredicate,
     timeout: float,
     poll_interval: float = 0.1,
 ) -> RecoveryReport:
-    """Reconnect, confirm/stop the module, and report whether writes are safe."""
+    """Reconnect, stop an arbitrary module, and confirm that writes are safe."""
     errors: list[BaseException] = []
     try:
         client.reconnect()
@@ -46,12 +57,12 @@ def recover_bias_spectroscopy(
         return RecoveryReport(False, None, (exc,))
 
     try:
-        if _status_is_stopped(client):
+        if status_stopped(client):
             return RecoveryReport(_transport_ready(client), True)
-        client.send("BiasSpectr.Stop")
+        stop(client)
         deadline = time.monotonic() + timeout
         while True:
-            if _status_is_stopped(client):
+            if status_stopped(client):
                 return RecoveryReport(_transport_ready(client), True, tuple(errors))
             remaining = deadline - time.monotonic()
             if remaining <= 0:
@@ -60,6 +71,22 @@ def recover_bias_spectroscopy(
     except BaseException as exc:
         errors.append(exc)
         return RecoveryReport(_transport_ready(client), None, tuple(errors))
+
+
+def recover_bias_spectroscopy(
+    client: RecoverableCommandClient,
+    *,
+    timeout: float,
+    poll_interval: float = 0.1,
+) -> RecoveryReport:
+    """Compatibility wrapper around :func:`recover_module`."""
+    return recover_module(
+        client,
+        stop=lambda value: value.send("BiasSpectr.Stop"),
+        status_stopped=_status_is_stopped,
+        timeout=timeout,
+        poll_interval=poll_interval,
+    )
 
 
 def _status_is_stopped(client: CommandClient) -> bool:
@@ -93,7 +120,7 @@ class TipState:
     def restore(
         self,
         client: CommandClient,
-        safety_policy: BiasSpectroscopySafetyPolicy,
+        safety_policy: TipRestorePolicy,
     ) -> dict[str, BaseException]:
         failures: dict[str, BaseException] = {}
         feedback_safe = True
@@ -131,7 +158,7 @@ class TipState:
     def _restore_bias(
         self,
         client: CommandClient,
-        safety_policy: BiasSpectroscopySafetyPolicy,
+        safety_policy: TipRestorePolicy,
     ) -> None:
         current = float(client.send("Bias.Get"))
         crossing = current * self.bias < 0
@@ -203,7 +230,7 @@ class RestorationTransaction:
         self._result = result
 
     def record_recovery(
-        self, report: RecoveryReport, *, origin: BaseException
+        self, report: RecoveryReport, *, origin: BaseException | None = None
     ) -> None:
         self._recovery_report = report
         self._recovery_origin = origin
@@ -258,6 +285,6 @@ def _recovery_error(report: RecoveryReport) -> BaseException:
     reason = (
         "transport did not recover"
         if not report.transport_ready
-        else "BiasSpectr stop was not confirmed"
+        else "module stop was not confirmed"
     )
     return RecoveryError(reason, report.errors)
