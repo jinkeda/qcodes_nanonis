@@ -52,7 +52,7 @@
         ],
         "resp": [
             {
-                "name": "Timeout status status",
+                "name": "Timeout status",
                 "type": "I"
             },
             {

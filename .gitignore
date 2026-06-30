@@ -85,3 +85,9 @@ Thumbs.db
 
 # Live test latest-run output (curated copies are kept under reports/)
 /live_test_report.md
+
+# Timestamped hardware-characterization dumps (machine-specific run artifacts)
+examples/m4a_characterization_*.json
+examples/m4a_characterization_*.npz
+examples/oneframe_characterization_*.json
+examples/oneframe_characterization_*.npz

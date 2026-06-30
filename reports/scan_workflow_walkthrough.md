@@ -62,6 +62,10 @@ The command registry now includes the PDF-verified schemas for:
 
 `Scan.BufferGet` pixels and lines are corrected to signed `int32` fields.
 `Scan.WaitEndOfScan` now exposes the normalized `timeout_status` key.
+`Scan.WaitEndOfLine` had a duplicated response field name (`Timeout status
+status`) that decoded to `timeout_status_status`; it is corrected to
+`timeout_status`, matching `WaitEndOfScan`, so the per-line wait is usable by
+`run_partial` (see the 2026-07-01 addendum).
 
 The existing command proxy and QCoDeS channel direction bug is corrected:
 `up=1`, `down=0`. The workflow uses named constants rather than deriving those
@@ -148,6 +152,11 @@ channel × requested data direction (`forward=1`, `backward=0`).
 Declared response shape must match the returned matrix. A difference between the
 grabbed dimensions and effective buffer dimensions is warned about and preserved,
 because live-controller orientation and clipping behavior are not yet known.
+
+`ScanWorkflow.run_partial(...)` is a second acquisition entry point that stops
+after a requested number of image rows using `Scan.WaitEndOfLine` instead of
+`WaitEndOfScan`. It reuses the same preflight/snapshot/apply/restore/recovery
+scaffolding and is documented in the 2026-07-01 addendum.
 
 ### Failure recovery and restoration
 
@@ -287,6 +296,23 @@ except StateRestorationError as exc:
     raise
 ```
 
+To acquire only the first few image rows — for a quick preview, a drift check, or
+to abort a bad frame early — use `run_partial` (see the 2026-07-01 addendum):
+
+```python
+returns = []
+
+def on_line(line_number, movement, pass_number):
+    returns.append((line_number, movement, pass_number))
+    return False if line_number >= 8 else None  # optional early abort
+
+# max_lines counts image rows; partial scans are not auto-saved.
+result = ScanWorkflow(controller, safety_policy=policy).run_partial(
+    config, max_lines=8, on_line=on_line
+)
+# Unscanned rows are NaN; read the partial image from the returned result.
+```
+
 The QCoDeS scan functions currently raise `NotImplementedError` by design.
 
 ## Validation and testing
@@ -338,14 +364,16 @@ Mypy reports no issues in the workflow packages or scan QCoDeS stub.
 
 ### Live-controller characterization is still required
 
-No Nanonis controller was available during this implementation. The following
-cannot honestly be claimed from fake-controller tests:
+No Nanonis controller was available during the original implementation. The
+2026-07-01 addendum exercised a real controller for the partial-scan work, which
+confirmed the `Scan.WaitEndOfLine` semantics and ran the full
+start/wait/grab/restore path over a real socket end to end. The following are
+still not established and cannot be claimed from fake-controller tests:
 
 - whether `FrameDataGrab` rows run bottom-to-top or top-to-bottom;
 - whether an up versus down scan reverses row order;
-- the real `PropsGet` autopaste encoding on the installed controller version;
-- live alignment of every Frame/Buffer/Props/Speed response field; and
-- the complete start/wait/grab/restore path over a real socket.
+- the real `PropsGet` autopaste encoding on the installed controller version; and
+- live alignment of every Frame/Buffer/Props/Speed response field.
 
 The result therefore preserves raw matrix order and explicit controller scan
 direction without flipping or rotating data.
@@ -356,6 +384,14 @@ The software checks the supplied limits but cannot choose them. Piezo safety
 margin, dimension caps, acceptable line timing/speed, zero-crossing behavior, and
 tip restoration policy must be reviewed for each scanner.
 
+Piezo limits in particular are treated as a careful, deliberate decision: the
+measured travel is 3 um in X/Y and 1.5 um in Z, and any frame that approaches
+those edges risks the scanner. For that reason `examples/rig_safety_policies.py`
+ships only a **draft** policy, gated behind `require_approved(...)`, which raises
+until a qualified operator has reviewed every value, set `approved=True` with an
+approval date, and bumped the version. No scan should run against unapproved
+piezo limits.
+
 ### QCoDeS persistence is deferred
 
 The plan intentionally postpones the adapter. A future implementation must use
@@ -363,13 +399,103 @@ two-dimensional setpoint meshgrids of the same shape as each image. Physical
 coordinate grids must wait for the live row-orientation result; scan angle itself
 is not the blocker.
 
+## Addendum (2026-07-01): partial scans and live `WaitEndOfLine` characterization
+
+### New `ScanWorkflow.run_partial(...)`
+
+`run_partial(config, *, max_lines, on_line=None, unsafe_skip_preflight=False)`
+acquires at most `max_lines` **image rows** of the frame, then issues
+`Scan.Action(Stop)`. It is a sibling of `run`, not a flag on it: the full-frame
+path still blocks on a single `WaitEndOfScan`, which is structurally required for
+its saved-path/grab/restore contract. The partial path instead drives the raster
+line by line:
+
+1. identical read-only preflight, tip snapshot, settings snapshot/patch/apply,
+   authoritative readback, and effective-safety check;
+2. `Scan.Action(Start, direction)`;
+3. a loop over `Scan.WaitEndOfLine(line_timeout_ms)` with a per-line socket
+   timeout derived from `nanonis_line_timeout_ms(effective)`;
+4. `Scan.Action(Stop, 0)` once the requested rows are counted (or `on_line`
+   vetoes, or the frame finishes on its own); and
+5. the same `FrameDataGrab` → `normalize_scan` → restore steps as `run`.
+
+Key contracts:
+
+- **`max_lines` counts image rows, not raw returns.** Rows are counted at each
+  *trace* return (`movement == TRACE_MOVEMENT == 0`, `line_number >= 1`), which is
+  immune to the variable-length startup transient (see characterization below).
+- `on_line(line_number, movement, pass_number)` fires after **every**
+  `WaitEndOfLine` return (per movement); returning `False` stops the scan
+  immediately — the preview/drift-check/early-abort hook.
+- Partial scans are not auto-saved, so `result.saved_path` is `""`; unscanned
+  rows come back as NaN and are handled by `NaNPolicy` (use `WARN`/`ALLOW`).
+- A safety bound (`2 × rows + 6` returns) prevents an unbounded loop if a
+  controller's movement encoding differs from the characterized convention; the
+  loop then logs a warning and stops cleanly.
+- `config.acquisition_timeout` governs the whole-frame `WaitEndOfScan` and is
+  ignored here; per-line timeouts are derived internally.
+
+`nanonis_line_timeout_ms` is exported alongside the other acquisition helpers.
+
+### Live `WaitEndOfLine` characterization
+
+A real controller was available for this follow-up. `examples/verify_waitendofline.py`
+runs a small partial scan, records every `WaitEndOfLine` return through `on_line`,
+and prints a verdict; its pure analysis (`summarize_line_records`) is unit-tested
+offline. Two runs on this rig established:
+
+- the tip emits roughly **two returns per image row** — a trace
+  (`movement == 0`) then a retrace (`movement == 1`) — with **1-based**
+  `line_number`;
+- there is a short **startup transient** of variable length (one run showed a
+  single `line_number == -1, movement == 3` sentinel; another showed two leading
+  returns), so a fixed-length prefix cannot be skipped — counting trace returns
+  is the robust rule;
+- `Scan.StatusGet` reports running (1) throughout and idle (0) after the stop.
+
+The fix was verified end to end: `run_partial(max_lines=4)` on a 16-line frame
+returned exactly four finite data rows (the remaining twelve NaN), and the module
+returned to idle. The earlier, raw-return-counting implementation produced only
+two rows for the same request — the defect this characterization caught and fixed.
+
+Row orientation (top-to-bottom vs bottom-to-top, and whether up/down flips it)
+remains uncharacterized; `run_partial` preserves raw matrix order exactly like
+`run`.
+
+### Tests after the addendum
+
+```text
+152 passed
+```
+
+Added or revised coverage: row counting by trace returns, `max_lines` capped at
+the frame line count, `on_line` early abort, early stop when status reads idle,
+the no-rows-counted warning path, per-line timeout recovery, positive-`max_lines`
+validation, and the offline `verify_waitendofline` analysis.
+
 ## Next steps
 
-1. Run the read-only M4-A characterization against a real controller and record
-   raw Frame/Buffer/Props/Speed responses plus forward/backward grab orientation.
-2. Run a conservative one-frame acquisition on hardware and verify start, wait,
-   saved path, recovery, and restoration event order.
-3. Approve and version `ScanSafetyPolicy` values for each rig.
-4. Add physical coordinate grids only after row orientation is known.
-5. Implement the deferred QCoDeS meshgrid adapter when scan persistence becomes a
-   project priority.
+Status as of 2026-07-01 (the QCoDeS adapter, former item 5, is intentionally not
+being pursued at this time):
+
+1. **Done (read-only).** `examples/characterize_m4a.py` records raw
+   Piezo/Signals/Frame/Buffer/Props/Speed responses and grabs the current buffer
+   forward/backward. Outputs are saved as timestamped JSON+NPZ. Orientation could
+   not be read from it because the live buffer was empty (all NaN).
+2. **Done (event order verified).** `examples/characterize_oneframe.py` runs one
+   conservative 16x16 / 10 nm frame while recording the command sequence. The
+   order is confirmed: preflight Gets -> snapshot Gets -> Frame/Buffer/Speed/Props
+   Sets -> readback Gets -> `Scan.Action(Start)` -> `WaitEndOfScan` ->
+   `FrameDataGrab` x N -> restore Sets, with no recovery stop and an empty
+   `saved_path` (autosave off, as expected).
+3. **Drafted; awaiting approval.** `examples/rig_safety_policies.py` holds a
+   versioned, per-rig `ScanSafetyPolicy` seeded from the measured 3 um / 1.5 um
+   piezo range and gated behind `require_approved(...)`. A qualified operator must
+   review the values, set `approved=True` with a date, and bump the version.
+4. **Machinery added; activation still blocked on orientation.**
+   `scan_coordinate_grids(frame, pixels, lines, row_order=...)` produces
+   controller-coordinate X/Y meshgrids using the same clockwise rotation as
+   `ScanFrame.corners()`. `row_order` is a required argument with no default, so
+   nothing guesses the row direction. Confirm top-vs-bottom on a sample with a
+   recognizable feature (the demo surface was featureless: forward/backward were
+   uncorrelated with no slow-axis trend), then pass the confirmed `row_order`.

@@ -24,6 +24,7 @@ from .models import (
     encode_save_mode_set,
     encode_speed_keep_set,
 )
+from .geometry import scan_coordinate_grids
 from .result import (
     ScanChannelImage,
     ScanResult,
@@ -42,6 +43,7 @@ from .workflow import (
     ScanWorkflow,
     estimate_scan_duration,
     grab_frame,
+    nanonis_line_timeout_ms,
     nanonis_timeout_ms,
     preflight_scan,
     recover_scan,
@@ -85,6 +87,7 @@ __all__ = [
     "estimate_scan_duration",
     "grab_frame",
     "inspect_non_finite_scan_data",
+    "nanonis_line_timeout_ms",
     "nanonis_timeout_ms",
     "normalize_scan",
     "normalize_scan_images",
@@ -92,4 +95,5 @@ __all__ = [
     "recover_scan",
     "resolve_acquisition_timeout",
     "scan",
+    "scan_coordinate_grids",
 ]

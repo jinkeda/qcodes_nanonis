@@ -212,3 +212,162 @@ def test_rotated_frame_outside_piezo_range_fails_closed():
             config(center_x=0.49e-6, width=0.1e-6, angle=45)
         )
     assert not any(entry[0] == "Scan.Action" for entry in client.sent)
+
+
+# WaitEndOfLine returns, modelled on the live controller characterization in
+# examples/verify_waitendofline.py: a short startup transient, then one trace
+# (movement 0) plus one retrace (movement 1) return per image row, with 1-based
+# line numbers. run_partial counts a row at each trace return (line_number >= 1).
+def trace(line_number, pass_number=1):
+    return {"timeout_status": 0, "line_number": line_number,
+            "type_of_movement": 0, "pass_number": pass_number}
+
+
+def retrace(line_number, pass_number=1):
+    return {"timeout_status": 0, "line_number": line_number,
+            "type_of_movement": 1, "pass_number": pass_number}
+
+
+def startup_sentinel():
+    # Observed leading return that does not correspond to a data row.
+    return {"timeout_status": 0, "line_number": -1,
+            "type_of_movement": 3, "pass_number": 0}
+
+
+def wol_rows(rows, *, sentinel=True):
+    seq = [startup_sentinel()] if sentinel else []
+    for line_number in range(1, rows + 1):
+        seq.append(trace(line_number))
+        seq.append(retrace(line_number))
+    return seq
+
+
+def traces_seen(seen):
+    return [s for s in seen if s[1] == 0 and s[0] >= 1]
+
+
+def scripted_partial_controller(*, returns, status_stream=None):
+    """Like ``scripted_controller`` but scripted for ``run_partial``.
+
+    The frame has 3 lines (see ``buffer()``). ``returns`` is the queued
+    ``Scan.WaitEndOfLine`` stream; ``status_stream`` is what ``Scan.StatusGet``
+    reports after the preflight idle reading (default: enough "running" values).
+    """
+    client = RecoverableFakeController()
+    client.script("Piezo.RangeGet", {"range_x_m": 1e-6, "range_y_m": 1e-6,
+                                     "range_z_m": 1e-6})
+    client.script("Signals.NamesGet", {"signals_names": ["I", "Z"]})
+    client.script("Scan.FrameGet", frame(), frame(), frame())
+    client.script("Scan.BufferGet", buffer(), buffer(), buffer())
+    client.script("Scan.PropsGet", props(), props(), props(continuous=0))
+    client.script("Scan.SpeedGet", speed(), speed(), speed())
+    if status_stream is None:
+        status_stream = [1] * (len(returns) + 4)
+    # preflight idle (0), then the running/idle stream consulted per return.
+    client.script("Scan.StatusGet", 0, *status_stream)
+    client.script("Scan.WaitEndOfLine", *returns)
+    client.script("Scan.FrameDataGrab", frame_data())
+    return client
+
+
+def test_partial_scan_stops_after_max_rows():
+    client = scripted_partial_controller(returns=wol_rows(3))
+    seen = []
+    result = ScanWorkflow(client, safety_policy=policy()).run_partial(
+        config(), max_lines=2,
+        on_line=lambda ln, mv, ps: seen.append((ln, mv, ps)),
+    )
+
+    # Two image rows (trace returns) counted before stopping early.
+    assert len(traces_seen(seen)) == 2
+    # Consumed sentinel, trace1, retrace1, trace2 -> stops at the 2nd trace.
+    wol = [e for e in client.sent if e[0] == "Scan.WaitEndOfLine"]
+    assert len(wol) == 4
+    # Per-line socket timeout must exceed the controller-side line timeout.
+    assert wol[0][2] > wol[0][1][0] / 1000
+    start = next(e for e in client.sent if e[0] == "Scan.Action" and e[1][0] == 0)
+    stop = next(e for e in client.sent if e[0] == "Scan.Action" and e[1][0] == 1)
+    assert start[1] == (0, 1)  # start, up
+    assert client.sent.index(start) < client.sent.index(stop)
+    assert result.saved_path == ""  # partial scans are not auto-saved
+    assert not any(e[0] == "Scan.WaitEndOfScan" for e in client.sent)
+
+
+def test_partial_scan_caps_max_rows_at_frame_lines():
+    client = scripted_partial_controller(returns=wol_rows(3))  # frame has 3 lines
+    seen = []
+    ScanWorkflow(client, safety_policy=policy()).run_partial(
+        config(), max_lines=99,
+        on_line=lambda ln, mv, ps: seen.append((ln, mv, ps)),
+    )
+    assert len(traces_seen(seen)) == 3
+
+
+def test_partial_scan_on_line_callback_can_abort():
+    client = scripted_partial_controller(returns=wol_rows(3))
+    seen = []
+
+    def on_line(line_number, movement, pass_number):
+        seen.append((line_number, movement, pass_number))
+        return False if movement == 0 and line_number >= 1 else None
+
+    ScanWorkflow(client, safety_policy=policy()).run_partial(
+        config(), max_lines=3, on_line=on_line
+    )
+
+    # Sentinel observed, then aborted at the first trace.
+    assert seen == [(-1, 3, 0), (1, 0, 1)]
+    assert sum(e[0] == "Scan.WaitEndOfLine" for e in client.sent) == 2
+    assert any(e[0] == "Scan.Action" and e[1][0] == 1 for e in client.sent)
+
+
+def test_partial_scan_stops_when_frame_finishes_early():
+    # Status: running after the sentinel, then idle after the first row.
+    client = scripted_partial_controller(returns=wol_rows(3), status_stream=[1, 0])
+    seen = []
+    ScanWorkflow(client, safety_policy=policy()).run_partial(
+        config(), max_lines=3,
+        on_line=lambda ln, mv, ps: seen.append((ln, mv, ps)),
+    )
+    assert len(traces_seen(seen)) == 1  # stopped after one row (status idle)
+    assert sum(e[0] == "Scan.WaitEndOfLine" for e in client.sent) == 2
+
+
+def test_partial_scan_warns_when_no_rows_counted(caplog):
+    # A controller that only ever emits non-trace movements: no row can be
+    # counted, so the loop must give up at its safety bound and warn.
+    client = scripted_partial_controller(returns=[startup_sentinel()] * 20)
+    with caplog.at_level("WARNING"):
+        ScanWorkflow(client, safety_policy=policy()).run_partial(
+            config(), max_lines=2
+        )
+    # max_returns = 2 rows * 2 + 6 startup budget = 10.
+    assert sum(e[0] == "Scan.WaitEndOfLine" for e in client.sent) == 10
+    assert any("movement encoding" in r.getMessage() for r in caplog.records)
+    assert any(e[0] == "Scan.Action" and e[1][0] == 1 for e in client.sent)
+
+
+def test_partial_scan_line_timeout_recovers():
+    client = scripted_partial_controller(returns=wol_rows(2))
+    client._responses["Scan.WaitEndOfLine"].clear()
+    client.script("Scan.WaitEndOfLine", {"timeout_status": 1, "line_number": -1,
+                                         "type_of_movement": 3, "pass_number": 0})
+    client._responses["Scan.StatusGet"].clear()
+    client.script("Scan.StatusGet", 0, 1, 0)  # preflight, recovery running, stopped
+
+    with pytest.raises(ScanTimeoutError):
+        ScanWorkflow(client, safety_policy=policy()).run_partial(
+            config(), max_lines=2
+        )
+
+    assert client.reconnect_count == 1
+    assert any(e[0] == "Scan.Action" and e[1][0] == 1 for e in client.sent)
+
+
+def test_partial_scan_rejects_nonpositive_max_lines():
+    client = scripted_partial_controller(returns=wol_rows(1))
+    with pytest.raises(ValueError, match="positive integer"):
+        ScanWorkflow(client, safety_policy=policy()).run_partial(
+            config(), max_lines=0
+        )
+    assert client.sent == []

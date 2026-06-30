@@ -6,7 +6,7 @@ import logging
 import math
 import time
 from datetime import datetime, timezone
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 from ..errors import (
     NonFiniteScanDataError,
@@ -33,6 +33,19 @@ WAIT_COMPLETED = 0
 WAIT_TIMED_OUT = 1
 DATA_BACKWARD = 0
 DATA_FORWARD = 1
+
+# Scan.WaitEndOfLine "Type of movement" value for the forward/trace pass.
+# Characterized on a real controller (examples/verify_waitendofline.py): the tip
+# emits one WaitEndOfLine return per movement -- roughly two per image row
+# (trace then retrace) -- plus a short, variable-length startup transient. A new
+# image row begins at each trace return whose line number is >= 1, which is how
+# run_partial counts rows independently of the transient.
+TRACE_MOVEMENT = 0
+# Safety bound on returns per requested row: ~2 movements/row plus startup slack,
+# so the per-line loop cannot spin forever if a controller's movement encoding
+# differs from the characterized convention.
+RETURNS_PER_ROW_BUDGET = 2
+PARTIAL_STARTUP_RETURN_BUDGET = 6
 
 POSITIONING_MARGIN_SECONDS = 1.0
 NANONIS_TIMEOUT_MARGIN_MS = 5_000
@@ -172,6 +185,200 @@ class ScanWorkflow:
             raise RuntimeError("scan workflow completed without a result")
         return result
 
+    def run_partial(
+        self,
+        config: ScanConfig,
+        *,
+        max_lines: int,
+        on_line: Callable[[int, int, int], bool | None] | None = None,
+        unsafe_skip_preflight: bool = False,
+    ) -> ScanResult:
+        """Scan at most ``max_lines`` image rows of the frame, then stop early.
+
+        Unlike :meth:`run`, this drives the raster line by line with
+        ``Scan.WaitEndOfLine`` and issues ``Scan.Action(Stop)`` once
+        ``max_lines`` image rows have been acquired (or sooner, if ``on_line``
+        vetoes). The returned :class:`ScanResult` is the partially filled
+        frame buffer; rows that were never scanned come back as NaN and are
+        handled by the configured :class:`NaNPolicy` (use ``WARN``/``ALLOW``,
+        not ``RAISE``). Partial scans are not auto-saved, so
+        ``result.saved_path`` is empty.
+
+        ``max_lines`` counts **image rows**, not raw ``WaitEndOfLine`` returns.
+        On a characterized controller the tip emits ~2 returns per row
+        (trace + retrace) plus a short startup transient; a row is counted at
+        each trace return (``movement == TRACE_MOVEMENT`` with line number
+        >= 1). See ``examples/verify_waitendofline.py``.
+
+        ``on_line`` receives ``(line_number, movement, pass_number)`` straight
+        from the controller after **every** ``WaitEndOfLine`` return (i.e. once
+        per movement, not once per row); returning ``False`` stops the scan
+        immediately.
+
+        ``config.acquisition_timeout`` governs the whole-frame
+        ``WaitEndOfScan`` and is ignored here; a per-line socket timeout is
+        derived from the effective line timing instead.
+        """
+        if not isinstance(config, ScanConfig):
+            raise TypeError("config must be ScanConfig")
+        if not isinstance(max_lines, int) or isinstance(max_lines, bool) or max_lines < 1:
+            raise ValueError("max_lines must be a positive integer")
+        _validate_requested_safety(config, self._safety)
+        if config.restore_tip_state and self._safety.tip is None:
+            raise SafetyPreflightError(
+                "restore_tip_state requires ScanSafetyPolicy.tip"
+            )
+        if not unsafe_skip_preflight:
+            preflight_scan(self._client, config, self._safety)
+
+        result: ScanResult | None = None
+        with RestorationTransaction(self._client) as tx:
+            if config.restore_tip_state:
+                tip = TipState.snapshot(self._client)
+                policy = self._safety.tip
+                if policy is None:  # guarded before any I/O
+                    raise RuntimeError("missing tip restoration policy")
+                tx.preserve(
+                    "tip",
+                    tip,
+                    restorer=lambda state: state.restore(self._client, policy),
+                )
+
+            original = ScanSettings.snapshot(self._client)
+            desired = original.patch(config)
+            _validate_effective_safety(desired, self._safety)
+            tx.preserve(
+                "scan",
+                original,
+                restorer=lambda state: state.restore(self._client),
+                enabled=config.restore_state,
+            )
+            failures = desired.apply(self._client)
+            if failures:
+                raise WorkflowError(
+                    "scan configuration failed: "
+                    + ", ".join(
+                        f"{field}: {error}" for field, error in failures.items()
+                    )
+                )
+            effective = ScanSettings.snapshot(self._client)
+            _validate_effective_safety(effective, self._safety)
+
+            target_rows = min(max_lines, effective.lines)
+            line_timeout_ms = nanonis_line_timeout_ms(effective)
+            line_socket_timeout = line_timeout_ms / 1000 * 1.5 + 5.0
+            estimate = _partial_scan_estimate(effective, target_rows)
+            # Bound total returns so the loop cannot spin forever if the
+            # controller's movement encoding differs from TRACE_MOVEMENT.
+            max_returns = (
+                target_rows * RETURNS_PER_ROW_BUDGET + PARTIAL_STARTUP_RETURN_BUDGET
+            )
+            started_at = datetime.now(timezone.utc)
+            started_monotonic = time.monotonic()
+            start_attempted = False
+            completed = False
+            rows_done = 0
+            try:
+                start_attempted = True
+                self._client.send(
+                    "Scan.Action",
+                    ACTION_START,
+                    DIRECTION_UP if config.direction == "up" else DIRECTION_DOWN,
+                )
+                for _ in range(max_returns):
+                    wait = self._client.send(
+                        "Scan.WaitEndOfLine",
+                        line_timeout_ms,
+                        timeout=line_socket_timeout,
+                    )
+                    if not isinstance(wait, Mapping):
+                        raise ScanResponseError(
+                            "Scan.WaitEndOfLine must return a mapping"
+                        )
+                    try:
+                        timeout_status = int(wait["timeout_status"])
+                    except (KeyError, TypeError, ValueError) as exc:
+                        raise ScanResponseError(
+                            f"invalid Scan.WaitEndOfLine timeout status: {exc}"
+                        ) from exc
+                    if timeout_status == WAIT_TIMED_OUT:
+                        raise ScanTimeoutError(
+                            f"scan line exceeded Nanonis timeout {line_timeout_ms} ms"
+                        )
+                    if timeout_status != WAIT_COMPLETED:
+                        raise ScanResponseError(
+                            f"unknown WaitEndOfLine timeout status {timeout_status}"
+                        )
+                    try:
+                        line_number = int(wait["line_number"])
+                        movement = int(wait["type_of_movement"])
+                        pass_number = int(wait["pass_number"])
+                    except (KeyError, TypeError, ValueError) as exc:
+                        raise ScanResponseError(
+                            f"invalid Scan.WaitEndOfLine line metadata: {exc}"
+                        ) from exc
+                    if on_line is not None and (
+                        on_line(line_number, movement, pass_number) is False
+                    ):
+                        break
+                    # A new image row starts at each trace return; the startup
+                    # transient (line_number < 1, or non-trace movements) does
+                    # not advance the row count.
+                    if movement == TRACE_MOVEMENT and line_number >= 1:
+                        rows_done += 1
+                        if rows_done >= target_rows:
+                            break
+                    # The frame can finish on its own (e.g. max_lines >= frame
+                    # lines, or an external stop); avoid waiting for a line that
+                    # will never arrive.
+                    if _scan_status_value(
+                        self._client.send("Scan.StatusGet")
+                    ) == STATUS_IDLE:
+                        break
+                else:
+                    logger.warning(
+                        "Scan.WaitEndOfLine returned %d times but only %d of %d "
+                        "rows were counted; the controller movement encoding may "
+                        "differ from the characterized trace convention",
+                        max_returns,
+                        rows_done,
+                        target_rows,
+                    )
+                # Abandon any remaining lines; a no-op if already idle.
+                self._client.send("Scan.Action", ACTION_STOP, 0)
+                completed = True
+            except BaseException as exc:
+                if start_attempted and not completed:
+                    tx.record_recovery(self._recover(config), origin=exc)
+                raise
+            finished_monotonic = time.monotonic()
+            finished_at = datetime.now(timezone.utc)
+
+            images = ()
+            if config.grab_data:
+                images = grab_frame(self._client, effective, config)
+            try:
+                result = normalize_scan(
+                    images,
+                    saved_path="",
+                    config=config,
+                    effective=effective,
+                    acquisition_started_at=started_at,
+                    acquisition_finished_at=finished_at,
+                    acquisition_duration=finished_monotonic - started_monotonic,
+                    estimated_acquisition_duration=estimate,
+                    acquisition_timeout_used=line_socket_timeout,
+                    nan_policy=self._nan_policy,
+                )
+            except NonFiniteScanDataError as exc:
+                tx.attach_result(exc.result)
+                raise
+            tx.attach_result(result)
+
+        if result is None:
+            raise RuntimeError("scan workflow completed without a result")
+        return result
+
     def _recover(self, config: ScanConfig) -> RecoveryReport:
         if isinstance(self._client, RecoverableCommandClient):
             return recover_scan(
@@ -238,6 +445,35 @@ def estimate_scan_duration(settings: ScanSettings) -> float:
     return max(
         0.0,
         settings.lines * (forward + backward) + POSITIONING_MARGIN_SECONDS,
+    )
+
+
+def _partial_scan_estimate(settings: ScanSettings, lines: int) -> float:
+    """Estimate the duration of a partial raster of ``lines`` lines."""
+    forward = settings.speed.forward_time_per_line
+    backward = settings.speed.backward_time_per_line
+    if any(not math.isfinite(value) or value <= 0 for value in (forward, backward)):
+        logger.warning(
+            "Using a 60 s fallback partial-scan estimate because line timing is incomplete"
+        )
+        return 60.0
+    return max(0.0, lines * (forward + backward) + POSITIONING_MARGIN_SECONDS)
+
+
+def nanonis_line_timeout_ms(effective: ScanSettings) -> int:
+    """Controller-side timeout for a single ``Scan.WaitEndOfLine`` call."""
+    forward = effective.speed.forward_time_per_line
+    backward = effective.speed.backward_time_per_line
+    if any(not math.isfinite(value) or value <= 0 for value in (forward, backward)):
+        logger.warning(
+            "Using a 60 s fallback line timeout because line timing is incomplete"
+        )
+        per_line = 60.0
+    else:
+        per_line = forward + backward
+    return min(
+        MAX_NANONIS_TIMEOUT_MS,
+        max(1, math.ceil(per_line * 1000 + NANONIS_TIMEOUT_MARGIN_MS)),
     )
 
 
