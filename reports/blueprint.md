@@ -197,6 +197,20 @@ normalization, and acquire-first QCoDeS registration with provenance metadata.
 - **State transactions, typed configs, provenance** — the cross-cutting
   requirements above, in their first concrete form.
 
+> **Known limitation — backward sweeps don't map cleanly onto QCoDeS setpoints.**
+> The persistence adapter (`qcodes/spectroscopy.py`) only registers
+> `configured_voltage` as a setpoint for **forward-only** sweeps where
+> `data_columns == points`. When `effective.include_backward` is set, the bias
+> axis is non-monotonic (forward then reverse over the same voltages), which the
+> QCoDeS setpoint model cannot express as a single coordinate; the adapter falls
+> back to registering only `sample_index` and logs a warning. This is a genuine
+> friction of the QCoDeS data model, not a bug — the domain `BiasSpectroscopyResult`
+> still carries both directions losslessly (`forward_axis()` / `backward_axis()`).
+> If bidirectional persistence is ever needed, the fix is to characterize the
+> direction split and register forward/backward as separate traces (or add a
+> `direction` coordinate), not to flatten the data. Tracks the broader point that
+> QCoDeS persistence is optional/dormant at the current stage.
+
 ### Foundation backlog (shared toolkit, not a vertical)
 
 - **Multi-instrument interfaces** — `RFSource`, `AWG`, `LockIn`, `BiasSource` as
