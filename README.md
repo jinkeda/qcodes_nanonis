@@ -14,7 +14,7 @@ datasets.
             ┌──────────────────────────┐      ┌──────────────────────────┐
             │  workflows/  (recipes)   │      │  qcodes/  (optional)     │
             │  BiasSpectroscopyWorkflow│      │  NanonisInstrument +     │
-            │  → returns a result      │      │  Bias/Scan channels      │
+            │  ScanWorkflow → results  │      │  Bias/Scan channels      │
             └────────────┬─────────────┘      └────────────┬─────────────┘
                          │  send(...)                       │  send(...)
                          ▼                                  ▼
@@ -47,7 +47,7 @@ from `qcodes`.
   connection vs. protocol failures and tracks transport state
 - **Transactional workflows**: end-to-end measurement recipes with typed config,
   Nanonis state snapshot, recovery-gated best-effort restoration, and lossless
-  results (bias spectroscopy implemented; scan planned)
+  results (bias spectroscopy and one-frame scanning implemented)
 - **Debug mode**: Verbose logging for troubleshooting
 - **QCoDeS integration**: Optional QCoDeS Station/Measurement support and an
   acquire-first persistence adapter for results
@@ -104,8 +104,8 @@ ctrl.send('Bias.Get')  # Will log type coercion, bytes, errors
 
 High-level measurement recipes that snapshot Nanonis state, run an acquisition,
 normalize a self-describing result, and restore state (recovery-gated,
-best-effort) on every exit path. Bias spectroscopy is implemented; scan is
-planned (see `reports/scan_workflow_plan.md`).
+best-effort) on every exit path. Bias spectroscopy and one-frame scanning use
+the same recovery and result-preservation contract.
 
 ```python
 from nanonis.command import NanonisController
@@ -138,6 +138,57 @@ print(result.effective_settings) # authoritative controller readback
 
 If acquisition succeeds but restoration fails, the raised `StateRestorationError`
 still carries the acquired `result` so valid data is never lost.
+
+#### One-frame scan workflow
+
+The scan workflow snapshots the complete scan configuration, applies a typed
+patch, performs safety preflight against the live piezo range, starts one
+non-continuous frame, collects immutable 2-D channel images, and restores the
+original settings. The limits below are examples only; replace them with values
+approved for the scanner and tip in use.
+
+```python
+from nanonis.command import NanonisController
+from nanonis.workflows import ScanConfig, ScanSafetyPolicy, ScanWorkflow
+
+policy = ScanSafetyPolicy(
+    max_pixels=1024,
+    max_lines=1024,
+    piezo_safety_margin=20e-9,
+    min_line_time=1e-3,
+    max_line_time=10.0,
+    min_linear_speed=1e-12,
+    max_linear_speed=1e-3,
+)
+config = ScanConfig(
+    channel_indexes=(0, 24),
+    direction="up",
+    center_x=0.0,
+    center_y=0.0,
+    width=100e-9,
+    height=100e-9,
+    pixels=256,
+    lines=256,
+    forward_line_time=0.25,
+    backward_line_time=0.10,
+    autosave="next",
+    series_name="topography",
+    data_directions=("forward", "backward"),
+)
+
+with NanonisController("127.0.0.1", 6501, "configs/commands") as ctrl:
+    result = ScanWorkflow(ctrl, safety_policy=policy).run(config)
+
+print(result.saved_path)
+for image in result.images:
+    print(image.name, image.direction, image.scan_direction, image.data.shape)
+```
+
+See `examples/scan_workflow_live_demo.ipynb` for the guarded live-hardware
+walkthrough and `reports/scan_workflow_walkthrough.md` for recovery, timeout,
+normalization, and known-limit details. QCoDeS scan persistence remains a
+deliberate `NotImplementedError` seam; workflow acquisition itself does not
+depend on QCoDeS.
 
 ### QCoDeS Integration (optional)
 
@@ -223,15 +274,16 @@ qcodes_nanonis/
 │   ├── workflows/                      # transactional measurement recipes
 │   │   ├── protocols.py, errors.py, state.py, models.py   # shared toolkit
 │   │   ├── spectroscopy/               #   bias spectroscopy (implemented)
-│   │   └── scan/ tunnel/ datalog/ atom_tracking/          # planned verticals
-│   ├── qcodes/                         # optional adapters: instrument, channels, spectroscopy
+│   │   ├── scan/                       #   one-frame scan workflow (implemented)
+│   │   └── tunnel/ datalog/ atom_tracking/                # planned verticals
+│   ├── qcodes/                         # optional adapters; scan persistence is deferred
 │   └── data/                           # STM data models + readers (planned)
 ├── configs/
 │   └── commands/                       # canonical per-module JSON definitions
 ├── scripts/
 │   └── live_test_commands.py           # live validation harness
 ├── reports/                            # plans, walkthrough, blueprint, live-test reports
-├── examples/                           # workflow_layer_live_demo.ipynb
+├── examples/                           # spectroscopy + scan live-demo notebooks
 ├── legacy/                             # pre-refactor terminal + IPInstrument driver
 ├── tests/                              # incl. tests/workflows/ (FakeController doubles)
 ├── generate_nanonis_tcp.py             # PDF -> per-module JSON codegen
@@ -241,7 +293,7 @@ qcodes_nanonis/
 
 See `reports/blueprint.md` for the architecture vision and roadmap,
 `reports/workflow_layer_walkthrough.md` for what is implemented, and
-`reports/scan_workflow_plan.md` for the next vertical.
+`reports/scan_workflow_walkthrough.md` for the implemented scan vertical.
 
 ## Supported Types
 
