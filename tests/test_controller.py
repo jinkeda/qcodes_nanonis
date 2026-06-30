@@ -130,7 +130,9 @@ class TestNanonisController:
         # Set up mock
         mock_client = MagicMock()
         # Return encoded float32 value of 0.5
-        mock_client.send_raw.return_value = struct.pack('>f', 0.5)
+        mock_client.send_raw.return_value = (
+            struct.pack('>f', 0.5) + struct.pack('>Ii', 0, 0)
+        )
         mock_client_class.return_value = mock_client
         
         config_dir = write_command_config(tmp_path, {
@@ -148,7 +150,7 @@ class TestNanonisController:
     def test_send_command_with_args(self, mock_client_class, tmp_path):
         """Test sending command with arguments."""
         mock_client = MagicMock()
-        mock_client.send_raw.return_value = b''
+        mock_client.send_raw.return_value = struct.pack('>Ii', 0, 0)
         mock_client_class.return_value = mock_client
         
         config_dir = write_command_config(tmp_path, {

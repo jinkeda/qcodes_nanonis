@@ -9,6 +9,7 @@ import pytest
 import numpy as np
 
 from nanonis.command.encoder import CommandEncoder, CommandDecoder
+from nanonis.protocol import NanonisProtocolError
 
 
 class TestCommandEncoder:
@@ -196,7 +197,7 @@ class TestCommandEncoder:
         """Decoding an array with no preceding int size must raise a clear error."""
         arr = np.array([1.0, 2.0], dtype=np.float32)
         body = self.encoder.encode([('values', 'array_float32')], (arr,))
-        with pytest.raises(ValueError, match='preceding integer size'):
+        with pytest.raises(NanonisProtocolError, match='preceding integer size'):
             self.decoder.decode([('values', 'array_float32')], body)
     
     def test_encode_multiple_args(self):

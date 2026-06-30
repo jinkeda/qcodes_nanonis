@@ -6,7 +6,7 @@ Optional convenience classes for common Nanonis operations.
 These provide a more Pythonic API for frequently used commands.
 """
 
-from typing import Dict, Any, Optional, Literal
+from typing import Dict, Any, Literal
 
 
 class BiasProxy:

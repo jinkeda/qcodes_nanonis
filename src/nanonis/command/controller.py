@@ -10,7 +10,7 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from ..protocol import NanonisTCPClient
+from ..protocol import NanonisTCPClient, TransportState
 from .registry import CommandRegistry
 from .encoder import CommandEncoder, CommandDecoder
 
@@ -116,6 +116,11 @@ class NanonisController:
     def is_connected(self) -> bool:
         """Check if connected to Nanonis."""
         return self._client.is_connected
+
+    @property
+    def transport_state(self) -> TransportState:
+        """Return byte-stream health without implying instrument state."""
+        return self._client.transport_state
     
     def connect(self) -> None:
         """Establish connection to Nanonis."""
@@ -128,8 +133,20 @@ class NanonisController:
         self._client.disconnect()
         if self._debug:
             logger.info("Disconnected")
+
+    def reconnect(self) -> None:
+        """Discard the current byte stream and establish a fresh one."""
+        self._client.reconnect()
+        if self._debug:
+            logger.info("Reconnected")
     
-    def send(self, command: str, *args, check_error: bool = True) -> Any:
+    def send(
+        self,
+        command: str,
+        *args: Any,
+        timeout: float | None = None,
+        check_error: bool = True,
+    ) -> Any:
         """
         Send a command to Nanonis.
         
@@ -163,27 +180,41 @@ class NanonisController:
             logger.debug(f"Request body: {len(body)} bytes")
         
         # Send command and get response
-        response = self._client.send_raw(command, body)
+        if timeout is None:
+            response = self._client.send_raw(command, body)
+        else:
+            response = self._client.send_raw(command, body, timeout=timeout)
         
         if self._debug:
             logger.debug(f"Response: {len(response)} bytes")
         
         # Decode response (with error checking)
         if not cmd_def.recv_args:
-            # Even commands with no return values can have errors
-            if check_error and len(response) >= 8:
-                self._decoder._parse_error(response)
+            self._decoder.decode(
+                [], response, check_error=check_error, command_name=command
+            )
             return None
         
         recv_types = cmd_def.get_recv_types()
-        result = self._decoder.decode(recv_types, response, check_error=check_error)
+        result = self._decoder.decode(
+            recv_types,
+            response,
+            check_error=check_error,
+            command_name=command,
+        )
         
         # Return single value or dict
         if len(result) == 1:
             return list(result.values())[0]
         return result
     
-    def send_raw(self, command: str, body: bytes) -> bytes:
+    def send_raw(
+        self,
+        command: str,
+        body: bytes,
+        *,
+        timeout: float | None = None,
+    ) -> bytes:
         """
         Send a raw command without encoding/decoding.
         
@@ -198,7 +229,9 @@ class NanonisController:
         """
         if self._debug:
             logger.debug(f"Raw send: {command}, {len(body)} bytes")
-        return self._client.send_raw(command, body)
+        if timeout is None:
+            return self._client.send_raw(command, body)
+        return self._client.send_raw(command, body, timeout=timeout)
     
     def list_commands(self, prefix: str = '') -> List[str]:
         """

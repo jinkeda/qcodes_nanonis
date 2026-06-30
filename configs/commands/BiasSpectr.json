@@ -137,6 +137,19 @@
         "args": [],
         "resp": []
     },
+    "BiasSpectr.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "BiasSpectr.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
     "BiasSpectr.LimitsGet": {
         "args": [],
         "resp": [
@@ -295,6 +308,40 @@
             }
         ]
     },
+    "BiasSpectr.AdvPropsSet": {
+        "args": [
+            {
+                "name": "Reset Bias",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller Hold",
+                "type": "H"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSpectr.LimitsSet": {
+        "args": [
+            {
+                "name": "Start value (V)",
+                "type": "f"
+            },
+            {
+                "name": "End value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
     "BiasSpectr.TimingGet": {
         "args": [],
         "resp": [
@@ -331,5 +378,42 @@
                 "type": "f"
             }
         ]
+    },
+    "BiasSpectr.TimingSet": {
+        "args": [
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
     }
 }

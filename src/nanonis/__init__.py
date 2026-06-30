@@ -32,6 +32,7 @@ from .protocol import (
     NanonisConnectionError,
     NanonisProtocolError,
     NanonisTimeoutError,
+    TransportState,
 )
 from .command import (
     NanonisController,
@@ -49,6 +50,7 @@ __all__ = [
     'NanonisConnectionError',
     'NanonisProtocolError',
     'NanonisTimeoutError',
+    'TransportState',
     # Command layer
     'NanonisController',
     'CommandRegistry',

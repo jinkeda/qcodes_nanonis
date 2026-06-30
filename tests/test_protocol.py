@@ -7,7 +7,7 @@ Tests for NanonisTCPClient and exception handling.
 
 import pytest
 import socket
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch, MagicMock
 
 from nanonis.protocol import (
     NanonisTCPClient,

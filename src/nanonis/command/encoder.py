@@ -11,7 +11,7 @@ import logging
 from typing import Any, Dict, List, Tuple, Optional
 import numpy as np
 
-from ..protocol.exceptions import NanonisCommandError
+from ..protocol.exceptions import NanonisCommandError, NanonisProtocolError
 
 logger = logging.getLogger(__name__)
 
@@ -222,7 +222,8 @@ class CommandDecoder:
         self, 
         args: List[Tuple[str, str]], 
         data: bytes,
-        check_error: bool = True,
+        check_error: bool = False,
+        command_name: str = "command",
     ) -> Dict[str, Any]:
         """
         Decode bytes according to type definitions.
@@ -253,14 +254,21 @@ class CommandDecoder:
 
                 if self.debug:
                     logger.debug(f"Decoded {name}: {consumed} bytes -> {type(value).__name__}")
+            except (NanonisCommandError, NanonisProtocolError):
+                raise
             except Exception as e:
-                raise ValueError(f"Failed to decode '{name}' as {dtype}: {e}") from e
+                raise NanonisProtocolError(
+                    f"Failed to decode '{name}' as {dtype}: {e}"
+                ) from e
         
-        # Check for error in remaining bytes
-        if check_error and offset < len(data):
+        if check_error:
             error_info = self._parse_error(data[offset:])
             if error_info:
-                raise NanonisCommandError("command", error_info)
+                raise NanonisCommandError(command_name, error_info)
+        elif offset != len(data):
+            raise NanonisProtocolError(
+                f"Decoded fields consumed {offset} of {len(data)} response bytes"
+            )
         
         return result
     
@@ -274,20 +282,37 @@ class CommandDecoder:
         - N bytes: error string (UTF-8)
         """
         if len(data) < 8:
-            return None
+            raise NanonisProtocolError(
+                f"Incomplete error trailer: expected at least 8 bytes, got {len(data)}"
+            )
         
         error_status = struct.unpack('>I', data[:4])[0]
+        error_length = struct.unpack('>i', data[4:8])[0]
+        if error_length < 0:
+            raise NanonisProtocolError(
+                f"Negative error-description length: {error_length}"
+            )
+        expected = 8 + error_length
+        if len(data) != expected:
+            raise NanonisProtocolError(
+                f"Error trailer declares {error_length} description bytes, "
+                f"but {len(data) - 8} are present"
+            )
+        try:
+            error_string = data[8:expected].decode('utf-8')
+        except UnicodeDecodeError as exc:
+            raise NanonisProtocolError(
+                "Error description is not valid UTF-8"
+            ) from exc
         if error_status == 0:
+            if error_length:
+                raise NanonisProtocolError(
+                    "Successful response contains a non-empty error description"
+                )
             return None
-        
-        error_length = struct.unpack('>I', data[4:8])[0]
-        if error_length > 0 and len(data) >= 8 + error_length:
-            error_string = data[8:8 + error_length].decode('utf-8', errors='replace')
-            if self.debug:
-                logger.warning(f"Nanonis error: {error_string}")
-            return error_string
-        
-        return f"Unknown error (status={error_status})"
+        if self.debug:
+            logger.warning(f"Nanonis error: {error_string}")
+        return error_string or f"Unknown error (status={error_status})"
     
     @classmethod
     def _trailing_ints(cls, decoded: List[Tuple[str, Any]], n: int) -> List[int]:

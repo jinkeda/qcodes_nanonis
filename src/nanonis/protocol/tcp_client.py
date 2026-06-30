@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Nanonis TCP Client
+"""Low-level, stateful TCP framing for the Nanonis protocol."""
 
-Low-level TCP communication with the Nanonis controller.
-Handles connection, header encoding/decoding, and raw byte transmission.
-"""
+from __future__ import annotations
 
 import socket
 import struct
+import threading
+from enum import Enum
 from typing import Optional
 
 from .exceptions import (
@@ -17,202 +16,221 @@ from .exceptions import (
 )
 
 
+class TransportState(Enum):
+    """Health of the request/response byte stream (not instrument state)."""
+
+    DISCONNECTED = "disconnected"
+    READY = "ready"
+    DESYNCHRONIZED = "desynchronized"
+    RECOVERING = "recovering"
+
+
 class NanonisTCPClient:
-    """
-    Layer 1: Low-level TCP communication with Nanonis.
-    
-    This class handles:
-    - TCP socket connection management
-    - Nanonis protocol header encoding (40 bytes)
-    - Sending commands and receiving responses
-    
-    Example:
-        >>> with NanonisTCPClient('127.0.0.1', 6501) as client:
-        ...     response = client.send_raw('Bias.Get', b'')
-        ...     print(response)
-    """
-    
+    """Send complete Nanonis request/response transactions over one socket."""
+
     HEADER_SIZE = 40
     COMMAND_NAME_SIZE = 32
-    
-    def __init__(self, host: str, port: int, timeout: float = 10.0):
-        """
-        Initialize TCP client.
-        
-        Args:
-            host: Nanonis host IP address
-            port: Nanonis TCP port (typically 6501)
-            timeout: Socket timeout in seconds
-        """
+    DEFAULT_MAX_RESPONSE_SIZE = 64 * 1024 * 1024
+
+    def __init__(
+        self,
+        host: str,
+        port: int,
+        timeout: float = 10.0,
+        max_response_size: int = DEFAULT_MAX_RESPONSE_SIZE,
+    ) -> None:
+        if timeout <= 0:
+            raise ValueError("timeout must be > 0")
+        if max_response_size <= 0:
+            raise ValueError("max_response_size must be > 0")
         self.host = host
         self.port = port
-        self.timeout = timeout
+        self.timeout = float(timeout)
+        self.max_response_size = int(max_response_size)
         self._socket: Optional[socket.socket] = None
-    
+        self._io_lock = threading.RLock()
+        self._transport_state = TransportState.DISCONNECTED
+
     @property
     def is_connected(self) -> bool:
-        """Check if socket is connected."""
-        return self._socket is not None
-    
+        return self._socket is not None and self._transport_state is TransportState.READY
+
+    @property
+    def transport_state(self) -> TransportState:
+        return self._transport_state
+
     def connect(self) -> None:
-        """
-        Establish TCP connection to Nanonis.
-        
-        Raises:
-            NanonisConnectionError: If connection fails
-        """
-        if self._socket is not None:
-            self.disconnect()
-        
-        try:
-            self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self._socket.settimeout(self.timeout)
-            self._socket.connect((self.host, self.port))
-        except socket.timeout as e:
-            self._socket = None
-            raise NanonisConnectionError(
-                f"Connection to {self.host}:{self.port} timed out"
-            ) from e
-        except socket.error as e:
-            self._socket = None
-            raise NanonisConnectionError(
-                f"Failed to connect to {self.host}:{self.port}: {e}"
-            ) from e
-    
+        """Establish a new stream; an existing stream is always discarded."""
+        with self._io_lock:
+            self._close_socket()
+            self._transport_state = TransportState.RECOVERING
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            try:
+                sock.settimeout(self.timeout)
+                sock.connect((self.host, self.port))
+            except (socket.timeout, socket.error) as exc:
+                try:
+                    sock.close()
+                finally:
+                    self._socket = None
+                    self._transport_state = TransportState.DISCONNECTED
+                raise NanonisConnectionError(
+                    f"Failed to connect to {self.host}:{self.port}: {exc}"
+                ) from exc
+            self._socket = sock
+            self._transport_state = TransportState.READY
+
+    def reconnect(self) -> None:
+        """Replace the current stream with a fresh connection."""
+        self.connect()
+
     def disconnect(self) -> None:
-        """Close the TCP connection."""
-        if self._socket is not None:
+        with self._io_lock:
+            self._close_socket()
+            self._transport_state = TransportState.DISCONNECTED
+
+    def _close_socket(self) -> None:
+        sock, self._socket = self._socket, None
+        if sock is not None:
             try:
-                self._socket.close()
+                sock.close()
             except socket.error:
-                pass  # Ignore errors during close
-            finally:
-                self._socket = None
-    
-    def send_raw(self, command_name: str, body: bytes) -> bytes:
-        """
-        Send a raw command to Nanonis and receive the response.
-        
-        Args:
-            command_name: The Nanonis command name (e.g., 'Bias.Get')
-            body: The encoded command body bytes
-            
-        Returns:
-            The response body bytes (excluding header)
-            
-        Raises:
-            NanonisConnectionError: If not connected
-            NanonisProtocolError: If response is malformed
-            NanonisTimeoutError: If response times out
-        """
-        if self._socket is None:
-            raise NanonisConnectionError("Not connected to Nanonis")
-        
-        # Build and send request
-        header = self._encode_header(command_name, len(body))
-        try:
-            self._socket.sendall(header + body)
-        except socket.error as e:
-            raise NanonisConnectionError(f"Failed to send command: {e}") from e
-        
-        # Receive response
-        return self._receive_response()
-    
-    def _encode_header(self, command_name: str, body_size: int) -> bytes:
-        """
-        Encode the Nanonis protocol header.
-        
-        Header format (40 bytes total):
-        - Bytes 0-31: Command name (null-padded ASCII)
-        - Bytes 32-35: Body size (big-endian int32)
-        - Bytes 36-37: Send flag (big-endian uint16, always 1)
-        - Bytes 38-39: Reserved (big-endian uint16, always 0)
-        
-        Args:
-            command_name: Command name string
-            body_size: Size of the body in bytes
-            
-        Returns:
-            40-byte header
-        """
-        # Command name: 32 bytes, null-padded
-        cmd_bytes = command_name.encode('utf-8')[:self.COMMAND_NAME_SIZE]
-        cmd_bytes = cmd_bytes.ljust(self.COMMAND_NAME_SIZE, b'\x00')
-        
-        # Body size: 4 bytes, big-endian int32
-        size_bytes = struct.pack('>i', body_size)
-        
-        # Flags: 4 bytes (send=1, reserved=0)
-        flags = struct.pack('>HH', 1, 0)
-        
-        return cmd_bytes + size_bytes + flags
-    
-    def _receive_response(self) -> bytes:
-        """
-        Receive and parse the response from Nanonis.
-        
-        Returns:
-            Response body bytes
-            
-        Raises:
-            NanonisProtocolError: If response is malformed
-            NanonisTimeoutError: If response times out
-        """
-        try:
-            # Receive header
-            header = self._recv_exact(self.HEADER_SIZE)
-            
-            # Parse header
-            # command_name = header[:32].rstrip(b'\x00').decode('utf-8')
-            body_size = struct.unpack('>i', header[32:36])[0]
-            # response_flag = struct.unpack('>H', header[36:38])[0]
-            # error_flag = struct.unpack('>H', header[38:40])[0]
-            
-            # Receive body
-            if body_size > 0:
-                return self._recv_exact(body_size)
-            return b''
-            
-        except socket.timeout as e:
-            raise NanonisTimeoutError("Response timed out") from e
-    
-    def _recv_exact(self, size: int) -> bytes:
-        """
-        Receive exactly `size` bytes from the socket.
-        
-        Args:
-            size: Number of bytes to receive
-            
-        Returns:
-            Received bytes
-            
-        Raises:
-            NanonisConnectionError: If connection is closed
-            NanonisProtocolError: If not enough data received
-        """
-        data = b''
-        while len(data) < size:
+                pass
+
+    def _invalidate(self) -> None:
+        """Close a stream whose request/response boundary is no longer known."""
+        self._close_socket()
+        self._transport_state = TransportState.DESYNCHRONIZED
+
+    def send_raw(
+        self,
+        command_name: str,
+        body: bytes,
+        *,
+        timeout: float | None = None,
+    ) -> bytes:
+        """Send one command under the I/O lock and return its complete body."""
+        if timeout is not None and timeout <= 0:
+            raise ValueError("timeout must be > 0 when provided")
+
+        with self._io_lock:
+            sock = self._socket
+            if sock is None or self._transport_state is not TransportState.READY:
+                raise NanonisConnectionError("Not connected to Nanonis")
+
+            previous_timeout = sock.gettimeout()
+            command_timeout = self.timeout if timeout is None else float(timeout)
             try:
-                chunk = self._socket.recv(size - len(data))
-                if not chunk:
+                sock.settimeout(command_timeout)
+                header = self._encode_header(command_name, len(body))
+                try:
+                    sock.sendall(header + body)
+                except socket.timeout as exc:
+                    raise NanonisTimeoutError("Request send timed out") from exc
+                except socket.error as exc:
                     raise NanonisConnectionError(
-                        f"Connection closed while receiving data "
-                        f"(got {len(data)}/{size} bytes)"
+                        f"Failed to send command: {exc}"
+                    ) from exc
+                response = self._receive_response(command_name)
+                self._transport_state = TransportState.READY
+                return response
+            except (NanonisTimeoutError, NanonisConnectionError, NanonisProtocolError):
+                self._invalidate()
+                raise
+            finally:
+                # Do not touch a closed/invalidated socket. A healthy socket gets its
+                # prior timeout back before another thread can acquire the lock.
+                if self._socket is sock:
+                    sock.settimeout(previous_timeout)
+
+    def _encode_header(self, command_name: str, body_size: int) -> bytes:
+        encoded = command_name.encode("utf-8")
+        if len(encoded) > self.COMMAND_NAME_SIZE:
+            raise ValueError("command name exceeds 32 encoded bytes")
+        if body_size < 0:
+            raise ValueError("body_size must be non-negative")
+        command = encoded.ljust(self.COMMAND_NAME_SIZE, b"\x00")
+        return command + struct.pack(">iHH", body_size, 1, 0)
+
+    def _receive_response(self, expected_command: str) -> bytes:
+        try:
+            header = self._recv_exact(self.HEADER_SIZE)
+            raw_command = header[: self.COMMAND_NAME_SIZE]
+            try:
+                command = raw_command.split(b"\x00", 1)[0].decode("utf-8")
+            except UnicodeDecodeError as exc:
+                raise NanonisProtocolError(
+                    "Response command name is not valid UTF-8"
+                ) from exc
+            if b"\x00" in raw_command:
+                padding = raw_command[raw_command.index(b"\x00") :]
+                if padding.strip(b"\x00"):
+                    raise NanonisProtocolError(
+                        "Response command-name padding contains non-zero bytes"
                     )
-                data += chunk
-            except socket.error as e:
-                raise NanonisConnectionError(f"Receive failed: {e}") from e
-        return data
-    
-    def __enter__(self) -> 'NanonisTCPClient':
-        """Context manager entry: connect."""
+
+            body_size = struct.unpack(">i", header[32:36])[0]
+            reserved = header[36:40]
+            if command != expected_command:
+                raise NanonisProtocolError(
+                    f"Response command mismatch: expected {expected_command!r}, "
+                    f"received {command!r}"
+                )
+            if body_size < 0:
+                raise NanonisProtocolError(
+                    f"Response body size is negative: {body_size}"
+                )
+            if body_size > self.max_response_size:
+                raise NanonisProtocolError(
+                    f"Response body size {body_size} exceeds configured maximum "
+                    f"{self.max_response_size}"
+                )
+            # The protocol manual defines all four response-header bytes as unused.
+            if reserved != b"\x00\x00\x00\x00":
+                raise NanonisProtocolError(
+                    f"Response reserved header bytes are non-zero: {reserved!r}"
+                )
+            return self._recv_exact(body_size) if body_size else b""
+        except socket.timeout as exc:
+            raise NanonisTimeoutError("Response timed out") from exc
+
+    def _recv_exact(self, size: int) -> bytes:
+        sock = self._socket
+        if sock is None:
+            raise NanonisConnectionError("Socket is not connected")
+        chunks: list[bytes] = []
+        received = 0
+        while received < size:
+            try:
+                chunk = sock.recv(size - received)
+            except socket.timeout:
+                # Preserve the category so _receive_response can classify it.
+                raise
+            except socket.error as exc:
+                raise NanonisConnectionError(f"Receive failed: {exc}") from exc
+            if not chunk:
+                raise NanonisConnectionError(
+                    f"Connection closed while receiving data "
+                    f"(got {received}/{size} bytes)"
+                )
+            chunks.append(chunk)
+            received += len(chunk)
+        return b"".join(chunks)
+
+    def __enter__(self) -> "NanonisTCPClient":
         self.connect()
         return self
-    
+
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        """Context manager exit: disconnect."""
         self.disconnect()
-    
+
     def __repr__(self) -> str:
-        status = "connected" if self.is_connected else "disconnected"
-        return f"NanonisTCPClient({self.host}:{self.port}, {status})"
+        status = (
+            "connected (ready)"
+            if self.transport_state is TransportState.READY
+            else self.transport_state.value
+        )
+        return (
+            f"NanonisTCPClient({self.host}:{self.port}, "
+            f"{status})"
+        )

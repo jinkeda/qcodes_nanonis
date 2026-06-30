@@ -12,10 +12,11 @@ from .exceptions import (
     NanonisTimeoutError,
     NanonisCommandError,
 )
-from .tcp_client import NanonisTCPClient
+from .tcp_client import NanonisTCPClient, TransportState
 
 __all__ = [
     'NanonisTCPClient',
+    'TransportState',
     'NanonisError',
     'NanonisConnectionError',
     'NanonisProtocolError',

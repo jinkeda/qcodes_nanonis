@@ -98,7 +98,9 @@ class NanonisInstrument(Instrument):
         """Access to underlying controller for advanced usage."""
         return self._controller
     
-    def send(self, command: str, *args) -> Any:
+    def send(
+        self, command: str, *args: Any, timeout: float | None = None
+    ) -> Any:
         """
         Send a command directly via Layer 2.
         
@@ -112,7 +114,7 @@ class NanonisInstrument(Instrument):
         Returns:
             Command result
         """
-        return self._controller.send(command, *args)
+        return self._controller.send(command, *args, timeout=timeout)
     
     def list_commands(self, prefix: str = '') -> list:
         """List available commands, optionally filtered by prefix."""
