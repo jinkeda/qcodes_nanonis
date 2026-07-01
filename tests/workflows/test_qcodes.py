@@ -14,7 +14,10 @@ from nanonis.workflows import (
     BiasSpectroscopySettings,
     BiasSpectroscopyTiming,
 )
+from nanonis.workflows.scan import ScanChannelImage, ScanConfig, normalize_scan
 from nanonis.workflows.spectroscopy.result import BiasSpectroscopyResult
+
+from .scan.test_models import snapshot
 
 
 class FakeMeasurement:
@@ -124,8 +127,81 @@ def test_add_result_writes_axes_traces_and_acquisition_metadata():
     assert "effective_settings" in datasaver.dataset.metadata
 
 
-def test_scan_persistence_seam_is_explicitly_deferred():
-    with pytest.raises(NotImplementedError, match="deferred"):
-        register_scan_result(None, None)
-    with pytest.raises(NotImplementedError, match="deferred"):
-        add_scan_result(None, None, None)
+def scan_result():
+    """A 3x4 (lines x pixels) result with two images (ch0 forward + backward)."""
+    effective, _ = snapshot()  # frame 10x20 nm, angle 5 deg; pixels=4, lines=3
+    now = datetime.now(timezone.utc)
+    forward = ScanChannelImage("Current (A)", 0, "forward",
+                               np.arange(12.0).reshape(3, 4), "up")
+    backward = ScanChannelImage("Current (A)", 0, "backward",
+                                np.arange(12.0, 24.0).reshape(3, 4), "down")
+    return normalize_scan(
+        (forward, backward), saved_path="scan.sxm", config=ScanConfig((0,)),
+        effective=effective, acquisition_started_at=now,
+        acquisition_finished_at=now, acquisition_duration=1,
+        estimated_acquisition_duration=2, acquisition_timeout_used=8,
+    )
+
+
+def test_scan_registers_index_setpoints_coordinates_and_unique_channel_ids():
+    measurement = FakeMeasurement()
+
+    registered = register_scan_result(measurement, scan_result())
+
+    assert registered.shape == (3, 4)
+    assert (registered.x_name, registered.y_name) == ("x_m", "y_m")
+    assert [c.parameter_name for c in registered.channels] == [
+        "current_a_forward",
+        "current_a_backward",
+    ]
+    registered_params = dict(measurement.registered)
+    # Index setpoints are independent (no setpoints of their own).
+    assert "setpoints" not in registered_params["row_index"]
+    assert "setpoints" not in registered_params["col_index"]
+    # Every image and coordinate grid hangs off the 2-D index meshgrids.
+    for name in ("x_m", "y_m", "current_a_forward", "current_a_backward"):
+        assert registered_params[name]["setpoints"] == ("row_index", "col_index")
+    assert registered_params["current_a_forward"]["unit"] == "A"
+
+
+def test_physical_coordinates_can_be_disabled():
+    measurement = FakeMeasurement()
+
+    registered = register_scan_result(
+        measurement, scan_result(), physical_coordinates=False
+    )
+
+    assert registered.x_name is None and registered.y_name is None
+    assert "x_m" not in dict(measurement.registered)
+
+
+def test_add_scan_result_writes_grids_images_and_metadata():
+    value = scan_result()
+    registered = register_scan_result(FakeMeasurement(), value)
+    datasaver = FakeDataSaver()
+
+    add_scan_result(datasaver, registered, value)
+
+    pairs = dict(datasaver.results[0])
+    assert pairs["row_index"].shape == (3, 4)
+    assert pairs["col_index"].shape == (3, 4)
+    # Index meshgrids: row varies down rows, column across columns.
+    assert pairs["row_index"][:, 0].tolist() == [0, 1, 2]
+    assert pairs["col_index"][0, :].tolist() == [0, 1, 2, 3]
+    assert pairs["x_m"].shape == (3, 4) and pairs["y_m"].shape == (3, 4)
+    assert pairs["current_a_forward"][0].tolist() == [0, 1, 2, 3]
+    assert pairs["current_a_backward"][0].tolist() == [12, 13, 14, 15]
+    assert datasaver.dataset.metadata["row_order"] == "top_to_bottom"
+    for key in ("acquisition_started_at", "saved_path", "frame", "effective_settings"):
+        assert key in datasaver.dataset.metadata
+
+
+def test_add_scan_result_rejects_channel_schema_mismatch():
+    value = scan_result()
+    registered = register_scan_result(FakeMeasurement(), value)
+    only_forward = value.images[0]
+    partial = scan_result()
+    object.__setattr__(partial, "images", (only_forward,))
+
+    with pytest.raises(ValueError, match="schema does not match"):
+        add_scan_result(FakeDataSaver(), registered, partial)

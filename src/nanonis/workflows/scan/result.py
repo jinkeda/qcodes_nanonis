@@ -13,7 +13,7 @@ import numpy.typing as npt
 
 from ..errors import NonFiniteScanDataError, ScanResponseError
 from ..spectroscopy.result import NaNPolicy, NonFiniteDiagnostics
-from .models import DataDirection, ScanConfig, ScanDirection, ScanFrame, ScanSettings
+from .models import DataDirection, ScanConfig, ScanDirection, ScanRegion, ScanSettings
 
 logger = logging.getLogger(__name__)
 FloatArray: TypeAlias = npt.NDArray[np.float64]
@@ -52,7 +52,7 @@ class ScanChannelImage:
 @dataclass(frozen=True)
 class ScanResult:
     images: tuple[ScanChannelImage, ...]
-    frame: ScanFrame
+    frame: ScanRegion
     requested_config: ScanConfig
     effective_settings: ScanSettings
     saved_path: str
@@ -61,6 +61,7 @@ class ScanResult:
     acquisition_duration: float
     estimated_acquisition_duration: float
     acquisition_timeout_used: float
+    requested_region: ScanRegion | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "images", tuple(self.images))
@@ -134,6 +135,7 @@ def normalize_scan(
     acquisition_duration: float,
     estimated_acquisition_duration: float,
     acquisition_timeout_used: float,
+    requested_region: ScanRegion | None = None,
     nan_policy: NaNPolicy = NaNPolicy.WARN,
 ) -> ScanResult:
     result = ScanResult(
@@ -147,6 +149,7 @@ def normalize_scan(
         acquisition_duration=acquisition_duration,
         estimated_acquisition_duration=estimated_acquisition_duration,
         acquisition_timeout_used=acquisition_timeout_used,
+        requested_region=requested_region,
     )
     return apply_scan_nan_policy(result, nan_policy)
 

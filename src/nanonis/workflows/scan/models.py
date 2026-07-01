@@ -71,11 +71,6 @@ encode_speed_keep_set = encode_keep_constant_set
 class ScanConfig:
     channel_indexes: tuple[int, ...]
     direction: ScanDirection = "up"
-    center_x: float | None = None
-    center_y: float | None = None
-    width: float | None = None
-    height: float | None = None
-    angle: float | None = None
     pixels: int | None = None
     lines: int | None = None
     forward_line_time: float | None = None
@@ -120,18 +115,6 @@ class ScanConfig:
                 or dimension_value < 2
             ):
                 raise ValueError(f"{dimension_name} must be an integer >= 2")
-        for size_name, size_value in (("width", self.width), ("height", self.height)):
-            if size_value is not None and (
-                not isfinite(size_value) or size_value <= 0
-            ):
-                raise ValueError(f"{size_name} must be finite and > 0")
-        for coordinate_name, coordinate_value in (
-            ("center_x", self.center_x),
-            ("center_y", self.center_y),
-            ("angle", self.angle),
-        ):
-            if coordinate_value is not None and not isfinite(coordinate_value):
-                raise ValueError(f"{coordinate_name} must be finite")
         for timing_name, timing_value in (
             ("forward_line_time", self.forward_line_time),
             ("backward_line_time", self.backward_line_time),
@@ -186,12 +169,75 @@ class ScanSafetyPolicy:
 
 
 @dataclass(frozen=True)
-class ScanFrame:
+class ScanRegion:
+    """The scan frame: where/what to measure (center, size, rotation).
+
+    A first-class, round-trippable value object: read the controller's current
+    frame with :meth:`snapshot`, produce a modified copy with :meth:`patch`, and
+    write it back with :meth:`apply`. Passed to ``ScanWorkflow.run`` as the
+    per-shot target, separate from the stable ``ScanConfig`` recipe. All fields
+    are SI (metres, degrees); ``angle`` defaults to 0.
+    """
+
     center_x: float
     center_y: float
     width: float
     height: float
-    angle: float
+    angle: float = 0.0
+
+    def __post_init__(self) -> None:
+        for name, value in (
+            ("center_x", self.center_x),
+            ("center_y", self.center_y),
+            ("angle", self.angle),
+        ):
+            if not isfinite(value):
+                raise ValueError(f"{name} must be finite")
+        for name, value in (("width", self.width), ("height", self.height)):
+            if not isfinite(value) or value <= 0:
+                raise ValueError(f"{name} must be finite and > 0")
+
+    @classmethod
+    def snapshot(cls, client: CommandClient) -> "ScanRegion":
+        """Read the controller's current frame via ``Scan.FrameGet``."""
+        frame = _mapping(client.send("Scan.FrameGet"), "FrameGet")
+        return cls(
+            float(frame["center_x_m"]),
+            float(frame["center_y_m"]),
+            float(frame["width_m"]),
+            float(frame["height_m"]),
+            float(frame["angle_deg"]),
+        )
+
+    def apply(self, client: CommandClient) -> None:
+        """Write this frame via ``Scan.FrameSet`` (five float32, no wait flag)."""
+        client.send(
+            "Scan.FrameSet",
+            self.center_x,
+            self.center_y,
+            self.width,
+            self.height,
+            self.angle,
+        )
+
+    def patch(
+        self,
+        *,
+        center_x: float | None = None,
+        center_y: float | None = None,
+        width: float | None = None,
+        height: float | None = None,
+        angle: float | None = None,
+    ) -> "ScanRegion":
+        """Return a copy with the given fields overridden; ``None`` keeps mine."""
+        return replace(
+            self,
+            center_x=self.center_x if center_x is None else center_x,
+            center_y=self.center_y if center_y is None else center_y,
+            width=self.width if width is None else width,
+            height=self.height if height is None else height,
+            angle=self.angle if angle is None else angle,
+        )
 
     def corners(self) -> tuple[tuple[float, float], ...]:
         """Return rotated frame corners in controller coordinates."""
@@ -293,7 +339,7 @@ class ScanProps:
 
 @dataclass(frozen=True)
 class ScanSettings:
-    frame: ScanFrame
+    frame: ScanRegion
     channels: tuple[int, ...]
     pixels: int
     lines: int
@@ -302,7 +348,6 @@ class ScanSettings:
 
     @classmethod
     def snapshot(cls, client: CommandClient) -> "ScanSettings":
-        frame = _mapping(client.send("Scan.FrameGet"), "FrameGet")
         buffer = _mapping(client.send("Scan.BufferGet"), "BufferGet")
         props = _mapping(client.send("Scan.PropsGet"), "PropsGet")
         speed = _mapping(client.send("Scan.SpeedGet"), "SpeedGet")
@@ -311,13 +356,7 @@ class ScanSettings:
         if declared != len(channels):
             raise ScanResponseError("Scan.BufferGet channel count does not match indexes")
         return cls(
-            frame=ScanFrame(
-                float(frame["center_x_m"]),
-                float(frame["center_y_m"]),
-                float(frame["width_m"]),
-                float(frame["height_m"]),
-                float(frame["angle_deg"]),
-            ),
+            frame=ScanRegion.snapshot(client),
             channels=channels,
             pixels=int(buffer["pixels"]),
             lines=int(buffer["lines"]),
@@ -325,15 +364,10 @@ class ScanSettings:
             speed=ScanSpeed.from_response(speed),
         )
 
-    def patch(self, config: ScanConfig) -> "ScanSettings":
-        frame = replace(
-            self.frame,
-            center_x=self.frame.center_x if config.center_x is None else config.center_x,
-            center_y=self.frame.center_y if config.center_y is None else config.center_y,
-            width=self.frame.width if config.width is None else config.width,
-            height=self.frame.height if config.height is None else config.height,
-            angle=self.frame.angle if config.angle is None else config.angle,
-        )
+    def patch(
+        self, config: ScanConfig, region: "ScanRegion | None" = None
+    ) -> "ScanSettings":
+        frame = self.frame if region is None else region
         line_time_changed = (
             config.forward_line_time is not None
             or config.backward_line_time is not None

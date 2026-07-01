@@ -1,6 +1,6 @@
 # Blueprint — What to Adopt from `spaik`
 
-Status: strategic blueprint · Date: 2026-06-30
+Status: strategic blueprint · Date: 2026-07-01 (scan vertical moved to Realized)
 
 ## Guiding principle
 
@@ -48,13 +48,14 @@ nanonis/
   protocol/                  # exists
   command/                   # exists
 
-  workflows/                 # transactional measurement recipes (in progress)
+  workflows/                 # transactional measurement recipes (two verticals realized)
     protocols.py             #   CommandClient, RecoverableCommandClient
     errors.py                #   WorkflowError hierarchy
     state.py                 #   RestorationTransaction, TipState, recover_module
-    policies.py              #   shared TipRestorePolicy / bias ramping (emerges with scan)
-    spectroscopy/            #   bias spectroscopy (implemented) + others
-    scan/                    #   full scan workflow (next vertical)
+    models.py                #   shared TipRestorePolicy (policies.py not yet needed)
+    spectroscopy/            #   bias spectroscopy (implemented + live-validated)
+    scan/                    #   full scan workflow (implemented; run + run_partial)
+      geometry.py            #     scan_coordinate_grids (row_order gated on orientation)
     tunnel/                  #   prepare/restore tunnelling conditions
     datalog/
     atom_tracking/
@@ -180,22 +181,60 @@ live-test harness**, not a nicety.
 
 ## Adoption backlog (by status)
 
-### Realized (bias spectroscopy vertical)
+### Realized (bias spectroscopy + scan verticals)
 
-Status: **implemented; logic doubles complete (106 `FakeController` tests);
-live-hardware validation pending** (no controller was reachable in the build
-session — see the walkthrough). Live-hardware validation over a real socket is the
-acceptance gate; a simulator is not used.
+Status: **both verticals implemented; logic doubles complete (158 `FakeController`
+tests passing); live-hardware validation done for spectroscopy and partially done
+for scan.** Live-hardware validation over a real socket is the acceptance gate; a
+simulator is not used.
 
-The first end-to-end workflow is built to the full standard — typed config,
-Nanonis state snapshot, recovery-gated best-effort restoration, lossless
-normalization, and acquire-first QCoDeS registration with provenance metadata.
+Two end-to-end workflows are built to the full standard — typed config, Nanonis
+state snapshot, recovery-gated best-effort restoration, lossless normalization, and
+(for spectroscopy) acquire-first QCoDeS registration with provenance metadata.
+
+**Bias spectroscopy** — live-validated:
 
 - **Spectroscopy configuration round trips** — read, save, modify, and restore
   complete spectroscopy settings via typed snapshots and command groups
   (`BiasSpectroscopySettings` snapshot-and-patch).
 - **State transactions, typed configs, provenance** — the cross-cutting
   requirements above, in their first concrete form.
+
+**Full scan (M4)** — implemented; live-validation in progress (see
+[`scan_workflow_walkthrough.md`](scan_workflow_walkthrough.md)):
+
+- **`ScanWorkflow.run()`** — corner positioning, frame/buffer/speed/props
+  snapshot-and-patch, continuous-scan forced off, PDF-defined direction,
+  separate controller/socket timeouts, per-channel × per-direction `FrameDataGrab`,
+  stop-and-confirm recovery, and an immutable self-describing `ScanResult`.
+- **`ScanWorkflow.run_partial()`** — acquires the first N image rows (counted by
+  trace returns off `Scan.WaitEndOfLine`) then stops; a preview / drift-check /
+  early-abort path. `Scan.WaitEndOfLine` semantics were characterized live
+  (2026-07-01): ~2 returns per image row, 1-based `line_number`, variable-length
+  startup transient.
+- **Shared toolkit generalizations landed** — generic `recover_module` (vertical-
+  neutral `RecoveryReport.module_stopped`) and shared `TipRestorePolicy`
+  (in `workflows/models.py`; a dedicated `policies.py` is still not needed).
+- **QCoDeS scan persistence (M4-D) is now implemented** (`qcodes/scan.py`,
+  built 2026-07-01 once the row-orientation gate below was closed): 2-D index
+  meshgrid setpoints + optional physical `x_m`/`y_m` grids from the confirmed
+  `row_order`, per-channel×direction images, and provenance metadata — the same
+  acquire-first pattern as the spectroscopy adapter.
+
+> **`FrameDataGrab` row orientation — characterized live (2026-07-01).** A
+> sample-independent partial-scan test (`examples/verify_row_orientation.py`,
+> `run_partial` up + down on a 16-line frame at angle 0) settled it on the
+> `127.0.0.1:6501` rig: *up* filled matrix rows 10–15 and *down* filled rows 0–5 —
+> **opposite** ends, so the buffer is **physically-indexed** (up/down do **not**
+> reverse row order; `row_order` is a single constant), and matrix row 0 is the
+> frame's top edge → **`row_order = "top_to_bottom"`**. The Nanonis GUI confirms
+> the convention this rests on in **both** directions — *up* rasters bottom→top and
+> *down* rasters top→bottom (scanned rows build from the start edge inward) — so the
+> result is fully confirmed, not conditional.
+> `scan/geometry.py` can now be given this `row_order`. Still uncharacterized:
+> `column_order` (fast-axis left/right) and the real `PropsGet` autopaste encoding.
+> `ScanResult` still preserves raw matrix order and the explicit controller scan
+> direction.
 
 > **Known limitation — backward sweeps don't map cleanly onto QCoDeS setpoints.**
 > The persistence adapter (`qcodes/spectroscopy.py`) only registers
@@ -229,14 +268,13 @@ normalization, and acquire-first QCoDeS registration with provenance metadata.
 
 ### Vertical backlog (proven recipes still to rebuild)
 
-In rough priority order:
+In rough priority order (item 1, the full scan workflow, is **realized** — see the
+Realized section; its only remaining work is the live orientation gate, tracked
+under Next milestone):
 
-1. **Full scan workflow** — adopt the `doScan` sequence (corner positioning,
-   frame/buffer/speed, start, wait, timeout) and return a `ScanResult`. The next
-   vertical; design is in [`scan_workflow_plan.md`](scan_workflow_plan.md).
-2. **Nanonis data readers** — `data/readers/{sxm,three_ds,dat}`, kept independent
+1. **Nanonis data readers** — `data/readers/{sxm,three_ds,dat}`, kept independent
    of control code, feeding domain data → optional QCoDeS / xarray adapters.
-3. **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
+2. **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
    safe context manager; grid/spiral coordinate generation; scan-each-tile;
    optional Z-range/contact verification. **Requires checkpoint/resume semantics**
    (incremental map persistence so a 12-hour run resumes after failure) as a
@@ -260,21 +298,27 @@ separate so they do not contend with the priority order above.
 
 ## Next milestone
 
-One additional end-to-end workflow — **prefer scan** — built to the same contract
-as bias spectroscopy:
+The scan vertical is built; the milestone now is **closing its live-hardware
+acceptance gate**, not writing a new vertical. Concretely, in order:
 
-- typed configuration with I/O-free validation,
-- Nanonis state snapshot of the state it mutates,
-- a domain `ScanResult` return (a separate `qcodes/` adapter persists it),
-- recovery-gated best-effort restoration on every exit path,
-- `FakeController` logic doubles, **and live-hardware validation over a real
-  socket** as the acceptance gate,
-- provenance metadata.
+1. **Approve rig safety limits.** Get `examples/rig_safety_policies.py` reviewed and
+   `approved=True` (dated, version bumped). No scan runs against unapproved
+   3 µm / 1.5 µm piezo limits.
+2. **Characterize `FrameDataGrab` row orientation live** — **DONE (2026-07-01).**
+   The sample-independent partial-scan method (`examples/verify_row_orientation.py`,
+   up + down) found a physically-indexed buffer with `row_order = "top_to_bottom"`
+   (see the Realized callout). Remaining orientation bits (`column_order`, autopaste
+   encoding) are minor and can be settled alongside the adapter work.
+3. **DONE (2026-07-01).** `row_order = "top_to_bottom"` is wired through the M4-D
+   QCoDeS scan adapter (`qcodes/scan.py`), which calls `scan_coordinate_grids` for
+   the physical grids. Remaining: characterize fast-axis `column_order` (physical X
+   may be mirrored until then; index grids are unaffected).
 
-Do not start a second vertical before its state model, safety policy,
-timeout/recovery contract, result model, and **live-hardware acceptance criteria**
-are specified — starting without them would repeat the unsafe assumptions this
-rebuild exists to remove.
+Only after that does a **new** vertical (data readers, then atom tracking) begin —
+and, as before, not before its state model, safety policy, timeout/recovery
+contract, result model, and **live-hardware acceptance criteria** are specified.
+Starting without them would repeat the unsafe assumptions this rebuild exists to
+remove.
 
 ## References
 

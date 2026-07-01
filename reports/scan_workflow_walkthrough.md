@@ -27,7 +27,7 @@ deliberately deferred adapter boundary.
 
 `src/nanonis/workflows/scan/` now contains:
 
-- `models.py`: `ScanConfig`, `ScanSafetyPolicy`, `ScanFrame`, `ScanSpeed`,
+- `models.py`: `ScanConfig`, `ScanSafetyPolicy`, `ScanRegion`, `ScanSpeed`,
   `ScanProps`, and `ScanSettings`, including asymmetric Get/Set enum conversions;
 - `result.py`: immutable `ScanChannelImage` and `ScanResult` models, response
   normalization, and scan-specific non-finite-data handling;
@@ -71,13 +71,15 @@ The existing command proxy and QCoDeS channel direction bug is corrected:
 `up=1`, `down=0`. The workflow uses named constants rather than deriving those
 wire values independently.
 
-### Deferred QCoDeS seam
+### QCoDeS seam (implemented 2026-07-01)
 
-`nanonis.qcodes.scan` exposes `register_scan_result(...)` and
-`add_scan_result(...)`. Both intentionally raise `NotImplementedError` with a
-message pointing back to the plan. This makes the future persistence boundary
-explicit without inventing a physical row orientation that has not been checked
-on hardware.
+`nanonis.qcodes.scan` exposes `register_scan_result(...)`, `add_scan_result(...)`,
+and `create_scan_measurement(...)`. Originally `NotImplementedError` stubs (pending
+the row-orientation result), they are now a real acquire-first adapter — see the
+2026-07-01 orientation addendum below, which unblocked them. The adapter registers
+2-D integer index meshgrids (`row_index`/`col_index`) as setpoints, then each
+channel×direction image and optional physical `x_m`/`y_m` grids (from the confirmed
+`row_order` via `scan_coordinate_grids`) as dependents, plus provenance metadata.
 
 ## Implementation details
 
@@ -235,13 +237,9 @@ policy = ScanSafetyPolicy(
     max_linear_speed=1e-3,
 )
 
-config = ScanConfig(
+config = ScanConfig(          # the stable recipe: how to measure
     channel_indexes=(0, 24),
     direction="up",
-    center_x=0.0,
-    center_y=0.0,
-    width=100e-9,
-    height=100e-9,
     pixels=256,
     lines=256,
     forward_line_time=0.25,
@@ -250,9 +248,12 @@ config = ScanConfig(
     series_name="topography",
     data_directions=("forward", "backward"),
 )
+region = ScanRegion(          # the per-shot frame: where/what to measure
+    center_x=0.0, center_y=0.0, width=100e-9, height=100e-9,
+)
 
 with NanonisController("127.0.0.1", 6501, "configs/commands") as controller:
-    result = ScanWorkflow(controller, safety_policy=policy).run(config)
+    result = ScanWorkflow(controller, safety_policy=policy).run(config, region)
 
 print(result.saved_path)
 for image in result.images:
@@ -289,7 +290,7 @@ If acquisition succeeds but restoration fails, salvage the attached result:
 from nanonis.workflows import StateRestorationError
 
 try:
-    result = workflow.run(config)
+    result = workflow.run(config, region)
 except StateRestorationError as exc:
     if exc.result is not None:
         persist_elsewhere(exc.result)
@@ -392,12 +393,14 @@ until a qualified operator has reviewed every value, set `approved=True` with an
 approval date, and bumped the version. No scan should run against unapproved
 piezo limits.
 
-### QCoDeS persistence is deferred
+### QCoDeS persistence (implemented; fast axis still assumed)
 
-The plan intentionally postpones the adapter. A future implementation must use
-two-dimensional setpoint meshgrids of the same shape as each image. Physical
-coordinate grids must wait for the live row-orientation result; scan angle itself
-is not the blocker.
+The adapter (`qcodes/scan.py`) is built. It uses two-dimensional setpoint meshgrids
+of the same shape as each image (QCoDeS 0.54 rejects 1-D axes). Physical `x_m`/`y_m`
+grids use the confirmed `row_order = "top_to_bottom"`; the fast-axis `column_order`
+is not yet characterized, so it defaults to `left_to_right` and a warning is logged
+when physical grids are emitted (X may be mirrored until verified). Callers wanting
+only the unambiguous index grids can pass `physical_coordinates=False`.
 
 ## Addendum (2026-07-01): partial scans and live `WaitEndOfLine` characterization
 
@@ -473,10 +476,37 @@ the frame line count, `on_line` early abort, early stop when status reads idle,
 the no-rows-counted warning path, per-line timeout recovery, positive-`max_lines`
 validation, and the offline `verify_waitendofline` analysis.
 
+## Addendum (2026-07-01): live `FrameDataGrab` row-orientation characterization
+
+`examples/verify_row_orientation.py` settles the row-orientation unknown without
+needing a recognizable surface feature. It runs `run_partial(max_lines=N)` (N well
+below the frame's line count) in **both** directions at angle 0 and inspects which
+matrix end holds the finite (scanned) rows; the rest come back NaN. Its analysis
+(`classify_finite_block`, `interpret`) is pure and offline-testable (`SELFTEST`).
+
+Run live on the `127.0.0.1:6501` rig (16-line frame, `max_lines=6`, forward
+`Current (A)`):
+
+- *up* filled matrix rows **10–15**; *down* filled matrix rows **0–5** — exactly 6
+  contiguous rows each, the other 10 NaN, module idle afterward.
+- Opposite matrix ends ⇒ the buffer is **physically-indexed**: matrix row index is
+  a fixed physical position, so *up* vs *down* does **not** reverse row order and
+  `row_order` is a single constant.
+- Matrix row 0 is the frame's top edge ⇒ **`row_order = "top_to_bottom"`**. The
+  Nanonis GUI confirms the underlying convention in both directions — *up* rasters
+  bottom→top (rows build from the bottom edge up) and *down* rasters top→bottom
+  (rows build from the top edge down) — so the result is fully confirmed.
+
+`row_order` is a frame-*local* data-layout property: `scan_coordinate_grids` applies
+it in local coordinates and then rotates by `frame.angle`, so this result is
+angle-invariant. Characterizing at angle 0 keeps "up starts at the bottom edge"
+unambiguous. Still uncharacterized: `column_order` (fast-axis left/right) and the
+live `PropsGet` autopaste encoding.
+
 ## Next steps
 
-Status as of 2026-07-01 (the QCoDeS adapter, former item 5, is intentionally not
-being pursued at this time):
+Status as of 2026-07-01 (the QCoDeS scan adapter, former item 5, is now
+implemented — see the QCoDeS seam section; only fast-axis `column_order` remains):
 
 1. **Done (read-only).** `examples/characterize_m4a.py` records raw
    Piezo/Signals/Frame/Buffer/Props/Speed responses and grabs the current buffer
@@ -492,10 +522,34 @@ being pursued at this time):
    versioned, per-rig `ScanSafetyPolicy` seeded from the measured 3 um / 1.5 um
    piezo range and gated behind `require_approved(...)`. A qualified operator must
    review the values, set `approved=True` with a date, and bump the version.
-4. **Machinery added; activation still blocked on orientation.**
+4. **Orientation confirmed; ready to activate.**
    `scan_coordinate_grids(frame, pixels, lines, row_order=...)` produces
    controller-coordinate X/Y meshgrids using the same clockwise rotation as
-   `ScanFrame.corners()`. `row_order` is a required argument with no default, so
-   nothing guesses the row direction. Confirm top-vs-bottom on a sample with a
-   recognizable feature (the demo surface was featureless: forward/backward were
-   uncorrelated with no slow-axis trend), then pass the confirmed `row_order`.
+   `ScanRegion.corners()`. `row_order` is a required argument with no default, so
+   nothing guesses the row direction. The 2026-07-01 partial-scan characterization
+   (addendum above) established **`row_order = "top_to_bottom"`** on the 6501 rig
+   without needing a surface feature; pass that value. Still open: `column_order`
+   (fast-axis left/right), settle when the QCoDeS adapter needs it.
+
+## Addendum (2026-07-01): frame split into `ScanRegion`
+
+The frame geometry — the parameters that change every shot — was factored out of
+`ScanConfig` into a first-class, round-trippable `ScanRegion` (renamed from the
+former effective-only `ScanFrame`, now the single frame type everywhere):
+
+- `ScanConfig` is the **stable recipe** (channels, resolution, speed, autosave,
+  restoration flags) and no longer carries `center_x/center_y/width/height/angle`.
+- `ScanRegion(center_x, center_y, width, height, angle=0.0)` is the **per-shot
+  target**, passed positionally: `ScanWorkflow.run(config, region)` /
+  `run_partial(config, region, max_lines=...)`. `region=None` leaves the
+  controller's current frame untouched (the old "leave as-is" patch semantics).
+- `ScanRegion` supports the same snapshot/apply/patch idiom as `ScanSettings`:
+  `ScanRegion.snapshot(client)` (read `Scan.FrameGet`), `region.apply(client)`
+  (write `Scan.FrameSet`), and `region.patch(width=..., ...)` (return a modified
+  copy). `ScanSettings.snapshot` reuses `ScanRegion.snapshot`; `ScanSettings.patch`
+  now takes `(config, region)`.
+- `ScanResult` gains `requested_region`; the QCoDeS adapter records it in provenance.
+
+This directly sets up the atom-tracking/hyperscan loop: one fixed `config`, many
+regions (`for region in tile_grid: workflow.run(config, region)`). Full suite green
+(166 tests, incl. `ScanRegion` snapshot/apply/patch and region-over-snapshot patch).

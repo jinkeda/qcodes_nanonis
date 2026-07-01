@@ -45,7 +45,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from nanonis.command import NanonisController  # noqa: E402
 from nanonis.workflows import NaNPolicy, ScanSafetyPolicy  # noqa: E402
-from nanonis.workflows.scan import ScanConfig, ScanResult, scan  # noqa: E402
+from nanonis.workflows.scan import ScanConfig, ScanRegion, ScanResult, scan  # noqa: E402
 
 logger = logging.getLogger("verify_waitendofline")
 
@@ -84,15 +84,16 @@ def build_safety_policy() -> ScanSafetyPolicy:
     )
 
 
+def build_region() -> ScanRegion:
+    """The small frame to scan (SI metres); confirm it is safe for the rig."""
+    return ScanRegion(center_x=0.0, center_y=0.0, width=10e-9, height=10e-9)
+
+
 def build_config(channel_index: int = 0) -> ScanConfig:
     """A small, conservative scan. Confirm ``channel_index`` against Signals.NamesGet."""
     return ScanConfig(
         channel_indexes=(channel_index,),
         direction="up",
-        center_x=0.0,
-        center_y=0.0,
-        width=10e-9,
-        height=10e-9,
         pixels=16,
         lines=FRAME_LINES,
         forward_line_time=0.05,
@@ -252,12 +253,13 @@ def verify(
     """Run a small partial scan, characterize the returns, and print a report."""
     safety_policy = safety_policy or build_safety_policy()
     config = config or build_config()
+    region = build_region()
     records, on_line = record_lines()
 
     workflow = scan(nanonis, safety_policy=safety_policy, nan_policy=NaNPolicy.WARN)
     print(f"Starting characterization scan: max_lines={max_lines}, "
           f"frame_lines={config.lines}...", flush=True)
-    result = workflow.run_partial(config, max_lines=max_lines, on_line=on_line)
+    result = workflow.run_partial(config, region, max_lines=max_lines, on_line=on_line)
 
     # Confirm the module returned to idle after the workflow stopped it.
     status_after = nanonis.send("Scan.StatusGet")

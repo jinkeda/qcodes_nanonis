@@ -19,7 +19,7 @@ from ..errors import (
 from ..protocols import CommandClient, RecoverableCommandClient
 from ..spectroscopy.result import NaNPolicy
 from ..state import RecoveryReport, RestorationTransaction, TipState, recover_module
-from .models import ScanConfig, ScanSafetyPolicy, ScanSettings
+from .models import ScanConfig, ScanRegion, ScanSafetyPolicy, ScanSettings
 from .result import ScanResult, normalize_scan, normalize_scan_images
 
 logger = logging.getLogger(__name__)
@@ -67,18 +67,21 @@ class ScanWorkflow:
     def run(
         self,
         config: ScanConfig,
+        region: ScanRegion | None = None,
         *,
         unsafe_skip_preflight: bool = False,
     ) -> ScanResult:
         if not isinstance(config, ScanConfig):
             raise TypeError("config must be ScanConfig")
+        if region is not None and not isinstance(region, ScanRegion):
+            raise TypeError("region must be ScanRegion or None")
         _validate_requested_safety(config, self._safety)
         if config.restore_tip_state and self._safety.tip is None:
             raise SafetyPreflightError(
                 "restore_tip_state requires ScanSafetyPolicy.tip"
             )
         if not unsafe_skip_preflight:
-            preflight_scan(self._client, config, self._safety)
+            preflight_scan(self._client, config, self._safety, region)
 
         result: ScanResult | None = None
         with RestorationTransaction(self._client) as tx:
@@ -94,7 +97,7 @@ class ScanWorkflow:
                 )
 
             original = ScanSettings.snapshot(self._client)
-            desired = original.patch(config)
+            desired = original.patch(config, region)
             _validate_effective_safety(desired, self._safety)
             _validate_timeout_budget(config, desired)
             tx.preserve(
@@ -169,6 +172,7 @@ class ScanWorkflow:
                     saved_path=saved_path,
                     config=config,
                     effective=effective,
+                    requested_region=region,
                     acquisition_started_at=started_at,
                     acquisition_finished_at=finished_at,
                     acquisition_duration=finished_monotonic - started_monotonic,
@@ -188,6 +192,7 @@ class ScanWorkflow:
     def run_partial(
         self,
         config: ScanConfig,
+        region: ScanRegion | None = None,
         *,
         max_lines: int,
         on_line: Callable[[int, int, int], bool | None] | None = None,
@@ -221,6 +226,8 @@ class ScanWorkflow:
         """
         if not isinstance(config, ScanConfig):
             raise TypeError("config must be ScanConfig")
+        if region is not None and not isinstance(region, ScanRegion):
+            raise TypeError("region must be ScanRegion or None")
         if not isinstance(max_lines, int) or isinstance(max_lines, bool) or max_lines < 1:
             raise ValueError("max_lines must be a positive integer")
         _validate_requested_safety(config, self._safety)
@@ -229,7 +236,7 @@ class ScanWorkflow:
                 "restore_tip_state requires ScanSafetyPolicy.tip"
             )
         if not unsafe_skip_preflight:
-            preflight_scan(self._client, config, self._safety)
+            preflight_scan(self._client, config, self._safety, region)
 
         result: ScanResult | None = None
         with RestorationTransaction(self._client) as tx:
@@ -245,7 +252,7 @@ class ScanWorkflow:
                 )
 
             original = ScanSettings.snapshot(self._client)
-            desired = original.patch(config)
+            desired = original.patch(config, region)
             _validate_effective_safety(desired, self._safety)
             tx.preserve(
                 "scan",
@@ -363,6 +370,7 @@ class ScanWorkflow:
                     saved_path="",
                     config=config,
                     effective=effective,
+                    requested_region=region,
                     acquisition_started_at=started_at,
                     acquisition_finished_at=finished_at,
                     acquisition_duration=finished_monotonic - started_monotonic,
@@ -548,6 +556,7 @@ def preflight_scan(
     client: CommandClient,
     config: ScanConfig,
     policy: ScanSafetyPolicy,
+    region: ScanRegion | None = None,
 ) -> None:
     range_response = client.send("Piezo.RangeGet")
     if not isinstance(range_response, Mapping):
@@ -566,7 +575,7 @@ def preflight_scan(
         )
 
     current = ScanSettings.snapshot(client)
-    desired = current.patch(config)
+    desired = current.patch(config, region)
     _validate_effective_safety(desired, policy)
     _validate_timeout_budget(config, desired)
     try:

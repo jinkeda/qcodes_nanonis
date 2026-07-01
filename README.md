@@ -149,7 +149,7 @@ approved for the scanner and tip in use.
 
 ```python
 from nanonis.command import NanonisController
-from nanonis.workflows import ScanConfig, ScanSafetyPolicy, ScanWorkflow
+from nanonis.workflows import ScanConfig, ScanRegion, ScanSafetyPolicy, ScanWorkflow
 
 policy = ScanSafetyPolicy(
     max_pixels=1024,
@@ -160,13 +160,11 @@ policy = ScanSafetyPolicy(
     min_linear_speed=1e-12,
     max_linear_speed=1e-3,
 )
+# ScanConfig is the stable recipe (how to measure); the frame is a separate,
+# round-trippable ScanRegion (where/what to measure) passed to run(config, region).
 config = ScanConfig(
     channel_indexes=(0, 24),
     direction="up",
-    center_x=0.0,
-    center_y=0.0,
-    width=100e-9,
-    height=100e-9,
     pixels=256,
     lines=256,
     forward_line_time=0.25,
@@ -175,20 +173,26 @@ config = ScanConfig(
     series_name="topography",
     data_directions=("forward", "backward"),
 )
+region = ScanRegion(center_x=0.0, center_y=0.0, width=100e-9, height=100e-9)
 
 with NanonisController("127.0.0.1", 6501, "configs/commands") as ctrl:
-    result = ScanWorkflow(ctrl, safety_policy=policy).run(config)
+    result = ScanWorkflow(ctrl, safety_policy=policy).run(config, region)
 
 print(result.saved_path)
 for image in result.images:
     print(image.name, image.direction, image.scan_direction, image.data.shape)
 ```
 
+`ScanRegion` is round-trippable — `ScanRegion.snapshot(ctrl)` reads the current
+frame, `.patch(width=...)` overrides fields, `.apply(ctrl)` writes it back — and
+`region=None` leaves the current frame untouched. This recipe/region split makes
+grid/tile loops trivial: `for region in tiles: workflow.run(config, region)`.
+
 See `examples/scan_workflow_live_demo.ipynb` for the guarded live-hardware
 walkthrough and `reports/scan_workflow_walkthrough.md` for recovery, timeout,
-normalization, and known-limit details. QCoDeS scan persistence remains a
-deliberate `NotImplementedError` seam; workflow acquisition itself does not
-depend on QCoDeS.
+normalization, and known-limit details. QCoDeS scan persistence is implemented
+(`nanonis.qcodes.scan`, 2-D meshgrid setpoints + provenance); workflow acquisition
+itself does not depend on QCoDeS.
 
 ### QCoDeS Integration (optional)
 
@@ -276,7 +280,7 @@ qcodes_nanonis/
 │   │   ├── spectroscopy/               #   bias spectroscopy (implemented)
 │   │   ├── scan/                       #   one-frame scan workflow (implemented)
 │   │   └── tunnel/ datalog/ atom_tracking/                # planned verticals
-│   ├── qcodes/                         # optional adapters; scan persistence is deferred
+│   ├── qcodes/                         # optional adapters; spectroscopy + scan persistence
 │   └── data/                           # STM data models + readers (planned)
 ├── configs/
 │   └── commands/                       # canonical per-module JSON definitions

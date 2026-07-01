@@ -14,7 +14,13 @@ from .spectroscopy import (
     create_bias_spectroscopy_measurement,
     register_bias_spectroscopy,
 )
-from .scan import add_scan_result, register_scan_result
+from .scan import (
+    RegisteredScan,
+    RegisteredScanChannel,
+    add_scan_result,
+    create_scan_measurement,
+    register_scan_result,
+)
 
 __all__ = [
     'NanonisInstrument',
@@ -25,6 +31,9 @@ __all__ = [
     'add_bias_spectroscopy_result',
     'create_bias_spectroscopy_measurement',
     'register_bias_spectroscopy',
+    'RegisteredScan',
+    'RegisteredScanChannel',
     'add_scan_result',
+    'create_scan_measurement',
     'register_scan_result',
 ]

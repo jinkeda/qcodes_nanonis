@@ -12,7 +12,7 @@ from nanonis.workflows import (
     StateRestorationError,
     WorkflowError,
 )
-from nanonis.workflows.scan import ScanConfig, estimate_scan_duration
+from nanonis.workflows.scan import ScanConfig, ScanRegion, estimate_scan_duration
 
 from ..conftest import RecoverableFakeController
 from .test_models import buffer, frame, props, speed
@@ -209,7 +209,9 @@ def test_rotated_frame_outside_piezo_range_fails_closed():
     client = scripted_controller()
     with pytest.raises(SafetyPreflightError, match="piezo range"):
         ScanWorkflow(client, safety_policy=policy()).run(
-            config(center_x=0.49e-6, width=0.1e-6, angle=45)
+            config(),
+            ScanRegion(center_x=0.49e-6, center_y=0.0, width=0.1e-6,
+                      height=2e-8, angle=45),
         )
     assert not any(entry[0] == "Scan.Action" for entry in client.sent)
 

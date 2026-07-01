@@ -22,14 +22,14 @@ from typing import Literal
 
 import numpy as np
 
-from .models import ScanFrame
+from .models import ScanRegion
 
 RowOrder = Literal["top_to_bottom", "bottom_to_top"]
 ColumnOrder = Literal["left_to_right", "right_to_left"]
 
 
 def scan_coordinate_grids(
-    frame: ScanFrame,
+    frame: ScanRegion,
     pixels: int,
     lines: int,
     *,

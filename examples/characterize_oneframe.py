@@ -33,7 +33,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from nanonis.command import NanonisController  # noqa: E402
 from nanonis.workflows import NaNPolicy, StateRestorationError  # noqa: E402
-from nanonis.workflows.scan import ScanResult, ScanWorkflow, scan  # noqa: E402
+from nanonis.workflows.scan import ScanResult, ScanWorkflow  # noqa: E402
 
 # Reuse the characterization helpers (conservative config + safety policy).
 _spec = importlib.util.spec_from_file_location("vw", ROOT / "examples" / "verify_waitendofline.py")
@@ -125,13 +125,14 @@ def run(nanonis) -> dict:
     safety_policy = vw.build_safety_policy()
     # Grab both directions so forward/backward orientation can be compared.
     config = replace(vw.build_config(), data_directions=("forward", "backward"))
+    region = vw.build_region()
     events = instrument(nanonis)
 
     print(f"Running one full frame ({config.pixels}x{config.lines}, "
-          f"width {config.width*1e9:.1f} nm)...", flush=True)
+          f"width {region.width*1e9:.1f} nm)...", flush=True)
     try:
         result = ScanWorkflow(nanonis, safety_policy=safety_policy,
-                              nan_policy=NaNPolicy.WARN).run(config)
+                              nan_policy=NaNPolicy.WARN).run(config, region)
     except StateRestorationError as exc:
         print("STATE RESTORATION FAILED:", exc)
         if exc.result is None:

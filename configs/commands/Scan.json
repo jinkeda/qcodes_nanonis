@@ -21,6 +21,24 @@
             }
         ]
     },
+    "Scan.XYPosGet": {
+        "args": [
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            }
+        ]
+    },
     "Scan.WaitEndOfScan": {
         "args": [
             {

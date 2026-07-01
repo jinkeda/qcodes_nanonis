@@ -204,6 +204,11 @@ tests/workflows/scan/
 Optional fields are `None` = "leave current value as-is"; structural validation is
 I/O-free and runs before any command is sent.
 
+> **Superseded (2026-07-01):** the frame geometry (`center_x/center_y/width/
+> height/angle`) was later factored out of `ScanConfig` into a first-class
+> `ScanRegion` passed to `run(config, region)` — see the scan walkthrough's
+> "frame split into `ScanRegion`" addendum. The sketch below is the original design.
+
 ```python
 @dataclass(frozen=True)
 class ScanConfig:

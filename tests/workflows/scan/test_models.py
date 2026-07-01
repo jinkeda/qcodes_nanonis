@@ -5,6 +5,7 @@ import pytest
 from nanonis.workflows import BiasRestoreMode, TipRestorePolicy
 from nanonis.workflows.scan import (
     ScanConfig,
+    ScanRegion,
     ScanSettings,
     decode_keep_constant_get,
     decode_on_off_get,
@@ -103,8 +104,45 @@ def test_config_rejects_boolean_autosave_and_tip_policy_is_shared():
 
 @pytest.mark.parametrize("changes", [
     {"pixels": 1}, {"lines": 1}, {"channel_indexes": (0, 0)},
-    {"width": 0}, {"forward_line_time": float("nan")},
+    {"forward_line_time": float("nan")},
 ])
 def test_invalid_config(changes):
     with pytest.raises(ValueError):
         replace(ScanConfig((0,)), **changes)
+
+
+def test_scan_region_snapshot_apply_patch_round_trip():
+    client = FakeController()
+    client.script("Scan.FrameGet", frame())
+
+    region = ScanRegion.snapshot(client)
+    assert (region.center_x, region.center_y) == (0, 0)
+    assert (region.width, region.height, region.angle) == (1e-8, 2e-8, 5)
+
+    moved = region.patch(width=5e-9, center_x=1e-9)
+    assert (moved.center_x, moved.width) == (1e-9, 5e-9)
+    assert (moved.center_y, moved.height, moved.angle) == (0, 2e-8, 5)  # kept
+
+    client.sent.clear()
+    moved.apply(client)
+    assert client.sent[-1][0] == "Scan.FrameSet"
+    assert client.sent[-1][1] == (1e-9, 0, 5e-9, 2e-8, 5)
+
+
+@pytest.mark.parametrize("changes", [
+    {"width": 0}, {"height": -1.0}, {"center_x": float("nan")},
+    {"angle": float("inf")},
+])
+def test_invalid_scan_region(changes):
+    base = dict(center_x=0.0, center_y=0.0, width=1e-8, height=1e-8, angle=0.0)
+    with pytest.raises(ValueError):
+        ScanRegion(**{**base, **changes})
+
+
+def test_patch_applies_region_over_snapshot_frame():
+    original, _ = snapshot()
+    region = ScanRegion(1e-9, 2e-9, 5e-9, 6e-9, 10.0)
+    desired = original.patch(ScanConfig((0,)), region)
+    assert desired.frame == region  # region replaces the snapshot frame
+    unchanged = original.patch(ScanConfig((0,)))
+    assert unchanged.frame == original.frame  # region=None leaves it
