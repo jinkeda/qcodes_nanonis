@@ -22,11 +22,15 @@ classifiers = [
 
 dependencies = [
     "numpy>=1.20",
+    "nanonispy==1.1.0",
 ]
 
 [project.optional-dependencies]
 qcodes = [
     "qcodes>=0.40",
+]
+xarray = [
+    "xarray>=2023.1",
 ]
 dev = [
     "pytest>=7.0",

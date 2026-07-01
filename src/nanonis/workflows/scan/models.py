@@ -6,6 +6,7 @@ from dataclasses import dataclass, replace
 from math import isfinite
 from typing import Any, Literal, Mapping, TypeAlias
 
+from ...geometry import FrameGeometry
 from ..errors import ScanResponseError
 from ..models import TipRestorePolicy
 from ..protocols import CommandClient
@@ -168,7 +169,7 @@ class ScanSafetyPolicy:
                 raise ValueError(f"invalid {label} safety bounds")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class ScanRegion:
     """The scan frame: where/what to measure (center, size, rotation).
 
@@ -179,23 +180,53 @@ class ScanRegion:
     are SI (metres, degrees); ``angle`` defaults to 0.
     """
 
-    center_x: float
-    center_y: float
-    width: float
-    height: float
-    angle: float = 0.0
+    geometry: FrameGeometry
 
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("center_x", self.center_x),
-            ("center_y", self.center_y),
-            ("angle", self.angle),
-        ):
-            if not isfinite(value):
-                raise ValueError(f"{name} must be finite")
-        for name, value in (("width", self.width), ("height", self.height)):
-            if not isfinite(value) or value <= 0:
-                raise ValueError(f"{name} must be finite and > 0")
+    def __init__(
+        self,
+        center_x: float | FrameGeometry | None = None,
+        center_y: float | None = None,
+        width: float | None = None,
+        height: float | None = None,
+        angle: float = 0.0,
+        *,
+        geometry: FrameGeometry | None = None,
+    ) -> None:
+        if geometry is not None:
+            if center_x is not None or any(
+                value is not None for value in (center_y, width, height)
+            ):
+                raise TypeError("geometry cannot be combined with scalar frame fields")
+            center_x = geometry
+        if isinstance(center_x, FrameGeometry):
+            if any(value is not None for value in (center_y, width, height)):
+                raise TypeError("geometry cannot be combined with scalar frame fields")
+            geometry = center_x
+        else:
+            if center_y is None or width is None or height is None:
+                raise TypeError("center_y, width, and height are required")
+            geometry = FrameGeometry(center_x, center_y, width, height, angle)
+        object.__setattr__(self, "geometry", geometry)
+
+    @property
+    def center_x(self) -> float:
+        return self.geometry.center_x
+
+    @property
+    def center_y(self) -> float:
+        return self.geometry.center_y
+
+    @property
+    def width(self) -> float:
+        return self.geometry.width
+
+    @property
+    def height(self) -> float:
+        return self.geometry.height
+
+    @property
+    def angle(self) -> float:
+        return self.geometry.angle
 
     @classmethod
     def snapshot(cls, client: CommandClient) -> "ScanRegion":
@@ -230,33 +261,17 @@ class ScanRegion:
         angle: float | None = None,
     ) -> "ScanRegion":
         """Return a copy with the given fields overridden; ``None`` keeps mine."""
-        return replace(
-            self,
-            center_x=self.center_x if center_x is None else center_x,
-            center_y=self.center_y if center_y is None else center_y,
-            width=self.width if width is None else width,
-            height=self.height if height is None else height,
-            angle=self.angle if angle is None else angle,
+        return type(self)(
+            self.center_x if center_x is None else center_x,
+            self.center_y if center_y is None else center_y,
+            self.width if width is None else width,
+            self.height if height is None else height,
+            self.angle if angle is None else angle,
         )
 
     def corners(self) -> tuple[tuple[float, float], ...]:
         """Return rotated frame corners in controller coordinates."""
-        from math import cos, radians, sin
-
-        theta = radians(self.angle)
-        cosine, sine = cos(theta), sin(theta)
-        points = []
-        for local_x, local_y in (
-            (-self.width / 2, -self.height / 2),
-            (-self.width / 2, self.height / 2),
-            (self.width / 2, -self.height / 2),
-            (self.width / 2, self.height / 2),
-        ):
-            # Nanonis defines positive angle as clockwise.
-            x = self.center_x + local_x * cosine + local_y * sine
-            y = self.center_y - local_x * sine + local_y * cosine
-            points.append((x, y))
-        return tuple(points)
+        return self.geometry.corners()
 
 
 @dataclass(frozen=True)

@@ -21,6 +21,20 @@ from .scan import (
     create_scan_measurement,
     register_scan_result,
 )
+from .data import (
+    RegisteredDat,
+    RegisteredGrid3D,
+    RegisteredSxm,
+    add_dat_data,
+    add_grid_3ds_data,
+    add_sxm_data,
+    create_dat_measurement,
+    create_grid_3ds_measurement,
+    create_sxm_measurement,
+    register_dat_data,
+    register_grid_3ds_data,
+    register_sxm_data,
+)
 
 __all__ = [
     'NanonisInstrument',
@@ -36,4 +50,16 @@ __all__ = [
     'add_scan_result',
     'create_scan_measurement',
     'register_scan_result',
+    'RegisteredDat',
+    'RegisteredGrid3D',
+    'RegisteredSxm',
+    'add_dat_data',
+    'add_grid_3ds_data',
+    'add_sxm_data',
+    'create_dat_measurement',
+    'create_grid_3ds_measurement',
+    'create_sxm_measurement',
+    'register_dat_data',
+    'register_grid_3ds_data',
+    'register_sxm_data',
 ]

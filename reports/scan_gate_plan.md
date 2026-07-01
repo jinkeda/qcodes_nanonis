@@ -84,6 +84,17 @@ row-orientation trick (partial fill → which matrix end) does not exist for
 columns. Column order needs **signal contrast across the fast axis**, so the
 method is **sample-dependent** — unlike G-1's row work.
 
+> **Not derivable from piezo calibration.** `column_order` is purely a
+> **matrix-index ↔ frame-local-physical** convention (which stored column is the
+> frame's left/right edge) — a buffer *layout* fact. The piezo calibration sign
+> (e.g. Calib X = −8.322e-9 m/V in `FGT_0030.sxm`) is a **voltage ↔ physical**
+> mapping and is a different concern: geometry works entirely in meters (Nanonis
+> already applied the calibration to the reported scanfield), so the sign never
+> enters `scan_coordinate_grids`. And since the buffer is physically-indexed (from
+> the row result), column order is almost certainly a single fixed convention, not
+> derived from scan mechanics. It still must be *measured* by the correlation check
+> below, not inferred from the header.
+
 **Method (`examples/verify_column_orientation.py`, new).** Acquire the *same*
 line's **forward and backward** images of a frame that has lateral signal
 variation (any non-uniform surface, or deliberately a tilted/feature-bearing
@@ -96,6 +107,16 @@ area):
   `column_order`.
 - If **acquisition-ordered**, `backward` is the **column-reverse** of `forward`
   → they correlate only after `np.fliplr`.
+
+> **Prior evidence from `spaik`.** `spaik`'s `.sxm` reader flips the **backward**
+> image horizontally to align it with the forward image
+> ([SXM.py:184-186](../../spaik/src/spaik/Utilities/SXM.py#L184-L186)) — i.e. in the
+> saved file `backward = fliplr(forward)`. That is the *acquisition-ordered fast
+> axis* case above, and it is battle-tested domain knowledge for the **file**. It
+> gives G-2 a strong expected answer, but does **not** close it: `spaik` describes
+> the saved `.sxm`, whereas G-2 characterizes the live `FrameDataGrab` buffer, which
+> may order the fast axis differently. So use it as the expected result to confirm,
+> not as a substitute for the live check.
 
 Reuse `verify_row_orientation.py`'s structure exactly: a pure, offline-testable
 analysis (`classify_column_model(forward, backward) -> verdict`) with a `SELFTEST`

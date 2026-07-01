@@ -32,8 +32,8 @@ from typing import Any
 import numpy as np
 from qcodes.dataset.measurements import Measurement
 
-from ..workflows.scan import ScanResult, scan_coordinate_grids
-from ..workflows.scan.geometry import ColumnOrder, RowOrder
+from ..geometry import ColumnOrder, RowOrder, scan_coordinate_grids
+from ..workflows.scan import ScanResult
 from ..workflows.scan.models import DataDirection
 
 logger = logging.getLogger(__name__)
@@ -187,7 +187,7 @@ def add_scan_result(
     ]
     if registered.x_name is not None and registered.y_name is not None:
         x_grid, y_grid = scan_coordinate_grids(
-            result.frame,
+            result.frame.geometry,
             cols,
             rows,
             row_order=registered.row_order,

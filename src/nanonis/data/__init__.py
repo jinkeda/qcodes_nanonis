@@ -1,8 +1,47 @@
-"""STM data models, Nanonis file readers, and transforms (planned).
+"""Immutable STM data models and read-only Nanonis file readers."""
 
-Independent of hardware control: ``models``, ``sxm``, ``three_ds``, ``dat``, and
-``validation`` submodules feed QCoDeS datasets or xarray objects. The model layer
-is intended to reuse https://github.com/jinkeda/nanonispy_kj.
+from .models import (
+    DatColumn,
+    DatData,
+    Grid3DChannel,
+    Grid3DData,
+    ParserProvenance,
+    SxmChannel,
+    SxmData,
+    SweepAxis,
+)
+from .readers import (
+    SessionConfig,
+    SessionModule,
+    read_3ds,
+    read_dat,
+    read_session,
+    read_sxm,
+)
+from .validation import (
+    NonFiniteData,
+    NonFiniteFileDataError,
+    apply_nan_policy,
+    inspect_non_finite,
+)
 
-Not yet implemented. See ``reports/blueprint.md`` (Target architecture) for scope.
-"""
+__all__ = [
+    "DatColumn",
+    "DatData",
+    "Grid3DChannel",
+    "Grid3DData",
+    "NonFiniteData",
+    "NonFiniteFileDataError",
+    "ParserProvenance",
+    "SxmChannel",
+    "SxmData",
+    "SweepAxis",
+    "SessionConfig",
+    "SessionModule",
+    "apply_nan_policy",
+    "inspect_non_finite",
+    "read_3ds",
+    "read_dat",
+    "read_session",
+    "read_sxm",
+]

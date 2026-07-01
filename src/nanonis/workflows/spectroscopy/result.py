@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
 from math import isfinite
 from typing import Any, Mapping, TypeAlias
 
@@ -17,15 +16,10 @@ from ..errors import (
     SpectroscopyResponseError,
 )
 from ..models import BiasSpectroscopyConfig, BiasSpectroscopySettings, SweepAxis
+from ...types import NaNPolicy
 
 logger = logging.getLogger(__name__)
 FloatArray: TypeAlias = npt.NDArray[np.float64]
-
-
-class NaNPolicy(Enum):
-    ALLOW = "allow"
-    WARN = "warn"
-    RAISE = "raise"
 
 
 @dataclass(frozen=True)
