@@ -127,6 +127,12 @@ completed immutable result and its diagnostics.
 
 ## Live scripts
 
+`examples/datalog_live_demo.ipynb` is the complete manual tutorial. It covers
+every public datalog/cancellation API, guarded connection and signal selection,
+short traces, result accessors and plots, offline error/NaN demonstrations,
+timer and SIGINT cancellation, state-equality checks, optional 60-second
+acceptance, and local NPZ/JSON persistence.
+
 `examples/characterize_signals.py` is the read-only M5a-1 characterization
 script. It records the slot table, compares `ValsGet`, `ValGet`, and
 `ZCtrl.ZPosGet`, measures latency and inter-arrival distributions for both wait
