@@ -1,7 +1,9 @@
 # Blueprint — What to Adopt from `spaik`
 
-Status: strategic blueprint · Date: 2026-07-01 (scan + data-readers verticals
-moved to Realized; shared `geometry`/`types` primitives extracted)
+Status: strategic blueprint · Date: 2026-07-02 (datalog + drift-compensation
+verticals planned as M5; session/rig-config policy decided; previously: scan +
+data-readers verticals moved to Realized, shared `geometry`/`types` primitives
+extracted)
 
 ## Guiding principle
 
@@ -60,13 +62,15 @@ nanonis/
     errors.py                #   WorkflowError hierarchy
     state.py                 #   RestorationTransaction, TipState, recover_module
     models.py                #   shared TipRestorePolicy (policies.py not yet needed)
+    cancellation.py          #   CancelToken + progress events (planned — M5a prerequisite)
     spectroscopy/            #   bias spectroscopy (implemented + live-validated)
     scan/                    #   full scan workflow (implemented; run + run_partial)
       models.py              #     ScanRegion now composes geometry.FrameGeometry
       geometry.py            #     compat re-export of nanonis.geometry
     tunnel/                  #   prepare/restore tunnelling conditions
-    datalog/
-    atom_tracking/
+    datalog/                 #   time-trace acquisition (planned, M5a — polling backend first)
+    drift/                   #   drift compensation (planned, M5b sync + M6 background)
+    atom_tracking/           #   stub — backlog (needs checkpoint/resume first)
 
   qcodes/                    # optional adapter (exists)
     instrument.py
@@ -117,6 +121,36 @@ rotation convention and one orientation vocabulary across acquired and read fram
   and return a `ScanResult` (owning the frame data, and the saved-file paths the
   controller reports). It returns a domain result, **never** a QCoDeS dataset —
   persisting it is a separate `qcodes/` adapter.
+- **`workflows/datalog/`** (planned, M5a) — time-trace acquisition: a typed
+  `TimeTraceConfig` (duration, channels, sample interval) and an immutable
+  `TimeTraceResult` (monotonic-anchored timestamps, per-channel arrays,
+  provenance — never a filename as a time base). The first backend **polls**
+  the Signals module (add `Signals.ValsGet` to `configs/commands` so one sample
+  is one round-trip): drift is a pm/s phenomenon, so 5–20 Hz over 60–300 s is
+  sufficient and needs no new socket. **Deferred backends:** TCPLog streaming
+  (schema corrected 2026-07-02 — `ChsSet` was missing and its args were on
+  `Stop` — but the group has never been live-validated, and its data arrives on
+  a **separate stream port** requiring a second reader socket) and the
+  file-based Nanonis Data Logger module (`spaik`'s `doDataLogging` path, with
+  its sleep-and-reread settling problem). Neither is needed for drift.
+- **`workflows/drift/`** (planned, M5b/M6) — the drift-compensation recipe from
+  `spaik`'s notebook, rebuilt. This is the flagship **GUI-impossible**
+  capability: the Nanonis GUI applies a *constant* drift velocity, while the
+  fitted model feeds forward the physically correct *decaying* rate for
+  post-approach creep. Fit a `TimeTraceResult` with a pure, I/O-free
+  `DriftModel` protocol (`LogDriftModel` first — `fitting.py` is CI-testable on
+  synthetic data), then write the fitted rate to `Piezo.DriftCompSet` (already
+  in `configs/commands`). The controller applies the velocity in hardware;
+  Python only *updates* it every 1–10 s (`spaik`'s 10 Hz loop was ~100×
+  overkill). Design rules learned from `spaik`'s defects: exit is an explicit
+  reason enum (`CONVERGED` / `MAX_DURATION` / `FIT_DIVERGED` / `CANCELLED` /
+  `RATE_LIMIT_EXCEEDED`), so the inverted-condition bug in
+  `spaik.driftCompensation` cannot be written; rates above the policy limit are
+  **clamped and reported**, never a silent `break`; the prior
+  `Piezo.DriftCompGet` state is a transaction participant with an explicit
+  `on_exit` policy (`ZERO_AND_ON` vs `RESTORE_PRIOR`), not an accident of a
+  `finally` block; the time base is monotonic, anchored to the trace's
+  `started_at` — never parsed from a filename.
 - **`data/`** (realized) — STM data models, Nanonis file readers (`sxm`,
   `three_ds`, `dat`, `session`), transforms, and `validation`. It must **not**
   control hardware, and imports only the neutral `geometry`/`types` primitives.
@@ -330,23 +364,78 @@ into immutable typed models — the reduced form of the canonical shape.
   ramping) extracted from `BiasSpectroscopySafetyPolicy` once scan/tunnel reuse
   tip restoration. Rig-specific numeric limits and workflow-specific preflight
   rules stay **injected**, not centralized.
+- **Cooperative cancellation + progress events — promoted to an M5a
+  prerequisite** (`workflows/cancellation.py`: a `CancelToken` checked between
+  commands, plus progress callbacks). The drift loop runs for hours and
+  atom-tracking maps for ~12 h; `KeyboardInterrupt` is not a cancellation
+  mechanism. Built *before* the datalog vertical, which is its first consumer.
+- **Second-connection concurrency (M6, not before).** Background drift
+  compensation cannot share the measurement connection — the command socket
+  blocks for an entire acquisition (`BiasSpectr.Start`), so a lock does not
+  help. The design: a plain daemon `threading.Thread` owning a **dedicated
+  `CommandClient` on a second Nanonis port** (the controller serves 6501–6504
+  simultaneously), a **single-writer rule** (while running, the compensator is
+  the only writer to `Piezo.DriftComp*`), exposed as a context manager
+  (`with compensator.running(): spectroscopy.run(...)`). One thread updating
+  one module every few seconds is the entire concurrency requirement —
+  **no asyncio migration** of the protocol/command layers.
+- **Rig/session configuration — replaces `spaik`'s `session.pkl`, which is not
+  adopted.** Split what it conflates: (1) rig/session config → a frozen
+  `RigConfig` dataclass parsed from a per-rig TOML file (ports, data folders,
+  policy limits) — human-readable, git-diffable, refactor-safe, no code
+  execution on load; (2) parameter presets → named JSON files round-tripped
+  through typed configs (`to_metadata()`-style), never a mutable `_latest`
+  file that makes runs depend on whoever measured last; (3) measurement data →
+  Nanonis files + domain results remain the source of truth, QCoDeS DB stays an
+  optional adapter, never load-bearing. Adopt one idea from `spaik`'s session
+  handling: a small `SessionPaths` helper wrapping `Util.SessionPathSet` for
+  dated session folders. No pickle anywhere.
 - **Reusable acquisition utilities** — reproducible randomized ordering (shuffled
   sweep/pulse order with a stored seed) as a shared utility consumed by verticals,
-  **not** a workflow of its own. Likewise progress events and cooperative
-  cancellation (a cancel token + callbacks) for long-running workflows.
+  **not** a workflow of its own.
 
 ### Vertical backlog (proven recipes still to rebuild)
 
-The first two items — the full scan workflow and the Nanonis data readers — are
-now **realized** (see the Realized section). The next unbuilt vertical is:
+The full scan workflow and the Nanonis data readers are **realized** (see the
+Realized section). In priority order:
 
-- **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
-  safe context manager; grid/spiral coordinate generation; scan-each-tile;
-  optional Z-range/contact verification. **Requires checkpoint/resume semantics**
-  (incremental map persistence so a 12-hour run resumes after failure) as a
-  prerequisite, not an afterthought. It builds directly on the realized pieces:
-  many `ScanRegion`s over one `ScanConfig`, with `data/` readers closing the loop
-  on the saved tiles.
+1. **Time-trace datalog (M5a)** — `workflows/datalog/` as specified under
+   Subsystem responsibilities: polling backend first, typed `TimeTraceConfig` /
+   immutable `TimeTraceResult`, RT/tip state untouched on exit. Prerequisites:
+   `workflows/cancellation.py` (Foundation, promoted) and `Signals.ValsGet` in
+   `configs/commands`. It is deliberately small — its purpose is to feed the
+   drift vertical.
+2. **Drift compensation (M5b + M6)** — `workflows/drift/` as specified under
+   Subsystem responsibilities. M5b is the pure `LogDriftModel` plus a
+   **synchronous** `DriftCompensationWorkflow` (the notebook use case:
+   compensate, converge, then measure). M6 adds the background
+   `DriftCompensator` on a second-port client (Foundation entry above), so
+   compensation keeps updating *during* spectroscopy or scans. Requires **no**
+   lab-policy decisions — no tunnel ramping, no zero crossing — which is why it
+   jumps the queue.
+3. **Z spectroscopy (M7)** — near-transcription of the bias-spectroscopy
+   vertical (same snapshot-and-patch, transaction, result shape); needs a
+   `ZSpectr.json` command group (absent today — `spaik`'s complete ZSpectr
+   coverage is the reference for the command surface, including the retract
+   safety settings).
+4. **Generic sweeper (M7)** — typed `GenericSweepConfig` over the GenSwp module
+   (`GenSwp.json` absent today). `spaik`'s `gen_sweep` / `doTipFieldSweep`
+   show how much lab mileage this module carries; the multi-instrument
+   `Protocol` interfaces (Foundation) stay dormant until this vertical proves
+   they are needed.
+5. **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
+   safe context manager; grid/spiral coordinate generation; scan-each-tile;
+   optional Z-range/contact verification. Needs an `AtomTrack.json` command
+   group (absent today). **Requires checkpoint/resume semantics**
+   (incremental map persistence so a 12-hour run resumes after failure) as a
+   prerequisite, not an afterthought. It builds directly on the realized pieces:
+   many `ScanRegion`s over one `ScanConfig`, with `data/` readers closing the loop
+   on the saved tiles.
+
+Small adoptable primitive, not a vertical: `spaik`'s **Δz cross-pattern
+measurement** (`meas_dz` — Z at a point and four surrounding points,
+before/after a manipulation, robust against tip changes) as a pure helper
+returning a typed result. Its callers (pickup/poke pulses) stay blocked below.
 
 ### Blocked by lab policy
 
@@ -363,34 +452,58 @@ separate so they do not contend with the priority order above.
   and compute generator/AWG output from the measured frequency-dependent transfer
   function. *Blocked:* requires the measured transfer function and the
   `RFSource` / `AWG` interfaces (Foundation backlog).
+- **Tip-conditioning pulses** — `spaik`'s `pickUp` / `pokeTip` / `atom_pickup`
+  recipes (feedback off, blind Z excursion, bias pulse, restore). The Δz
+  verification primitive is adopted separately (Vertical backlog); the pulse
+  procedures themselves need the same zero-crossing / feedback-off /
+  interrupted-halfway policy decisions as tunnel ramping. *Blocked:* same
+  questions as tunnel-parameter ramping.
+- **Z-range auto-recovery** — `spaik`'s `checkZrange` recipe (withdraw → coarse
+  motor +Z → adjust motor amplitude → soft-setpoint auto-approach → restore)
+  is genuinely valuable for unattended long runs, but it drives the coarse
+  motor with hard-coded gains and fixed 30/90 s sleeps instead of confirmed
+  completion. *Blocked:* a rig-approved motor/approach policy; when built,
+  completion must be confirmed by status polling, never fixed sleeps.
 
 ## Next milestone
 
-The scan vertical is built; the milestone now is **closing its live-hardware
-acceptance gate**, not writing a new vertical. Concretely, in order:
+Two tracks. The open scan-gate items carry over and close alongside M5 — they
+do not block it (see [`scan_gate_plan.md`](scan_gate_plan.md)): rig safety-limit
+approval (`examples/rig_safety_policies.py` reviewed, `approved=True`, dated),
+fast-axis `column_order` characterization, and the paired autosaved `.sxm` +
+`ScanResult` run that validates the reader's orientation (scan gate G-3).
 
-1. **Approve rig safety limits.** Get `examples/rig_safety_policies.py` reviewed and
-   `approved=True` (dated, version bumped). No scan runs against unapproved
-   3 µm / 1.5 µm piezo limits.
-2. **Characterize `FrameDataGrab` row orientation live** — **DONE (2026-07-01).**
-   The sample-independent partial-scan method (`examples/verify_row_orientation.py`,
-   up + down) found a physically-indexed buffer with `row_order = "top_to_bottom"`
-   (see the Realized callout). Remaining orientation bits (`column_order`, autopaste
-   encoding) are minor and can be settled alongside the adapter work.
-3. **DONE (2026-07-01).** `row_order = "top_to_bottom"` is wired through the M4-D
-   QCoDeS scan adapter (`qcodes/scan.py`), which calls `scan_coordinate_grids` for
-   the physical grids. Remaining: characterize fast-axis `column_order` (physical X
-   may be mirrored until then; index grids are unaffected).
+The new-vertical track, in order:
 
-The **data-readers vertical was built in parallel** (it is hardware-free, so it
-neither contends with the scan gate nor needs the rig) and is realized. It leaves
-one live tie-in for the scan gate: the paired autosaved `.sxm` + `ScanResult` that
-validates the reader's orientation (scan gate G-3), still pending. The next
-**hardware** vertical (atom tracking) begins only after its state model, safety
-policy, timeout/recovery contract, result model, and **live-hardware acceptance
-criteria** are specified — the same discipline, following the canonical vertical
-shape above. Starting without them would repeat the unsafe assumptions this rebuild
-exists to remove.
+1. **M5a — cancellation + time-trace datalog.** Build
+   `workflows/cancellation.py` (`CancelToken` + progress events), add
+   `Signals.ValsGet` to `configs/commands`, then the polling
+   `TimeTraceWorkflow`. Live acceptance: a 60 s Z(t) trace with feedback on,
+   sample timing verified against the wall clock, tip state and any touched
+   settings untouched on exit.
+2. **M5b — drift model + synchronous compensation.** `LogDriftModel` as pure,
+   CI-tested fitting (synthetic log data + noise, sign flips, near-zero drift,
+   fit divergence), then `DriftCompensationWorkflow.run(trace, config)`. Live
+   acceptance is self-verifying: record trace → fit → compensate → record a
+   second trace → **the residual drift rate must drop by an order of
+   magnitude**. Must be characterized live before trusting: `Piezo.DriftCompSet`
+   **units, sign convention, and saturation-limit semantics** (`spaik` applies
+   the fitted rate with no sign handling — do not trust it). `FakeController`
+   tests pin: rate-above-clamp, transport loss mid-loop (recovery gates the
+   exit write), `KeyboardInterrupt` between updates, a second interrupt during
+   restoration, trace shorter than the fit window.
+3. **M6 — background compensation.** The `DriftCompensator` context manager on
+   a dedicated second-port client with the single-writer rule (Foundation
+   entry), so compensation keeps updating while spectroscopy or scans run on
+   the main connection.
+4. **M7 — Z spectroscopy, then the generic sweeper** (Vertical backlog items
+   3–4), each needing its command group (`ZSpectr.json`, `GenSwp.json`)
+   live-validated first.
+
+As always, no vertical starts before its state model, safety policy,
+timeout/recovery contract, result model, and **live-hardware acceptance
+criteria** are specified — the canonical vertical shape above. Starting without
+them would repeat the unsafe assumptions this rebuild exists to remove.
 
 ## References
 
@@ -406,5 +519,12 @@ exists to remove.
   vertical (neutral primitives, readers, transforms, adapters).
 - [`data_readers_walkthrough.md`](data_readers_walkthrough.md) — what was built,
   verified, and the known follow-ups.
+- [`datalog_plan.md`](datalog_plan.md) — implementation plan for M5a: the
+  cancellation toolkit and the general-purpose time-trace datalog vertical.
+- [`datalog_walkthrough.md`](datalog_walkthrough.md) — what was implemented,
+  verified offline, and what remains for live characterization and acceptance.
+- [`drift_plan.md`](drift_plan.md) — implementation plan for M5b: drift model +
+  synchronous compensation (consumes datalog's `TimeTraceResult`), with the
+  `DriftCompSet` live characterization and acceptance gates.
 - [`nanonispy_kj`](https://github.com/jinkeda/nanonispy_kj) — the file-reader
   dependency for `data/` (project pins released `nanonispy==1.1.0`; see walkthrough).
