@@ -1,0 +1,395 @@
+{
+  "Bias.RangeGet": {
+    "recv": {
+      "bias_ranges": {"count": "num_ranges", "byte_size": "bias_ranges_size"}
+    }
+  },
+  "BiasSpectr.ChsGet": {
+    "recv": {
+      "channel_indexes": {"count": "num_channels"},
+      "channels": {"count": "num_channels_names", "byte_size": "channels_size"}
+    }
+  },
+  "BiasSpectr.ChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "BiasSpectr.MLSValsGet": {
+    "recv": {
+      "bias_start_v": {"count": "num_segments"},
+      "bias_end_v": {"count": "num_segments"},
+      "initial_settling_time_s": {"count": "num_segments"},
+      "settling_time_s": {"count": "num_segments"},
+      "integration_time_s": {"count": "num_segments"},
+      "steps": {"count": "num_segments"},
+      "lock_in_run": {"count": "num_segments"}
+    }
+  },
+  "BiasSpectr.MLSValsSet": {
+    "send": {
+      "bias_start_v": {"count": "num_segments"},
+      "bias_end_v": {"count": "num_segments"},
+      "initial_settling_time_s": {"count": "num_segments"},
+      "settling_time_s": {"count": "num_segments"},
+      "integration_time_s": {"count": "num_segments"},
+      "steps": {"count": "num_segments"},
+      "lock_in_run": {"count": "num_segments"}
+    }
+  },
+  "BiasSpectr.PropsGet": {
+    "recv": {
+      "parameters": {"count": "num_parameters", "byte_size": "parameters_size"},
+      "fixed_parameters": {"count": "num_fixed_parameters", "byte_size": "fixed_parameters_size"}
+    }
+  },
+  "BiasSpectr.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"},
+      "parameters": {"count": "num_parameters"}
+    }
+  },
+  "BiasSwp.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "CPDComp.DataGet": {
+    "recv": {
+      "bias_forward_data": {"count": "size_1"},
+      "frequency_shift_forward_data": {"count": "size_1"},
+      "frequency_shift_forward_fit_data": {"count": "size_1"},
+      "bias_backward_data": {"count": "size_2"},
+      "frequency_shift_backward_data": {"count": "size_2"},
+      "frequency_shift_backward_fit_data": {"count": "size_2"}
+    }
+  },
+  "Current.GainsGet": {
+    "recv": {
+      "gains": {"count": "num_gains", "byte_size": "gains_size"},
+      "filters": {"count": "num_filters", "byte_size": "filters_size"}
+    }
+  },
+  "DataLog.ChsGet": {
+    "recv": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "DataLog.ChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "DataLog.PropsSet": {
+    "send": {
+      "list_of_modules": {"count": "num_modules", "byte_size": "size_of_the_list_of_moduless"}
+    }
+  },
+  "DigLines.Pulse": {
+    "send": {"digital_lines": {"count": "digital_lines_size"}}
+  },
+  "DigLines.TTLValGet": {
+    "recv": {"ttl_voltages": {"count": "ttl_voltages_size"}}
+  },
+  "File.datLoad": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"},
+      "header": {"rows": "header_rows", "columns": "header_columns"}
+    }
+  },
+  "FolMe.PSExpGet": {
+    "recv": {
+      "list_of_experiments": {"count": "num_experiments", "byte_size": "size_of_the_list_of_experiments"}
+    }
+  },
+  "GenSwp.AcqChsGet": {
+    "recv": {
+      "channel_indexes": {"count": "num_channels"},
+      "channels_names": {"count": "num_channels_2", "byte_size": "channels_names_size"}
+    }
+  },
+  "GenSwp.AcqChsSet": {
+    "send": {
+      "channel_indexes": {"count": "num_channels"},
+      "channel_names": {"count": "channel_names_number", "byte_size": "channel_names_size"}
+    }
+  },
+  "GenSwp.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "GenSwp.SwpSignalListGet": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"}
+    }
+  },
+  "HSSwp.AcqChsGet": {
+    "recv": {
+      "channel_indexes": {"count": "num_channels"},
+      "available_channels_names": {"count": "available_channels_names_number", "byte_size": "available_channels_names_size"},
+      "available_channels_indexes": {"count": "num_available_channels"}
+    }
+  },
+  "HSSwp.AcqChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "HSSwp.SaveOptionsGet": {
+    "recv": {
+      "modules_parameters": {"count": "modules_parameters_number", "byte_size": "modules_parameters_size"}
+    }
+  },
+  "HSSwp.SaveOptionsSet": {
+    "send": {
+      "modules_names": {"count": "modules_names_number", "byte_size": "modules_names_size"}
+    }
+  },
+  "HSSwp.SwpChSigListGet": {
+    "recv": {
+      "signal_names": {"count": "signal_names_number", "byte_size": "signal_names_size"},
+      "signal_indexes": {"count": "num_signals"}
+    }
+  },
+  "LockInFreqSwp.Start": {
+    "recv": {
+      "channels_names": {"count": "channels_names_number", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "Marks.LinesDraw": {
+    "send": {
+      "start_point_x_coordinate_m": {"count": "num_lines"},
+      "start_point_y_coordinate_m": {"count": "num_lines"},
+      "end_point_x_coordinate_m": {"count": "num_lines"},
+      "end_point_y_coordinate_m": {"count": "num_lines"},
+      "color": {"count": "num_lines"}
+    }
+  },
+  "Marks.LinesGet": {
+    "recv": {
+      "start_point_x_coordinate_m": {"count": "num_lines"},
+      "start_point_y_coordinate_m": {"count": "num_lines"},
+      "end_point_x_coordinate_m": {"count": "num_lines"},
+      "end_point_y_coordinate_m": {"count": "num_lines"},
+      "color": {"count": "num_lines"},
+      "visible": {"count": "num_lines"}
+    }
+  },
+  "Marks.PointsDraw": {
+    "send": {
+      "x_coordinate_m": {"count": "num_points"},
+      "y_coordinate_m": {"count": "num_points"},
+      "text": {"count": "num_points", "byte_size": "text_size"},
+      "color": {"count": "num_points"}
+    }
+  },
+  "Marks.PointsGet": {
+    "recv": {
+      "x_coordinate_m": {"count": "num_points"},
+      "y_coordinate_m": {"count": "num_points"},
+      "text": {"count": "num_points", "byte_size": "text_size"},
+      "color": {"count": "num_points"},
+      "visible": {"count": "num_points"}
+    }
+  },
+  "MProbeCurrent.GainsGet": {
+    "recv": {
+      "gains": {"count": "num_gains", "byte_size": "gains_size"},
+      "filters": {"count": "num_filters", "byte_size": "filters_size"}
+    }
+  },
+  "Osci1T.DataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "Osci1T.TimebaseGet": {
+    "recv": {"timebases_s": {"count": "num_timebases"}}
+  },
+  "Osci2T.DataGet": {
+    "recv": {
+      "data_cha": {"count": "data_size"},
+      "data_chb": {"count": "data_size_2"}
+    }
+  },
+  "Osci2T.TimebaseGet": {
+    "recv": {"timebases_s": {"count": "num_timebases"}}
+  },
+  "OsciHR.OsciDataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "OsciHR.PSDDataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "Pattern.CloudGet": {
+    "recv": {
+      "x_coordinates_m": {"count": "num_points"},
+      "y_coordinates_m": {"count": "num_points"}
+    }
+  },
+  "Pattern.CloudSet": {
+    "send": {
+      "x_coordinates_m": {"count": "num_points"},
+      "y_coordinates_m": {"count": "num_points"}
+    }
+  },
+  "Pattern.PropsGet": {
+    "recv": {
+      "list_of_experiments": {"count": "num_experiments", "byte_size": "size_of_the_list_of_experiments"}
+    }
+  },
+  "PICtrl.CtrlChGet": {
+    "recv": {
+      "control_signals_names": {"count": "num_control_signals_names", "byte_size": "control_signals_names_size"},
+      "control_signals_indexes": {"count": "num_control_signals_indexes"}
+    }
+  },
+  "PICtrl.InputChGet": {
+    "recv": {
+      "input_signals_names": {"count": "num_input_signals_names", "byte_size": "input_signals_names_size"},
+      "input_signals_indexes": {"count": "num_input_signals_indexes"}
+    }
+  },
+  "Piezo.HystValsGet": {
+    "recv": {
+      "fast_axis_x_hysteresis_points": {"count": "num_fast_axis_points"},
+      "fast_axis_y_hysteresis_points": {"count": "num_fast_axis_points_2"},
+      "slow_axis_x_hysteresis_points": {"count": "num_slow_axis_points"},
+      "slow_axis_y_hysteresis_points": {"count": "num_slow_axis_points_2"}
+    }
+  },
+  "Piezo.HystValsSet": {
+    "send": {
+      "fast_axis_x_hysteresis_points": {"count": "num_fast_axis_points"},
+      "fast_axis_y_hysteresis_points": {"count": "num_fast_axis_points_2"},
+      "slow_axis_x_hysteresis_points": {"count": "num_slow_axis_points"},
+      "slow_axis_y_hysteresis_points": {"count": "num_slow_axis_points_2"}
+    }
+  },
+  "PLLFreqSwp.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "PLLPhasSwp.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "PLLSignalAnlzr.FFTDataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "PLLSignalAnlzr.OsciDataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "PLLSignalAnlzr.TimebaseGet": {
+    "recv": {
+      "timebases": {"count": "timebases_number", "byte_size": "timebases_size"}
+    }
+  },
+  "PLLSignalAnlzr.TrigGet": {
+    "recv": {
+      "trigger_source_signals_list": {"count": "trigger_source_signals_list_number", "byte_size": "trigger_source_signals_list_size"}
+    }
+  },
+  "PLLZoomFFT.DataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "Scan.BufferGet": {
+    "recv": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "Scan.BufferSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "Scan.FrameDataGrab": {
+    "recv": {
+      "scan_data": {"rows": "scan_data_rows", "columns": "scan_data_columns"}
+    }
+  },
+  "Scan.PropsGet": {
+    "recv": {
+      "modules_names": {"count": "modules_names_number", "byte_size": "modules_names_size"},
+      "num_parameters_per_module_array": {"count": "size_of_num_parameters_per_module_array"},
+      "parameters": {"rows": "parameters_rows", "columns": "parameters_columns"}
+    }
+  },
+  "Scan.PropsSet": {
+    "send": {
+      "modules_names": {"count": "modules_names_number", "byte_size": "modules_names_size"}
+    }
+  },
+  "Script.ChsGet": {
+    "recv": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "Script.ChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "Script.DataGet": {
+    "recv": {"data": {"rows": "data_rows", "columns": "data_columns"}}
+  },
+  "Script.LUTLoad": {
+    "send": {"lut_values": {"count": "lut_values_size"}}
+  },
+  "Signals.AddRTGet": {
+    "recv": {
+      "additional_rt_signals_names": {"count": "num_additional_rt_signals", "byte_size": "additional_rt_signals_names_size"}
+    }
+  },
+  "Signals.MeasNamesGet": {
+    "recv": {
+      "measurement_channels_list": {"count": "num_measurement_channels", "byte_size": "measurement_channels_list_size"}
+    }
+  },
+  "Signals.NamesGet": {
+    "recv": {
+      "signals_names": {"count": "signals_names_number", "byte_size": "signals_names_size"}
+    }
+  },
+  "Signals.ValsGet": {
+    "send": {"signals_indexes": {"count": "signals_indexes_size"}},
+    "recv": {"signals_values": {"count": "signals_values_size"}}
+  },
+  "SpectrumAnlzr.DataGet": {
+    "recv": {"data_y": {"count": "data_y_size"}}
+  },
+  "SpectrumAnlzr.FreqRangeGet": {
+    "recv": {"frequency_ranges_hz": {"count": "num_frequency_ranges"}}
+  },
+  "SpectrumAnlzr.FreqResGet": {
+    "recv": {"frequency_resolutions_hz": {"count": "num_frequency_resolutions"}}
+  },
+  "TCPLog.ChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "TipRec.DataGet": {
+    "recv": {
+      "channel_indexes": {"count": "num_channels"},
+      "data": {"rows": "data_rows", "columns": "data_columns"}
+    }
+  },
+  "ZCtrl.CtrlListGet": {
+    "recv": {
+      "list_of_controllers": {"count": "num_controllers", "byte_size": "list_of_controllers_size"}
+    }
+  },
+  "ZSpectr.ChsGet": {
+    "recv": {
+      "channel_indexes": {"count": "num_channels"},
+      "channels": {"count": "num_channels_names", "byte_size": "channels_size"}
+    }
+  },
+  "ZSpectr.ChsSet": {
+    "send": {"channel_indexes": {"count": "num_channels"}}
+  },
+  "ZSpectr.PropsGet": {
+    "recv": {
+      "parameters": {"count": "num_parameters", "byte_size": "parameters_size"},
+      "fixed_parameters": {"count": "num_fixed_parameters", "byte_size": "fixed_parameters_size"}
+    }
+  },
+  "ZSpectr.Start": {
+    "recv": {
+      "channels_names": {"count": "num_channels", "byte_size": "channels_names_size"},
+      "data": {"rows": "data_rows", "columns": "data_columns"},
+      "parameters": {"count": "num_parameters"}
+    }
+  }
+}

@@ -5,7 +5,13 @@ Nanonis Command Layer
 Provides command encoding/decoding and the main controller interface.
 """
 
-from .registry import CommandRegistry, CommandDefinition, ArgDefinition
+from .registry import (
+    ArgDefinition,
+    CommandDefinition,
+    CommandRegistry,
+    VariableLengthConstraint,
+)
+from .exceptions import NanonisArgumentError
 from .encoder import CommandEncoder, CommandDecoder
 from .controller import NanonisController
 from .proxies import (
@@ -22,6 +28,8 @@ __all__ = [
     'CommandRegistry',
     'CommandDefinition',
     'ArgDefinition',
+    'VariableLengthConstraint',
+    'NanonisArgumentError',
     'CommandEncoder',
     'CommandDecoder',
     # Proxies

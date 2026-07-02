@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional, Union
 from ..protocol import NanonisTCPClient, TransportState
 from .registry import CommandRegistry
 from .encoder import CommandEncoder, CommandDecoder
+from .validation import CommandArgumentValidator
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +67,7 @@ class NanonisController:
         self._debug = debug
         self._encoder = CommandEncoder(debug=debug)
         self._decoder = CommandDecoder(debug=debug)
+        self._argument_validator = CommandArgumentValidator()
         
         if config_path:
             self.load_config(config_path)
@@ -174,7 +176,8 @@ class NanonisController:
         
         # Encode arguments (with type coercion)
         send_types = cmd_def.get_send_types()
-        body = self._encoder.encode(send_types, args)
+        validated_args = self._argument_validator.validate_positional(cmd_def, args)
+        body = self._encoder.encode(send_types, validated_args)
         
         if self._debug:
             logger.debug(f"Request body: {len(body)} bytes")
@@ -201,12 +204,32 @@ class NanonisController:
             response,
             check_error=check_error,
             command_name=command,
+            constraints=cmd_def.recv_constraints,
         )
         
         # Return single value or dict
         if len(result) == 1:
             return list(result.values())[0]
         return result
+
+    def send_fields(
+        self,
+        command: str,
+        /,
+        *,
+        timeout: float | None = None,
+        check_error: bool = True,
+        **fields: Any,
+    ) -> Any:
+        """Send a command by sanitized field name, inferring derived sizes."""
+        cmd_def = self._registry.get(command)
+        args = self._argument_validator.materialize_named(cmd_def, fields)
+        return self.send(
+            command,
+            *args,
+            timeout=timeout,
+            check_error=check_error,
+        )
     
     def send_raw(
         self,
@@ -269,6 +292,14 @@ class NanonisController:
             'name': cmd_def.name,
             'send_args': [(a.name, a.type) for a in cmd_def.send_args],
             'recv_args': [(a.name, a.type) for a in cmd_def.recv_args],
+            'send_constraints': {
+                name: vars(value)
+                for name, value in cmd_def.send_constraints.items()
+            },
+            'recv_constraints': {
+                name: vars(value)
+                for name, value in cmd_def.recv_constraints.items()
+            },
         }
     
     def __enter__(self) -> 'NanonisController':

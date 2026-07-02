@@ -8,10 +8,13 @@ based on the type definitions in the command registry.
 
 import struct
 import logging
-from typing import Any, Dict, List, Tuple, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Tuple, Optional
 import numpy as np
 
 from ..protocol.exceptions import NanonisCommandError, NanonisProtocolError
+
+if TYPE_CHECKING:
+    from .registry import VariableLengthConstraint
 
 logger = logging.getLogger(__name__)
 
@@ -156,9 +159,13 @@ class CommandEncoder:
 
         if elem_type == 'string':
             # Array of strings: each element is a string preceded by its size.
+            if isinstance(value, (str, bytes, bytearray)):
+                raise ValueError("String arrays require an iterable of strings")
             strings = list(value) if not isinstance(value, list) else value
             result = b''
             for s in strings:
+                if not isinstance(s, (str, bytes)):
+                    raise ValueError("String arrays may contain only str or bytes")
                 encoded = s.encode('utf-8') if isinstance(s, str) else s
                 result += struct.pack('>I', len(encoded)) + encoded
             return result
@@ -166,7 +173,24 @@ class CommandEncoder:
             # Numeric array - force correct dtype, raw bytes only.
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
+            if arr.ndim != 1:
+                raise ValueError(
+                    f"{dtype} requires one-dimensional data, got shape {arr.shape}"
+                )
             return arr.tobytes()
+
+    @staticmethod
+    def encoded_string_array_size(value: Any) -> int:
+        """Return the wire byte size of the elements in a string array."""
+        if isinstance(value, (str, bytes, bytearray)):
+            raise ValueError("String arrays require an iterable of strings")
+        total = 0
+        for item in value:
+            if not isinstance(item, (str, bytes)):
+                raise ValueError("String arrays may contain only str or bytes")
+            encoded = item.encode('utf-8') if isinstance(item, str) else item
+            total += 4 + len(encoded)
+        return total
 
     def _encode_2d_array(self, dtype: str, value: Any) -> bytes:
         """
@@ -181,10 +205,17 @@ class CommandEncoder:
 
         if elem_type == 'string':
             # 2D array of strings: each element is a string preceded by its size.
-            matrix = list(value)
+            matrix = [list(row) for row in value]
+            widths = {len(row) for row in matrix}
+            if len(widths) > 1:
+                raise ValueError("String matrices must be rectangular")
             result = b''
             for row in matrix:
                 for s in row:
+                    if not isinstance(s, (str, bytes)):
+                        raise ValueError(
+                            "String matrices may contain only str or bytes"
+                        )
                     encoded = s.encode('utf-8') if isinstance(s, str) else s
                     result += struct.pack('>I', len(encoded)) + encoded
             return result
@@ -192,6 +223,10 @@ class CommandEncoder:
             # Numeric 2D array - raw bytes only.
             np_dtype = self.NUMPY_DTYPES.get(elem_type, f'>{elem_type[0]}4')
             arr = np.asarray(value, dtype=np_dtype)
+            if arr.ndim != 2:
+                raise ValueError(
+                    f"{dtype} requires two-dimensional data, got shape {arr.shape}"
+                )
             return arr.tobytes()
 
 
@@ -225,6 +260,7 @@ class CommandDecoder:
         data: bytes,
         check_error: bool = False,
         command_name: str = "command",
+        constraints: Optional[Mapping[str, 'VariableLengthConstraint']] = None,
     ) -> Dict[str, Any]:
         """
         Decode bytes according to type definitions.
@@ -260,7 +296,21 @@ class CommandDecoder:
 
         for name, dtype in args:
             try:
-                value, consumed = self._decode_value(dtype, data[offset:], decoded)
+                constraint = constraints.get(name) if constraints else None
+                value, consumed = self._decode_value(
+                    dtype,
+                    data[offset:],
+                    decoded,
+                    resolved=result,
+                    constraint=constraint,
+                )
+                if constraint and constraint.byte_size:
+                    declared = int(result[constraint.byte_size])
+                    if consumed != declared:
+                        raise NanonisProtocolError(
+                            f"{command_name} field {name!r} consumed {consumed} bytes, "
+                            f"but {constraint.byte_size!r} declares {declared}"
+                        )
                 result[name] = value
                 decoded.append((dtype, value))
                 offset += consumed
@@ -366,6 +416,8 @@ class CommandDecoder:
         dtype: str,
         data: bytes,
         decoded: Optional[List[Tuple[str, Any]]] = None,
+        resolved: Optional[Mapping[str, Any]] = None,
+        constraint: Optional['VariableLengthConstraint'] = None,
     ) -> Tuple[Any, int]:
         """
         Decode a single value from bytes.
@@ -381,6 +433,8 @@ class CommandDecoder:
         """
         if decoded is None:
             decoded = []
+        if resolved is None:
+            resolved = {}
 
         # Handle scalar types
         if dtype in self.SCALAR_FORMATS:
@@ -398,12 +452,25 @@ class CommandDecoder:
 
         # Handle 1D arrays
         if dtype.startswith('array_'):
-            (size,) = self._trailing_ints(decoded, 1)
+            if constraint and constraint.count:
+                size = int(resolved[constraint.count])
+            else:
+                (size,) = self._trailing_ints(decoded, 1)
+            if size < 0:
+                raise ValueError(f"Array size must be non-negative, got {size}")
             return self._decode_1d_array(dtype, data, size)
 
         # Handle 2D arrays/matrices
         if dtype.startswith('matrix_'):
-            rows, cols = self._trailing_ints(decoded, 2)
+            if constraint and constraint.rows and constraint.columns:
+                rows = int(resolved[constraint.rows])
+                cols = int(resolved[constraint.columns])
+            else:
+                rows, cols = self._trailing_ints(decoded, 2)
+            if rows < 0 or cols < 0:
+                raise ValueError(
+                    f"Matrix dimensions must be non-negative, got {rows}x{cols}"
+                )
             return self._decode_2d_array(dtype, data, rows, cols)
 
         raise ValueError(f"Unknown type: {dtype}")
