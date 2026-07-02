@@ -1,6 +1,7 @@
 # Blueprint — What to Adopt from `spaik`
 
-Status: strategic blueprint · Date: 2026-07-01 (scan vertical moved to Realized)
+Status: strategic blueprint · Date: 2026-07-01 (scan + data-readers verticals
+moved to Realized; shared `geometry`/`types` primitives extracted)
 
 ## Guiding principle
 
@@ -30,6 +31,9 @@ and its persistence adapters consume **completed workflow results** — core
 workflows never create or return QCoDeS datasets.
 
 ```text
+      geometry/ + types/             # neutral value types: FrameGeometry, RowOrder/
+               ▲                     #   ColumnOrder, scan_coordinate_grids, NaNPolicy
+               │  (imported downward by workflows/ AND data/ — no sideways deps)
             protocol/                 # TCP transport + exceptions + TransportState
                ▲
             command/                  # registry, encoder/decoder, controller
@@ -40,7 +44,7 @@ workflows never create or return QCoDeS datasets.
                ▼               │
           domain results ──────┘ → qcodes/ persistence adapters → QCoDeS datasets
 
-          data/ readers → domain data → optional QCoDeS / xarray adapters
+          data/ readers → domain data → optional xarray / qcodes/ adapters   # realized
 ```
 
 ```text
@@ -48,14 +52,18 @@ nanonis/
   protocol/                  # exists
   command/                   # exists
 
-  workflows/                 # transactional measurement recipes (two verticals realized)
+  geometry.py                # neutral: FrameGeometry, RowOrder/ColumnOrder, scan_coordinate_grids
+  types.py                   # neutral: NaNPolicy (shared by workflows/ and data/)
+
+  workflows/                 # transactional measurement recipes (spectroscopy + scan realized)
     protocols.py             #   CommandClient, RecoverableCommandClient
     errors.py                #   WorkflowError hierarchy
     state.py                 #   RestorationTransaction, TipState, recover_module
     models.py                #   shared TipRestorePolicy (policies.py not yet needed)
     spectroscopy/            #   bias spectroscopy (implemented + live-validated)
     scan/                    #   full scan workflow (implemented; run + run_partial)
-      geometry.py            #     scan_coordinate_grids (row_order gated on orientation)
+      models.py              #     ScanRegion now composes geometry.FrameGeometry
+      geometry.py            #     compat re-export of nanonis.geometry
     tunnel/                  #   prepare/restore tunnelling conditions
     datalog/
     atom_tracking/
@@ -64,10 +72,14 @@ nanonis/
     instrument.py
     spectroscopy.py          #   persistence adapter: result -> QCoDeS dataset
     scan.py
+    data.py                  #   file-domain -> QCoDeS dataset (sxm/3ds/dat)
 
-  data/                      # STM data models + readers (future)
-    readers/                 #   sxm.py, three_ds.py, dat.py
-    adapters/                #   xarray.py  (a data->QCoDeS adapter lives in qcodes/)
+  data/                      # STM data models + readers (REALIZED; hardware-free leaf)
+    models.py                #   SxmData, Grid3DData, DatData, SessionConfig (immutable, typed)
+    validation.py            #   I/O-free NaNPolicy handling
+    transforms.py            #   independent, opt-in, NaN-safe background corrections
+    readers/                 #   sxm.py, three_ds.py, dat.py, session.py (+ nanonispy boundary)
+    adapters/                #   xarray.py  (a data->QCoDeS adapter lives in qcodes/data.py)
 ```
 
 **Dependency direction (non-negotiable):** `workflows -> command API + the
@@ -77,6 +89,16 @@ protocol layer's public contract, so depending on them is allowed and is stated
 here explicitly. The workflow package imports nothing from `nanonis.qcodes` and
 nothing from `qcodes`. Units are volts / SI, matching `configs/commands`. No
 pandas, no pickle in this layer.
+
+**Neutral primitives (`nanonis.geometry`, `nanonis.types`).** `workflows/` and
+`data/` are parallel leaves that share value types (frame geometry, orientation
+literals, `NaNPolicy`). Rather than one importing the other (a sideways dependency)
+or each cloning the types (drifting conventions), both import **downward** from a
+bottom-level `geometry`/`types` layer that depends on nothing. `data/` therefore
+imports **only** these neutral modules — nothing from `command`, `protocol`,
+`workflows`, or `qcodes` — and controls no hardware. `ScanRegion` composes
+`FrameGeometry` (keeping its hardware `snapshot/apply/patch`), so there is one
+rotation convention and one orientation vocabulary across acquired and read frames.
 
 > `policies.py` does **not** exist yet — it appears when the scan vertical needs
 > to share tip restoration (the `TipRestorePolicy` / bias-ramp generalization in
@@ -95,11 +117,13 @@ pandas, no pickle in this layer.
   and return a `ScanResult` (owning the frame data, and the saved-file paths the
   controller reports). It returns a domain result, **never** a QCoDeS dataset —
   persisting it is a separate `qcodes/` adapter.
-- **`data/`** — STM data models, Nanonis file readers (`sxm`, `three_ds`, `dat`),
-  and transforms with `validation`. It must **not** control hardware. Readers
-  produce **domain data**; optional adapters turn that into QCoDeS datasets or
-  xarray objects (a data→QCoDeS adapter lives under `qcodes/`). Reuse
-  [`nanonispy_kj`](https://github.com/jinkeda/nanonispy_kj) for the model layer.
+- **`data/`** (realized) — STM data models, Nanonis file readers (`sxm`,
+  `three_ds`, `dat`, `session`), transforms, and `validation`. It must **not**
+  control hardware, and imports only the neutral `geometry`/`types` primitives.
+  Readers produce immutable **domain data** (raw order preserved); optional adapters
+  turn that into xarray objects or QCoDeS datasets (the data→QCoDeS adapter lives in
+  `qcodes/data.py`, orientation applied there). Built on released `nanonispy` behind
+  a parser boundary; transforms are opt-in and never applied by a reader.
 
 > **Design note — no separate `safety/` package.** The original sketch proposed a
 > top-level `safety/` (policies, preflight, ramping, errors). The realized design
@@ -112,6 +136,21 @@ pandas, no pickle in this layer.
 ## Cross-cutting requirements
 
 Every workflow must satisfy these, regardless of which recipe it implements.
+
+> **Canonical vertical shape.** The two realized hardware verticals both follow one
+> pipeline, and it is the template for the next one:
+>
+> **typed config (validated, I/O-free)** → **injected safety policy (preflight)** →
+> **transactional run (snapshot → acquire → recovery-gated best-effort restore)** →
+> **immutable, validated result (+ provenance)**.
+>
+> The subsections below detail each stage; the ordering *is* the point (config is
+> validated before any command; preflight runs before the transaction opens; the
+> result is frozen after). Safety is an *injected* cross-cutting concern, not a
+> stage that owns the run (see the design note above — no standalone `safety/`).
+> The read-only `data/` vertical is the **reduced** form of this shape —
+> `typed args → parse → validate → immutable result (+ provenance)` — with no
+> policy and no transaction, because it touches no hardware.
 
 ### State transactions
 
@@ -181,16 +220,19 @@ live-test harness**, not a nicety.
 
 ## Adoption backlog (by status)
 
-### Realized (bias spectroscopy + scan verticals)
+### Realized (bias spectroscopy + scan + data-readers verticals)
 
-Status: **both verticals implemented; logic doubles complete (158 `FakeController`
-tests passing); live-hardware validation done for spectroscopy and partially done
-for scan.** Live-hardware validation over a real socket is the acceptance gate; a
-simulator is not used.
+Status: **three verticals implemented; full suite at 204 tests passing;
+live-hardware validation done for spectroscopy and partially done for scan.**
+Live-hardware validation over a real socket is the acceptance gate for the
+hardware verticals; the read-only data vertical is gated on real-file oracle
+comparison instead. A simulator is not used.
 
-Two end-to-end workflows are built to the full standard — typed config, Nanonis
-state snapshot, recovery-gated best-effort restoration, lossless normalization, and
-(for spectroscopy) acquire-first QCoDeS registration with provenance metadata.
+Two end-to-end hardware workflows are built to the full standard — typed config,
+Nanonis state snapshot, recovery-gated best-effort restoration, lossless
+normalization, and (for spectroscopy) acquire-first QCoDeS registration with
+provenance metadata. A third, read-only vertical (`data/`) reads Nanonis files
+into immutable typed models — the reduced form of the canonical shape.
 
 **Bias spectroscopy** — live-validated:
 
@@ -250,6 +292,33 @@ state snapshot, recovery-gated best-effort restoration, lossless normalization, 
 > `direction` coordinate), not to flatten the data. Tracks the broader point that
 > QCoDeS persistence is optional/dormant at the current stage.
 
+**Data readers (`data/`)** — implemented; oracle-validated against real files (see
+[`data_readers_walkthrough.md`](data_readers_walkthrough.md)):
+
+- **`read_sxm` / `read_3ds` / `read_dat` / `read_session`** return immutable, typed
+  domain models (`SxmData`, `Grid3DData`, `DatData`, `SessionConfig`) with SI
+  conversion, structural validation, `NaNPolicy` handling, and `to_metadata()`
+  provenance (parser + package version + git commit + controller Nanonis version).
+- **Hardware-free leaf** — imports only `nanonis.geometry`/`types` + numpy +
+  nanonispy; controls no hardware. `spaik`'s `SXM`/`Nanonis3ds` recipes were
+  adopted (orientation convention, `DATA_INFO` handling) but not its structure
+  (god-class, `assert`s, pickle, in-place file writes).
+- **Orientation lives in adapters, never in readers** — readers preserve raw
+  matrix order + `:SCAN_DIR:`; `data/adapters/xarray.py` and `qcodes/data.py` apply
+  the confirmed SXM file convention (up→flip rows, backward→flip cols) with physical
+  grids. 3DS orientation has no oracle yet, so `grid_3ds_to_xarray` requires a
+  caller-declared `row_order` and flags it unverified.
+- **Independent transforms** — `data/transforms.py` rebuilds `spaik`'s
+  background-correction catalogue as pure, NaN-safe functions; no reader applies
+  them (raw data stays raw; correction is an explicit downstream step).
+
+> **Known follow-ups (from the walkthrough review).** The SXM header-only
+> **fallback decode path is untested** (the only `.sxm` fixture is uniformly
+> `both`; a single-direction fixture would exercise it — and note truncated-file
+> rejection currently *depends* on that fallback's size check). Only **one `.dat`
+> variant** is fixture-covered. Neither blocks the vertical; both are tracked, not
+> hidden.
+
 ### Foundation backlog (shared toolkit, not a vertical)
 
 - **Multi-instrument interfaces** — `RFSource`, `AWG`, `LockIn`, `BiasSource` as
@@ -268,17 +337,16 @@ state snapshot, recovery-gated best-effort restoration, lossless normalization, 
 
 ### Vertical backlog (proven recipes still to rebuild)
 
-In rough priority order (item 1, the full scan workflow, is **realized** — see the
-Realized section; its only remaining work is the live orientation gate, tracked
-under Next milestone):
+The first two items — the full scan workflow and the Nanonis data readers — are
+now **realized** (see the Realized section). The next unbuilt vertical is:
 
-1. **Nanonis data readers** — `data/readers/{sxm,three_ds,dat}`, kept independent
-   of control code, feeding domain data → optional QCoDeS / xarray adapters.
-2. **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
-   safe context manager; grid/spiral coordinate generation; scan-each-tile;
-   optional Z-range/contact verification. **Requires checkpoint/resume semantics**
-   (incremental map persistence so a 12-hour run resumes after failure) as a
-   prerequisite, not an afterthought.
+- **Atom tracking and hyperscanning** — `atom_tracking(duration, settings)` as a
+  safe context manager; grid/spiral coordinate generation; scan-each-tile;
+  optional Z-range/contact verification. **Requires checkpoint/resume semantics**
+  (incremental map persistence so a 12-hour run resumes after failure) as a
+  prerequisite, not an afterthought. It builds directly on the realized pieces:
+  many `ScanRegion`s over one `ScanConfig`, with `data/` readers closing the loop
+  on the saved tiles.
 
 ### Blocked by lab policy
 
@@ -314,11 +382,15 @@ acceptance gate**, not writing a new vertical. Concretely, in order:
    the physical grids. Remaining: characterize fast-axis `column_order` (physical X
    may be mirrored until then; index grids are unaffected).
 
-Only after that does a **new** vertical (data readers, then atom tracking) begin —
-and, as before, not before its state model, safety policy, timeout/recovery
-contract, result model, and **live-hardware acceptance criteria** are specified.
-Starting without them would repeat the unsafe assumptions this rebuild exists to
-remove.
+The **data-readers vertical was built in parallel** (it is hardware-free, so it
+neither contends with the scan gate nor needs the rig) and is realized. It leaves
+one live tie-in for the scan gate: the paired autosaved `.sxm` + `ScanResult` that
+validates the reader's orientation (scan gate G-3), still pending. The next
+**hardware** vertical (atom tracking) begins only after its state model, safety
+policy, timeout/recovery contract, result model, and **live-hardware acceptance
+criteria** are specified — the same discipline, following the canonical vertical
+shape above. Starting without them would repeat the unsafe assumptions this rebuild
+exists to remove.
 
 ## References
 
@@ -326,7 +398,13 @@ remove.
   the bias spectroscopy vertical (rev. 7, milestones M0–M4).
 - [`workflow_layer_walkthrough.md`](workflow_layer_walkthrough.md) — what has been
   implemented and validated.
-- [`scan_workflow_plan.md`](scan_workflow_plan.md) — the next vertical (M4): scan
-  workflow, with the two toolkit generalizations a second vertical forces.
-- [`nanonispy_kj`](https://github.com/jinkeda/nanonispy_kj) — proposed data-model
-  / file-reader dependency for `data/`.
+- [`scan_workflow_plan.md`](scan_workflow_plan.md) — the scan vertical (M4), with
+  the two toolkit generalizations a second vertical forces.
+- [`scan_gate_plan.md`](scan_gate_plan.md) — closing the scan live-hardware gate
+  (rig approval, `column_order`, full autosaved run — which feeds the reader oracle).
+- [`data_readers_plan.md`](data_readers_plan.md) — design of the realized `data/`
+  vertical (neutral primitives, readers, transforms, adapters).
+- [`data_readers_walkthrough.md`](data_readers_walkthrough.md) — what was built,
+  verified, and the known follow-ups.
+- [`nanonispy_kj`](https://github.com/jinkeda/nanonispy_kj) — the file-reader
+  dependency for `data/` (project pins released `nanonispy==1.1.0`; see walkthrough).
