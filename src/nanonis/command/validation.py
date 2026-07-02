@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import operator
 from collections.abc import Iterable, Mapping
+from numbers import Real
 from typing import Any
 
 import numpy as np
@@ -112,7 +113,12 @@ class CommandArgumentValidator:
                         command, arg.name, 'only str or bytes elements', materialized
                     )
                 return list(materialized)
-            array = np.asarray(materialized)
+            try:
+                array = np.asarray(materialized)
+            except ValueError as exc:
+                raise NanonisArgumentError(
+                    command, arg.name, 'a regular one-dimensional array', materialized
+                ) from exc
             if array.ndim != 1:
                 raise NanonisArgumentError(
                     command, arg.name, 'a one-dimensional array', array.shape
@@ -136,7 +142,12 @@ class CommandArgumentValidator:
                 )
             return rows
 
-        array = np.asarray(materialized)
+        try:
+            array = np.asarray(materialized)
+        except ValueError as exc:
+            raise NanonisArgumentError(
+                command, arg.name, 'a rectangular two-dimensional matrix', materialized
+            ) from exc
         if array.ndim != 2:
             raise NanonisArgumentError(
                 command, arg.name, 'a two-dimensional matrix', array.shape
@@ -215,8 +226,15 @@ class CommandArgumentValidator:
             values[size_field] = expected
             return
         try:
-            actual = operator.index(values[size_field])
-        except (KeyError, TypeError) as exc:
+            supplied = values[size_field]
+            try:
+                actual = operator.index(supplied)
+            except TypeError:
+                if isinstance(supplied, Real) and float(supplied).is_integer():
+                    actual = int(supplied)
+                else:
+                    raise
+        except (KeyError, TypeError, ValueError, OverflowError) as exc:
             raise NanonisArgumentError(
                 command,
                 size_field,

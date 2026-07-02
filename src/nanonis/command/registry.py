@@ -42,6 +42,7 @@ TYPE_MAPPING = {
 }
 
 _INT_TYPES = {'int16', 'int32', 'uint16', 'uint32'}
+NAMED_SEND_CONTROL_FIELDS = frozenset({'_timeout', '_check_error'})
 
 
 def sanitize_name(name: str) -> str:
@@ -219,7 +220,13 @@ class CommandRegistry:
             self._validate_unique_names(name, 'recv', converted['recv'])
             self._commands[name] = CommandDefinition.from_dict(name, converted)
 
-    def load_from_dir(self, path: Union[str, Path], pattern: str = '*.json') -> None:
+    def load_from_dir(
+        self,
+        path: Union[str, Path],
+        pattern: str = '*.json',
+        *,
+        require_constraints: bool = True,
+    ) -> None:
         """
         Load command definitions from a directory of raw protocol JSON files.
 
@@ -230,6 +237,9 @@ class CommandRegistry:
         Args:
             path: Path to the directory of per-module command files
             pattern: Glob pattern for command files (default ``*.json``)
+            require_constraints: Reject a variable-length catalog when its
+                constraints overlay is absent. Set false only for legacy or
+                deliberately unconstrained custom schemas.
         """
         path = Path(path)
         files = sorted(path.glob(pattern))
@@ -240,9 +250,37 @@ class CommandRegistry:
         for file in files:
             self.load_from_json(file)
 
+        self._validate_named_send_controls()
+
         overlay = path.parent / 'command_constraints.json'
         if overlay.is_file():
             self.load_constraints(overlay)
+        elif require_constraints and self._has_variable_fields():
+            raise FileNotFoundError(
+                f"Variable-length command catalog requires constraint overlay: "
+                f"{overlay}. Pass require_constraints=False only to load an "
+                f"intentionally unconstrained custom catalog."
+            )
+
+    def _has_variable_fields(self) -> bool:
+        return any(
+            arg.type.startswith('array_') or arg.type.startswith('matrix_')
+            for command in self._commands.values()
+            for arg in (*command.send_args, *command.recv_args)
+        )
+
+    def _validate_named_send_controls(self) -> None:
+        collisions = {
+            command.name: sorted(
+                {arg.name for arg in command.send_args} & NAMED_SEND_CONTROL_FIELDS
+            )
+            for command in self._commands.values()
+        }
+        collisions = {name: fields for name, fields in collisions.items() if fields}
+        if collisions:
+            raise ValueError(
+                f"Command fields collide with send_fields controls: {collisions}"
+            )
 
     @staticmethod
     def _validate_unique_names(command: str, side: str, args: List[dict]) -> None:

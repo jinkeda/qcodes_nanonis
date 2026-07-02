@@ -149,6 +149,8 @@ The overlay should:
 - reject conflicting constraints globally;
 - enforce complete array-field coverage only at the rollout boundary for the applicable side: send coverage at the end of Phase 2 and receive coverage at the end of Phase 3.
 
+Because response correctness depends on this metadata, loading a catalog that contains arrays or matrices must fail if the overlay is absent. Deliberately unconstrained custom catalogs may use an explicit opt-out; missing metadata must never silently reactivate heuristic decoding in normal runtime use.
+
 Using sanitized names makes constraints operate in the same namespace as `CommandDefinition` and avoids coupling the validator to display text from the PDF. The registry must nevertheless detect if two original names sanitize to the same runtime name.
 
 ## Interim response-decoding rule
@@ -247,6 +249,8 @@ ctrl.send_fields(
 
 The command layer would insert `num_channels=2`.
 
+Transport controls on the named-field API must use names that cannot shadow sanitized protocol fields, for example `_timeout` and `_check_error`. Add a catalog lint for collisions. This is required because `HSSwp.Start` has a legitimate protocol field named `timeout`.
+
 Legacy positional use remains valid:
 
 ```python
@@ -254,6 +258,8 @@ ctrl.send("Scan.BufferSet", 2, [0, 1], 256, 256)
 ```
 
 It should raise a command-specific exception if the explicit count is not `2`.
+
+For compatibility with the existing NumPy coercion behavior, an explicitly supplied integral real value such as `2.0` may be accepted as an integer count. Non-integral values must be rejected rather than truncated.
 
 Automatic inference is not the same as silently correcting an explicit value: omitted derived values are calculated, while contradictory supplied values are treated as caller errors.
 
@@ -294,7 +300,7 @@ No current send command contains a matrix. Send-side matrix row/column inference
 4. Add a dedicated exception containing the command, size field, data field, expected value, and actual value.
 5. Retain strict validation for the positional compatibility API.
 6. Add a named-argument sending API in which derived size fields are omitted by default.
-7. Verify string-array aggregate-byte-size semantics against the PDF and real hardware before enabling those constraints strictly.
+7. Verify string-array aggregate-byte-size semantics against the PDF and real hardware before enabling those constraints strictly. Include a non-destructive `Scan.PropsGet`/`Scan.PropsSet` round trip to cover both string-array byte sizing and the Number-of-Parameters-per-Module element-count interpretation.
 8. Test zero-length data, Unicode, NumPy inputs, shared counts, dual string-array sizes, and mismatches.
 
 ### Phase 3: Complete response migration

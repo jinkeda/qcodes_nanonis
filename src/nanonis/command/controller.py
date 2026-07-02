@@ -51,6 +51,7 @@ class NanonisController:
         config_path: Optional[Union[str, Path]] = None,
         timeout: float = 10.0,
         debug: bool = False,
+        require_constraints: bool = True,
     ):
         """
         Initialize the controller.
@@ -61,6 +62,8 @@ class NanonisController:
             config_path: Optional path to a directory of per-module JSON files
             timeout: Socket timeout in seconds
             debug: Enable debug mode for verbose logging
+            require_constraints: Require the variable-length constraint overlay
+                when loading a catalog that contains arrays or matrices
         """
         self._client = NanonisTCPClient(host, port, timeout)
         self._registry = CommandRegistry()
@@ -70,7 +73,9 @@ class NanonisController:
         self._argument_validator = CommandArgumentValidator()
         
         if config_path:
-            self.load_config(config_path)
+            self.load_config(
+                config_path, require_constraints=require_constraints
+            )
     
     @property
     def debug(self) -> bool:
@@ -97,7 +102,12 @@ class NanonisController:
             logging.getLogger('nanonis').setLevel(logging.DEBUG)
             logger.info("Debug mode enabled")
     
-    def load_config(self, path: Union[str, Path]) -> None:
+    def load_config(
+        self,
+        path: Union[str, Path],
+        *,
+        require_constraints: bool = True,
+    ) -> None:
         """
         Load command configuration.
 
@@ -105,11 +115,14 @@ class NanonisController:
 
         Args:
             path: Path to a directory of per-module JSON command files
+            require_constraints: Require sizing metadata for variable fields
         """
         path = Path(path)
         if not path.is_dir():
             raise ValueError(f"Command config must be a directory: {path}")
-        self._registry.load_from_dir(path)
+        self._registry.load_from_dir(
+            path, require_constraints=require_constraints
+        )
 
         if self._debug:
             logger.info(f"Loaded {len(self._registry)} commands from {path}")
@@ -217,18 +230,18 @@ class NanonisController:
         command: str,
         /,
         *,
-        timeout: float | None = None,
-        check_error: bool = True,
+        _timeout: float | None = None,
+        _check_error: bool = True,
         **fields: Any,
     ) -> Any:
-        """Send a command by sanitized field name, inferring derived sizes."""
+        """Send by sanitized field name; underscore controls avoid collisions."""
         cmd_def = self._registry.get(command)
         args = self._argument_validator.materialize_named(cmd_def, fields)
         return self.send(
             command,
             *args,
-            timeout=timeout,
-            check_error=check_error,
+            timeout=_timeout,
+            check_error=_check_error,
         )
     
     def send_raw(

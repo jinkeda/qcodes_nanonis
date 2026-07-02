@@ -17,6 +17,7 @@ from nanonis.command import (
     NanonisArgumentError,
     NanonisController,
 )
+from nanonis.command.registry import NAMED_SEND_CONTROL_FIELDS
 from nanonis.protocol import NanonisProtocolError
 
 
@@ -81,6 +82,32 @@ def test_named_fields_infer_count_and_send(mock_client_class):
 
 
 @patch("nanonis.command.controller.NanonisTCPClient")
+def test_named_fields_do_not_shadow_hsswp_timeout_field(mock_client_class):
+    client = MagicMock()
+    client.send_raw.return_value = struct.pack(">Ii", 0, 0)
+    mock_client_class.return_value = client
+    controller = NanonisController("127.0.0.1", 6501, CONFIG_DIR)
+
+    controller.send_fields(
+        "HSSwp.Start",
+        wait_until_done=1,
+        timeout=10,
+        _timeout=2.5,
+    )
+
+    client.send_raw.assert_called_once_with(
+        "HSSwp.Start", struct.pack(">ii", 1, 10), timeout=2.5
+    )
+
+
+def test_named_send_control_names_cannot_collide_with_catalog_fields():
+    commands = registry()
+    for command_name in commands.list_commands():
+        fields = {arg.name for arg in commands.get(command_name).send_args}
+        assert fields.isdisjoint(NAMED_SEND_CONTROL_FIELDS)
+
+
+@patch("nanonis.command.controller.NanonisTCPClient")
 def test_shared_count_requires_all_parallel_arrays_to_match(mock_client_class):
     client = MagicMock()
     mock_client_class.return_value = client
@@ -98,6 +125,18 @@ def test_shared_count_requires_all_parallel_arrays_to_match(mock_client_class):
         )
 
     client.send_raw.assert_not_called()
+
+
+@patch("nanonis.command.controller.NanonisTCPClient")
+def test_integral_float_count_remains_compatible(mock_client_class):
+    client = MagicMock()
+    client.send_raw.return_value = struct.pack(">Ii", 0, 0)
+    mock_client_class.return_value = client
+    controller = NanonisController("127.0.0.1", 6501, CONFIG_DIR)
+
+    controller.send("Scan.BufferSet", 2.0, [0, 1], 256, 128)
+
+    assert struct.unpack(">i", client.send_raw.call_args.args[1][:4])[0] == 2
 
 
 @patch("nanonis.command.controller.NanonisTCPClient")
@@ -146,6 +185,22 @@ def test_encoder_rejects_wrong_array_dimension():
             [("values", "array_float32")],
             (np.ones((2, 2), dtype=np.float32),),
         )
+
+
+@patch("nanonis.command.controller.NanonisTCPClient")
+def test_ragged_numeric_input_uses_command_argument_error(mock_client_class):
+    client = MagicMock()
+    mock_client_class.return_value = client
+    controller = NanonisController("127.0.0.1", 6501, CONFIG_DIR)
+
+    with pytest.raises(NanonisArgumentError, match="regular one-dimensional"):
+        controller.send_fields(
+            "Signals.ValsGet",
+            signals_indexes=[[0, 1], [2]],
+            wait_for_newest_data=1,
+        )
+
+    client.send_raw.assert_not_called()
 
 
 def test_marks_points_get_uses_point_count_for_every_array():
@@ -241,3 +296,37 @@ def test_registry_rejects_sanitized_name_collision(tmp_path):
 
     with pytest.raises(ValueError, match="not unique after sanitization"):
         CommandRegistry().load_from_dir(command_dir)
+
+
+def test_variable_catalog_requires_overlay_unless_explicitly_disabled(tmp_path):
+    command_dir = tmp_path / "commands"
+    command_dir.mkdir()
+    (command_dir / "Test.json").write_text(
+        json.dumps(
+            {
+                "Test.Set": {
+                    "args": [
+                        {"name": "Count", "type": "i"},
+                        {"name": "Values", "type": "1D array int"},
+                    ],
+                    "resp": [],
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(FileNotFoundError, match="requires constraint overlay"):
+        CommandRegistry().load_from_dir(command_dir)
+
+    unconstrained = CommandRegistry()
+    unconstrained.load_from_dir(command_dir, require_constraints=False)
+    assert unconstrained.get("Test.Set").send_constraints == {}
+
+    controller = NanonisController(
+        "127.0.0.1",
+        6501,
+        command_dir,
+        require_constraints=False,
+    )
+    assert "Test.Set" in controller.list_commands()

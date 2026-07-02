@@ -64,6 +64,14 @@ Matrices identify both dimensions:
 
 `CommandRegistry.load_from_dir()` loads the generated command files first, then looks for `command_constraints.json` in their parent directory.
 
+If a loaded catalog contains an array or matrix and the overlay is missing, loading now fails with `FileNotFoundError`. This prevents deployed installations from silently returning to heuristic decoding. Intentionally unconstrained custom schemas can opt out explicitly:
+
+```python
+registry.load_from_dir(path, require_constraints=False)
+```
+
+The controller exposes the same explicit opt-out as `NanonisController(..., require_constraints=False)` for legacy custom catalogs.
+
 During loading, the registry verifies:
 
 - field names remain unique after sanitization;
@@ -104,6 +112,8 @@ The exception identifies:
 
 An explicitly supplied mismatch is never silently corrected and is never sent with only a warning.
 
+Exact integral real counts such as `2.0` remain accepted for compatibility with the previous NumPy integer coercion. Non-integral values are rejected instead of being truncated.
+
 ## Named-field sending and inference
 
 `NanonisController.send_fields()` provides the inferred-size API:
@@ -132,6 +142,20 @@ controller.send_fields(
 ```
 
 If the explicit value is wrong, the same pre-send exception is raised.
+
+Transport controls use underscore-prefixed names so they cannot shadow protocol fields:
+
+```python
+controller.send_fields(
+    "HSSwp.Start",
+    wait_until_done=1,
+    timeout=10,      # HSSwp protocol field
+    _timeout=15.0,   # TCP transaction timeout
+    _check_error=True,
+)
+```
+
+The registry also lints the catalog against these reserved control names.
 
 Shared counts are checked against every target. For example, all five arrays in `Marks.LinesDraw` must have `num_lines` elements, and all seven segment arrays in `BiasSpectr.MLSValsSet` must have `num_segments` elements.
 
@@ -212,12 +236,16 @@ A binary regression fixture covers UTF-8 text followed by color and visibility a
 The new test module covers:
 
 - exact catalog coverage counts;
+- mandatory-overlay failure and its explicit opt-out;
 - positional mismatch rejection before TCP send;
 - named-field count inference;
+- the `HSSwp.Start.timeout` keyword-collision regression;
 - shared-count consistency;
+- compatibility with integral floating-point counts;
 - UTF-8 string-array byte-size inference;
 - one-time generator materialization;
 - direct encoder dimension checks;
+- consistent command-layer errors for ragged numeric input;
 - correct `Marks.PointsGet` decoding;
 - response byte-size mismatch rejection;
 - all-or-nothing command-side constraints;
@@ -230,10 +258,10 @@ ruff check src/nanonis/command tests/test_variable_length_validation.py
 All checks passed
 
 pytest -q
-288 passed
+294 passed
 ```
 
-The protocol PDF was inspected locally and confirms the string-array framing used by the implementation. No live command was sent to physical Nanonis hardware during this implementation; a non-destructive hardware round trip for a string-array setter remains recommended before the next live measurement session.
+The protocol PDF was inspected locally and confirms the string-array framing used by the implementation. No live command was sent to physical Nanonis hardware during this implementation. A non-destructive `Scan.PropsGet`/`Scan.PropsSet` round trip remains recommended before the next live measurement session; it can verify both string-array aggregate byte sizing and the element-count interpretation of `size_of_num_parameters_per_module_array`.
 
 ## Files changed
 
