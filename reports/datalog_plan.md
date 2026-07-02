@@ -438,6 +438,13 @@ recorded in a dated live report:
   strategy* (a different Get command per slot), not a flag on `ValsGet` —
   though note that the known module getters are also float32, so this buys
   provenance, not precision.
+- **Live view (proposed — [`datalog_liveview_plan.md`](datalog_liveview_plan.md)).**
+  An oscilloscope-style rolling plot of a running trace: a per-sample
+  `on_sample` hook on the workflow (observer only, fail-once dispatch, a
+  stated trusted-consumer contract), a matplotlib-free inbox/history view
+  model + background-run lifecycle in the package (tested), and a thin
+  matplotlib shell at the example layer behind a `liveview` optional extra.
+  No change to config, result, or scheduling semantics.
 - **Derived-quantity helpers** (PSD/noise floor, Allan deviation, settling
   detection) belong in a pure analysis module *consuming* `TimeTraceResult` —
   never inside the workflow.

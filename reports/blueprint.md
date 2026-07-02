@@ -521,6 +521,8 @@ them would repeat the unsafe assumptions this rebuild exists to remove.
   verified, and the known follow-ups.
 - [`datalog_plan.md`](datalog_plan.md) — implementation plan for M5a: the
   cancellation toolkit and the general-purpose time-trace datalog vertical.
+- [`datalog_liveview_plan.md`](datalog_liveview_plan.md) — proposal: per-sample
+  event hook + example-layer live plotting for running time traces.
 - [`datalog_walkthrough.md`](datalog_walkthrough.md) — what was implemented,
   verified offline, and what remains for live characterization and acceptance.
 - [`drift_plan.md`](drift_plan.md) — implementation plan for M5b: drift model +
