@@ -10,6 +10,26 @@ class WorkflowError(Exception):
     """Base class for orchestration failures."""
 
 
+class WorkflowCancelledError(WorkflowError):
+    """A cooperative cancellation request was observed by a workflow."""
+
+
+class TimeTraceResponseError(WorkflowError):
+    """A Signals response has the wrong shape or an inconsistent length."""
+
+
+class NonFiniteTimeTraceDataError(WorkflowError):
+    """Raised by NaNPolicy.RAISE while retaining the completed time trace."""
+
+    def __init__(self, result: Any, diagnostics: Any) -> None:
+        self.result = result
+        self.diagnostics = diagnostics
+        super().__init__(
+            f"time-trace data contains {diagnostics.nan_count} NaN and "
+            f"{diagnostics.inf_count} infinite values"
+        )
+
+
 class SpectroscopyResponseError(WorkflowError):
     """A fully received BiasSpectr response has inconsistent semantics."""
 
@@ -81,4 +101,3 @@ class NonFiniteSpectroscopyDataError(WorkflowError):
             f"spectroscopy data contains {diagnostics.nan_count} NaN and "
             f"{diagnostics.inf_count} infinite values"
         )
-

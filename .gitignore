@@ -91,3 +91,5 @@ examples/m4a_characterization_*.json
 examples/m4a_characterization_*.npz
 examples/oneframe_characterization_*.json
 examples/oneframe_characterization_*.npz
+reports/signals_characterization_*.json
+reports/live_time_trace_*.json
