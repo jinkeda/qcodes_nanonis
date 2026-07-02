@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 import re
-import os
 from collections.abc import Mapping
-from importlib.metadata import PackageNotFoundError, version
-from pathlib import Path
 from types import MappingProxyType
 from typing import Any, cast
 
 import numpy as np
+
+from ..provenance import software_provenance as _software_provenance
 
 
 def immutable_array(value: Any, *, ndim: int | None = None) -> np.ndarray:
@@ -53,17 +52,8 @@ def metadata_value(value: Any) -> Any:
 
 
 def software_provenance() -> dict[str, str]:
-    """Return package version and source commit when a checkout is available."""
-    try:
-        package_version = version("qcodes-nanonis")
-    except PackageNotFoundError:
-        package_version = "0.1.0"
-    commit = os.environ.get("QCODES_NANONIS_GIT_COMMIT") or _source_git_commit()
-    return {
-        "name": "qcodes-nanonis",
-        "version": package_version,
-        "git_commit": commit or "unknown",
-    }
+    """Backward-compatible delegate to the vertical-neutral helper."""
+    return _software_provenance()
 
 
 def controller_provenance(header: Mapping[str, Any]) -> dict[str, Any]:
@@ -79,52 +69,17 @@ def controller_provenance(header: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def compact_header(
-    header: Mapping[str, Any], keys: tuple[str, ...]
-) -> dict[str, Any]:
+def compact_header(header: Mapping[str, Any], keys: tuple[str, ...]) -> dict[str, Any]:
     """Select small acquisition facts without serializing the full raw header."""
-    by_lower = {str(key).strip().lower(): (str(key), value)
-                for key, value in header.items()}
+    by_lower = {
+        str(key).strip().lower(): (str(key), value) for key, value in header.items()
+    }
     return {
         original: metadata_value(value)
         for key in keys
         if (item := by_lower.get(key.lower())) is not None
         for original, value in (item,)
     }
-
-
-def _source_git_commit() -> str | None:
-    for parent in Path(__file__).resolve().parents:
-        marker = parent / ".git"
-        if marker.is_dir():
-            return _read_git_dir(marker)
-        if marker.is_file():
-            line = marker.read_text(encoding="utf-8", errors="replace").strip()
-            if line.startswith("gitdir:"):
-                git_dir = (parent / line.split(":", 1)[1].strip()).resolve()
-                return _read_git_dir(git_dir)
-    return None
-
-
-def _read_git_dir(git_dir: Path) -> str | None:
-    head_path = git_dir / "HEAD"
-    if not head_path.is_file():
-        return None
-    head = head_path.read_text(encoding="ascii", errors="replace").strip()
-    if not head.startswith("ref:"):
-        return head or None
-    reference = head.split(":", 1)[1].strip()
-    loose = git_dir / reference
-    if loose.is_file():
-        return loose.read_text(encoding="ascii", errors="replace").strip() or None
-    packed = git_dir / "packed-refs"
-    if packed.is_file():
-        for line in packed.read_text(encoding="ascii", errors="replace").splitlines():
-            if line and not line.startswith(("#", "^")):
-                commit, name = line.split(" ", 1)
-                if name == reference:
-                    return commit
-    return None
 
 
 _LABEL_UNIT = re.compile(r"^(.*?)\s*[\[(]([^\])]+)[\])]\s*(.*)$")
