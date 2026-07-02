@@ -18,6 +18,10 @@ class TimeTraceResponseError(WorkflowError):
     """A Signals response has the wrong shape or an inconsistent length."""
 
 
+class LiveViewTimeoutError(WorkflowError, TimeoutError):
+    """A live-view worker did not terminate within the requested timeout."""
+
+
 class NonFiniteTimeTraceDataError(WorkflowError):
     """Raised by NaNPolicy.RAISE while retaining the completed time trace."""
 

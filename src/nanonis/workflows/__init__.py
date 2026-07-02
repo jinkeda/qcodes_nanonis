@@ -1,6 +1,7 @@
 """High-level, transactional Nanonis measurement workflows."""
 
 from .errors import (
+    LiveViewTimeoutError,
     NonFiniteTimeTraceDataError,
     NonFiniteScanDataError,
     NonFiniteSpectroscopyDataError,
@@ -18,13 +19,19 @@ from .cancellation import (
     CancelToken,
     ProgressCallback,
     ProgressEvent,
+    SampleCallback,
+    SampleEvent,
     cancel_on_sigint,
 )
 from .datalog import (
+    BackgroundTraceRun,
+    RunState,
+    SampleInbox,
     TimeTraceConfig,
     TimeTraceNonFiniteDiagnostics,
     TimeTraceResult,
     TimeTraceWorkflow,
+    TraceHistory,
     inspect_non_finite_trace,
 )
 from .models import (
@@ -105,6 +112,7 @@ __all__ = [
     "BiasSpectroscopySettings",
     "BiasSpectroscopyTiming",
     "BiasSpectroscopyWorkflow",
+    "BackgroundTraceRun",
     "CancelToken",
     "CommandClient",
     "DATA_BACKWARD",
@@ -112,12 +120,17 @@ __all__ = [
     "DIRECTION_DOWN",
     "DIRECTION_UP",
     "NaNPolicy",
+    "LiveViewTimeoutError",
     "NonFiniteDiagnostics",
     "NonFiniteScanDataError",
     "NonFiniteSpectroscopyDataError",
     "NonFiniteTimeTraceDataError",
     "ProgressCallback",
     "ProgressEvent",
+    "RunState",
+    "SampleCallback",
+    "SampleEvent",
+    "SampleInbox",
     "RecoverableCommandClient",
     "RecoveryError",
     "RecoveryReport",
@@ -145,6 +158,7 @@ __all__ = [
     "TimeTraceResponseError",
     "TimeTraceResult",
     "TimeTraceWorkflow",
+    "TraceHistory",
     "TipRestorePolicy",
     "WorkflowError",
     "WorkflowCancelledError",

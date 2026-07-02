@@ -54,6 +54,19 @@ class ProgressEvent:
 ProgressCallback = Callable[[ProgressEvent], None]
 
 
+@dataclass(frozen=True)
+class SampleEvent:
+    """One stored sample emitted by a time-trace workflow."""
+
+    workflow: str
+    sample_index: int
+    elapsed_s: float
+    values: tuple[float, ...]
+
+
+SampleCallback = Callable[[SampleEvent], None]
+
+
 def report_progress(callback: ProgressCallback | None, event: ProgressEvent) -> None:
     """Invoke a progress callback without letting it abort acquisition."""
     if callback is None:
@@ -96,6 +109,8 @@ __all__ = [
     "CancelToken",
     "ProgressCallback",
     "ProgressEvent",
+    "SampleCallback",
+    "SampleEvent",
     "cancel_on_sigint",
     "report_progress",
 ]

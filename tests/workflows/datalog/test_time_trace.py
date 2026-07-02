@@ -18,6 +18,7 @@ from nanonis.workflows import (
     TimeTraceResponseError,
     TimeTraceResult,
     TimeTraceWorkflow,
+    SampleEvent,
 )
 
 from ..conftest import FakeController
@@ -403,3 +404,140 @@ def test_result_metadata_and_validation() -> None:
             cancelled=False,
             nanonis_version=None,
         )
+
+
+def test_sample_events_match_stored_result() -> None:
+    events: list[SampleEvent] = []
+    result = TimeTraceWorkflow(
+        scripted_client(3, (1.0, 2.0), (3.0, 4.0), (5.0, 6.0))
+    ).run(
+        TimeTraceConfig(
+            (0, 1), duration_s=0.08, sample_interval_s=0.04,
+            resolve_names=False,
+        ),
+        on_sample=events.append,
+    )
+
+    assert [event.sample_index for event in events] == [0, 1, 2]
+    assert all(event.workflow == "datalog.time_trace" for event in events)
+    assert all(isinstance(event.values, tuple) for event in events)
+    np.testing.assert_array_equal(
+        [event.elapsed_s for event in events], result.elapsed_s
+    )
+    np.testing.assert_array_equal(
+        np.asarray([event.values for event in events]).T, result.values
+    )
+
+
+def test_sample_callback_fails_once_and_logs_summary(caplog) -> None:
+    calls: list[int] = []
+
+    def callback(event: SampleEvent) -> None:
+        calls.append(event.sample_index)
+        if event.sample_index == 2:
+            raise RuntimeError("display failed")
+
+    with caplog.at_level(logging.WARNING):
+        result = TimeTraceWorkflow(scripted_client(5)).run(
+            TimeTraceConfig(
+                (0,), duration_s=0.16, sample_interval_s=0.04,
+                resolve_names=False,
+            ),
+            on_sample=callback,
+        )
+
+    assert result.n_samples == 5
+    assert calls == [0, 1, 2]
+    assert caplog.text.count("sample callback failed") == 1
+    assert caplog.text.count("stopped at sample 2") == 1
+
+
+def test_sample_callback_failure_summary_survives_transport_error(caplog) -> None:
+    calls = 0
+
+    def response(command, args, timeout):
+        nonlocal calls
+        calls += 1
+        if calls == 5:
+            raise NanonisTimeoutError("later timeout")
+        return vals(float(calls))
+
+    client = FakeController().script("Util.VersionGet", version())
+    client.script("Signals.ValsGet", *(response for _ in range(5)))
+
+    def callback(event: SampleEvent) -> None:
+        if event.sample_index == 2:
+            raise RuntimeError("display failed")
+
+    with caplog.at_level(logging.WARNING), pytest.raises(NanonisTimeoutError):
+        TimeTraceWorkflow(client).run(
+            TimeTraceConfig(
+                (0,), duration_s=0.16, sample_interval_s=0.04,
+                resolve_names=False,
+            ),
+            on_sample=callback,
+        )
+    assert "stopped at sample 2" in caplog.text
+
+
+def test_slow_sample_callback_affects_next_deadline_only(monkeypatch) -> None:
+    clock = FakeClock()
+    monkeypatch.setattr(datalog_workflow_module.time, "monotonic", clock.monotonic)
+    monkeypatch.setattr(datalog_workflow_module.time, "sleep", clock.sleep)
+    config = TimeTraceConfig(
+        (0,), duration_s=0.08, sample_interval_s=0.04, resolve_names=False
+    )
+
+    slow_first = TimeTraceWorkflow(scripted_client(3)).run(
+        config,
+        on_sample=lambda event: clock.advance(0.07)
+        if event.sample_index == 0
+        else None,
+    )
+    assert slow_first.late_sample_count == 1
+
+    clock.now = 100.0
+    slow_final = TimeTraceWorkflow(scripted_client(3)).run(
+        config,
+        on_sample=lambda event: clock.advance(0.07)
+        if event.sample_index == 2
+        else None,
+    )
+    assert slow_final.late_sample_count == 0
+
+
+def test_cancelled_trace_emits_exactly_its_stored_samples() -> None:
+    token = CancelToken()
+    events: list[SampleEvent] = []
+    client = FakeController().script("Util.VersionGet", version())
+
+    def first(command, args, timeout):
+        token.cancel()
+        return vals(1.0)
+
+    client.script("Signals.ValsGet", first)
+    result = TimeTraceWorkflow(client).run(
+        TimeTraceConfig(
+            (0,), duration_s=0.4, sample_interval_s=0.04, resolve_names=False
+        ),
+        cancel=token,
+        on_sample=events.append,
+    )
+    assert len(events) == result.n_samples == 1
+
+
+def test_none_sample_callback_allocates_no_events(monkeypatch) -> None:
+    baseline_client = scripted_client(2)
+    config = TimeTraceConfig(
+        (0,), duration_s=0.04, sample_interval_s=0.04, resolve_names=False
+    )
+    baseline = TimeTraceWorkflow(baseline_client).run(config)
+
+    def forbidden_event(*args, **kwargs):
+        raise AssertionError("SampleEvent must not be constructed")
+
+    monkeypatch.setattr(datalog_workflow_module, "SampleEvent", forbidden_event)
+    explicit_client = scripted_client(2)
+    explicit = TimeTraceWorkflow(explicit_client).run(config, on_sample=None)
+    assert explicit_client.sent == baseline_client.sent
+    np.testing.assert_array_equal(explicit.values, baseline.values)

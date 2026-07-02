@@ -32,6 +32,10 @@ qcodes = [
 xarray = [
     "xarray>=2023.1",
 ]
+liveview = [
+    "matplotlib>=3.8",
+    "ipympl>=0.9",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",

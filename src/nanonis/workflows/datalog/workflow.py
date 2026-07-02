@@ -17,6 +17,8 @@ from ..cancellation import (
     CancelToken,
     ProgressCallback,
     ProgressEvent,
+    SampleCallback,
+    SampleEvent,
     report_progress,
 )
 from ..errors import NonFiniteTimeTraceDataError, TimeTraceResponseError
@@ -46,6 +48,7 @@ class TimeTraceWorkflow:
         *,
         cancel: CancelToken | None = None,
         on_progress: ProgressCallback | None = None,
+        on_sample: SampleCallback | None = None,
     ) -> TimeTraceResult:
         if not isinstance(config, TimeTraceConfig):
             raise TypeError("config must be a TimeTraceConfig")
@@ -64,89 +67,118 @@ class TimeTraceWorkflow:
         deadline = t0
         last_progress = t0
         was_cancelled = False
+        sample_callback = on_sample
+        sample_callback_failed_at: int | None = None
 
-        for sample_index in range(config.n_samples):
-            # This check is intentionally unconditional: a late loop does not
-            # sleep, but still has to observe cancellation before the send.
-            if cancel is not None and cancel.cancelled:
-                was_cancelled = True
-                break
-            remaining = deadline - time.monotonic()
-            if remaining > 0:
-                if cancel is not None:
-                    if cancel.wait(remaining):
-                        was_cancelled = True
-                        break
+        try:
+            for sample_index in range(config.n_samples):
+                # This check is intentionally unconditional: a late loop does not
+                # sleep, but still has to observe cancellation before the send.
+                if cancel is not None and cancel.cancelled:
+                    was_cancelled = True
+                    break
+                remaining = deadline - time.monotonic()
+                if remaining > 0:
+                    if cancel is not None:
+                        if cancel.wait(remaining):
+                            was_cancelled = True
+                            break
+                    else:
+                        time.sleep(remaining)
+
+                acquisition_started = time.monotonic()
+                lateness = acquisition_started - deadline
+                if sample_index > 0 and lateness > tolerance:
+                    late += 1
+                    # A counted overrun rebases the next tick. This avoids a burst
+                    # of catch-up reads while ordinary wakeup jitter stays on-grid.
+                    deadline = acquisition_started + config.sample_interval_s
                 else:
-                    time.sleep(remaining)
+                    deadline += config.sample_interval_s
 
-            acquisition_started = time.monotonic()
-            lateness = acquisition_started - deadline
-            if sample_index > 0 and lateness > tolerance:
-                late += 1
-                # A counted overrun rebases the next tick. This avoids a burst
-                # of catch-up reads while ordinary wakeup jitter stays on-grid.
-                deadline = acquisition_started + config.sample_interval_s
-            else:
-                deadline += config.sample_interval_s
-
-            response = self.client.send(
-                "Signals.ValsGet",
-                n_signals,
-                config.signal_indexes,
-                1 if config.wait_for_newest_data else 0,
-            )
-            row = _extract_values(response, expected=n_signals)
-            sample_elapsed = time.monotonic() - t0
-            if acquired and sample_elapsed <= elapsed[acquired - 1]:
-                # Some supported Python/Windows builds expose a coarse
-                # ``monotonic`` clock. Preserve ordering at that clock's
-                # indistinguishable ticks with the smallest float64 increment.
-                sample_elapsed = np.nextafter(elapsed[acquired - 1], np.inf)
-            elapsed[acquired] = sample_elapsed
-            values[:, acquired] = row
-            acquired += 1
-
-            now = time.monotonic()
-            if now - last_progress >= 1.0:
-                report_progress(
-                    on_progress,
-                    ProgressEvent(
-                        workflow=_WORKFLOW_NAME,
-                        fraction=acquired / config.n_samples,
-                        message=f"acquired {acquired}/{config.n_samples} samples",
-                        elapsed_s=now - t0,
-                    ),
+                response = self.client.send(
+                    "Signals.ValsGet",
+                    n_signals,
+                    config.signal_indexes,
+                    1 if config.wait_for_newest_data else 0,
                 )
-                last_progress = now
+                row = _extract_values(response, expected=n_signals)
+                sample_elapsed = time.monotonic() - t0
+                if acquired and sample_elapsed <= elapsed[acquired - 1]:
+                    # Some supported Python/Windows builds expose a coarse
+                    # ``monotonic`` clock. Preserve ordering at that clock's
+                    # indistinguishable ticks with the smallest float64 increment.
+                    sample_elapsed = np.nextafter(elapsed[acquired - 1], np.inf)
+                elapsed[acquired] = sample_elapsed
+                values[:, acquired] = row
+                acquired += 1
 
-        finished_at = datetime.now(timezone.utc)
-        result = TimeTraceResult(
-            signal_indexes=config.signal_indexes,
-            signal_names=signal_names,
-            elapsed_s=elapsed[:acquired],
-            values=values[:, :acquired],
-            requested_interval_s=config.sample_interval_s,
-            started_at=started_at,
-            finished_at=finished_at,
-            late_sample_count=late,
-            cancelled=was_cancelled,
-            nanonis_version=nanonis_version,
-            requested_duration_s=config.duration_s,
-            wait_for_newest_data=config.wait_for_newest_data,
-            resolve_names=config.resolve_names,
-        )
-        result = _apply_nan_policy(result, self.nan_policy)
-        report_progress(
-            on_progress,
-            ProgressEvent(
-                workflow=_WORKFLOW_NAME,
-                fraction=acquired / config.n_samples,
-                message=("cancelled" if was_cancelled else "complete"),
-                elapsed_s=max(0.0, time.monotonic() - t0),
-            ),
-        )
-        return result
+                if sample_callback is not None:
+                    event = SampleEvent(
+                        workflow=_WORKFLOW_NAME,
+                        sample_index=sample_index,
+                        elapsed_s=float(sample_elapsed),
+                        values=tuple(float(value) for value in row),
+                    )
+                    try:
+                        sample_callback(event)
+                    except Exception:
+                        sample_callback_failed_at = sample_index
+                        sample_callback = None
+                        logger.exception(
+                            "sample callback failed for %s at sample %d; "
+                            "disabling delivery",
+                            _WORKFLOW_NAME,
+                            sample_index,
+                        )
+
+                now = time.monotonic()
+                if now - last_progress >= 1.0:
+                    report_progress(
+                        on_progress,
+                        ProgressEvent(
+                            workflow=_WORKFLOW_NAME,
+                            fraction=acquired / config.n_samples,
+                            message=f"acquired {acquired}/{config.n_samples} samples",
+                            elapsed_s=now - t0,
+                        ),
+                    )
+                    last_progress = now
+
+            finished_at = datetime.now(timezone.utc)
+            result = TimeTraceResult(
+                signal_indexes=config.signal_indexes,
+                signal_names=signal_names,
+                elapsed_s=elapsed[:acquired],
+                values=values[:, :acquired],
+                requested_interval_s=config.sample_interval_s,
+                started_at=started_at,
+                finished_at=finished_at,
+                late_sample_count=late,
+                cancelled=was_cancelled,
+                nanonis_version=nanonis_version,
+                requested_duration_s=config.duration_s,
+                wait_for_newest_data=config.wait_for_newest_data,
+                resolve_names=config.resolve_names,
+            )
+            result = _apply_nan_policy(result, self.nan_policy)
+            report_progress(
+                on_progress,
+                ProgressEvent(
+                    workflow=_WORKFLOW_NAME,
+                    fraction=acquired / config.n_samples,
+                    message=("cancelled" if was_cancelled else "complete"),
+                    elapsed_s=max(0.0, time.monotonic() - t0),
+                ),
+            )
+            return result
+        finally:
+            if sample_callback_failed_at is not None:
+                logger.warning(
+                    "sample callback delivery for %s stopped at sample %d",
+                    _WORKFLOW_NAME,
+                    sample_callback_failed_at,
+                )
 
     def _read_nanonis_version(self) -> str | None:
         try:
