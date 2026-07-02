@@ -1,4 +1,344 @@
 {
+    "LockIn.ModOnOffSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Lock-In On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModOnOffGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Lock-In On/Off",
+                "type": "I"
+            }
+        ]
+    },
+    "LockIn.ModSignalSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Modulator Signal Index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModSignalGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Modulator Signal Index",
+                "type": "i"
+            }
+        ]
+    },
+    "LockIn.ModPhasRegSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModPhasRegGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            }
+        ]
+    },
+    "LockIn.ModHarmonicSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Harmonic",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModHarmonicGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Harmonic",
+                "type": "i"
+            }
+        ]
+    },
+    "LockIn.ModPhasSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModPhasGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.ModAmpSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModAmpGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Amplitude",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.ModPhasFreqSet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.ModPhasFreqGet": {
+        "args": [
+            {
+                "name": "Modulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency (Hz)",
+                "type": "d"
+            }
+        ]
+    },
+    "LockIn.DemodSignalSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodSignalGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Demodulator Signal Index",
+                "type": "i"
+            }
+        ]
+    },
+    "LockIn.DemodHarmonicSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Harmonic",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodHarmonicGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Harmonic",
+                "type": "i"
+            }
+        ]
+    },
+    "LockIn.DemodHPFilterSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodHPFilterGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "HP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "HP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.DemodLPFilterSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "LP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "LP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodLPFilterGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "LP Filter Order",
+                "type": "i"
+            },
+            {
+                "name": "LP Filter Cutoff Frequency (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockIn.DemodPhasRegSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodPhasRegGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase Register Index",
+                "type": "i"
+            }
+        ]
+    },
     "LockIn.DemodPhasSet": {
         "args": [
             {
@@ -26,7 +366,20 @@
             }
         ]
     },
-    "LockIn.DemodSignalGet": {
+    "LockIn.DemodSyncFilterSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            },
+            {
+                "name": "Sync Filter",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodSyncFilterGet": {
         "args": [
             {
                 "name": "Demodulator number",
@@ -35,8 +388,35 @@
         ],
         "resp": [
             {
-                "name": "Demodulator Signal Index",
+                "name": "Sync Filter",
+                "type": "I"
+            }
+        ]
+    },
+    "LockIn.DemodRTSignalsSet": {
+        "args": [
+            {
+                "name": "Demodulator number",
                 "type": "i"
+            },
+            {
+                "name": "RT Signals",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "LockIn.DemodRTSignalsGet": {
+        "args": [
+            {
+                "name": "Demodulator number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "RT Signals",
+                "type": "I"
             }
         ]
     }

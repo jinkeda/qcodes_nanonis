@@ -23,5 +23,198 @@
             }
         ],
         "resp": []
+    },
+    "Marks.PointsDraw": {
+        "args": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "1D array string"
+            },
+            {
+                "name": "Color",
+                "type": "1D array unsigned int32"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.LineDraw": {
+        "args": [
+            {
+                "name": "Start point X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Start point Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "End point X coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "End point Y coordinate (m)",
+                "type": "f"
+            },
+            {
+                "name": "Color",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.LinesDraw": {
+        "args": [
+            {
+                "name": "Number of lines",
+                "type": "i"
+            },
+            {
+                "name": "Start point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Start point Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Color",
+                "type": "1D array unsigned int32"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.PointsErase": {
+        "args": [
+            {
+                "name": "Point index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.LinesErase": {
+        "args": [
+            {
+                "name": "Line index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.PointsVisibleSet": {
+        "args": [
+            {
+                "name": "Point index",
+                "type": "i"
+            },
+            {
+                "name": "Show/hide",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.LinesVisibleSet": {
+        "args": [
+            {
+                "name": "Line index",
+                "type": "i"
+            },
+            {
+                "name": "Show/hide",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Marks.PointsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Text size",
+                "type": "i"
+            },
+            {
+                "name": "Text",
+                "type": "1D array string"
+            },
+            {
+                "name": "Color",
+                "type": "1D array unsigned int32"
+            },
+            {
+                "name": "Visible",
+                "type": "1D array unsigned int32"
+            }
+        ]
+    },
+    "Marks.LinesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of lines",
+                "type": "i"
+            },
+            {
+                "name": "Start point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Start point Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point X coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "End point Y coordinate (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Color",
+                "type": "1D array unsigned int32"
+            },
+            {
+                "name": "Visible",
+                "type": "1D array unsigned int32"
+            }
+        ]
     }
 }

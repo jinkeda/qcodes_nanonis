@@ -1,0 +1,62 @@
+{
+    "TipRec.BufferSizeSet": {
+        "args": [
+            {
+                "name": "Buffer size",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "TipRec.BufferSizeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Buffer size",
+                "type": "i"
+            }
+        ]
+    },
+    "TipRec.BufferClear": {
+        "args": [],
+        "resp": []
+    },
+    "TipRec.DataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "TipRec.DataSave": {
+        "args": [
+            {
+                "name": "Clear buffer",
+                "type": "I"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    }
+}

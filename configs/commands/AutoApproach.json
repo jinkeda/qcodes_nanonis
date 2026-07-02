@@ -1,4 +1,8 @@
 {
+    "AutoApproach.Open": {
+        "args": [],
+        "resp": []
+    },
     "AutoApproach.OnOffSet": {
         "args": [
             {
@@ -16,9 +20,5 @@
                 "type": "H"
             }
         ]
-    },
-    "AutoApproach.Open": {
-        "args": [],
-        "resp": []
     }
 }

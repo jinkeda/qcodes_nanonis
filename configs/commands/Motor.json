@@ -20,23 +20,38 @@
         ],
         "resp": []
     },
-    "Motor.FreqAmpGet": {
+    "Motor.StartClosedLoop": {
         "args": [
             {
-                "name": "axis",
-                "type": "H"
-            }
-        ],
-        "resp": [
-            {
-                "name": "frequency_hz",
-                "type": "f"
+                "name": "Absolute/relative",
+                "type": "I"
             },
             {
-                "name": "amplitude_v",
-                "type": "f"
+                "name": "Target X(m)",
+                "type": "d"
+            },
+            {
+                "name": "Target Y(m)",
+                "type": "d"
+            },
+            {
+                "name": "Target Z(m)",
+                "type": "d"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Group",
+                "type": "I"
             }
-        ]
+        ],
+        "resp": []
+    },
+    "Motor.StopMove": {
+        "args": [],
+        "resp": []
     },
     "Motor.PosGet": {
         "args": [
@@ -63,5 +78,70 @@
                 "type": "d"
             }
         ]
+    },
+    "Motor.StepCounterGet": {
+        "args": [
+            {
+                "name": "Reset X",
+                "type": "I"
+            },
+            {
+                "name": "Reset Y",
+                "type": "I"
+            },
+            {
+                "name": "Reset Z",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Step counter X",
+                "type": "i"
+            },
+            {
+                "name": "Step counter Y",
+                "type": "i"
+            },
+            {
+                "name": "Step counter Z",
+                "type": "i"
+            }
+        ]
+    },
+    "Motor.FreqAmpGet": {
+        "args": [
+            {
+                "name": "axis",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "frequency_hz",
+                "type": "f"
+            },
+            {
+                "name": "amplitude_v",
+                "type": "f"
+            }
+        ]
+    },
+    "Motor.FreqAmpSet": {
+        "args": [
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (V)",
+                "type": "f"
+            },
+            {
+                "name": "Axis",
+                "type": "H"
+            }
+        ],
+        "resp": []
     }
 }

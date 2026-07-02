@@ -44,6 +44,20 @@
             {
                 "name": "Modulator index",
                 "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input range (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.InpPropsSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
             },
             {
                 "name": "Differential input",
@@ -54,12 +68,7 @@
                 "type": "H"
             }
         ],
-        "resp": [
-            {
-                "name": "Input range (m)",
-                "type": "f"
-            }
-        ]
+        "resp": []
     },
     "PLL.InpPropsGet": {
         "args": [
@@ -124,10 +133,6 @@
             {
                 "name": "Modulator index",
                 "type": "i"
-            },
-            {
-                "name": "Output range",
-                "type": "H"
             }
         ],
         "resp": [
@@ -137,7 +142,34 @@
             }
         ]
     },
+    "PLL.ExcRangeSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
     "PLL.ExcRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Output range",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.ExcitationSet": {
         "args": [
             {
                 "name": "Modulator index",
@@ -148,14 +180,23 @@
                 "type": "f"
             }
         ],
+        "resp": []
+    },
+    "PLL.ExcitationGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
         "resp": [
             {
-                "name": "Output range",
-                "type": "H"
+                "name": "Excitation value (V)",
+                "type": "f"
             }
         ]
     },
-    "PLL.ExcitationGet": {
+    "PLL.AmpCtrlSetpntSet": {
         "args": [
             {
                 "name": "Modulator index",
@@ -166,12 +207,7 @@
                 "type": "f"
             }
         ],
-        "resp": [
-            {
-                "name": "Excitation value (V)",
-                "type": "f"
-            }
-        ]
+        "resp": []
     },
     "PLL.AmpCtrlSetpntGet": {
         "args": [
@@ -205,6 +241,20 @@
             {
                 "name": "Modulator index",
                 "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "PLL.AmpCtrlGainSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
             },
             {
                 "name": "P gain (V/m)",
@@ -215,22 +265,13 @@
                 "type": "f"
             }
         ],
-        "resp": [
-            {
-                "name": "Status",
-                "type": "I"
-            }
-        ]
+        "resp": []
     },
     "PLL.AmpCtrlGainGet": {
         "args": [
             {
                 "name": "Modulator index",
                 "type": "i"
-            },
-            {
-                "name": "Bandwidth (Hz)",
-                "type": "f"
             }
         ],
         "resp": [
@@ -247,6 +288,19 @@
                 "type": "f"
             }
         ]
+    },
+    "PLL.AmpCtrlBandwidthSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Bandwidth (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
     },
     "PLL.AmpCtrlBandwidthGet": {
         "args": [
@@ -346,10 +400,6 @@
             {
                 "name": "Modulator index",
                 "type": "i"
-            },
-            {
-                "name": "Frequency range (Hz)",
-                "type": "f"
             }
         ],
         "resp": [
@@ -359,7 +409,34 @@
             }
         ]
     },
+    "PLL.FreqRangeSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
     "PLL.FreqRangeGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Frequency range (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.CenterFreqSet": {
         "args": [
             {
                 "name": "Modulator index",
@@ -370,11 +447,16 @@
                 "type": "d"
             }
         ],
-        "resp": [
+        "resp": []
+    },
+    "PLL.CenterFreqGet": {
+        "args": [
             {
-                "name": "Frequency range (Hz)",
-                "type": "f"
-            },
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
             {
                 "name": "Center frequency (Hz)",
                 "type": "d"
@@ -439,18 +521,6 @@
             {
                 "name": "Modulator index",
                 "type": "i"
-            },
-            {
-                "name": "Demodulator index",
-                "type": "H"
-            },
-            {
-                "name": "Input",
-                "type": "H"
-            },
-            {
-                "name": "Frequency generator",
-                "type": "H"
             }
         ],
         "resp": [
@@ -464,14 +534,27 @@
             }
         ]
     },
-    "PLL.DemodInputGet": {
+    "PLL.DemodInputSet": {
         "args": [
             {
                 "name": "Demodulator index",
                 "type": "H"
             },
             {
-                "name": "Harmonic",
+                "name": "Input",
+                "type": "H"
+            },
+            {
+                "name": "Frequency generator",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.DemodInputGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
                 "type": "H"
             }
         ],
@@ -486,7 +569,34 @@
             }
         ]
     },
+    "PLL.DemodHarmonicSet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            },
+            {
+                "name": "Harmonic",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
     "PLL.DemodHarmonicGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Harmonic",
+                "type": "H"
+            }
+        ]
+    },
+    "PLL.DemodPhasRefSet": {
         "args": [
             {
                 "name": "Demodulator index",
@@ -495,22 +605,36 @@
             {
                 "name": "Phase reference (deg)",
                 "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLL.DemodPhasRefGet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Phase reference (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLL.DemodFilterSet": {
+        "args": [
+            {
+                "name": "Demodulator index",
+                "type": "H"
             },
             {
                 "name": "Filter order",
                 "type": "H"
             }
         ],
-        "resp": [
-            {
-                "name": "Harmonic",
-                "type": "H"
-            },
-            {
-                "name": "Phase reference (deg)",
-                "type": "f"
-            }
-        ]
+        "resp": []
     },
     "PLL.DemodFilterGet": {
         "args": [

@@ -5,11 +5,13 @@ Tests for Encoder/Decoder
 Tests for CommandEncoder and CommandDecoder roundtrip encoding.
 """
 
+import struct
+
 import pytest
 import numpy as np
 
 from nanonis.command.encoder import CommandEncoder, CommandDecoder
-from nanonis.protocol import NanonisProtocolError
+from nanonis.protocol import NanonisCommandError, NanonisProtocolError
 
 
 class TestCommandEncoder:
@@ -127,6 +129,21 @@ class TestCommandEncoder:
         result = self.decoder.decode(args, encoded)
         assert result['num'] == 5
         np.testing.assert_array_equal(result['values'], arr)
+
+    @pytest.mark.parametrize(
+        ("dtype", "values"),
+        [
+            ("array_uint32", [0, 1, 0xFFFFFFFF]),
+            ("array_uint8", [0, 1, 255]),
+        ],
+    )
+    def test_encode_unsigned_integer_arrays(self, dtype, values):
+        args = [("num", "int32"), ("values", dtype)]
+        encoded = self.encoder.encode(args, (len(values), values))
+
+        result = self.decoder.decode(args, encoded)
+
+        np.testing.assert_array_equal(result["values"], values)
 
     def test_encode_array_string(self):
         """Test string array encoding (count carried by preceding int)."""
@@ -300,3 +317,28 @@ class TestRoundtrip:
         assert result['num_ranges'] == 2
         assert result['bias_ranges'] == ranges
         assert result['bias_range_index'] == 1
+
+    def test_error_only_response_preempts_declared_fields(self):
+        """A closed module may omit normal fields and return only an error."""
+        message = b"Cannot access the module"
+        response = struct.pack(">Ii", 1, len(message)) + message
+
+        with pytest.raises(NanonisCommandError, match="Cannot access"):
+            self.decoder.decode(
+                [("data_rows", "int32"), ("data", "array_float32")],
+                response,
+                check_error=True,
+                command_name="Example.DataGet",
+            )
+
+    def test_error_trailer_after_extra_placeholders_is_reported(self):
+        message = b"Selected channel is unavailable"
+        response = b"\0" * 12 + struct.pack(">Ii", 1, len(message)) + message
+
+        with pytest.raises(NanonisCommandError, match="unavailable"):
+            self.decoder.decode(
+                [("signal_index", "int32")],
+                response,
+                check_error=True,
+                command_name="Example.SignalGet",
+            )

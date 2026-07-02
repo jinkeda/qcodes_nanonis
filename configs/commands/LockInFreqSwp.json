@@ -1,0 +1,162 @@
+{
+    "LockInFreqSwp.Open": {
+        "args": [],
+        "resp": []
+    },
+    "LockInFreqSwp.Start": {
+        "args": [
+            {
+                "name": "Get Data",
+                "type": "I"
+            },
+            {
+                "name": "Direction",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Channels names number",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "LockInFreqSwp.SignalSet": {
+        "args": [
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "LockInFreqSwp.SignalGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "LockInFreqSwp.LimitsSet": {
+        "args": [
+            {
+                "name": "Lower limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit (Hz)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "LockInFreqSwp.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Lower limit (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit (Hz)",
+                "type": "f"
+            }
+        ]
+    },
+    "LockInFreqSwp.PropsSet": {
+        "args": [
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Integration periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Save dialog",
+                "type": "I"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "LockInFreqSwp.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Integration periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling periods",
+                "type": "H"
+            },
+            {
+                "name": "Minimum Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Save dialog",
+                "type": "I"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ]
+    }
+}

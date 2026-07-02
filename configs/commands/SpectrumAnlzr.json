@@ -1,0 +1,314 @@
+{
+    "SpectrumAnlzr.ChSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.ChGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "SpectrumAnlzr.FreqRangeSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Range index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.FreqRangeGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Range index",
+                "type": "i"
+            },
+            {
+                "name": "Number of frequency ranges",
+                "type": "i"
+            },
+            {
+                "name": "Frequency ranges (Hz)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "SpectrumAnlzr.FreqResSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Resolution index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.FreqResGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Resolution index",
+                "type": "H"
+            },
+            {
+                "name": "Number of frequency resolutions",
+                "type": "i"
+            },
+            {
+                "name": "Frequency resolutions (Hz)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "SpectrumAnlzr.FFTWindowSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "FFT window index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.FFTWindowGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "FFT window index",
+                "type": "H"
+            }
+        ]
+    },
+    "SpectrumAnlzr.AveragSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.AveragGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "I"
+            }
+        ]
+    },
+    "SpectrumAnlzr.ACCouplingSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "AC coupling",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.ACCouplingGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "AC coupling",
+                "type": "I"
+            }
+        ]
+    },
+    "SpectrumAnlzr.CursorPosSet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Cursor type",
+                "type": "H"
+            },
+            {
+                "name": "Position X Cursor 1 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position X Cursor 2 (Hz)",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.CursorPosGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            },
+            {
+                "name": "Cursor type",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Position X Cursor 1 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position X Cursor 2 (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Position Y Cursor 1",
+                "type": "d"
+            }
+        ]
+    },
+    "SpectrumAnlzr.BandRMSGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Band RMS",
+                "type": "d"
+            },
+            {
+                "name": "Minimum frequency (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Maximum frequency (Hz)",
+                "type": "d"
+            }
+        ]
+    },
+    "SpectrumAnlzr.DCGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "DC value",
+                "type": "d"
+            }
+        ]
+    },
+    "SpectrumAnlzr.Run": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "SpectrumAnlzr.DataGet": {
+        "args": [
+            {
+                "name": "Spectrum Analyzer instance",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            }
+        ]
+    }
+}

@@ -67,32 +67,7 @@
         "resp": []
     },
     "PLLQCtrl.PhaseGet": {
-        "args": [
-            {
-                "name": "Modulator index",
-                "type": "i"
-            },
-            {
-                "name": "Number of po",
-                "type": "i"
-            },
-            {
-                "name": "Period (s)",
-                "type": "f"
-            },
-            {
-                "name": "Settling time (s)",
-                "type": "f"
-            },
-            {
-                "name": "Get data",
-                "type": "I"
-            },
-            {
-                "name": "Sweep direction",
-                "type": "I"
-            }
-        ],
+        "args": [],
         "resp": [
             {
                 "name": "Phase Adjustment",
@@ -101,62 +76,6 @@
             {
                 "name": "Phase Custom",
                 "type": "f"
-            },
-            {
-                "name": "Number of po",
-                "type": "i"
-            },
-            {
-                "name": "Period (s)",
-                "type": "f"
-            },
-            {
-                "name": "Settling time (s)",
-                "type": "f"
-            },
-            {
-                "name": "Channels names size (int)",
-                "type": "s"
-            },
-            {
-                "name": "Number of channels (int)",
-                "type": "s"
-            },
-            {
-                "name": "Channels names",
-                "type": "1D array string"
-            },
-            {
-                "name": "Data rows",
-                "type": "i"
-            },
-            {
-                "name": "Data columns",
-                "type": "i"
-            },
-            {
-                "name": "Data",
-                "type": "2D array float32"
-            },
-            {
-                "name": "Resonance frequency (Hz)",
-                "type": "d"
-            },
-            {
-                "name": "Q factor",
-                "type": "d"
-            },
-            {
-                "name": "Phase (deg)",
-                "type": "f"
-            },
-            {
-                "name": "Amplitude to excitation quotient (nm/mV)",
-                "type": "f"
-            },
-            {
-                "name": "Fit length",
-                "type": "i"
             }
         ]
     }

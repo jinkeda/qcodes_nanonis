@@ -1,11 +1,122 @@
 {
+    "Piezo.TiltSet": {
+        "args": [
+            {
+                "name": "Tilt X (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Tilt Y (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.TiltGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Tilt X (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Tilt Y (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.RangeSet": {
+        "args": [
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
     "Piezo.RangeGet": {
         "args": [],
         "resp": [
-            {"name": "Range X (m)", "type": "f"},
-            {"name": "Range Y (m)", "type": "f"},
-            {"name": "Range Z (m)", "type": "f"}
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            }
         ]
+    },
+    "Piezo.SensSet": {
+        "args": [
+            {
+                "name": "Calibration X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Z (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.SensGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Calibration X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Z (m/V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.DriftCompSet": {
+        "args": [
+            {
+                "name": "Compensation on/off",
+                "type": "i"
+            },
+            {
+                "name": "Vx (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vy (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Vz (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Saturation limit (%)",
+                "type": "f"
+            }
+        ],
+        "resp": []
     },
     "Piezo.DriftCompGet": {
         "args": [],
@@ -44,27 +155,249 @@
             }
         ]
     },
-    "Piezo.DriftCompSet": {
-        "args": [
+    "Piezo.CalibrGet": {
+        "args": [],
+        "resp": [
             {
-                "name": "Compensation status",
+                "name": "Calibration X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Calibration Z (m/V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.HVAInfoGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Gain AUX",
+                "type": "f"
+            },
+            {
+                "name": "Gain X",
+                "type": "f"
+            },
+            {
+                "name": "Gain Y",
+                "type": "f"
+            },
+            {
+                "name": "Gain Z",
+                "type": "f"
+            },
+            {
+                "name": "X/Y enabled status",
                 "type": "I"
             },
             {
-                "name": "Vx (m/s)",
+                "name": "Z enabled status",
+                "type": "I"
+            },
+            {
+                "name": "AUX enabled status",
+                "type": "I"
+            }
+        ]
+    },
+    "Piezo.HVAStatusLEDGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Overheated status",
+                "type": "I"
+            },
+            {
+                "name": "HV supply status",
+                "type": "I"
+            },
+            {
+                "name": "High temperature status",
+                "type": "I"
+            },
+            {
+                "name": "Output connector status",
+                "type": "I"
+            }
+        ]
+    },
+    "Piezo.XYZLimitsSet": {
+        "args": [
+            {
+                "name": "Enable limits",
+                "type": "H"
+            },
+            {
+                "name": "Voltage limit X Low (V)",
                 "type": "f"
             },
             {
-                "name": "Vy (m/s)",
+                "name": "Voltage limit X High (V)",
                 "type": "f"
             },
             {
-                "name": "Vz (m/s)",
+                "name": "Voltage limit Y Low (V)",
                 "type": "f"
             },
             {
-                "name": "Saturation limit (%)",
+                "name": "Voltage limit Y High (V)",
                 "type": "f"
+            },
+            {
+                "name": "Voltage limit Z Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z High (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.XYZLimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Enable limits",
+                "type": "H"
+            },
+            {
+                "name": "Voltage limit X Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit X High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Y High (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z Low (V)",
+                "type": "f"
+            },
+            {
+                "name": "Voltage limit Z High (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Piezo.HystOnOffSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.HystOnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ]
+    },
+    "Piezo.HystValsSet": {
+        "args": [
+            {
+                "name": "Number of fast axis points",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of fast axis points 2",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis points",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis points 2",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis Y hysteresis points",
+                "type": "1D array float32"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.HystValsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of fast axis points",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of fast axis points 2",
+                "type": "i"
+            },
+            {
+                "name": "Fast axis Y hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis points",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis X hysteresis points",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Number of slow axis points 2",
+                "type": "i"
+            },
+            {
+                "name": "Slow axis Y hysteresis points",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "Piezo.HystFileLoad": {
+        "args": [
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Piezo.HystFileSave": {
+        "args": [
+            {
+                "name": "File path",
+                "type": "s"
             }
         ],
         "resp": []

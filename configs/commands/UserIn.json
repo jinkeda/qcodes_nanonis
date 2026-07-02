@@ -1,0 +1,19 @@
+{
+    "UserIn.CalibrSet": {
+        "args": [
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    }
+}

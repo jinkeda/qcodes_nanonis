@@ -1,0 +1,118 @@
+{
+    "Osci1T.ChSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Osci1T.ChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "Osci1T.TimebaseSet": {
+        "args": [
+            {
+                "name": "Timebase index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Osci1T.TimebaseGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Timebase index",
+                "type": "i"
+            },
+            {
+                "name": "Number of timebases",
+                "type": "i"
+            },
+            {
+                "name": "Timebases (s)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "Osci1T.TrigSet": {
+        "args": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "Osci1T.TrigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            }
+        ]
+    },
+    "Osci1T.Run": {
+        "args": [],
+        "resp": []
+    },
+    "Osci1T.DataGet": {
+        "args": [
+            {
+                "name": "Data to get",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data t0",
+                "type": "d"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            }
+        ]
+    }
+}

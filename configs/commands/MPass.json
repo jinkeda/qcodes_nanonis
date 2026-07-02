@@ -11,10 +11,6 @@
     "MPass.Load": {
         "args": [
             {
-                "name": "File path size (int)",
-                "type": "s"
-            },
-            {
                 "name": "File path",
                 "type": "s"
             }
@@ -23,10 +19,6 @@
     },
     "MPass.Save": {
         "args": [
-            {
-                "name": "File path size (int)",
-                "type": "s"
-            },
             {
                 "name": "File path",
                 "type": "s"

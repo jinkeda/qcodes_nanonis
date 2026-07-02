@@ -1,0 +1,93 @@
+{
+    "CPDComp.Open": {
+        "args": [],
+        "resp": []
+    },
+    "CPDComp.Close": {
+        "args": [],
+        "resp": []
+    },
+    "CPDComp.ParamsSet": {
+        "args": [
+            {
+                "name": "Speed (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Range (V)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "CPDComp.ParamsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Speed (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Range (V)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            }
+        ]
+    },
+    "CPDComp.DataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Size 1",
+                "type": "i"
+            },
+            {
+                "name": "Bias forward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift forward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift forward fit data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Size 2",
+                "type": "i"
+            },
+            {
+                "name": "Bias backward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift backward data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Frequency Shift backward fit data",
+                "type": "1D array float32"
+            },
+            {
+                "name": "CPD estimate",
+                "type": "f"
+            },
+            {
+                "name": "a coefficient",
+                "type": "d"
+            },
+            {
+                "name": "b coefficient",
+                "type": "d"
+            }
+        ]
+    }
+}

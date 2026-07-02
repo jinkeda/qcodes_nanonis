@@ -1,0 +1,103 @@
+{
+    "BiasSwp.Open": {
+        "args": [],
+        "resp": []
+    },
+    "BiasSwp.Start": {
+        "args": [
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            },
+            {
+                "name": "Reset bias",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "BiasSwp.PropsSet": {
+        "args": [
+            {
+                "name": "Number of steps",
+                "type": "H"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSwp.LimitsSet": {
+        "args": [
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "BiasSwp.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ]
+    }
+}

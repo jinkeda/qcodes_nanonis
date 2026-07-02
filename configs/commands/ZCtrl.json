@@ -1,4 +1,31 @@
 {
+    "ZCtrl.ZPosSet": {
+        "args": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.ZPosGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
     "ZCtrl.OnOffGet": {
         "args": [],
         "resp": [
@@ -8,11 +35,11 @@
             }
         ]
     },
-    "ZCtrl.OnOffSet": {
+    "ZCtrl.SetpntSet": {
         "args": [
             {
-                "name": "Z-Controller status",
-                "type": "I"
+                "name": "Z-Controller setpoint",
+                "type": "f"
             }
         ],
         "resp": []
@@ -26,23 +53,88 @@
             }
         ]
     },
-    "ZCtrl.LimitsGet": {
-        "args": [],
-        "resp": [
+    "ZCtrl.GainSet": {
+        "args": [
             {
-                "name": "Z high limit (m)",
+                "name": "P-gain",
                 "type": "f"
             },
             {
-                "name": "Z low limit (m)",
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.GainGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
                 "type": "f"
             }
         ]
     },
-    "ZCtrl.SetpntSet": {
+    "ZCtrl.SwitchOffDelaySet": {
         "args": [
             {
-                "name": "Z-Controller setpoint",
+                "name": "Z-Controller switch off delay (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.SwitchOffDelayGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller switch off delay (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.TipLiftSet": {
+        "args": [
+            {
+                "name": "TipLift (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.TipLiftGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "TipLift (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.Home": {
+        "args": [],
+        "resp": []
+    },
+    "ZCtrl.HomePropsSet": {
+        "args": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
                 "type": "f"
             }
         ],
@@ -61,49 +153,35 @@
             }
         ]
     },
-    "ZCtrl.HomePropsSet": {
+    "ZCtrl.ActiveCtrlSet": {
         "args": [
             {
-                "name": "Relative or Absolute",
-                "type": "H"
+                "name": "Z-Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.CtrlListGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "List of controllers size",
+                "type": "i"
             },
             {
-                "name": "Home position (m)",
-                "type": "f"
-            }
-        ],
-        "resp": []
-    },
-    "ZCtrl.Home": {
-        "args": [],
-        "resp": []
-    },
-    "ZCtrl.StatusGet": {
-        "args": [],
-        "resp": [
+                "name": "Number of controllers",
+                "type": "i"
+            },
             {
-                "name": "Z -Controller Status",
-                "type": "H"
+                "name": "List of controllers",
+                "type": "1D array string"
+            },
+            {
+                "name": "Active Z-Controller index",
+                "type": "i"
             }
         ]
-    },
-    "ZCtrl.ZPosGet": {
-        "args": [],
-        "resp": [
-            {
-                "name": "Z position (m)",
-                "type": "f"
-            }
-        ]
-    },
-    "ZCtrl.ZPosSet": {
-        "args": [
-            {
-                "name": "Z position (m)",
-                "type": "f"
-            }
-        ],
-        "resp": []
     },
     "ZCtrl.Withdraw": {
         "args": [
@@ -117,5 +195,76 @@
             }
         ],
         "resp": []
+    },
+    "ZCtrl.WithdrawRateSet": {
+        "args": [
+            {
+                "name": "Withdraw slew rate (m/s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.WithdrawRateGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Withdraw slew rate (m/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.LimitsEnabledSet": {
+        "args": [
+            {
+                "name": "Limit Z status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.LimitsEnabledGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Limit Z status",
+                "type": "I"
+            }
+        ]
+    },
+    "ZCtrl.LimitsSet": {
+        "args": [
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZCtrl.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZCtrl.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z -Controller Status",
+                "type": "H"
+            }
+        ]
     }
 }

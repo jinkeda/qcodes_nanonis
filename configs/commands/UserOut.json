@@ -1,0 +1,199 @@
+{
+    "UserOut.ModeSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Output mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.ModeGet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Output mode",
+                "type": "H"
+            }
+        ]
+    },
+    "UserOut.MonitorChSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Monitor channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.MonitorChGet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Monitor channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "UserOut.ValSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Output value",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.CalibrSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.CalcSignalNameSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Calculated signal name",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.CalcSignalNameGet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calculated signal name",
+                "type": "s"
+            }
+        ]
+    },
+    "UserOut.CalcSignalConfigSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Signal 1",
+                "type": "H"
+            },
+            {
+                "name": "Operation",
+                "type": "H"
+            },
+            {
+                "name": "Signal 2",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.CalcSignalConfigGet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal 1",
+                "type": "H"
+            },
+            {
+                "name": "Operation",
+                "type": "H"
+            },
+            {
+                "name": "Signal 2",
+                "type": "H"
+            }
+        ]
+    },
+    "UserOut.LimitsSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Raw limits?",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "UserOut.LimitsGet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            },
+            {
+                "name": "Raw limits?",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            }
+        ]
+    }
+}

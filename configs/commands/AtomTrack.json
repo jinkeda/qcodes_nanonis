@@ -1,0 +1,92 @@
+{
+    "AtomTrack.CtrlSet": {
+        "args": [
+            {
+                "name": "AT control",
+                "type": "H"
+            },
+            {
+                "name": "Status",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "AtomTrack.StatusGet": {
+        "args": [
+            {
+                "name": "AT control",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "H"
+            }
+        ]
+    },
+    "AtomTrack.PropsSet": {
+        "args": [
+            {
+                "name": "Integral gain",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (m)",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Switch Off delay (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "AtomTrack.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Integral gain",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude (m)",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Switch Off delay (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "AtomTrack.QuickCompStart": {
+        "args": [
+            {
+                "name": "AT control",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "AtomTrack.DriftComp": {
+        "args": [],
+        "resp": []
+    }
+}

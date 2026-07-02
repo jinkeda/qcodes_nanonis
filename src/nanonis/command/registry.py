@@ -33,6 +33,8 @@ TYPE_MAPPING = {
     '1D array float64': 'array_float64',
     '1D array int': 'array_int32',
     '1D array int32': 'array_int32',
+    '1D array unsigned int32': 'array_uint32',
+    '1D array unsigned int8': 'array_uint8',
     '1D array string': 'array_string',
     '2D array float32': 'matrix_float32',
     '2D array string': 'matrix_string',

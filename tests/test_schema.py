@@ -102,6 +102,61 @@ def test_scan_setters_and_piezo_range_match_the_manual():
     ]
 
 
+def test_z_spectroscopy_commands_match_the_manual():
+    commands = registry()
+    expected = {
+        "ZSpectr.Open",
+        "ZSpectr.Start",
+        "ZSpectr.Stop",
+        "ZSpectr.StatusGet",
+        "ZSpectr.ChsSet",
+        "ZSpectr.ChsGet",
+        "ZSpectr.PropsSet",
+        "ZSpectr.PropsGet",
+        "ZSpectr.AdvPropsSet",
+        "ZSpectr.AdvPropsGet",
+        "ZSpectr.RangeSet",
+        "ZSpectr.RangeGet",
+        "ZSpectr.TimingSet",
+        "ZSpectr.TimingGet",
+        "ZSpectr.RetractDelaySet",
+        "ZSpectr.RetractDelayGet",
+        "ZSpectr.RetractSet",
+        "ZSpectr.RetractGet",
+        "ZSpectr.Retract2ndSet",
+        "ZSpectr.Retract2ndGet",
+        "ZSpectr.DigSyncSet",
+        "ZSpectr.DigSyncGet",
+        "ZSpectr.TTLSyncSet",
+        "ZSpectr.TTLSyncGet",
+        "ZSpectr.PulseSeqSyncSet",
+        "ZSpectr.PulseSeqSyncGet",
+    }
+    assert set(commands.list_commands("ZSpectr.")) == expected
+
+    # Scalar strings include their own length on the wire, so the registry
+    # normalizes away the manual's redundant Save-base-name-size field.
+    assert commands.get("ZSpectr.Start").get_send_types() == [
+        ("get_data", "uint32"),
+        ("save_base_name", "string"),
+    ]
+    assert [
+        value.type for value in commands.get("ZSpectr.AdvPropsSet").send_args
+    ] == ["float32", "uint16", "uint16", "uint16"]
+    assert [
+        value.name for value in commands.get("ZSpectr.AdvPropsSet").send_args
+    ] == [
+        "time_between_forward_and_backward_sweep_s",
+        "record_final_z",
+        "lockin_run",
+        "reset_z",
+    ]
+    assert commands.get("ZSpectr.StatusGet").get_recv_types() == [
+        ("status", "uint32")
+    ]
+    assert commands.get("ZSpectr.Stop").send_args == []
+
+
 def test_decoder_rejects_missing_or_incomplete_error_trailer():
     decoder = CommandDecoder()
     types = [("value", "float32")]

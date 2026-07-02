@@ -1,0 +1,423 @@
+{
+    "OsciHR.ChSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.ChGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.OversamplSet": {
+        "args": [
+            {
+                "name": "Oversampling index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.OversamplGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Oversampling index",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.CalibrModeSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.CalibrModeGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration mode",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.SamplesSet": {
+        "args": [
+            {
+                "name": "Number of samples",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.SamplesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of samples",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.PreTrigSet": {
+        "args": [
+            {
+                "name": "Pre-Trigger samples",
+                "type": "I"
+            },
+            {
+                "name": "Pre-Trigger (s)",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PreTrigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Pre-Trigger samples",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.Run": {
+        "args": [],
+        "resp": []
+    },
+    "OsciHR.OsciDataGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Data to get",
+                "type": "H"
+            },
+            {
+                "name": "Timeout (s)",
+                "type": "d"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data t0",
+                "type": "s"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Timeout",
+                "type": "I"
+            }
+        ]
+    },
+    "OsciHR.TrigModeSet": {
+        "args": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigModeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.TrigLevChSet": {
+        "args": [
+            {
+                "name": "Level trigger channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigLevChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Level trigger channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.TrigLevValSet": {
+        "args": [
+            {
+                "name": "Level trigger value",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigLevValGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Level trigger value",
+                "type": "d"
+            }
+        ]
+    },
+    "OsciHR.TrigLevHystSet": {
+        "args": [
+            {
+                "name": "Level trigger Hysteresis",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigLevHystGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Level trigger Hysteresis",
+                "type": "d"
+            }
+        ]
+    },
+    "OsciHR.TrigLevSlopeSet": {
+        "args": [
+            {
+                "name": "Level trigger slope",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigLevSlopeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Level trigger slope",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.TrigDigChSet": {
+        "args": [
+            {
+                "name": "Digital trigger channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigDigChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Digital trigger channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.TrigArmModeSet": {
+        "args": [
+            {
+                "name": "Trigger arming mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigArmModeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Trigger arming mode",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.TrigDigSlopeSet": {
+        "args": [
+            {
+                "name": "Digital trigger slope",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.TrigDigSlopeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Digital trigger slope",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.TrigRearm": {
+        "args": [],
+        "resp": []
+    },
+    "OsciHR.PSDShow": {
+        "args": [
+            {
+                "name": "Show PSD section",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PSDWeightSet": {
+        "args": [
+            {
+                "name": "PSD Weighting",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PSDWeightGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "PSD Weighting",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.PSDWindowSet": {
+        "args": [
+            {
+                "name": "PSD window type",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PSDWindowGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "PSD window type",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.PSDAvrgTypeSet": {
+        "args": [
+            {
+                "name": "PSD averaging type",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PSDAvrgTypeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "PSD averaging type",
+                "type": "H"
+            }
+        ]
+    },
+    "OsciHR.PSDAvrgCountSet": {
+        "args": [
+            {
+                "name": "PSD averaging count",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "OsciHR.PSDAvrgCountGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "PSD averaging count",
+                "type": "i"
+            }
+        ]
+    },
+    "OsciHR.PSDAvrgRestart": {
+        "args": [],
+        "resp": []
+    },
+    "OsciHR.PSDDataGet": {
+        "args": [
+            {
+                "name": "Data to get",
+                "type": "H"
+            },
+            {
+                "name": "Timeout (s)",
+                "type": "d"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            },
+            {
+                "name": "Timeout",
+                "type": "I"
+            }
+        ]
+    }
+}

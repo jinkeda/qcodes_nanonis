@@ -47,6 +47,7 @@ class CommandEncoder:
         'float32': '>f4',
         'float64': '>f8',
         'int32': '>i4',
+        'uint8': '>u1',
         'uint16': '>u2',
         'uint32': '>u4',
     }
@@ -239,6 +240,18 @@ class CommandDecoder:
         Raises:
             NanonisCommandError: If Nanonis returned an error
         """
+        # Some Nanonis modules return only the error trailer when a command
+        # cannot run (for example when its GUI module is closed), omitting all
+        # declared response fields. Detect that complete framing before trying
+        # to decode the normal payload.
+        if check_error and len(data) >= 8:
+            status = struct.unpack('>I', data[:4])[0]
+            description_size = struct.unpack('>i', data[4:8])[0]
+            if status != 0 and description_size >= 0 and len(data) == 8 + description_size:
+                error_info = self._parse_error(data)
+                if error_info:
+                    raise NanonisCommandError(command_name, error_info)
+
         result = {}
         offset = 0
         # Ordered record of (dtype, value) for every field decoded so far, used
@@ -262,7 +275,22 @@ class CommandDecoder:
                 ) from e
         
         if check_error:
-            error_info = self._parse_error(data[offset:])
+            trailer = data[offset:]
+            # Error responses from some older modules contain additional zero
+            # placeholders before the real trailer. Locate an aligned,
+            # self-consistent non-zero trailer suffix before treating this as
+            # malformed framing.
+            for candidate_offset in range(offset, len(data) - 7, 4):
+                status = struct.unpack('>I', data[candidate_offset:candidate_offset + 4])[0]
+                size = struct.unpack('>i', data[candidate_offset + 4:candidate_offset + 8])[0]
+                if (
+                    status != 0
+                    and size >= 0
+                    and candidate_offset + 8 + size == len(data)
+                ):
+                    trailer = data[candidate_offset:]
+                    break
+            error_info = self._parse_error(trailer)
             if error_info:
                 raise NanonisCommandError(command_name, error_info)
         elif offset != len(data):

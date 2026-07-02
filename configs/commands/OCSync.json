@@ -1,0 +1,70 @@
+{
+    "OCSync.AnglesSet": {
+        "args": [
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "OCSync.AnglesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel 1 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 1 off angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 2 on angle (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Channel 3 off angle (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "OCSync.LinkAnglesSet": {
+        "args": [
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "OCSync.LinkAnglesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Link angles Channel 1",
+                "type": "I"
+            },
+            {
+                "name": "Link angles Channel 2",
+                "type": "I"
+            }
+        ]
+    }
+}

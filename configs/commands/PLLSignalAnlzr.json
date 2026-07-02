@@ -1,0 +1,228 @@
+{
+    "PLLSignalAnlzr.Open": {
+        "args": [],
+        "resp": []
+    },
+    "PLLSignalAnlzr.ChSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLSignalAnlzr.ChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLSignalAnlzr.TimebaseSet": {
+        "args": [
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLSignalAnlzr.TimebaseGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Timebase",
+                "type": "i"
+            },
+            {
+                "name": "Update rate",
+                "type": "i"
+            },
+            {
+                "name": "Timebases size",
+                "type": "i"
+            },
+            {
+                "name": "Timebases number",
+                "type": "i"
+            },
+            {
+                "name": "Timebases",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "PLLSignalAnlzr.TrigAuto": {
+        "args": [],
+        "resp": []
+    },
+    "PLLSignalAnlzr.TrigRearm": {
+        "args": [],
+        "resp": []
+    },
+    "PLLSignalAnlzr.TrigSet": {
+        "args": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "PLLSignalAnlzr.TrigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source",
+                "type": "i"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            },
+            {
+                "name": "Arming mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger source signals list size",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list number",
+                "type": "i"
+            },
+            {
+                "name": "Trigger source signals list",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "PLLSignalAnlzr.OsciDataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Data t0",
+                "type": "d"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            }
+        ]
+    },
+    "PLLSignalAnlzr.FFTPropsSet": {
+        "args": [
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLSignalAnlzr.FFTPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLSignalAnlzr.FFTAvgRestart": {
+        "args": [],
+        "resp": []
+    },
+    "PLLSignalAnlzr.FFTDataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            }
+        ]
+    }
+}

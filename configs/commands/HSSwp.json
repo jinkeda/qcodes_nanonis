@@ -1,0 +1,527 @@
+{
+    "HSSwp.AcqChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.AcqChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Available Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels names number",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of available channels",
+                "type": "i"
+            },
+            {
+                "name": "Available Channels indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "HSSwp.AutoReverseSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "i"
+            },
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Signal",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Linkage to 1",
+                "type": "i"
+            },
+            {
+                "name": "Condition 2",
+                "type": "i"
+            },
+            {
+                "name": "Signal 2",
+                "type": "i"
+            },
+            {
+                "name": "Threshold 2",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.AutoReverseGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "On/Off",
+                "type": "i"
+            },
+            {
+                "name": "Condition",
+                "type": "i"
+            },
+            {
+                "name": "Signal",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Linkage to 1",
+                "type": "i"
+            },
+            {
+                "name": "Condition 2",
+                "type": "i"
+            },
+            {
+                "name": "Signal 2",
+                "type": "i"
+            },
+            {
+                "name": "Threshold 2",
+                "type": "f"
+            }
+        ]
+    },
+    "HSSwp.EndSettlSet": {
+        "args": [
+            {
+                "name": "Threshold",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.EndSettlGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Threshold",
+                "type": "f"
+            }
+        ]
+    },
+    "HSSwp.NumSweepsSet": {
+        "args": [
+            {
+                "name": "Number of sweeps",
+                "type": "I"
+            },
+            {
+                "name": "Continuous",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.NumSweepsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of sweeps",
+                "type": "I"
+            },
+            {
+                "name": "Continuous",
+                "type": "i"
+            }
+        ]
+    },
+    "HSSwp.ResetSignalsSet": {
+        "args": [
+            {
+                "name": "Reset Signals",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.ResetSignalsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Reset Signals",
+                "type": "i"
+            }
+        ]
+    },
+    "HSSwp.SaveBasenameSet": {
+        "args": [
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SaveBasenameGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Path",
+                "type": "s"
+            }
+        ]
+    },
+    "HSSwp.SaveDataSet": {
+        "args": [
+            {
+                "name": "Save Data",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SaveDataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Save Data",
+                "type": "i"
+            }
+        ]
+    },
+    "HSSwp.SaveOptionsSet": {
+        "args": [
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SaveOptionsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Modules parameters number",
+                "type": "i"
+            },
+            {
+                "name": "Modules parameters",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "HSSwp.Start": {
+        "args": [
+            {
+                "name": "Wait until done",
+                "type": "i"
+            },
+            {
+                "name": "Timeout",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "HSSwp.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "HSSwp.SwpChSigListGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signal names size",
+                "type": "i"
+            },
+            {
+                "name": "Signal names number",
+                "type": "i"
+            },
+            {
+                "name": "Signal names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of signals",
+                "type": "i"
+            },
+            {
+                "name": "Signal indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "HSSwp.SwpChSignalSet": {
+        "args": [
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            },
+            {
+                "name": "Timed Sweep",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChSignalGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Sweep signal index",
+                "type": "i"
+            },
+            {
+                "name": "Timed Sweep",
+                "type": "i"
+            }
+        ]
+    },
+    "HSSwp.SwpChLimitsSet": {
+        "args": [
+            {
+                "name": "Relative Limits",
+                "type": "i"
+            },
+            {
+                "name": "Start",
+                "type": "f"
+            },
+            {
+                "name": "Stop",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChLimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Relative Limits",
+                "type": "i"
+            },
+            {
+                "name": "Start",
+                "type": "f"
+            },
+            {
+                "name": "Stop",
+                "type": "f"
+            }
+        ]
+    },
+    "HSSwp.SwpChNumPtsSet": {
+        "args": [
+            {
+                "name": "Number of points",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChNumPtsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            }
+        ]
+    },
+    "HSSwp.SwpChTimingSet": {
+        "args": [
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChTimingGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "HSSwp.SwpChBwdSwSet": {
+        "args": [
+            {
+                "name": "Bwd Sweep",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChBwdSwGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bwd Sweep",
+                "type": "I"
+            }
+        ]
+    },
+    "HSSwp.SwpChBwdDelaySet": {
+        "args": [
+            {
+                "name": "Bwd Delay",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.SwpChBwdDelayGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bwd Delay",
+                "type": "f"
+            }
+        ]
+    },
+    "HSSwp.ZCtrlOffSet": {
+        "args": [
+            {
+                "name": "Z-Controller Off",
+                "type": "i"
+            },
+            {
+                "name": "Z-Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Z Averaging Time",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset",
+                "type": "f"
+            },
+            {
+                "name": "Z Control Time",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "HSSwp.ZCtrlOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z-Controller Off",
+                "type": "i"
+            },
+            {
+                "name": "Z-Controller Index",
+                "type": "i"
+            },
+            {
+                "name": "Z Averaging Time",
+                "type": "f"
+            },
+            {
+                "name": "Z Offset",
+                "type": "f"
+            },
+            {
+                "name": "Z Control Time",
+                "type": "f"
+            }
+        ]
+    }
+}

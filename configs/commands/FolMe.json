@@ -1,4 +1,21 @@
 {
+    "FolMe.XYPosSet": {
+        "args": [
+            {
+                "name": "X (m)",
+                "type": "d"
+            },
+            {
+                "name": "Y (m)",
+                "type": "d"
+            },
+            {
+                "name": "Wait end of move",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
     "FolMe.XYPosGet": {
         "args": [
             {
@@ -17,19 +34,152 @@
             }
         ]
     },
-    "FolMe.XYPosSet": {
+    "FolMe.SpeedSet": {
         "args": [
             {
-                "name": "X (m)",
-                "type": "d"
+                "name": "Speed (m/s)",
+                "type": "f"
             },
             {
-                "name": "Y (m)",
-                "type": "d"
-            },
-            {
-                "name": "Wait end of move",
+                "name": "Custom speed",
                 "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "FolMe.SpeedGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Custom speed",
+                "type": "I"
+            }
+        ]
+    },
+    "FolMe.OversamplSet": {
+        "args": [
+            {
+                "name": "Oversampling",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "FolMe.OversamplGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Oversampling",
+                "type": "i"
+            },
+            {
+                "name": "Sampling rate (Samples/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "FolMe.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "FolMe.PSOnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Point & Shoot status",
+                "type": "I"
+            }
+        ]
+    },
+    "FolMe.PSOnOffSet": {
+        "args": [
+            {
+                "name": "Point & Shoot status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "FolMe.PSExpGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Point & Shoot experiment",
+                "type": "H"
+            },
+            {
+                "name": "Size of the list of experiments",
+                "type": "i"
+            },
+            {
+                "name": "Number of experiments",
+                "type": "i"
+            },
+            {
+                "name": "List of experiments",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "FolMe.PSExpSet": {
+        "args": [
+            {
+                "name": "Point & Shoot experiment",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "FolMe.PSPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Auto resume",
+                "type": "I"
+            },
+            {
+                "name": "Use own basename",
+                "type": "I"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "FolMe.PSPropsSet": {
+        "args": [
+            {
+                "name": "Auto resume",
+                "type": "I"
+            },
+            {
+                "name": "Use own basename",
+                "type": "I"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
             }
         ],
         "resp": []

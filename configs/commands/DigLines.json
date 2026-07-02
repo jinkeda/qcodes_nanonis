@@ -1,0 +1,91 @@
+{
+    "DigLines.PropsSet": {
+        "args": [
+            {
+                "name": "Digital line",
+                "type": "I"
+            },
+            {
+                "name": "Port",
+                "type": "I"
+            },
+            {
+                "name": "Direction",
+                "type": "I"
+            },
+            {
+                "name": "Polarity",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "DigLines.OutStatusSet": {
+        "args": [
+            {
+                "name": "Port",
+                "type": "I"
+            },
+            {
+                "name": "Digital line",
+                "type": "I"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "DigLines.TTLValGet": {
+        "args": [
+            {
+                "name": "Port",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "TTL voltages size",
+                "type": "i"
+            },
+            {
+                "name": "TTL voltages",
+                "type": "1D array unsigned int32"
+            }
+        ]
+    },
+    "DigLines.Pulse": {
+        "args": [
+            {
+                "name": "Port",
+                "type": "I"
+            },
+            {
+                "name": "Digital lines size",
+                "type": "i"
+            },
+            {
+                "name": "Digital lines",
+                "type": "1D array unsigned int8"
+            },
+            {
+                "name": "Pulse width (s)",
+                "type": "f"
+            },
+            {
+                "name": "Pulse pause (s)",
+                "type": "f"
+            },
+            {
+                "name": "Number of pulses",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    }
+}

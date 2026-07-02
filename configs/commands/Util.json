@@ -3,10 +3,6 @@
         "args": [],
         "resp": [
             {
-                "name": "Session path size (int)",
-                "type": "s"
-            },
-            {
                 "name": "Session path",
                 "type": "s"
             }
@@ -63,6 +59,32 @@
         ],
         "resp": []
     },
+    "Util.LayoutLoad": {
+        "args": [
+            {
+                "name": "Layout file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session layout",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Util.LayoutSave": {
+        "args": [
+            {
+                "name": "Layout file path",
+                "type": "s"
+            },
+            {
+                "name": "Save session layout",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
     "Util.Lock": {
         "args": [],
         "resp": []
@@ -71,6 +93,60 @@
         "args": [],
         "resp": []
     },
+    "Util.RTFreqSet": {
+        "args": [
+            {
+                "name": "RT frequency",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Util.RTFreqGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "RT frequency",
+                "type": "f"
+            }
+        ]
+    },
+    "Util.AcqPeriodSet": {
+        "args": [
+            {
+                "name": "Acquisition Period (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Util.AcqPeriodGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Acquisition Period (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "Util.RTOversamplSet": {
+        "args": [
+            {
+                "name": "RT oversampling",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Util.RTOversamplGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "RT oversampling",
+                "type": "i"
+            }
+        ]
+    },
     "Util.Quit": {
         "args": [
             {
@@ -78,15 +154,7 @@
                 "type": "I"
             },
             {
-                "name": "Settings name size (int)",
-                "type": "s"
-            },
-            {
                 "name": "Settings name",
-                "type": "s"
-            },
-            {
-                "name": "Layout name size (int)",
                 "type": "s"
             },
             {
@@ -104,15 +172,7 @@
         "args": [],
         "resp": [
             {
-                "name": "Product Line size (int)",
-                "type": "s"
-            },
-            {
                 "name": "Product Line",
-                "type": "s"
-            },
-            {
-                "name": "Version size (int)",
                 "type": "s"
             },
             {

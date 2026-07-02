@@ -21,24 +21,6 @@
             }
         ]
     },
-    "Scan.XYPosGet": {
-        "args": [
-            {
-                "name": "Wait for newest data",
-                "type": "I"
-            }
-        ],
-        "resp": [
-            {
-                "name": "X (m)",
-                "type": "f"
-            },
-            {
-                "name": "Y (m)",
-                "type": "f"
-            }
-        ]
-    },
     "Scan.WaitEndOfScan": {
         "args": [
             {
@@ -87,6 +69,31 @@
             }
         ]
     },
+    "Scan.FrameSet": {
+        "args": [
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
     "Scan.FrameGet": {
         "args": [],
         "resp": [
@@ -112,15 +119,47 @@
             }
         ]
     },
-    "Scan.FrameSet": {
+    "Scan.BufferSet": {
         "args": [
-            {"name": "Center X (m)", "type": "f"},
-            {"name": "Center Y (m)", "type": "f"},
-            {"name": "Width (m)", "type": "f"},
-            {"name": "Height (m)", "type": "f"},
-            {"name": "Angle (deg)", "type": "f"}
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            }
         ],
         "resp": []
+    },
+    "Scan.BufferGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            }
+        ]
     },
     "Scan.PropsSet": {
         "args": [
@@ -232,68 +271,62 @@
             }
         ]
     },
-    "Scan.BufferSet": {
-        "args": [
-            {
-                "name": "Number of channels",
-                "type": "i"
-            },
-            {
-                "name": "Channel indexes",
-                "type": "1D array int"
-            },
-            {
-                "name": "Pixels",
-                "type": "i"
-            },
-            {
-                "name": "Lines",
-                "type": "i"
-            }
-        ],
-        "resp": []
-    },
-    "Scan.BufferGet": {
-        "args": [],
-        "resp": [
-            {
-                "name": "Number of channels",
-                "type": "i"
-            },
-            {
-                "name": "Channel indexes",
-                "type": "1D array int"
-            },
-            {
-                "name": "Pixels",
-                "type": "i"
-            },
-            {
-                "name": "Lines",
-                "type": "i"
-            }
-        ]
-    },
     "Scan.SpeedSet": {
         "args": [
-            {"name": "Forward linear speed (m/s)", "type": "f"},
-            {"name": "Backward linear speed (m/s)", "type": "f"},
-            {"name": "Forward time per line (s)", "type": "f"},
-            {"name": "Backward time per line (s)", "type": "f"},
-            {"name": "Keep parameter constant", "type": "H"},
-            {"name": "Speed ratio", "type": "f"}
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            }
         ],
         "resp": []
     },
     "Scan.SpeedGet": {
         "args": [],
         "resp": [
-            {"name": "Forward linear speed (m/s)", "type": "f"},
-            {"name": "Backward linear speed (m/s)", "type": "f"},
-            {"name": "Forward time per line (s)", "type": "f"},
-            {"name": "Backward time per line (s)", "type": "f"},
-            {"name": "Keep parameter constant", "type": "H"},
-            {"name": "Speed ratio", "type": "f"}
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            }
         ]
     },
     "Scan.FrameDataGrab": {
@@ -330,6 +363,82 @@
             },
             {
                 "name": "Scan direction",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.XYPosGet": {
+        "args": [
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "Scan.Save": {
+        "args": [
+            {
+                "name": "Wait until saved",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.BackgroundPaste": {
+        "args": [
+            {
+                "name": "Wait until pasted",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.BackgroundDelete": {
+        "args": [
+            {
+                "name": "Wait until deleted",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            },
+            {
+                "name": "Which background to delete",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
                 "type": "I"
             }
         ]

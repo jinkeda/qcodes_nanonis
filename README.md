@@ -38,7 +38,8 @@ from `qcodes`.
 
 ## Features
 
-- **Configuration-driven**: Commands defined in per-module JSON, easy to extend
+- **Complete command catalog**: 661 commands across 57 modules, generated from
+  the April 2025 R14718 protocol manual and stored as per-module JSON
 - **Type coercion**: Automatic conversion to correct numpy types
 - **Protocol-correct arrays**: 1D/2D arrays are framed per the Nanonis spec — no
   embedded length prefix; the element count comes from a separate preceding
@@ -223,19 +224,26 @@ nanonis.close()
 
 ## Command Definitions
 
-The per-module files in `configs/commands/` are the single source of truth.
+The 57 per-module files in `configs/commands/` are the runtime source of truth.
 The controller loads every `*.json` file in that directory and normalizes the
-raw protocol type codes at runtime.
+raw protocol type codes at runtime. `tests/fixtures/command_schema_manifest.json`
+pins the complete 661-command API and its field order.
 
 To add or fix a command:
 
 ```bash
-# Edit the relevant module file, for example configs/commands/TCPLog.json
-python scripts/live_test_commands.py
+# Edit or regenerate the relevant module, then run its guarded live checks.
+python generate_nanonis_tcp.py TCPProtocol_SPM.pdf configs/commands \
+    --existing configs/commands --module TCPLog
+python scripts/live_test_commands.py --module TCPLog --read-only
 ```
 
-To regenerate definitions from the protocol PDF, write directly to the same
-directory and merge the existing hand-corrected definitions:
+Generation requires Poppler's `pdftotext`. The generator uses hard command
+boundaries from the PDF table of contents, removes redundant scalar-string size
+fields, preserves existing definitions only when their wire shape matches the
+manual, and replaces mismatched definitions atomically.
+
+To regenerate the full catalog:
 
 ```bash
 python generate_nanonis_tcp.py TCPProtocol_SPM.pdf configs/commands \
@@ -249,7 +257,9 @@ controller, validates each response against its definition, and writes a
 categorized Markdown report.
 
 ```bash
-python scripts/live_test_commands.py --host 127.0.0.1 --port 6501
+# Recommended: one module, getters/open commands only.
+python scripts/live_test_commands.py --host 127.0.0.1 --port 6501 \
+    --module Signals --read-only
 ```
 
 Result categories:
@@ -258,15 +268,22 @@ Result categories:
 |----------|---------|
 | `PASS` | Sent, decoded, no error |
 | `MODULE_UNAVAILABLE` | Definition fine; the module isn't running in this session |
+| `EMPTY_RESPONSE` | Controller omitted declared fields without reporting an error |
 | `PROTOCOL_MISMATCH` | Wrong **send** types (Nanonis could not unflatten the request) |
 | `DECODE_ERROR` / `STRUCTURE_MISMATCH` | Wrong **recv** definition |
 | `NANONIS_ERROR` | Runtime/state error (e.g. invalid argument, file not found) |
 
-Destructive meta-commands (e.g. `Util.Quit`) are skipped by default. Reports and
-the command fix plan live under `reports/`.
+Destructive meta-commands (e.g. `Util.Quit`) are skipped by default. Matching
+setters reuse the values returned by their getters when the field names agree;
+other setters use synthesized neutral arguments. Potentially blocking `*.Start`
+commands are deferred until the rest of the catalog has been checked. Commands
+that require unavailable GUI modules or operator-controlled state are tracked in
+`reports/command_manual_validation.md`.
 
-> ⚠️ The harness sends state-changing commands with neutral arguments. Only run
-> it against a rig where neutral writes are harmless.
+> ⚠️ Only run without `--read-only` during development on a rig where state
+> changes and measurement actions are acceptable. `--read-only` restricts
+> execution to `*.Open` and `*Get` commands and is the appropriate default
+> during measurements.
 
 ## Directory Structure
 

@@ -1,0 +1,265 @@
+{
+    "Pattern.ExpOpen": {
+        "args": [],
+        "resp": []
+    },
+    "Pattern.ExpStart": {
+        "args": [
+            {
+                "name": "Pattern",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.ExpPause": {
+        "args": [
+            {
+                "name": "Pause/Resume",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.ExpStop": {
+        "args": [],
+        "resp": []
+    },
+    "Pattern.ExpStatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "Pattern.GridSet": {
+        "args": [
+            {
+                "name": "Set active pattern",
+                "type": "I"
+            },
+            {
+                "name": "Number of points in X",
+                "type": "i"
+            },
+            {
+                "name": "Number of points in Y",
+                "type": "i"
+            },
+            {
+                "name": "Grid=Scan frame",
+                "type": "I"
+            },
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.GridGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of points in X",
+                "type": "i"
+            },
+            {
+                "name": "Number of points in Y",
+                "type": "i"
+            },
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "Pattern.LineSet": {
+        "args": [
+            {
+                "name": "Set active pattern",
+                "type": "I"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Line=Scan frame",
+                "type": "I"
+            },
+            {
+                "name": "Line Point 1 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 1 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 Y (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.LineGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Line Point 1 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 1 Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Line Point 2 Y (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "Pattern.CloudSet": {
+        "args": [
+            {
+                "name": "Set active pattern",
+                "type": "I"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "X coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinates (m)",
+                "type": "1D array float32"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.CloudGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "X coordinates (m)",
+                "type": "1D array float32"
+            },
+            {
+                "name": "Y coordinates (m)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "Pattern.PropsSet": {
+        "args": [
+            {
+                "name": "Selected experiment",
+                "type": "s"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Save scan channels",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Pattern.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Size of the list of experiments",
+                "type": "i"
+            },
+            {
+                "name": "Number of experiments",
+                "type": "i"
+            },
+            {
+                "name": "List of experiments",
+                "type": "1D array string"
+            },
+            {
+                "name": "Selected experiment",
+                "type": "s"
+            },
+            {
+                "name": "External VI path",
+                "type": "s"
+            },
+            {
+                "name": "Pre-measure delay (s)",
+                "type": "f"
+            },
+            {
+                "name": "Save scan channels",
+                "type": "I"
+            }
+        ]
+    }
+}

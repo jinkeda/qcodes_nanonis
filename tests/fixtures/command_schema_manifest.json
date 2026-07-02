@@ -1,0 +1,10598 @@
+{
+  "manual_revision": "April 2025 R14718",
+  "command_count": 661,
+  "module_count": 57,
+  "commands": {
+    "AtomTrack.CtrlSet": {
+      "send": [
+        [
+          "at_control",
+          "uint16"
+        ],
+        [
+          "status",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "AtomTrack.DriftComp": {
+      "send": [],
+      "recv": []
+    },
+    "AtomTrack.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "integral_gain",
+          "float32"
+        ],
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude_m",
+          "float32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ],
+        [
+          "switch_off_delay_s",
+          "float32"
+        ]
+      ]
+    },
+    "AtomTrack.PropsSet": {
+      "send": [
+        [
+          "integral_gain",
+          "float32"
+        ],
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude_m",
+          "float32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ],
+        [
+          "switch_off_delay_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "AtomTrack.QuickCompStart": {
+      "send": [
+        [
+          "at_control",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "AtomTrack.StatusGet": {
+      "send": [
+        [
+          "at_control",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "status",
+          "uint16"
+        ]
+      ]
+    },
+    "AutoApproach.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint16"
+        ]
+      ]
+    },
+    "AutoApproach.OnOffSet": {
+      "send": [
+        [
+          "on_off",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "AutoApproach.Open": {
+      "send": [],
+      "recv": []
+    },
+    "BeamDefl.AutoOffset": {
+      "send": [
+        [
+          "deflection_signal",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BeamDefl.HorConfigGet": {
+      "send": [],
+      "recv": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ]
+    },
+    "BeamDefl.HorConfigSet": {
+      "send": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BeamDefl.IntConfigGet": {
+      "send": [],
+      "recv": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ]
+    },
+    "BeamDefl.IntConfigSet": {
+      "send": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BeamDefl.VerConfigGet": {
+      "send": [],
+      "recv": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ]
+    },
+    "BeamDefl.VerConfigSet": {
+      "send": [
+        [
+          "name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Bias.CalibrGet": {
+      "send": [],
+      "recv": [
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ]
+    },
+    "Bias.CalibrSet": {
+      "send": [
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Bias.Get": {
+      "send": [],
+      "recv": [
+        [
+          "bias_value_v",
+          "float32"
+        ]
+      ]
+    },
+    "Bias.Pulse": {
+      "send": [
+        [
+          "wait_until_done",
+          "uint32"
+        ],
+        [
+          "bias_pulse_width_s",
+          "float32"
+        ],
+        [
+          "bias_value_v",
+          "float32"
+        ],
+        [
+          "z_controller_on_hold",
+          "uint16"
+        ],
+        [
+          "pulse_absolute_relative",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Bias.RangeGet": {
+      "send": [],
+      "recv": [
+        [
+          "bias_ranges_size",
+          "int32"
+        ],
+        [
+          "num_ranges",
+          "int32"
+        ],
+        [
+          "bias_ranges",
+          "array_string"
+        ],
+        [
+          "bias_range_index",
+          "uint16"
+        ]
+      ]
+    },
+    "Bias.RangeSet": {
+      "send": [
+        [
+          "bias_range_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Bias.Set": {
+      "send": [
+        [
+          "bias_value_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.AdvPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "reset_bias",
+          "uint16"
+        ],
+        [
+          "z_controller_hold",
+          "uint16"
+        ],
+        [
+          "record_final_z",
+          "uint16"
+        ],
+        [
+          "lockin_run",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.AdvPropsSet": {
+      "send": [
+        [
+          "reset_bias",
+          "uint16"
+        ],
+        [
+          "z_controller_hold",
+          "uint16"
+        ],
+        [
+          "record_final_z",
+          "uint16"
+        ],
+        [
+          "lockin_run",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.AltZCtrlGet": {
+      "send": [],
+      "recv": [
+        [
+          "alternate_z_controller_setpoint",
+          "uint16"
+        ],
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ]
+      ]
+    },
+    "BiasSpectr.AltZCtrlSet": {
+      "send": [
+        [
+          "alternate_z_controller_setpoint",
+          "uint16"
+        ],
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.ChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "channels_size",
+          "int32"
+        ],
+        [
+          "num_channels_names",
+          "int32"
+        ],
+        [
+          "channels",
+          "array_string"
+        ]
+      ]
+    },
+    "BiasSpectr.ChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.DigSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "digital_sync",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.DigSyncSet": {
+      "send": [
+        [
+          "digital_sync",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.LimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "start_value_v",
+          "float32"
+        ],
+        [
+          "end_value_v",
+          "float32"
+        ]
+      ]
+    },
+    "BiasSpectr.LimitsSet": {
+      "send": [
+        [
+          "start_value_v",
+          "float32"
+        ],
+        [
+          "end_value_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.MLSLockinPerSegGet": {
+      "send": [],
+      "recv": [
+        [
+          "lock_in_per_segment",
+          "uint32"
+        ]
+      ]
+    },
+    "BiasSpectr.MLSLockinPerSegSet": {
+      "send": [
+        [
+          "lock_in_per_segment",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.MLSModeGet": {
+      "send": [],
+      "recv": [
+        [
+          "sweep_mode",
+          "string"
+        ]
+      ]
+    },
+    "BiasSpectr.MLSModeSet": {
+      "send": [
+        [
+          "sweep_mode",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.MLSValsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_segments",
+          "int32"
+        ],
+        [
+          "bias_start_v",
+          "array_float32"
+        ],
+        [
+          "bias_end_v",
+          "array_float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "array_float32"
+        ],
+        [
+          "settling_time_s",
+          "array_float32"
+        ],
+        [
+          "integration_time_s",
+          "array_float32"
+        ],
+        [
+          "steps",
+          "array_int32"
+        ],
+        [
+          "lock_in_run",
+          "array_uint32"
+        ]
+      ]
+    },
+    "BiasSpectr.MLSValsSet": {
+      "send": [
+        [
+          "num_segments",
+          "int32"
+        ],
+        [
+          "bias_start_v",
+          "array_float32"
+        ],
+        [
+          "bias_end_v",
+          "array_float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "array_float32"
+        ],
+        [
+          "settling_time_s",
+          "array_float32"
+        ],
+        [
+          "integration_time_s",
+          "array_float32"
+        ],
+        [
+          "steps",
+          "array_int32"
+        ],
+        [
+          "lock_in_run",
+          "array_uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.Open": {
+      "send": [],
+      "recv": []
+    },
+    "BiasSpectr.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "save_all",
+          "uint16"
+        ],
+        [
+          "num_sweeps",
+          "int32"
+        ],
+        [
+          "backward_sweep",
+          "uint16"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "parameters_size",
+          "int32"
+        ],
+        [
+          "num_parameters",
+          "int32"
+        ],
+        [
+          "parameters",
+          "array_string"
+        ],
+        [
+          "fixed_parameters_size",
+          "int32"
+        ],
+        [
+          "num_fixed_parameters",
+          "int32"
+        ],
+        [
+          "fixed_parameters",
+          "array_string"
+        ],
+        [
+          "autosave",
+          "uint16"
+        ],
+        [
+          "show_save_dialog",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.PropsSet": {
+      "send": [
+        [
+          "save_all",
+          "uint16"
+        ],
+        [
+          "num_sweeps",
+          "int32"
+        ],
+        [
+          "backward_sweep",
+          "uint16"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "z_offset_m",
+          "float32"
+        ],
+        [
+          "autosave",
+          "uint16"
+        ],
+        [
+          "show_save_dialog",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.PulseSeqSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "pulse_sequence_nr",
+          "uint16"
+        ],
+        [
+          "nr_periods",
+          "uint32"
+        ]
+      ]
+    },
+    "BiasSpectr.PulseSeqSyncSet": {
+      "send": [
+        [
+          "pulse_sequence_nr",
+          "uint16"
+        ],
+        [
+          "nr_periods",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.SafeCond1Get": {
+      "send": [],
+      "recv": [
+        [
+          "condition",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.SafeCond1Set": {
+      "send": [
+        [
+          "condition",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.SafeCond2Get": {
+      "send": [],
+      "recv": [
+        [
+          "condition",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.SafeCond2Set": {
+      "send": [
+        [
+          "condition",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.Start": {
+      "send": [
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "save_base_name",
+          "string"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ],
+        [
+          "num_parameters",
+          "int32"
+        ],
+        [
+          "parameters",
+          "array_float32"
+        ]
+      ]
+    },
+    "BiasSpectr.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "BiasSpectr.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "BiasSpectr.TTLSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "ttl_line",
+          "uint16"
+        ],
+        [
+          "ttl_polarity",
+          "uint16"
+        ],
+        [
+          "time_to_on_s",
+          "float32"
+        ],
+        [
+          "on_duration_s",
+          "float32"
+        ]
+      ]
+    },
+    "BiasSpectr.TTLSyncSet": {
+      "send": [
+        [
+          "ttl_line",
+          "uint16"
+        ],
+        [
+          "ttl_polarity",
+          "uint16"
+        ],
+        [
+          "time_to_on_s",
+          "float32"
+        ],
+        [
+          "on_duration_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.TimingGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_averaging_time_s",
+          "float32"
+        ],
+        [
+          "z_offset_m",
+          "float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_v_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time",
+          "float32"
+        ],
+        [
+          "end_settling_time_s",
+          "float32"
+        ],
+        [
+          "z_control_time_s",
+          "float32"
+        ]
+      ]
+    },
+    "BiasSpectr.TimingSet": {
+      "send": [
+        [
+          "z_averaging_time_s",
+          "float32"
+        ],
+        [
+          "z_offset_m",
+          "float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_v_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time_s",
+          "float32"
+        ],
+        [
+          "end_settling_time_s",
+          "float32"
+        ],
+        [
+          "z_control_time_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSpectr.ZOffRevertGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_offset_revert",
+          "uint16"
+        ]
+      ]
+    },
+    "BiasSpectr.ZOffRevertSet": {
+      "send": [
+        [
+          "z_offset_revert",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSwp.LimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ]
+    },
+    "BiasSwp.LimitsSet": {
+      "send": [
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSwp.Open": {
+      "send": [],
+      "recv": []
+    },
+    "BiasSwp.PropsSet": {
+      "send": [
+        [
+          "num_steps",
+          "uint16"
+        ],
+        [
+          "period_ms",
+          "uint16"
+        ],
+        [
+          "autosave",
+          "uint16"
+        ],
+        [
+          "save_dialog_box",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "BiasSwp.Start": {
+      "send": [
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "sweep_direction",
+          "uint32"
+        ],
+        [
+          "z_controller_status",
+          "uint32"
+        ],
+        [
+          "save_base_name",
+          "string"
+        ],
+        [
+          "reset_bias",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "CPDComp.Close": {
+      "send": [],
+      "recv": []
+    },
+    "CPDComp.DataGet": {
+      "send": [],
+      "recv": [
+        [
+          "size_1",
+          "int32"
+        ],
+        [
+          "bias_forward_data",
+          "array_float32"
+        ],
+        [
+          "frequency_shift_forward_data",
+          "array_float32"
+        ],
+        [
+          "frequency_shift_forward_fit_data",
+          "array_float32"
+        ],
+        [
+          "size_2",
+          "int32"
+        ],
+        [
+          "bias_backward_data",
+          "array_float32"
+        ],
+        [
+          "frequency_shift_backward_data",
+          "array_float32"
+        ],
+        [
+          "frequency_shift_backward_fit_data",
+          "array_float32"
+        ],
+        [
+          "cpd_estimate",
+          "float32"
+        ],
+        [
+          "a_coefficient",
+          "float64"
+        ],
+        [
+          "b_coefficient",
+          "float64"
+        ]
+      ]
+    },
+    "CPDComp.Open": {
+      "send": [],
+      "recv": []
+    },
+    "CPDComp.ParamsGet": {
+      "send": [],
+      "recv": [
+        [
+          "speed_hz",
+          "float32"
+        ],
+        [
+          "range_v",
+          "float32"
+        ],
+        [
+          "averaging",
+          "int32"
+        ]
+      ]
+    },
+    "CPDComp.ParamsSet": {
+      "send": [
+        [
+          "speed_hz",
+          "float32"
+        ],
+        [
+          "range_v",
+          "float32"
+        ],
+        [
+          "averaging",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Current.100Get": {
+      "send": [],
+      "recv": [
+        [
+          "current_100_value_a",
+          "float32"
+        ]
+      ]
+    },
+    "Current.BEEMGet": {
+      "send": [],
+      "recv": [
+        [
+          "current_beem_value_a",
+          "float32"
+        ]
+      ]
+    },
+    "Current.CalibrGet": {
+      "send": [
+        [
+          "gain_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration",
+          "float64"
+        ],
+        [
+          "offset",
+          "float64"
+        ]
+      ]
+    },
+    "Current.CalibrSet": {
+      "send": [
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "calibration",
+          "float64"
+        ],
+        [
+          "offset",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "Current.GainSet": {
+      "send": [
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "filter_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Current.GainsGet": {
+      "send": [],
+      "recv": [
+        [
+          "gains_size",
+          "int32"
+        ],
+        [
+          "num_gains",
+          "int32"
+        ],
+        [
+          "gains",
+          "array_string"
+        ],
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "filters_size",
+          "int32"
+        ],
+        [
+          "num_filters",
+          "int32"
+        ],
+        [
+          "filters",
+          "array_string"
+        ],
+        [
+          "filter_index",
+          "int32"
+        ]
+      ]
+    },
+    "Current.Get": {
+      "send": [],
+      "recv": [
+        [
+          "current_value_a",
+          "float32"
+        ]
+      ]
+    },
+    "DataLog.ChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "DataLog.ChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "DataLog.Open": {
+      "send": [],
+      "recv": []
+    },
+    "DataLog.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "acquisition_mode",
+          "uint16"
+        ],
+        [
+          "acquisition_duration_hours",
+          "int32"
+        ],
+        [
+          "acquisition_duration_minutes",
+          "int32"
+        ],
+        [
+          "acquisition_duration_seconds",
+          "float32"
+        ],
+        [
+          "averaging",
+          "int32"
+        ],
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "comment",
+          "string"
+        ]
+      ]
+    },
+    "DataLog.PropsSet": {
+      "send": [
+        [
+          "acquisition_mode",
+          "uint16"
+        ],
+        [
+          "acquisition_duration_hours",
+          "int32"
+        ],
+        [
+          "acquisition_duration_minutes",
+          "int32"
+        ],
+        [
+          "acquisition_duration_seconds",
+          "float32"
+        ],
+        [
+          "averaging",
+          "int32"
+        ],
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "comment",
+          "string"
+        ],
+        [
+          "size_of_the_list_of_moduless",
+          "int32"
+        ],
+        [
+          "num_modules",
+          "int32"
+        ],
+        [
+          "list_of_modules",
+          "array_string"
+        ]
+      ],
+      "recv": []
+    },
+    "DataLog.Start": {
+      "send": [],
+      "recv": []
+    },
+    "DataLog.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "start_time",
+          "string"
+        ],
+        [
+          "acquisition_elapsed_hours",
+          "uint16"
+        ],
+        [
+          "acquisition_elapsed_minutes",
+          "uint16"
+        ],
+        [
+          "acquisition_elapsed_seconds",
+          "float32"
+        ],
+        [
+          "stop_time",
+          "string"
+        ],
+        [
+          "saved_file_path",
+          "string"
+        ],
+        [
+          "points_counter",
+          "int32"
+        ]
+      ]
+    },
+    "DataLog.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "DigLines.OutStatusSet": {
+      "send": [
+        [
+          "port",
+          "uint32"
+        ],
+        [
+          "digital_line",
+          "uint32"
+        ],
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "DigLines.PropsSet": {
+      "send": [
+        [
+          "digital_line",
+          "uint32"
+        ],
+        [
+          "port",
+          "uint32"
+        ],
+        [
+          "direction",
+          "uint32"
+        ],
+        [
+          "polarity",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "DigLines.Pulse": {
+      "send": [
+        [
+          "port",
+          "uint32"
+        ],
+        [
+          "digital_lines_size",
+          "int32"
+        ],
+        [
+          "digital_lines",
+          "array_uint8"
+        ],
+        [
+          "pulse_width_s",
+          "float32"
+        ],
+        [
+          "pulse_pause_s",
+          "float32"
+        ],
+        [
+          "num_pulses",
+          "int32"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "DigLines.TTLValGet": {
+      "send": [
+        [
+          "port",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "ttl_voltages_size",
+          "int32"
+        ],
+        [
+          "ttl_voltages",
+          "array_uint32"
+        ]
+      ]
+    },
+    "File.datLoad": {
+      "send": [
+        [
+          "file_path",
+          "string"
+        ],
+        [
+          "read_only_header",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ],
+        [
+          "header_rows",
+          "int32"
+        ],
+        [
+          "header_columns",
+          "int32"
+        ],
+        [
+          "header",
+          "matrix_string"
+        ]
+      ]
+    },
+    "FolMe.OversamplGet": {
+      "send": [],
+      "recv": [
+        [
+          "oversampling",
+          "int32"
+        ],
+        [
+          "sampling_rate_samples_s",
+          "float32"
+        ]
+      ]
+    },
+    "FolMe.OversamplSet": {
+      "send": [
+        [
+          "oversampling",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "FolMe.PSExpGet": {
+      "send": [],
+      "recv": [
+        [
+          "point_shoot_experiment",
+          "uint16"
+        ],
+        [
+          "size_of_the_list_of_experiments",
+          "int32"
+        ],
+        [
+          "num_experiments",
+          "int32"
+        ],
+        [
+          "list_of_experiments",
+          "array_string"
+        ]
+      ]
+    },
+    "FolMe.PSExpSet": {
+      "send": [
+        [
+          "point_shoot_experiment",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "FolMe.PSOnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "point_shoot_status",
+          "uint32"
+        ]
+      ]
+    },
+    "FolMe.PSOnOffSet": {
+      "send": [
+        [
+          "point_shoot_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FolMe.PSPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "auto_resume",
+          "uint32"
+        ],
+        [
+          "use_own_basename",
+          "uint32"
+        ],
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "external_vi_path",
+          "string"
+        ],
+        [
+          "pre_measure_delay_s",
+          "float32"
+        ]
+      ]
+    },
+    "FolMe.PSPropsSet": {
+      "send": [
+        [
+          "auto_resume",
+          "uint32"
+        ],
+        [
+          "use_own_basename",
+          "uint32"
+        ],
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "external_vi_path",
+          "string"
+        ],
+        [
+          "pre_measure_delay_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "FolMe.SpeedGet": {
+      "send": [],
+      "recv": [
+        [
+          "speed_m_s",
+          "float32"
+        ],
+        [
+          "custom_speed",
+          "uint32"
+        ]
+      ]
+    },
+    "FolMe.SpeedSet": {
+      "send": [
+        [
+          "speed_m_s",
+          "float32"
+        ],
+        [
+          "custom_speed",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FolMe.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "FolMe.XYPosGet": {
+      "send": [
+        [
+          "wait_for_newest_data",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "x_m",
+          "float64"
+        ],
+        [
+          "y_m",
+          "float64"
+        ]
+      ]
+    },
+    "FolMe.XYPosSet": {
+      "send": [
+        [
+          "x_m",
+          "float64"
+        ],
+        [
+          "y_m",
+          "float64"
+        ],
+        [
+          "wait_end_of_move",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen1Ch.IdleGet": {
+      "send": [],
+      "recv": [
+        [
+          "idle_value",
+          "float32"
+        ]
+      ]
+    },
+    "FunGen1Ch.IdleSet": {
+      "send": [
+        [
+          "idle_value",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen1Ch.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "polarity",
+          "uint16"
+        ],
+        [
+          "direction",
+          "uint16"
+        ]
+      ]
+    },
+    "FunGen1Ch.PropsSet": {
+      "send": [
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "polarity",
+          "uint16"
+        ],
+        [
+          "direction",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen1Ch.Start": {
+      "send": [
+        [
+          "periods",
+          "int32"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen1Ch.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ],
+        [
+          "periods_left",
+          "int32"
+        ]
+      ]
+    },
+    "FunGen1Ch.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "FunGen2Ch.IdleGet": {
+      "send": [
+        [
+          "device",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "idle_value",
+          "float32"
+        ]
+      ]
+    },
+    "FunGen2Ch.IdleSet": {
+      "send": [
+        [
+          "device",
+          "int32"
+        ],
+        [
+          "idle_value",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen2Ch.OnOffGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "FunGen2Ch.OnOffSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen2Ch.PropsGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "time_s",
+          "float32"
+        ],
+        [
+          "polarity",
+          "uint16"
+        ],
+        [
+          "direction",
+          "uint16"
+        ],
+        [
+          "add_zero",
+          "uint16"
+        ]
+      ]
+    },
+    "FunGen2Ch.PropsSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "time_s",
+          "float32"
+        ],
+        [
+          "polarity",
+          "uint16"
+        ],
+        [
+          "direction",
+          "uint16"
+        ],
+        [
+          "add_zero",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen2Ch.SignalGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "FunGen2Ch.SignalSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen2Ch.Start": {
+      "send": [
+        [
+          "periods",
+          "int32"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "FunGen2Ch.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ],
+        [
+          "periods_left",
+          "int32"
+        ]
+      ]
+    },
+    "FunGen2Ch.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "FunGen2Ch.WaveformGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "shape",
+          "uint16"
+        ]
+      ]
+    },
+    "FunGen2Ch.WaveformSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "shape",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.AOPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "signal_name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ],
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "calibration_per_volt",
+          "float32"
+        ],
+        [
+          "offset_in_physical_units",
+          "float32"
+        ]
+      ]
+    },
+    "GenPICtrl.AOPropsSet": {
+      "send": [
+        [
+          "signal_name",
+          "string"
+        ],
+        [
+          "units",
+          "string"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ],
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "calibration_per_volt",
+          "float32"
+        ],
+        [
+          "offset_in_physical_units",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.AOValGet": {
+      "send": [],
+      "recv": [
+        [
+          "output_value",
+          "float32"
+        ]
+      ]
+    },
+    "GenPICtrl.AOValSet": {
+      "send": [
+        [
+          "output_value",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.DemodChGet": {
+      "send": [],
+      "recv": [
+        [
+          "input_index",
+          "int32"
+        ]
+      ]
+    },
+    "GenPICtrl.DemodChSet": {
+      "send": [
+        [
+          "input_index",
+          "int32"
+        ],
+        [
+          "ac_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.ModChGet": {
+      "send": [],
+      "recv": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ]
+    },
+    "GenPICtrl.ModChSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "controller_status",
+          "uint32"
+        ]
+      ]
+    },
+    "GenPICtrl.OnOffSet": {
+      "send": [
+        [
+          "controller_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenPICtrl.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ]
+    },
+    "GenPICtrl.PropsSet": {
+      "send": [
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "GenSwp.AcqChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels_2",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ]
+      ]
+    },
+    "GenSwp.AcqChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "channel_names_size",
+          "int32"
+        ],
+        [
+          "channel_names_number",
+          "int32"
+        ],
+        [
+          "channel_names",
+          "array_string"
+        ]
+      ],
+      "recv": []
+    },
+    "GenSwp.LimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ]
+    },
+    "GenSwp.LimitsSet": {
+      "send": [
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenSwp.Open": {
+      "send": [],
+      "recv": []
+    },
+    "GenSwp.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "initial_settling_time_ms",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_units_s",
+          "float32"
+        ],
+        [
+          "num_steps",
+          "int32"
+        ],
+        [
+          "period_ms",
+          "uint16"
+        ],
+        [
+          "autosave",
+          "uint32"
+        ],
+        [
+          "save_dialog_box",
+          "uint32"
+        ],
+        [
+          "settling_time_ms",
+          "float32"
+        ]
+      ]
+    },
+    "GenSwp.PropsSet": {
+      "send": [
+        [
+          "initial_settling_time_ms",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_units_s",
+          "float32"
+        ],
+        [
+          "num_steps",
+          "int32"
+        ],
+        [
+          "period_ms",
+          "uint16"
+        ],
+        [
+          "autosave",
+          "int32"
+        ],
+        [
+          "save_dialog_box",
+          "int32"
+        ],
+        [
+          "settling_time_ms",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "GenSwp.Start": {
+      "send": [
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "sweep_direction",
+          "uint32"
+        ],
+        [
+          "save_base_name",
+          "string"
+        ],
+        [
+          "reset_signal",
+          "uint32"
+        ],
+        [
+          "z_controller",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "GenSwp.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "GenSwp.SwpSignalGet": {
+      "send": [],
+      "recv": [
+        [
+          "sweep_channel_name",
+          "string"
+        ]
+      ]
+    },
+    "GenSwp.SwpSignalListGet": {
+      "send": [],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ]
+      ]
+    },
+    "GenSwp.SwpSignalSet": {
+      "send": [
+        [
+          "sweep_channel_name",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.AcqChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "available_channels_names_size",
+          "int32"
+        ],
+        [
+          "available_channels_names_number",
+          "int32"
+        ],
+        [
+          "available_channels_names",
+          "array_string"
+        ],
+        [
+          "num_available_channels",
+          "int32"
+        ],
+        [
+          "available_channels_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "HSSwp.AcqChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.AutoReverseGet": {
+      "send": [],
+      "recv": [
+        [
+          "on_off",
+          "int32"
+        ],
+        [
+          "condition",
+          "int32"
+        ],
+        [
+          "signal",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "linkage_to_1",
+          "int32"
+        ],
+        [
+          "condition_2",
+          "int32"
+        ],
+        [
+          "signal_2",
+          "int32"
+        ],
+        [
+          "threshold_2",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.AutoReverseSet": {
+      "send": [
+        [
+          "on_off",
+          "int32"
+        ],
+        [
+          "condition",
+          "int32"
+        ],
+        [
+          "signal",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "linkage_to_1",
+          "int32"
+        ],
+        [
+          "condition_2",
+          "int32"
+        ],
+        [
+          "signal_2",
+          "int32"
+        ],
+        [
+          "threshold_2",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.EndSettlGet": {
+      "send": [],
+      "recv": [
+        [
+          "threshold",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.EndSettlSet": {
+      "send": [
+        [
+          "threshold",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.NumSweepsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_sweeps",
+          "uint32"
+        ],
+        [
+          "continuous",
+          "int32"
+        ]
+      ]
+    },
+    "HSSwp.NumSweepsSet": {
+      "send": [
+        [
+          "num_sweeps",
+          "uint32"
+        ],
+        [
+          "continuous",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.ResetSignalsGet": {
+      "send": [],
+      "recv": [
+        [
+          "reset_signals",
+          "int32"
+        ]
+      ]
+    },
+    "HSSwp.ResetSignalsSet": {
+      "send": [
+        [
+          "reset_signals",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SaveBasenameGet": {
+      "send": [],
+      "recv": [
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "path",
+          "string"
+        ]
+      ]
+    },
+    "HSSwp.SaveBasenameSet": {
+      "send": [
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SaveDataGet": {
+      "send": [],
+      "recv": [
+        [
+          "save_data",
+          "int32"
+        ]
+      ]
+    },
+    "HSSwp.SaveDataSet": {
+      "send": [
+        [
+          "save_data",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SaveOptionsGet": {
+      "send": [],
+      "recv": [
+        [
+          "comment",
+          "string"
+        ],
+        [
+          "modules_parameters_size",
+          "int32"
+        ],
+        [
+          "modules_parameters_number",
+          "int32"
+        ],
+        [
+          "modules_parameters",
+          "array_string"
+        ]
+      ]
+    },
+    "HSSwp.SaveOptionsSet": {
+      "send": [
+        [
+          "comment",
+          "string"
+        ],
+        [
+          "modules_names_size",
+          "int32"
+        ],
+        [
+          "modules_names_number",
+          "int32"
+        ],
+        [
+          "modules_names",
+          "array_string"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.Start": {
+      "send": [
+        [
+          "wait_until_done",
+          "int32"
+        ],
+        [
+          "timeout",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "HSSwp.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "HSSwp.SwpChBwdDelayGet": {
+      "send": [],
+      "recv": [
+        [
+          "bwd_delay",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChBwdDelaySet": {
+      "send": [
+        [
+          "bwd_delay",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SwpChBwdSwGet": {
+      "send": [],
+      "recv": [
+        [
+          "bwd_sweep",
+          "uint32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChBwdSwSet": {
+      "send": [
+        [
+          "bwd_sweep",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SwpChLimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "relative_limits",
+          "int32"
+        ],
+        [
+          "start",
+          "float32"
+        ],
+        [
+          "stop",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChLimitsSet": {
+      "send": [
+        [
+          "relative_limits",
+          "int32"
+        ],
+        [
+          "start",
+          "float32"
+        ],
+        [
+          "stop",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SwpChNumPtsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_points",
+          "int32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChNumPtsSet": {
+      "send": [
+        [
+          "num_points",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SwpChSigListGet": {
+      "send": [],
+      "recv": [
+        [
+          "signal_names_size",
+          "int32"
+        ],
+        [
+          "signal_names_number",
+          "int32"
+        ],
+        [
+          "signal_names",
+          "array_string"
+        ],
+        [
+          "num_signals",
+          "int32"
+        ],
+        [
+          "signal_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChSignalGet": {
+      "send": [],
+      "recv": [
+        [
+          "sweep_signal_index",
+          "int32"
+        ],
+        [
+          "timed_sweep",
+          "int32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChSignalSet": {
+      "send": [
+        [
+          "sweep_signal_index",
+          "int32"
+        ],
+        [
+          "timed_sweep",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.SwpChTimingGet": {
+      "send": [],
+      "recv": [
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_units_s",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.SwpChTimingSet": {
+      "send": [
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_units_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "HSSwp.ZCtrlOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_controller_off",
+          "int32"
+        ],
+        [
+          "z_controller_index",
+          "int32"
+        ],
+        [
+          "z_averaging_time",
+          "float32"
+        ],
+        [
+          "z_offset",
+          "float32"
+        ],
+        [
+          "z_control_time",
+          "float32"
+        ]
+      ]
+    },
+    "HSSwp.ZCtrlOffSet": {
+      "send": [
+        [
+          "z_controller_off",
+          "int32"
+        ],
+        [
+          "z_controller_index",
+          "int32"
+        ],
+        [
+          "z_averaging_time",
+          "float32"
+        ],
+        [
+          "z_offset",
+          "float32"
+        ],
+        [
+          "z_control_time",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Interf.CtrlCalibrOpen": {
+      "send": [],
+      "recv": []
+    },
+    "Interf.CtrlNullDefl": {
+      "send": [],
+      "recv": []
+    },
+    "Interf.CtrlOnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "Interf.CtrlOnOffSet": {
+      "send": [
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Interf.CtrlPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "integral",
+          "float32"
+        ],
+        [
+          "proportional",
+          "float32"
+        ],
+        [
+          "sign",
+          "uint32"
+        ]
+      ]
+    },
+    "Interf.CtrlPropsSet": {
+      "send": [
+        [
+          "integral",
+          "float32"
+        ],
+        [
+          "proportional",
+          "float32"
+        ],
+        [
+          "sign",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Interf.CtrlReset": {
+      "send": [],
+      "recv": []
+    },
+    "Interf.ValGet": {
+      "send": [],
+      "recv": [
+        [
+          "interferometer_value",
+          "float32"
+        ]
+      ]
+    },
+    "Interf.WPiezoGet": {
+      "send": [],
+      "recv": [
+        [
+          "w_piezo",
+          "float32"
+        ]
+      ]
+    },
+    "Interf.WPiezoSet": {
+      "send": [
+        [
+          "w_piezo",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.AmpGet": {
+      "send": [],
+      "recv": [
+        [
+          "amplitude",
+          "float32"
+        ]
+      ]
+    },
+    "KelvinCtrl.BiasLimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "bias_high_limit_v",
+          "float32"
+        ],
+        [
+          "bias_low_limit_v",
+          "float32"
+        ]
+      ]
+    },
+    "KelvinCtrl.BiasLimitsSet": {
+      "send": [
+        [
+          "bias_high_limit_v",
+          "float32"
+        ],
+        [
+          "bias_low_limit_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.CtrlOnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "KelvinCtrl.CtrlOnOffSet": {
+      "send": [
+        [
+          "control_on_off",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.CtrlSignalGet": {
+      "send": [],
+      "recv": [
+        [
+          "demodulated_control_signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "KelvinCtrl.CtrlSignalSet": {
+      "send": [
+        [
+          "demodulated_control_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.GainGet": {
+      "send": [],
+      "recv": [
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ]
+    },
+    "KelvinCtrl.GainSet": {
+      "send": [
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.ModOnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "ac_mode_status",
+          "uint16"
+        ],
+        [
+          "modulation_status",
+          "uint16"
+        ]
+      ]
+    },
+    "KelvinCtrl.ModOnOffSet": {
+      "send": [
+        [
+          "ac_mode_on_off",
+          "uint16"
+        ],
+        [
+          "modulation_on_off",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.ModParamsGet": {
+      "send": [],
+      "recv": [
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ]
+    },
+    "KelvinCtrl.ModParamsSet": {
+      "send": [
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude",
+          "float32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "KelvinCtrl.SetpntGet": {
+      "send": [],
+      "recv": [
+        [
+          "setpoint",
+          "float32"
+        ]
+      ]
+    },
+    "KelvinCtrl.SetpntSet": {
+      "send": [
+        [
+          "setpoint",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Laser.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "Laser.OnOffSet": {
+      "send": [
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Laser.PowerGet": {
+      "send": [],
+      "recv": [
+        [
+          "laser_power",
+          "float32"
+        ]
+      ]
+    },
+    "Laser.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "laser_setpoint",
+          "float32"
+        ]
+      ]
+    },
+    "Laser.PropsSet": {
+      "send": [
+        [
+          "laser_setpoint",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodHPFilterGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "hp_filter_order",
+          "int32"
+        ],
+        [
+          "hp_filter_cutoff_frequency_hz",
+          "float32"
+        ]
+      ]
+    },
+    "LockIn.DemodHPFilterSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "hp_filter_order",
+          "int32"
+        ],
+        [
+          "hp_filter_cutoff_frequency_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodHarmonicGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "harmonic",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.DemodHarmonicSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "harmonic",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodLPFilterGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "lp_filter_order",
+          "int32"
+        ],
+        [
+          "lp_filter_cutoff_frequency_hz",
+          "float32"
+        ]
+      ]
+    },
+    "LockIn.DemodLPFilterSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "lp_filter_order",
+          "int32"
+        ],
+        [
+          "lp_filter_cutoff_frequency_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodPhasGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ]
+    },
+    "LockIn.DemodPhasRegGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "phase_register_index",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.DemodPhasRegSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "phase_register_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodPhasSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodRTSignalsGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "rt_signals",
+          "uint32"
+        ]
+      ]
+    },
+    "LockIn.DemodRTSignalsSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "rt_signals",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodSignalGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "demodulator_signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.DemodSignalSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "demodulator_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.DemodSyncFilterGet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "sync_filter",
+          "uint32"
+        ]
+      ]
+    },
+    "LockIn.DemodSyncFilterSet": {
+      "send": [
+        [
+          "demodulator_number",
+          "int32"
+        ],
+        [
+          "sync_filter",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModAmpGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "amplitude",
+          "float32"
+        ]
+      ]
+    },
+    "LockIn.ModAmpSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "amplitude",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModHarmonicGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "harmonic",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.ModHarmonicSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "harmonic",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModOnOffGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "lock_in_on_off",
+          "uint32"
+        ]
+      ]
+    },
+    "LockIn.ModOnOffSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "lock_in_on_off",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModPhasFreqGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "frequency_hz",
+          "float64"
+        ]
+      ]
+    },
+    "LockIn.ModPhasFreqSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "frequency_hz",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModPhasGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ]
+    },
+    "LockIn.ModPhasRegGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "phase_register_index",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.ModPhasRegSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "phase_register_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModPhasSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockIn.ModSignalGet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "modulator_signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "LockIn.ModSignalSet": {
+      "send": [
+        [
+          "modulator_number",
+          "int32"
+        ],
+        [
+          "modulator_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockInFreqSwp.LimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "lower_limit_hz",
+          "float32"
+        ],
+        [
+          "upper_limit_hz",
+          "float32"
+        ]
+      ]
+    },
+    "LockInFreqSwp.LimitsSet": {
+      "send": [
+        [
+          "lower_limit_hz",
+          "float32"
+        ],
+        [
+          "upper_limit_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockInFreqSwp.Open": {
+      "send": [],
+      "recv": []
+    },
+    "LockInFreqSwp.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_steps",
+          "uint16"
+        ],
+        [
+          "integration_periods",
+          "uint16"
+        ],
+        [
+          "minimum_integration_time_s",
+          "float32"
+        ],
+        [
+          "settling_periods",
+          "uint16"
+        ],
+        [
+          "minimum_settling_time_s",
+          "float32"
+        ],
+        [
+          "autosave",
+          "uint32"
+        ],
+        [
+          "save_dialog",
+          "uint32"
+        ],
+        [
+          "basename",
+          "string"
+        ]
+      ]
+    },
+    "LockInFreqSwp.PropsSet": {
+      "send": [
+        [
+          "num_steps",
+          "uint16"
+        ],
+        [
+          "integration_periods",
+          "uint16"
+        ],
+        [
+          "minimum_integration_time_s",
+          "float32"
+        ],
+        [
+          "settling_periods",
+          "uint16"
+        ],
+        [
+          "minimum_settling_time_s",
+          "float32"
+        ],
+        [
+          "autosave",
+          "uint32"
+        ],
+        [
+          "save_dialog",
+          "uint32"
+        ],
+        [
+          "basename",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "LockInFreqSwp.SignalGet": {
+      "send": [],
+      "recv": [
+        [
+          "sweep_signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "LockInFreqSwp.SignalSet": {
+      "send": [
+        [
+          "sweep_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "LockInFreqSwp.Start": {
+      "send": [
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "direction",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "channels_names_number",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "MCVA5.ContStateUpdateGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "continuous_read",
+          "uint32"
+        ]
+      ]
+    },
+    "MCVA5.ContStateUpdateSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "continuous_read",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "MCVA5.ContTempUpdateGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "continuous_read",
+          "uint32"
+        ]
+      ]
+    },
+    "MCVA5.ContTempUpdateSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "continuous_read",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "MCVA5.CouplingGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "coupling",
+          "uint16"
+        ]
+      ]
+    },
+    "MCVA5.CouplingSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ],
+        [
+          "coupling",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MCVA5.GainGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "gain",
+          "uint16"
+        ]
+      ]
+    },
+    "MCVA5.GainSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ],
+        [
+          "gain",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MCVA5.InputModeGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "input_mode",
+          "uint16"
+        ]
+      ]
+    },
+    "MCVA5.InputModeSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ],
+        [
+          "input_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MCVA5.SingleStateUpdate": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "channel_1_ready",
+          "uint32"
+        ],
+        [
+          "channel_1_overload",
+          "uint32"
+        ],
+        [
+          "channel_2_ready",
+          "uint32"
+        ],
+        [
+          "channel_2_overload",
+          "uint32"
+        ],
+        [
+          "channel_3_ready",
+          "uint32"
+        ],
+        [
+          "channel_3_overload",
+          "uint32"
+        ],
+        [
+          "channel_4_ready",
+          "uint32"
+        ],
+        [
+          "channel_4_overload",
+          "uint32"
+        ]
+      ]
+    },
+    "MCVA5.SingleTempUpdate": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "channel_1",
+          "uint16"
+        ],
+        [
+          "channel_2",
+          "uint16"
+        ],
+        [
+          "channel_3",
+          "uint16"
+        ],
+        [
+          "channel_4",
+          "uint16"
+        ]
+      ]
+    },
+    "MCVA5.UserInGet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "user_input",
+          "uint32"
+        ]
+      ]
+    },
+    "MCVA5.UserInSet": {
+      "send": [
+        [
+          "preamplifier_nr",
+          "uint16"
+        ],
+        [
+          "channel_nr",
+          "uint16"
+        ],
+        [
+          "user_input",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "MPass.Activate": {
+      "send": [
+        [
+          "on_off",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "MPass.Load": {
+      "send": [
+        [
+          "file_path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "MPass.Save": {
+      "send": [
+        [
+          "file_path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeBias.CalibrGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeBias.CalibrSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "calibration",
+          "float32"
+        ],
+        [
+          "offset",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeBias.Get": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "bias_value_v",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeBias.Pulse": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "wait_until_done",
+          "uint32"
+        ],
+        [
+          "bias_pulse_width_s",
+          "float32"
+        ],
+        [
+          "bias_value_v",
+          "float32"
+        ],
+        [
+          "z_controller_on_hold",
+          "uint16"
+        ],
+        [
+          "pulse_absolute_relative",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeBias.RangeGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "bias_range_index",
+          "uint16"
+        ]
+      ]
+    },
+    "MProbeBias.RangeSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "bias_range_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeBias.Set": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "bias_value_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeCurrent.CalibrGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "gain_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration",
+          "float64"
+        ],
+        [
+          "offset",
+          "float64"
+        ]
+      ]
+    },
+    "MProbeCurrent.CalibrSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "calibration",
+          "float64"
+        ],
+        [
+          "offset",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeCurrent.GainSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "filter_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeCurrent.GainsGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "gains_size",
+          "int32"
+        ],
+        [
+          "num_gains",
+          "int32"
+        ],
+        [
+          "gains",
+          "array_string"
+        ],
+        [
+          "gain_index",
+          "int32"
+        ],
+        [
+          "filters_size",
+          "int32"
+        ],
+        [
+          "num_filters",
+          "int32"
+        ],
+        [
+          "filters",
+          "array_string"
+        ],
+        [
+          "filter_index",
+          "int32"
+        ]
+      ]
+    },
+    "MProbeCurrent.Get": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "current_value_a",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeScanner.ActiveScannerGet": {
+      "send": [],
+      "recv": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ]
+    },
+    "MProbeScanner.CalibrGet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "factor_x_m_v",
+          "float32"
+        ],
+        [
+          "factor_y_m_v",
+          "float32"
+        ],
+        [
+          "factor_z_m_v",
+          "float32"
+        ],
+        [
+          "range_x_m",
+          "float32"
+        ],
+        [
+          "range_y_m",
+          "float32"
+        ],
+        [
+          "range_z_m",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeScanner.CalibrSet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ],
+        [
+          "factor_x_m_v",
+          "float32"
+        ],
+        [
+          "factor_y_m_v",
+          "float32"
+        ],
+        [
+          "factor_z_m_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeScanner.ScannerSwitch": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeScanner.SpeedGet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "speed_m_s",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeScanner.SpeedSet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ],
+        [
+          "speed_m_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeScanner.Stop": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeScanner.XYPosGet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "x_m",
+          "float32"
+        ],
+        [
+          "y_m",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeScanner.XYPosSet": {
+      "send": [
+        [
+          "scanner_index",
+          "int32"
+        ],
+        [
+          "x_m",
+          "float32"
+        ],
+        [
+          "y_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.GainGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.GainSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.Home": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.HomePropsGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "relative_or_absolute",
+          "uint16"
+        ],
+        [
+          "home_position_m",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.HomePropsSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "relative_or_absolute",
+          "uint16"
+        ],
+        [
+          "home_position_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.LimitsGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "z_high_limit_m",
+          "float32"
+        ],
+        [
+          "z_low_limit_m",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.LimitsSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "z_high_limit_m",
+          "float32"
+        ],
+        [
+          "z_low_limit_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.OnOffGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "z_controller_status",
+          "uint32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.OnOffSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "z_controller_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.SetpntGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "z_controller_setpoint",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.SetpntSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "z_controller_setpoint",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.Withdraw": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "MProbeZCtrl.ZPosGet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "z_position_m",
+          "float32"
+        ]
+      ]
+    },
+    "MProbeZCtrl.ZPosSet": {
+      "send": [
+        [
+          "scanner_index",
+          "uint16"
+        ],
+        [
+          "z_position_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.LineDraw": {
+      "send": [
+        [
+          "start_point_x_coordinate_m",
+          "float32"
+        ],
+        [
+          "start_point_y_coordinate_m",
+          "float32"
+        ],
+        [
+          "end_point_x_coordinate_m",
+          "float32"
+        ],
+        [
+          "end_point_y_coordinate_m",
+          "float32"
+        ],
+        [
+          "color",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.LinesDraw": {
+      "send": [
+        [
+          "num_lines",
+          "int32"
+        ],
+        [
+          "start_point_x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "start_point_y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "end_point_x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "end_point_y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "color",
+          "array_uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.LinesErase": {
+      "send": [
+        [
+          "line_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.LinesGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_lines",
+          "int32"
+        ],
+        [
+          "start_point_x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "start_point_y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "end_point_x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "end_point_y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "color",
+          "array_uint32"
+        ],
+        [
+          "visible",
+          "array_uint32"
+        ]
+      ]
+    },
+    "Marks.LinesVisibleSet": {
+      "send": [
+        [
+          "line_index",
+          "int32"
+        ],
+        [
+          "show_hide",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.PointDraw": {
+      "send": [
+        [
+          "x_coordinate_m",
+          "float32"
+        ],
+        [
+          "y_coordinate_m",
+          "float32"
+        ],
+        [
+          "text",
+          "string"
+        ],
+        [
+          "color",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.PointsDraw": {
+      "send": [
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "text_size",
+          "int32"
+        ],
+        [
+          "text",
+          "array_string"
+        ],
+        [
+          "color",
+          "array_uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.PointsErase": {
+      "send": [
+        [
+          "point_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Marks.PointsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "x_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "y_coordinate_m",
+          "array_float32"
+        ],
+        [
+          "text_size",
+          "int32"
+        ],
+        [
+          "text",
+          "array_string"
+        ],
+        [
+          "color",
+          "array_uint32"
+        ],
+        [
+          "visible",
+          "array_uint32"
+        ]
+      ]
+    },
+    "Marks.PointsVisibleSet": {
+      "send": [
+        [
+          "point_index",
+          "int32"
+        ],
+        [
+          "show_hide",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Motor.FreqAmpGet": {
+      "send": [
+        [
+          "axis",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude_v",
+          "float32"
+        ]
+      ]
+    },
+    "Motor.FreqAmpSet": {
+      "send": [
+        [
+          "frequency_hz",
+          "float32"
+        ],
+        [
+          "amplitude_v",
+          "float32"
+        ],
+        [
+          "axis",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Motor.PosGet": {
+      "send": [
+        [
+          "group",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "x_m",
+          "float64"
+        ],
+        [
+          "y_m",
+          "float64"
+        ],
+        [
+          "z_m",
+          "float64"
+        ]
+      ]
+    },
+    "Motor.StartClosedLoop": {
+      "send": [
+        [
+          "absolute_relative",
+          "uint32"
+        ],
+        [
+          "target_x_m",
+          "float64"
+        ],
+        [
+          "target_y_m",
+          "float64"
+        ],
+        [
+          "target_z_m",
+          "float64"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ],
+        [
+          "group",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Motor.StartMove": {
+      "send": [
+        [
+          "direction",
+          "uint32"
+        ],
+        [
+          "num_steps",
+          "uint16"
+        ],
+        [
+          "group",
+          "uint32"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Motor.StepCounterGet": {
+      "send": [
+        [
+          "reset_x",
+          "uint32"
+        ],
+        [
+          "reset_y",
+          "uint32"
+        ],
+        [
+          "reset_z",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "step_counter_x",
+          "int32"
+        ],
+        [
+          "step_counter_y",
+          "int32"
+        ],
+        [
+          "step_counter_z",
+          "int32"
+        ]
+      ]
+    },
+    "Motor.StopMove": {
+      "send": [],
+      "recv": []
+    },
+    "OCSync.AnglesGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_1_on_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_1_off_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_2_on_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_3_off_angle_deg",
+          "float32"
+        ]
+      ]
+    },
+    "OCSync.AnglesSet": {
+      "send": [
+        [
+          "channel_1_on_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_1_off_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_2_on_angle_deg",
+          "float32"
+        ],
+        [
+          "channel_3_off_angle_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "OCSync.LinkAnglesGet": {
+      "send": [],
+      "recv": [
+        [
+          "link_angles_channel_1",
+          "uint32"
+        ],
+        [
+          "link_angles_channel_2",
+          "uint32"
+        ]
+      ]
+    },
+    "OCSync.LinkAnglesSet": {
+      "send": [
+        [
+          "link_angles_channel_1",
+          "uint32"
+        ],
+        [
+          "link_angles_channel_2",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci1T.ChGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "Osci1T.ChSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci1T.DataGet": {
+      "send": [
+        [
+          "data_to_get",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "data_t0",
+          "float64"
+        ],
+        [
+          "data_dt",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ]
+      ]
+    },
+    "Osci1T.Run": {
+      "send": [],
+      "recv": []
+    },
+    "Osci1T.TimebaseGet": {
+      "send": [],
+      "recv": [
+        [
+          "timebase_index",
+          "int32"
+        ],
+        [
+          "num_timebases",
+          "int32"
+        ],
+        [
+          "timebases_s",
+          "array_float32"
+        ]
+      ]
+    },
+    "Osci1T.TimebaseSet": {
+      "send": [
+        [
+          "timebase_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci1T.TrigGet": {
+      "send": [],
+      "recv": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_hysteresis",
+          "float64"
+        ]
+      ]
+    },
+    "Osci1T.TrigSet": {
+      "send": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_hysteresis",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci2T.ChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_a_index",
+          "int32"
+        ],
+        [
+          "channel_b_index",
+          "int32"
+        ]
+      ]
+    },
+    "Osci2T.ChsSet": {
+      "send": [
+        [
+          "channel_a_index",
+          "int32"
+        ],
+        [
+          "channel_b_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci2T.DataGet": {
+      "send": [
+        [
+          "data_to_get",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "data_t0",
+          "float64"
+        ],
+        [
+          "data_dt",
+          "float64"
+        ],
+        [
+          "data_size",
+          "int32"
+        ],
+        [
+          "data_cha",
+          "array_float64"
+        ],
+        [
+          "data_size_2",
+          "int32"
+        ],
+        [
+          "data_chb",
+          "array_float64"
+        ]
+      ]
+    },
+    "Osci2T.OversamplGet": {
+      "send": [],
+      "recv": [
+        [
+          "oversampling_index",
+          "uint16"
+        ]
+      ]
+    },
+    "Osci2T.OversamplSet": {
+      "send": [
+        [
+          "oversampling_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci2T.Run": {
+      "send": [],
+      "recv": []
+    },
+    "Osci2T.TimebaseGet": {
+      "send": [],
+      "recv": [
+        [
+          "timebase_index",
+          "uint16"
+        ],
+        [
+          "num_timebases",
+          "int32"
+        ],
+        [
+          "timebases_s",
+          "array_float32"
+        ]
+      ]
+    },
+    "Osci2T.TimebaseSet": {
+      "send": [
+        [
+          "timebase_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Osci2T.TrigGet": {
+      "send": [],
+      "recv": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_channel",
+          "uint16"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_hysteresis",
+          "float64"
+        ],
+        [
+          "trigger_position_s",
+          "float64"
+        ]
+      ]
+    },
+    "Osci2T.TrigSet": {
+      "send": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_channel",
+          "uint16"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_hysteresis",
+          "float64"
+        ],
+        [
+          "trigger_position_s",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.CalibrModeGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration_mode",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.CalibrModeSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "calibration_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.ChGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.ChSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.OsciDataGet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ],
+        [
+          "data_to_get",
+          "uint16"
+        ],
+        [
+          "timeout_s",
+          "float64"
+        ]
+      ],
+      "recv": [
+        [
+          "data_t0",
+          "string"
+        ],
+        [
+          "data_dt",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float32"
+        ],
+        [
+          "timeout",
+          "uint32"
+        ]
+      ]
+    },
+    "OsciHR.OversamplGet": {
+      "send": [],
+      "recv": [
+        [
+          "oversampling_index",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.OversamplSet": {
+      "send": [
+        [
+          "oversampling_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PSDAvrgCountGet": {
+      "send": [],
+      "recv": [
+        [
+          "psd_averaging_count",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.PSDAvrgCountSet": {
+      "send": [
+        [
+          "psd_averaging_count",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PSDAvrgRestart": {
+      "send": [],
+      "recv": []
+    },
+    "OsciHR.PSDAvrgTypeGet": {
+      "send": [],
+      "recv": [
+        [
+          "psd_averaging_type",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.PSDAvrgTypeSet": {
+      "send": [
+        [
+          "psd_averaging_type",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PSDDataGet": {
+      "send": [
+        [
+          "data_to_get",
+          "uint16"
+        ],
+        [
+          "timeout_s",
+          "float64"
+        ]
+      ],
+      "recv": [
+        [
+          "data_f0",
+          "float64"
+        ],
+        [
+          "data_df",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ],
+        [
+          "timeout",
+          "uint32"
+        ]
+      ]
+    },
+    "OsciHR.PSDShow": {
+      "send": [
+        [
+          "show_psd_section",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PSDWeightGet": {
+      "send": [],
+      "recv": [
+        [
+          "psd_weighting",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.PSDWeightSet": {
+      "send": [
+        [
+          "psd_weighting",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PSDWindowGet": {
+      "send": [],
+      "recv": [
+        [
+          "psd_window_type",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.PSDWindowSet": {
+      "send": [
+        [
+          "psd_window_type",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.PreTrigGet": {
+      "send": [],
+      "recv": [
+        [
+          "pre_trigger_samples",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.PreTrigSet": {
+      "send": [
+        [
+          "pre_trigger_samples",
+          "uint32"
+        ],
+        [
+          "pre_trigger_s",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.Run": {
+      "send": [],
+      "recv": []
+    },
+    "OsciHR.SamplesGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_samples",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.SamplesSet": {
+      "send": [
+        [
+          "num_samples",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigArmModeGet": {
+      "send": [],
+      "recv": [
+        [
+          "trigger_arming_mode",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.TrigArmModeSet": {
+      "send": [
+        [
+          "trigger_arming_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigDigChGet": {
+      "send": [],
+      "recv": [
+        [
+          "digital_trigger_channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.TrigDigChSet": {
+      "send": [
+        [
+          "digital_trigger_channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigDigSlopeGet": {
+      "send": [],
+      "recv": [
+        [
+          "digital_trigger_slope",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.TrigDigSlopeSet": {
+      "send": [
+        [
+          "digital_trigger_slope",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigLevChGet": {
+      "send": [],
+      "recv": [
+        [
+          "level_trigger_channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "OsciHR.TrigLevChSet": {
+      "send": [
+        [
+          "level_trigger_channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigLevHystGet": {
+      "send": [],
+      "recv": [
+        [
+          "level_trigger_hysteresis",
+          "float64"
+        ]
+      ]
+    },
+    "OsciHR.TrigLevHystSet": {
+      "send": [
+        [
+          "level_trigger_hysteresis",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigLevSlopeGet": {
+      "send": [],
+      "recv": [
+        [
+          "level_trigger_slope",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.TrigLevSlopeSet": {
+      "send": [
+        [
+          "level_trigger_slope",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigLevValGet": {
+      "send": [],
+      "recv": [
+        [
+          "level_trigger_value",
+          "float64"
+        ]
+      ]
+    },
+    "OsciHR.TrigLevValSet": {
+      "send": [
+        [
+          "level_trigger_value",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigModeGet": {
+      "send": [],
+      "recv": [
+        [
+          "trigger_mode",
+          "uint16"
+        ]
+      ]
+    },
+    "OsciHR.TrigModeSet": {
+      "send": [
+        [
+          "trigger_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "OsciHR.TrigRearm": {
+      "send": [],
+      "recv": []
+    },
+    "PICtrl.CtrlChGet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "control_signal_index",
+          "int32"
+        ],
+        [
+          "control_signals_names_size",
+          "int32"
+        ],
+        [
+          "num_control_signals_names",
+          "int32"
+        ],
+        [
+          "control_signals_names",
+          "array_string"
+        ],
+        [
+          "num_control_signals_indexes",
+          "int32"
+        ],
+        [
+          "control_signals_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "PICtrl.CtrlChPropsGet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ]
+    },
+    "PICtrl.CtrlChPropsSet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ],
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PICtrl.CtrlChSet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ],
+        [
+          "control_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PICtrl.InputChGet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "input_index",
+          "int32"
+        ],
+        [
+          "input_signals_names_size",
+          "int32"
+        ],
+        [
+          "num_input_signals_names",
+          "int32"
+        ],
+        [
+          "input_signals_names",
+          "array_string"
+        ],
+        [
+          "num_input_signals_indexes",
+          "int32"
+        ],
+        [
+          "input_signals_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "PICtrl.InputChSet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ],
+        [
+          "input_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PICtrl.OnOffGet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "controller_status",
+          "uint32"
+        ]
+      ]
+    },
+    "PICtrl.OnOffSet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ],
+        [
+          "controller_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PICtrl.PropsGet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ]
+    },
+    "PICtrl.PropsSet": {
+      "send": [
+        [
+          "controller_index",
+          "int32"
+        ],
+        [
+          "setpoint",
+          "float32"
+        ],
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ],
+        [
+          "slope",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.AddOnOffGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "add",
+          "uint32"
+        ]
+      ]
+    },
+    "PLL.AddOnOffSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "add",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.AmpCtrlBandwidthGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "bandwidth_hz",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.AmpCtrlBandwidthSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "bandwidth_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.AmpCtrlGainGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "p_gain_v_m",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "integral_gain_v_m_s",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.AmpCtrlGainSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "p_gain_v_m",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.AmpCtrlOnOffGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "PLL.AmpCtrlOnOffSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.AmpCtrlSetpntGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "setpoint_m",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.AmpCtrlSetpntSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "setpoint_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.CenterFreqGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "center_frequency_hz",
+          "float64"
+        ]
+      ]
+    },
+    "PLL.CenterFreqSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "center_frequency_hz",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.DemodFilterGet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "filter_order",
+          "uint16"
+        ]
+      ]
+    },
+    "PLL.DemodFilterSet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ],
+        [
+          "filter_order",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.DemodHarmonicGet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "harmonic",
+          "uint16"
+        ]
+      ]
+    },
+    "PLL.DemodHarmonicSet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ],
+        [
+          "harmonic",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.DemodInputGet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "input",
+          "uint16"
+        ],
+        [
+          "frequency_generator",
+          "uint16"
+        ]
+      ]
+    },
+    "PLL.DemodInputSet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ],
+        [
+          "input",
+          "uint16"
+        ],
+        [
+          "frequency_generator",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.DemodPhasRefGet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "phase_reference_deg",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.DemodPhasRefSet": {
+      "send": [
+        [
+          "demodulator_index",
+          "uint16"
+        ],
+        [
+          "phase_reference_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.ExcRangeGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "output_range",
+          "uint16"
+        ]
+      ]
+    },
+    "PLL.ExcRangeSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "output_range",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.ExcitationGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "excitation_value_v",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.ExcitationSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "excitation_value_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.FreqExcOverwriteGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "excitation_overwrite_signal_index",
+          "int32"
+        ],
+        [
+          "frequency_overwrite_signal_index",
+          "int32"
+        ]
+      ]
+    },
+    "PLL.FreqExcOverwriteSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "excitation_overwrite_signal_index",
+          "int32"
+        ],
+        [
+          "frequency_overwrite_signal_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.FreqRangeGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "frequency_range_hz",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.FreqRangeSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "frequency_range_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.FreqShiftAutoCenter": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.FreqShiftGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "frequency_shift_hz",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.FreqShiftSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "frequency_shift_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.InpCalibrGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration_m_v",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.InpCalibrSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "calibration_m_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.InpPropsGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "differential_input",
+          "uint16"
+        ],
+        [
+          "1_10_divider",
+          "uint16"
+        ]
+      ]
+    },
+    "PLL.InpPropsSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "differential_input",
+          "uint16"
+        ],
+        [
+          "1_10_divider",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.InpRangeGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "input_range_m",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.InpRangeSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "input_range_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.OutOnOffGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "pll_output",
+          "uint32"
+        ]
+      ]
+    },
+    "PLL.OutOnOffSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "pll_output",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.PerfectPLLApply": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.PerfectPLLUpdtZTC": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.PhasCtrlBandwidthGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "bandwidth_hz",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.PhasCtrlBandwidthSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "bandwidth_hz",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.PhasCtrlGainGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "p_gain_hz_deg",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "integral_gain_hz_deg_s",
+          "float32"
+        ]
+      ]
+    },
+    "PLL.PhasCtrlGainSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "p_gain_hz_deg",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLL.PhasCtrlOnOffGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "PLL.PhasCtrlOnOffSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLFreqSwp.Open": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLFreqSwp.ParamsGet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "period_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ]
+      ]
+    },
+    "PLLFreqSwp.ParamsSet": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "period_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLFreqSwp.Start": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "sweep_direction",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ],
+        [
+          "resonance_frequency_hz",
+          "float64"
+        ],
+        [
+          "q_factor",
+          "float64"
+        ],
+        [
+          "phase_deg",
+          "float32"
+        ],
+        [
+          "amplitude_to_excitation_quotient_nm_mv",
+          "float32"
+        ],
+        [
+          "fit_length",
+          "int32"
+        ],
+        [
+          "num_points",
+          "int32"
+        ]
+      ]
+    },
+    "PLLFreqSwp.Stop": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLPhasSwp.Start": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ],
+        [
+          "get_data",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "PLLPhasSwp.Stop": {
+      "send": [
+        [
+          "modulator_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLQCtrl.AccessGet": {
+      "send": [],
+      "recv": [
+        [
+          "request_release",
+          "uint32"
+        ]
+      ]
+    },
+    "PLLQCtrl.AccessRequest": {
+      "send": [
+        [
+          "request_release",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLQCtrl.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "on_off",
+          "uint32"
+        ]
+      ]
+    },
+    "PLLQCtrl.OnOffSet": {
+      "send": [
+        [
+          "on_off",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLQCtrl.PhaseGet": {
+      "send": [],
+      "recv": [
+        [
+          "phase_adjustment",
+          "int32"
+        ],
+        [
+          "phase_custom",
+          "float32"
+        ]
+      ]
+    },
+    "PLLQCtrl.PhaseSet": {
+      "send": [
+        [
+          "phase_adjustment",
+          "int32"
+        ],
+        [
+          "custom_phase",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLQCtrl.QGainGet": {
+      "send": [],
+      "recv": [
+        [
+          "q_gain",
+          "float32"
+        ]
+      ]
+    },
+    "PLLQCtrl.QGainSet": {
+      "send": [
+        [
+          "q_gain",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLSignalAnlzr.ChGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.ChSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLSignalAnlzr.FFTAvgRestart": {
+      "send": [],
+      "recv": []
+    },
+    "PLLSignalAnlzr.FFTDataGet": {
+      "send": [],
+      "recv": [
+        [
+          "data_f0",
+          "float64"
+        ],
+        [
+          "data_df",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.FFTPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "fft_window",
+          "uint16"
+        ],
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "int32"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.FFTPropsSet": {
+      "send": [
+        [
+          "fft_window",
+          "uint16"
+        ],
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLSignalAnlzr.Open": {
+      "send": [],
+      "recv": []
+    },
+    "PLLSignalAnlzr.OsciDataGet": {
+      "send": [],
+      "recv": [
+        [
+          "data_t0",
+          "float64"
+        ],
+        [
+          "data_dt",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.TimebaseGet": {
+      "send": [],
+      "recv": [
+        [
+          "timebase",
+          "int32"
+        ],
+        [
+          "update_rate",
+          "int32"
+        ],
+        [
+          "timebases_size",
+          "int32"
+        ],
+        [
+          "timebases_number",
+          "int32"
+        ],
+        [
+          "timebases",
+          "array_string"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.TimebaseSet": {
+      "send": [
+        [
+          "timebase",
+          "int32"
+        ],
+        [
+          "update_rate",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLSignalAnlzr.TrigAuto": {
+      "send": [],
+      "recv": []
+    },
+    "PLLSignalAnlzr.TrigGet": {
+      "send": [],
+      "recv": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_source",
+          "int32"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_position_s",
+          "float64"
+        ],
+        [
+          "arming_mode",
+          "uint16"
+        ],
+        [
+          "trigger_source_signals_list_size",
+          "int32"
+        ],
+        [
+          "trigger_source_signals_list_number",
+          "int32"
+        ],
+        [
+          "trigger_source_signals_list",
+          "array_string"
+        ]
+      ]
+    },
+    "PLLSignalAnlzr.TrigRearm": {
+      "send": [],
+      "recv": []
+    },
+    "PLLSignalAnlzr.TrigSet": {
+      "send": [
+        [
+          "trigger_mode",
+          "uint16"
+        ],
+        [
+          "trigger_source",
+          "int32"
+        ],
+        [
+          "trigger_slope",
+          "uint16"
+        ],
+        [
+          "trigger_level",
+          "float64"
+        ],
+        [
+          "trigger_position_s",
+          "float64"
+        ],
+        [
+          "arming_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLZoomFFT.AvgRestart": {
+      "send": [],
+      "recv": []
+    },
+    "PLLZoomFFT.ChGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "PLLZoomFFT.ChSet": {
+      "send": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "PLLZoomFFT.DataGet": {
+      "send": [],
+      "recv": [
+        [
+          "data_f0",
+          "float64"
+        ],
+        [
+          "data_df",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ]
+      ]
+    },
+    "PLLZoomFFT.Open": {
+      "send": [],
+      "recv": []
+    },
+    "PLLZoomFFT.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "fft_window",
+          "uint16"
+        ],
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "int32"
+        ]
+      ]
+    },
+    "PLLZoomFFT.PropsSet": {
+      "send": [
+        [
+          "fft_window",
+          "uint16"
+        ],
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.CloudGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "x_coordinates_m",
+          "array_float32"
+        ],
+        [
+          "y_coordinates_m",
+          "array_float32"
+        ]
+      ]
+    },
+    "Pattern.CloudSet": {
+      "send": [
+        [
+          "set_active_pattern",
+          "uint32"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "x_coordinates_m",
+          "array_float32"
+        ],
+        [
+          "y_coordinates_m",
+          "array_float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.ExpOpen": {
+      "send": [],
+      "recv": []
+    },
+    "Pattern.ExpPause": {
+      "send": [
+        [
+          "pause_resume",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.ExpStart": {
+      "send": [
+        [
+          "pattern",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.ExpStatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "Pattern.ExpStop": {
+      "send": [],
+      "recv": []
+    },
+    "Pattern.GridGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_points_in_x",
+          "int32"
+        ],
+        [
+          "num_points_in_y",
+          "int32"
+        ],
+        [
+          "center_x_m",
+          "float32"
+        ],
+        [
+          "center_y_m",
+          "float32"
+        ],
+        [
+          "width_m",
+          "float32"
+        ],
+        [
+          "height_m",
+          "float32"
+        ],
+        [
+          "angle_deg",
+          "float32"
+        ]
+      ]
+    },
+    "Pattern.GridSet": {
+      "send": [
+        [
+          "set_active_pattern",
+          "uint32"
+        ],
+        [
+          "num_points_in_x",
+          "int32"
+        ],
+        [
+          "num_points_in_y",
+          "int32"
+        ],
+        [
+          "gridscan_frame",
+          "uint32"
+        ],
+        [
+          "center_x_m",
+          "float32"
+        ],
+        [
+          "center_y_m",
+          "float32"
+        ],
+        [
+          "width_m",
+          "float32"
+        ],
+        [
+          "height_m",
+          "float32"
+        ],
+        [
+          "angle_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.LineGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "line_point_1_x_m",
+          "float32"
+        ],
+        [
+          "line_point_1_y_m",
+          "float32"
+        ],
+        [
+          "line_point_2_x_m",
+          "float32"
+        ],
+        [
+          "line_point_2_y_m",
+          "float32"
+        ]
+      ]
+    },
+    "Pattern.LineSet": {
+      "send": [
+        [
+          "set_active_pattern",
+          "uint32"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "linescan_frame",
+          "uint32"
+        ],
+        [
+          "line_point_1_x_m",
+          "float32"
+        ],
+        [
+          "line_point_1_y_m",
+          "float32"
+        ],
+        [
+          "line_point_2_x_m",
+          "float32"
+        ],
+        [
+          "line_point_2_y_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Pattern.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "size_of_the_list_of_experiments",
+          "int32"
+        ],
+        [
+          "num_experiments",
+          "int32"
+        ],
+        [
+          "list_of_experiments",
+          "array_string"
+        ],
+        [
+          "selected_experiment",
+          "string"
+        ],
+        [
+          "external_vi_path",
+          "string"
+        ],
+        [
+          "pre_measure_delay_s",
+          "float32"
+        ],
+        [
+          "save_scan_channels",
+          "uint32"
+        ]
+      ]
+    },
+    "Pattern.PropsSet": {
+      "send": [
+        [
+          "selected_experiment",
+          "string"
+        ],
+        [
+          "basename",
+          "string"
+        ],
+        [
+          "external_vi_path",
+          "string"
+        ],
+        [
+          "pre_measure_delay_s",
+          "float32"
+        ],
+        [
+          "save_scan_channels",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.CalibrGet": {
+      "send": [],
+      "recv": [
+        [
+          "calibration_x_m_v",
+          "float32"
+        ],
+        [
+          "calibration_y_m_v",
+          "float32"
+        ],
+        [
+          "calibration_z_m_v",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.DriftCompGet": {
+      "send": [],
+      "recv": [
+        [
+          "compensation_status",
+          "uint32"
+        ],
+        [
+          "vx_m_s",
+          "float32"
+        ],
+        [
+          "vy_m_s",
+          "float32"
+        ],
+        [
+          "vz_m_s",
+          "float32"
+        ],
+        [
+          "x_saturated_status",
+          "uint32"
+        ],
+        [
+          "y_saturated_status",
+          "uint32"
+        ],
+        [
+          "z_saturated_status",
+          "uint32"
+        ],
+        [
+          "saturation_limit",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.DriftCompSet": {
+      "send": [
+        [
+          "compensation_on_off",
+          "int32"
+        ],
+        [
+          "vx_m_s",
+          "float32"
+        ],
+        [
+          "vy_m_s",
+          "float32"
+        ],
+        [
+          "vz_m_s",
+          "float32"
+        ],
+        [
+          "saturation_limit",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.HVAInfoGet": {
+      "send": [],
+      "recv": [
+        [
+          "gain_aux",
+          "float32"
+        ],
+        [
+          "gain_x",
+          "float32"
+        ],
+        [
+          "gain_y",
+          "float32"
+        ],
+        [
+          "gain_z",
+          "float32"
+        ],
+        [
+          "x_y_enabled_status",
+          "uint32"
+        ],
+        [
+          "z_enabled_status",
+          "uint32"
+        ],
+        [
+          "aux_enabled_status",
+          "uint32"
+        ]
+      ]
+    },
+    "Piezo.HVAStatusLEDGet": {
+      "send": [],
+      "recv": [
+        [
+          "overheated_status",
+          "uint32"
+        ],
+        [
+          "hv_supply_status",
+          "uint32"
+        ],
+        [
+          "high_temperature_status",
+          "uint32"
+        ],
+        [
+          "output_connector_status",
+          "uint32"
+        ]
+      ]
+    },
+    "Piezo.HystFileLoad": {
+      "send": [
+        [
+          "file_path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.HystFileSave": {
+      "send": [
+        [
+          "file_path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.HystOnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "on_off",
+          "uint32"
+        ]
+      ]
+    },
+    "Piezo.HystOnOffSet": {
+      "send": [
+        [
+          "on_off",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.HystValsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_fast_axis_points",
+          "int32"
+        ],
+        [
+          "fast_axis_x_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_fast_axis_points_2",
+          "int32"
+        ],
+        [
+          "fast_axis_y_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_slow_axis_points",
+          "int32"
+        ],
+        [
+          "slow_axis_x_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_slow_axis_points_2",
+          "int32"
+        ],
+        [
+          "slow_axis_y_hysteresis_points",
+          "array_float32"
+        ]
+      ]
+    },
+    "Piezo.HystValsSet": {
+      "send": [
+        [
+          "num_fast_axis_points",
+          "int32"
+        ],
+        [
+          "fast_axis_x_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_fast_axis_points_2",
+          "int32"
+        ],
+        [
+          "fast_axis_y_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_slow_axis_points",
+          "int32"
+        ],
+        [
+          "slow_axis_x_hysteresis_points",
+          "array_float32"
+        ],
+        [
+          "num_slow_axis_points_2",
+          "int32"
+        ],
+        [
+          "slow_axis_y_hysteresis_points",
+          "array_float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.RangeGet": {
+      "send": [],
+      "recv": [
+        [
+          "range_x_m",
+          "float32"
+        ],
+        [
+          "range_y_m",
+          "float32"
+        ],
+        [
+          "range_z_m",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.RangeSet": {
+      "send": [
+        [
+          "range_x_m",
+          "float32"
+        ],
+        [
+          "range_y_m",
+          "float32"
+        ],
+        [
+          "range_z_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.SensGet": {
+      "send": [],
+      "recv": [
+        [
+          "calibration_x_m_v",
+          "float32"
+        ],
+        [
+          "calibration_y_m_v",
+          "float32"
+        ],
+        [
+          "calibration_z_m_v",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.SensSet": {
+      "send": [
+        [
+          "calibration_x_m_v",
+          "float32"
+        ],
+        [
+          "calibration_y_m_v",
+          "float32"
+        ],
+        [
+          "calibration_z_m_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.TiltGet": {
+      "send": [],
+      "recv": [
+        [
+          "tilt_x_deg",
+          "float32"
+        ],
+        [
+          "tilt_y_deg",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.TiltSet": {
+      "send": [
+        [
+          "tilt_x_deg",
+          "float32"
+        ],
+        [
+          "tilt_y_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Piezo.XYZLimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "enable_limits",
+          "uint16"
+        ],
+        [
+          "voltage_limit_x_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_x_high_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_y_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_y_high_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_z_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_z_high_v",
+          "float32"
+        ]
+      ]
+    },
+    "Piezo.XYZLimitsSet": {
+      "send": [
+        [
+          "enable_limits",
+          "uint16"
+        ],
+        [
+          "voltage_limit_x_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_x_high_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_y_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_y_high_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_z_low_v",
+          "float32"
+        ],
+        [
+          "voltage_limit_z_high_v",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "SafeTip.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "safe_tip_status",
+          "uint16"
+        ]
+      ]
+    },
+    "SafeTip.OnOffSet": {
+      "send": [
+        [
+          "safe_tip_status",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "SafeTip.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "auto_recovery",
+          "uint16"
+        ],
+        [
+          "auto_pause_scan",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ]
+      ]
+    },
+    "SafeTip.PropsSet": {
+      "send": [
+        [
+          "auto_recovery",
+          "uint16"
+        ],
+        [
+          "auto_pause_scan",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "SafeTip.SignalGet": {
+      "send": [],
+      "recv": [
+        [
+          "signal_value",
+          "float32"
+        ]
+      ]
+    },
+    "Scan.Action": {
+      "send": [
+        [
+          "scan_action",
+          "uint16"
+        ],
+        [
+          "scan_direction",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Scan.BackgroundDelete": {
+      "send": [
+        [
+          "wait_until_deleted",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ],
+        [
+          "which_background_to_delete",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "timed_out",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.BackgroundPaste": {
+      "send": [
+        [
+          "wait_until_pasted",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "timed_out",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.BufferGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "pixels",
+          "int32"
+        ],
+        [
+          "lines",
+          "int32"
+        ]
+      ]
+    },
+    "Scan.BufferSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "pixels",
+          "int32"
+        ],
+        [
+          "lines",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Scan.FrameDataGrab": {
+      "send": [
+        [
+          "channel_index",
+          "uint32"
+        ],
+        [
+          "data_direction",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "channel_name",
+          "string"
+        ],
+        [
+          "scan_data_rows",
+          "int32"
+        ],
+        [
+          "scan_data_columns",
+          "int32"
+        ],
+        [
+          "scan_data",
+          "matrix_float32"
+        ],
+        [
+          "scan_direction",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.FrameGet": {
+      "send": [],
+      "recv": [
+        [
+          "center_x_m",
+          "float32"
+        ],
+        [
+          "center_y_m",
+          "float32"
+        ],
+        [
+          "width_m",
+          "float32"
+        ],
+        [
+          "height_m",
+          "float32"
+        ],
+        [
+          "angle_deg",
+          "float32"
+        ]
+      ]
+    },
+    "Scan.FrameSet": {
+      "send": [
+        [
+          "center_x_m",
+          "float32"
+        ],
+        [
+          "center_y_m",
+          "float32"
+        ],
+        [
+          "width_m",
+          "float32"
+        ],
+        [
+          "height_m",
+          "float32"
+        ],
+        [
+          "angle_deg",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Scan.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "continuous_scan",
+          "uint32"
+        ],
+        [
+          "bouncy_scan",
+          "uint32"
+        ],
+        [
+          "autosave",
+          "uint32"
+        ],
+        [
+          "series_name",
+          "string"
+        ],
+        [
+          "comment",
+          "string"
+        ],
+        [
+          "modules_names_size",
+          "int32"
+        ],
+        [
+          "modules_names_number",
+          "int32"
+        ],
+        [
+          "modules_names",
+          "array_string"
+        ],
+        [
+          "size_of_num_parameters_per_module_array",
+          "int32"
+        ],
+        [
+          "num_parameters_per_module_array",
+          "array_int32"
+        ],
+        [
+          "parameters_rows",
+          "int32"
+        ],
+        [
+          "parameters_columns",
+          "int32"
+        ],
+        [
+          "parameters",
+          "matrix_string"
+        ],
+        [
+          "autopaste",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.PropsSet": {
+      "send": [
+        [
+          "continuous_scan",
+          "uint32"
+        ],
+        [
+          "bouncy_scan",
+          "uint32"
+        ],
+        [
+          "autosave",
+          "uint32"
+        ],
+        [
+          "series_name",
+          "string"
+        ],
+        [
+          "comment",
+          "string"
+        ],
+        [
+          "modules_names_size",
+          "int32"
+        ],
+        [
+          "modules_names_number",
+          "int32"
+        ],
+        [
+          "modules_names",
+          "array_string"
+        ],
+        [
+          "autopaste",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Scan.Save": {
+      "send": [
+        [
+          "wait_until_saved",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "timed_out",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.SpeedGet": {
+      "send": [],
+      "recv": [
+        [
+          "forward_linear_speed_m_s",
+          "float32"
+        ],
+        [
+          "backward_linear_speed_m_s",
+          "float32"
+        ],
+        [
+          "forward_time_per_line_s",
+          "float32"
+        ],
+        [
+          "backward_time_per_line_s",
+          "float32"
+        ],
+        [
+          "keep_parameter_constant",
+          "uint16"
+        ],
+        [
+          "speed_ratio",
+          "float32"
+        ]
+      ]
+    },
+    "Scan.SpeedSet": {
+      "send": [
+        [
+          "forward_linear_speed_m_s",
+          "float32"
+        ],
+        [
+          "backward_linear_speed_m_s",
+          "float32"
+        ],
+        [
+          "forward_time_per_line_s",
+          "float32"
+        ],
+        [
+          "backward_time_per_line_s",
+          "float32"
+        ],
+        [
+          "keep_parameter_constant",
+          "uint16"
+        ],
+        [
+          "speed_ratio",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Scan.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "scan_status",
+          "uint32"
+        ]
+      ]
+    },
+    "Scan.WaitEndOfLine": {
+      "send": [
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "timeout_status",
+          "uint32"
+        ],
+        [
+          "line_number",
+          "int32"
+        ],
+        [
+          "type_of_movement",
+          "uint16"
+        ],
+        [
+          "pass_number",
+          "int32"
+        ]
+      ]
+    },
+    "Scan.WaitEndOfScan": {
+      "send": [
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "timeout_status",
+          "uint32"
+        ],
+        [
+          "file_path",
+          "string"
+        ]
+      ]
+    },
+    "Scan.XYPosGet": {
+      "send": [
+        [
+          "wait_for_newest_data",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "x_m",
+          "float32"
+        ],
+        [
+          "y_m",
+          "float32"
+        ]
+      ]
+    },
+    "Script.Autosave": {
+      "send": [
+        [
+          "acquire_buffer",
+          "uint16"
+        ],
+        [
+          "sweep_number",
+          "int32"
+        ],
+        [
+          "all_sweeps_to_same_file",
+          "uint32"
+        ],
+        [
+          "folder_path",
+          "string"
+        ],
+        [
+          "basename",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.ChsGet": {
+      "send": [
+        [
+          "acquire_buffer",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ]
+    },
+    "Script.ChsSet": {
+      "send": [
+        [
+          "acquire_buffer",
+          "uint16"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.DataGet": {
+      "send": [
+        [
+          "acquire_buffer",
+          "uint16"
+        ],
+        [
+          "sweep_number",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "Script.Deploy": {
+      "send": [
+        [
+          "script_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.LUTDeploy": {
+      "send": [
+        [
+          "lut_index",
+          "int32"
+        ],
+        [
+          "wait_until_finished",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.LUTLoad": {
+      "send": [
+        [
+          "lut_index",
+          "int32"
+        ],
+        [
+          "file_path",
+          "string"
+        ],
+        [
+          "lut_values_size",
+          "int32"
+        ],
+        [
+          "lut_values",
+          "array_float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.LUTOpen": {
+      "send": [],
+      "recv": []
+    },
+    "Script.LUTSave": {
+      "send": [
+        [
+          "lut_index",
+          "int32"
+        ],
+        [
+          "file_path",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.Load": {
+      "send": [
+        [
+          "script_index",
+          "int32"
+        ],
+        [
+          "script_file_path",
+          "string"
+        ],
+        [
+          "load_session",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.Open": {
+      "send": [],
+      "recv": []
+    },
+    "Script.Run": {
+      "send": [
+        [
+          "script_index",
+          "int32"
+        ],
+        [
+          "wait_until_script_finishes",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.Save": {
+      "send": [
+        [
+          "script_index",
+          "int32"
+        ],
+        [
+          "script_file_path",
+          "string"
+        ],
+        [
+          "save_session",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Script.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "Script.Undeploy": {
+      "send": [
+        [
+          "script_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "SignalChart.ChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "channel_a_index",
+          "int32"
+        ],
+        [
+          "channel_b_index",
+          "int32"
+        ]
+      ]
+    },
+    "SignalChart.ChsSet": {
+      "send": [
+        [
+          "channel_a_index",
+          "int32"
+        ],
+        [
+          "channel_b_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "SignalChart.Open": {
+      "send": [],
+      "recv": []
+    },
+    "Signals.AddRTGet": {
+      "send": [],
+      "recv": [
+        [
+          "additional_rt_signals_names_size",
+          "int32"
+        ],
+        [
+          "num_additional_rt_signals",
+          "int32"
+        ],
+        [
+          "additional_rt_signals_names",
+          "array_string"
+        ],
+        [
+          "additional_rt_signal_1",
+          "string"
+        ],
+        [
+          "additional_rt_signal_2",
+          "string"
+        ]
+      ]
+    },
+    "Signals.AddRTSet": {
+      "send": [
+        [
+          "additional_rt_signal_1",
+          "int32"
+        ],
+        [
+          "additional_rt_signal_2",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Signals.CalibrGet": {
+      "send": [
+        [
+          "signal_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calibration_per_volt",
+          "float32"
+        ],
+        [
+          "offset_in_physical_units",
+          "float32"
+        ]
+      ]
+    },
+    "Signals.MeasNamesGet": {
+      "send": [],
+      "recv": [
+        [
+          "measurement_channels_list_size",
+          "int32"
+        ],
+        [
+          "num_measurement_channels",
+          "int32"
+        ],
+        [
+          "measurement_channels_list",
+          "array_string"
+        ]
+      ]
+    },
+    "Signals.NamesGet": {
+      "send": [],
+      "recv": [
+        [
+          "signals_names_size",
+          "int32"
+        ],
+        [
+          "signals_names_number",
+          "int32"
+        ],
+        [
+          "signals_names",
+          "array_string"
+        ]
+      ]
+    },
+    "Signals.RangeGet": {
+      "send": [
+        [
+          "signal_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "maximum_limit",
+          "float32"
+        ],
+        [
+          "minimum_limit",
+          "float32"
+        ]
+      ]
+    },
+    "Signals.ValGet": {
+      "send": [
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "wait_for_newest_data",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "signal_value",
+          "float32"
+        ]
+      ]
+    },
+    "Signals.ValsGet": {
+      "send": [
+        [
+          "signals_indexes_size",
+          "int32"
+        ],
+        [
+          "signals_indexes",
+          "array_int32"
+        ],
+        [
+          "wait_for_newest_data",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "signals_values_size",
+          "int32"
+        ],
+        [
+          "signals_values",
+          "array_float32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.ACCouplingGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "ac_coupling",
+          "uint32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.ACCouplingSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "ac_coupling",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.AveragGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "uint32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.AveragSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "averaging_mode",
+          "uint16"
+        ],
+        [
+          "weighting_mode",
+          "uint16"
+        ],
+        [
+          "count",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.BandRMSGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "band_rms",
+          "float64"
+        ],
+        [
+          "minimum_frequency_hz",
+          "float64"
+        ],
+        [
+          "maximum_frequency_hz",
+          "float64"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.ChGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.ChSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.CursorPosGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "cursor_type",
+          "uint16"
+        ]
+      ],
+      "recv": [
+        [
+          "position_x_cursor_1_hz",
+          "float64"
+        ],
+        [
+          "position_x_cursor_2_hz",
+          "float64"
+        ],
+        [
+          "position_y_cursor_1",
+          "float64"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.CursorPosSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "cursor_type",
+          "uint16"
+        ],
+        [
+          "position_x_cursor_1_hz",
+          "float64"
+        ],
+        [
+          "position_x_cursor_2_hz",
+          "float64"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.DCGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "dc_value",
+          "float64"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.DataGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "data_f0",
+          "float64"
+        ],
+        [
+          "data_df",
+          "float64"
+        ],
+        [
+          "data_y_size",
+          "int32"
+        ],
+        [
+          "data_y",
+          "array_float64"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.FFTWindowGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "fft_window_index",
+          "uint16"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.FFTWindowSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "fft_window_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.FreqRangeGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "range_index",
+          "int32"
+        ],
+        [
+          "num_frequency_ranges",
+          "int32"
+        ],
+        [
+          "frequency_ranges_hz",
+          "array_float32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.FreqRangeSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "range_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.FreqResGet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "resolution_index",
+          "uint16"
+        ],
+        [
+          "num_frequency_resolutions",
+          "int32"
+        ],
+        [
+          "frequency_resolutions_hz",
+          "array_float32"
+        ]
+      ]
+    },
+    "SpectrumAnlzr.FreqResSet": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ],
+        [
+          "resolution_index",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "SpectrumAnlzr.Run": {
+      "send": [
+        [
+          "spectrum_analyzer_instance",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "TCPLog.ChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "TCPLog.OversamplSet": {
+      "send": [
+        [
+          "oversampling_value",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "TCPLog.Start": {
+      "send": [],
+      "recv": []
+    },
+    "TCPLog.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "int32"
+        ]
+      ]
+    },
+    "TCPLog.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "TipRec.BufferClear": {
+      "send": [],
+      "recv": []
+    },
+    "TipRec.BufferSizeGet": {
+      "send": [],
+      "recv": [
+        [
+          "buffer_size",
+          "int32"
+        ]
+      ]
+    },
+    "TipRec.BufferSizeSet": {
+      "send": [
+        [
+          "buffer_size",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "TipRec.DataGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ]
+      ]
+    },
+    "TipRec.DataSave": {
+      "send": [
+        [
+          "clear_buffer",
+          "uint32"
+        ],
+        [
+          "basename",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "TipShaper.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "switch_off_delay_s",
+          "float32"
+        ],
+        [
+          "change_bias",
+          "uint32"
+        ],
+        [
+          "bias_v",
+          "float32"
+        ],
+        [
+          "tip_lift_m",
+          "float32"
+        ],
+        [
+          "lift_time_1_s",
+          "float32"
+        ],
+        [
+          "bias_lift_v",
+          "float32"
+        ],
+        [
+          "bias_settling_time_s",
+          "float32"
+        ],
+        [
+          "lift_height_m",
+          "float32"
+        ],
+        [
+          "lift_time_2_s",
+          "float32"
+        ],
+        [
+          "end_wait_time_s",
+          "float32"
+        ],
+        [
+          "restore_feedback",
+          "uint32"
+        ]
+      ]
+    },
+    "TipShaper.PropsSet": {
+      "send": [
+        [
+          "switch_off_delay",
+          "float32"
+        ],
+        [
+          "change_bias",
+          "uint32"
+        ],
+        [
+          "bias_v",
+          "float32"
+        ],
+        [
+          "tip_lift_m",
+          "float32"
+        ],
+        [
+          "lift_time_1_s",
+          "float32"
+        ],
+        [
+          "bias_lift_v",
+          "float32"
+        ],
+        [
+          "bias_settling_time_s",
+          "float32"
+        ],
+        [
+          "lift_height_m",
+          "float32"
+        ],
+        [
+          "lift_time_2_s",
+          "float32"
+        ],
+        [
+          "end_wait_time_s",
+          "float32"
+        ],
+        [
+          "restore_feedback",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "TipShaper.Start": {
+      "send": [
+        [
+          "wait_until_finished",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "UserIn.CalibrSet": {
+      "send": [
+        [
+          "input_index",
+          "int32"
+        ],
+        [
+          "calibration_per_volt",
+          "float32"
+        ],
+        [
+          "offset_in_physical_units",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.CalcSignalConfigGet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "signal_1",
+          "uint16"
+        ],
+        [
+          "operation",
+          "uint16"
+        ],
+        [
+          "signal_2",
+          "uint16"
+        ]
+      ]
+    },
+    "UserOut.CalcSignalConfigSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "signal_1",
+          "uint16"
+        ],
+        [
+          "operation",
+          "uint16"
+        ],
+        [
+          "signal_2",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.CalcSignalNameGet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "calculated_signal_name",
+          "string"
+        ]
+      ]
+    },
+    "UserOut.CalcSignalNameSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "calculated_signal_name",
+          "string"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.CalibrSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "calibration_per_volt",
+          "float32"
+        ],
+        [
+          "offset_in_physical_units",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.LimitsGet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "raw_limits",
+          "uint32"
+        ]
+      ],
+      "recv": [
+        [
+          "upper_limit",
+          "float32"
+        ],
+        [
+          "lower_limit",
+          "float32"
+        ]
+      ]
+    },
+    "UserOut.LimitsSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "upper_limit",
+          "float32"
+        ],
+        [
+          "lower_limit",
+          "float32"
+        ],
+        [
+          "raw_limits",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.ModeGet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "output_mode",
+          "uint16"
+        ]
+      ]
+    },
+    "UserOut.ModeSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "output_mode",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.MonitorChGet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ]
+      ],
+      "recv": [
+        [
+          "monitor_channel_index",
+          "int32"
+        ]
+      ]
+    },
+    "UserOut.MonitorChSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "monitor_channel_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "UserOut.ValSet": {
+      "send": [
+        [
+          "output_index",
+          "int32"
+        ],
+        [
+          "output_value",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.AcqPeriodGet": {
+      "send": [],
+      "recv": [
+        [
+          "acquisition_period_s",
+          "float32"
+        ]
+      ]
+    },
+    "Util.AcqPeriodSet": {
+      "send": [
+        [
+          "acquisition_period_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.LayoutLoad": {
+      "send": [
+        [
+          "layout_file_path",
+          "string"
+        ],
+        [
+          "load_session_layout",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.LayoutSave": {
+      "send": [
+        [
+          "layout_file_path",
+          "string"
+        ],
+        [
+          "save_session_layout",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.Lock": {
+      "send": [],
+      "recv": []
+    },
+    "Util.Quit": {
+      "send": [
+        [
+          "use_the_stored_values",
+          "uint32"
+        ],
+        [
+          "settings_name",
+          "string"
+        ],
+        [
+          "layout_name",
+          "string"
+        ],
+        [
+          "save_signals",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.RTFreqGet": {
+      "send": [],
+      "recv": [
+        [
+          "rt_frequency",
+          "float32"
+        ]
+      ]
+    },
+    "Util.RTFreqSet": {
+      "send": [
+        [
+          "rt_frequency",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.RTOversamplGet": {
+      "send": [],
+      "recv": [
+        [
+          "rt_oversampling",
+          "int32"
+        ]
+      ]
+    },
+    "Util.RTOversamplSet": {
+      "send": [
+        [
+          "rt_oversampling",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.SessionPathGet": {
+      "send": [],
+      "recv": [
+        [
+          "session_path",
+          "string"
+        ]
+      ]
+    },
+    "Util.SessionPathSet": {
+      "send": [
+        [
+          "session_path",
+          "string"
+        ],
+        [
+          "save_settings_to_previous",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.SettingsLoad": {
+      "send": [
+        [
+          "settings_file_path",
+          "string"
+        ],
+        [
+          "load_session_settings",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.SettingsSave": {
+      "send": [
+        [
+          "settings_file_path",
+          "string"
+        ],
+        [
+          "save_session_settings",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "Util.UnLock": {
+      "send": [],
+      "recv": []
+    },
+    "Util.VersionGet": {
+      "send": [],
+      "recv": [
+        [
+          "product_line",
+          "string"
+        ],
+        [
+          "version",
+          "string"
+        ],
+        [
+          "host_app_release",
+          "uint32"
+        ],
+        [
+          "rt_engine_release",
+          "uint32"
+        ]
+      ]
+    },
+    "ZCtrl.ActiveCtrlSet": {
+      "send": [
+        [
+          "z_controller_index",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.CtrlListGet": {
+      "send": [],
+      "recv": [
+        [
+          "list_of_controllers_size",
+          "int32"
+        ],
+        [
+          "num_controllers",
+          "int32"
+        ],
+        [
+          "list_of_controllers",
+          "array_string"
+        ],
+        [
+          "active_z_controller_index",
+          "int32"
+        ]
+      ]
+    },
+    "ZCtrl.GainGet": {
+      "send": [],
+      "recv": [
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.GainSet": {
+      "send": [
+        [
+          "p_gain",
+          "float32"
+        ],
+        [
+          "time_constant_s",
+          "float32"
+        ],
+        [
+          "i_gain",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.Home": {
+      "send": [],
+      "recv": []
+    },
+    "ZCtrl.HomePropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "relative_or_absolute",
+          "uint16"
+        ],
+        [
+          "home_position_m",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.HomePropsSet": {
+      "send": [
+        [
+          "relative_or_absolute",
+          "uint16"
+        ],
+        [
+          "home_position_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.LimitsEnabledGet": {
+      "send": [],
+      "recv": [
+        [
+          "limit_z_status",
+          "uint32"
+        ]
+      ]
+    },
+    "ZCtrl.LimitsEnabledSet": {
+      "send": [
+        [
+          "limit_z_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.LimitsGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_high_limit_m",
+          "float32"
+        ],
+        [
+          "z_low_limit_m",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.LimitsSet": {
+      "send": [
+        [
+          "z_high_limit_m",
+          "float32"
+        ],
+        [
+          "z_low_limit_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.OnOffGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_controller_status",
+          "uint32"
+        ]
+      ]
+    },
+    "ZCtrl.OnOffSet": {
+      "send": [
+        [
+          "z_controller_status",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.SetpntGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_controller_setpoint",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.SetpntSet": {
+      "send": [
+        [
+          "z_controller_setpoint",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_controller_status",
+          "uint16"
+        ]
+      ]
+    },
+    "ZCtrl.SwitchOffDelayGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_controller_switch_off_delay_s",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.SwitchOffDelaySet": {
+      "send": [
+        [
+          "z_controller_switch_off_delay_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.TipLiftGet": {
+      "send": [],
+      "recv": [
+        [
+          "tiplift_m",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.TipLiftSet": {
+      "send": [
+        [
+          "tiplift_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.Withdraw": {
+      "send": [
+        [
+          "wait_until_finished",
+          "uint32"
+        ],
+        [
+          "timeout_ms",
+          "int32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.WithdrawRateGet": {
+      "send": [],
+      "recv": [
+        [
+          "withdraw_slew_rate_m_s",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.WithdrawRateSet": {
+      "send": [
+        [
+          "withdraw_slew_rate_m_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZCtrl.ZPosGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_position_m",
+          "float32"
+        ]
+      ]
+    },
+    "ZCtrl.ZPosSet": {
+      "send": [
+        [
+          "z_position_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.AdvPropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "time_between_forward_and_backward_sweep_s",
+          "float32"
+        ],
+        [
+          "record_final_z",
+          "uint16"
+        ],
+        [
+          "lockin_run",
+          "uint16"
+        ],
+        [
+          "reset_z",
+          "uint16"
+        ]
+      ]
+    },
+    "ZSpectr.AdvPropsSet": {
+      "send": [
+        [
+          "time_between_forward_and_backward_sweep_s",
+          "float32"
+        ],
+        [
+          "record_final_z",
+          "uint16"
+        ],
+        [
+          "lockin_run",
+          "uint16"
+        ],
+        [
+          "reset_z",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.ChsGet": {
+      "send": [],
+      "recv": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ],
+        [
+          "channels_size",
+          "int32"
+        ],
+        [
+          "num_channels_names",
+          "int32"
+        ],
+        [
+          "channels",
+          "array_string"
+        ]
+      ]
+    },
+    "ZSpectr.ChsSet": {
+      "send": [
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channel_indexes",
+          "array_int32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.DigSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "digital_sync",
+          "uint16"
+        ]
+      ]
+    },
+    "ZSpectr.DigSyncSet": {
+      "send": [
+        [
+          "digital_sync",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.Open": {
+      "send": [],
+      "recv": []
+    },
+    "ZSpectr.PropsGet": {
+      "send": [],
+      "recv": [
+        [
+          "backward_sweep",
+          "uint16"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "parameters_size",
+          "int32"
+        ],
+        [
+          "num_parameters",
+          "int32"
+        ],
+        [
+          "parameters",
+          "array_string"
+        ],
+        [
+          "fixed_parameters_size",
+          "int32"
+        ],
+        [
+          "num_fixed_parameters",
+          "int32"
+        ],
+        [
+          "fixed_parameters",
+          "array_string"
+        ],
+        [
+          "num_sweeps",
+          "uint16"
+        ],
+        [
+          "autosave",
+          "uint16"
+        ],
+        [
+          "show_save_dialog",
+          "uint16"
+        ],
+        [
+          "save_all",
+          "uint16"
+        ]
+      ]
+    },
+    "ZSpectr.PropsSet": {
+      "send": [
+        [
+          "backward_sweep",
+          "uint16"
+        ],
+        [
+          "num_points",
+          "int32"
+        ],
+        [
+          "num_sweeps",
+          "uint16"
+        ],
+        [
+          "autosave",
+          "uint16"
+        ],
+        [
+          "show_save_dialog",
+          "uint16"
+        ],
+        [
+          "save_all",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.PulseSeqSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "pulse_sequence_nr",
+          "uint16"
+        ],
+        [
+          "nr_periods",
+          "uint32"
+        ]
+      ]
+    },
+    "ZSpectr.PulseSeqSyncSet": {
+      "send": [
+        [
+          "pulse_sequence_nr",
+          "uint16"
+        ],
+        [
+          "nr_periods",
+          "uint32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.RangeGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_offset_m",
+          "float32"
+        ],
+        [
+          "z_sweep_distance_m",
+          "float32"
+        ]
+      ]
+    },
+    "ZSpectr.RangeSet": {
+      "send": [
+        [
+          "z_offset_m",
+          "float32"
+        ],
+        [
+          "z_sweep_distance_m",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.Retract2ndGet": {
+      "send": [],
+      "recv": [
+        [
+          "2nd_condition",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ]
+    },
+    "ZSpectr.Retract2ndSet": {
+      "send": [
+        [
+          "2nd_condition",
+          "int32"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.RetractDelayGet": {
+      "send": [],
+      "recv": [
+        [
+          "retract_delay_s",
+          "float32"
+        ]
+      ]
+    },
+    "ZSpectr.RetractDelaySet": {
+      "send": [
+        [
+          "retract_delay_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.RetractGet": {
+      "send": [],
+      "recv": [
+        [
+          "enable",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ]
+    },
+    "ZSpectr.RetractSet": {
+      "send": [
+        [
+          "enable",
+          "uint16"
+        ],
+        [
+          "threshold",
+          "float32"
+        ],
+        [
+          "signal_index",
+          "int32"
+        ],
+        [
+          "comparison",
+          "uint16"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.Start": {
+      "send": [
+        [
+          "get_data",
+          "uint32"
+        ],
+        [
+          "save_base_name",
+          "string"
+        ]
+      ],
+      "recv": [
+        [
+          "channels_names_size",
+          "int32"
+        ],
+        [
+          "num_channels",
+          "int32"
+        ],
+        [
+          "channels_names",
+          "array_string"
+        ],
+        [
+          "data_rows",
+          "int32"
+        ],
+        [
+          "data_columns",
+          "int32"
+        ],
+        [
+          "data",
+          "matrix_float32"
+        ],
+        [
+          "num_parameters",
+          "int32"
+        ],
+        [
+          "parameters",
+          "array_float32"
+        ]
+      ]
+    },
+    "ZSpectr.StatusGet": {
+      "send": [],
+      "recv": [
+        [
+          "status",
+          "uint32"
+        ]
+      ]
+    },
+    "ZSpectr.Stop": {
+      "send": [],
+      "recv": []
+    },
+    "ZSpectr.TTLSyncGet": {
+      "send": [],
+      "recv": [
+        [
+          "ttl_line",
+          "uint16"
+        ],
+        [
+          "ttl_polarity",
+          "uint16"
+        ],
+        [
+          "time_to_on_s",
+          "float32"
+        ],
+        [
+          "on_duration_s",
+          "float32"
+        ]
+      ]
+    },
+    "ZSpectr.TTLSyncSet": {
+      "send": [
+        [
+          "ttl_line",
+          "uint16"
+        ],
+        [
+          "ttl_polarity",
+          "uint16"
+        ],
+        [
+          "time_to_on_s",
+          "float32"
+        ],
+        [
+          "on_duration_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    },
+    "ZSpectr.TimingGet": {
+      "send": [],
+      "recv": [
+        [
+          "z_averaging_time_s",
+          "float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_v_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time_s",
+          "float32"
+        ],
+        [
+          "end_settling_time_s",
+          "float32"
+        ],
+        [
+          "z_control_time_s",
+          "float32"
+        ]
+      ]
+    },
+    "ZSpectr.TimingSet": {
+      "send": [
+        [
+          "z_averaging_time_s",
+          "float32"
+        ],
+        [
+          "initial_settling_time_s",
+          "float32"
+        ],
+        [
+          "maximum_slew_rate_v_s",
+          "float32"
+        ],
+        [
+          "settling_time_s",
+          "float32"
+        ],
+        [
+          "integration_time_s",
+          "float32"
+        ],
+        [
+          "end_settling_time_s",
+          "float32"
+        ],
+        [
+          "z_control_time_s",
+          "float32"
+        ]
+      ],
+      "recv": []
+    }
+  }
+}

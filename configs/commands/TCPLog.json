@@ -4,6 +4,10 @@
         "resp": []
     },
     "TCPLog.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "TCPLog.ChsSet": {
         "args": [
             {
                 "name": "Number of channels",

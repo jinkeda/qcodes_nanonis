@@ -4,6 +4,20 @@
             {
                 "name": "Scanner index",
                 "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Current value (A)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeCurrent.GainSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
             },
             {
                 "name": "Gain index",
@@ -12,81 +26,18 @@
             {
                 "name": "Filter index",
                 "type": "i"
-            },
+            }
+        ],
+        "resp": []
+    },
+    "MProbeCurrent.GainsGet": {
+        "args": [
             {
-                "name": "Calibration",
-                "type": "d"
-            },
-            {
-                "name": "Offset",
-                "type": "d"
-            },
-            {
-                "name": "Z position (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z-Controller status",
-                "type": "I"
-            },
-            {
-                "name": "Z-Controller setpoint",
-                "type": "f"
-            },
-            {
-                "name": "P-gain",
-                "type": "f"
-            },
-            {
-                "name": "I-gain",
-                "type": "f"
-            },
-            {
-                "name": "Relative or Absolute",
+                "name": "Scanner index",
                 "type": "H"
-            },
-            {
-                "name": "Home position (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z high limit (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z low limit (m)",
-                "type": "f"
-            },
-            {
-                "name": "X (m)",
-                "type": "f"
-            },
-            {
-                "name": "Y (m)",
-                "type": "f"
-            },
-            {
-                "name": "Speed (m/s)",
-                "type": "f"
-            },
-            {
-                "name": "Factor X (m/V)",
-                "type": "f"
-            },
-            {
-                "name": "Factor Y (m/V)",
-                "type": "f"
-            },
-            {
-                "name": "Factor Z (m/V)",
-                "type": "f"
             }
         ],
         "resp": [
-            {
-                "name": "Current value (A)",
-                "type": "f"
-            },
             {
                 "name": "Gains size",
                 "type": "i"
@@ -118,6 +69,18 @@
             {
                 "name": "Filter index",
                 "type": "i"
+            }
+        ]
+    },
+    "MProbeCurrent.CalibrSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
             },
             {
                 "name": "Calibration",
@@ -126,82 +89,29 @@
             {
                 "name": "Offset",
                 "type": "d"
-            },
+            }
+        ],
+        "resp": []
+    },
+    "MProbeCurrent.CalibrGet": {
+        "args": [
             {
-                "name": "Z position (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z-Controller status",
-                "type": "I"
-            },
-            {
-                "name": "Z-Controller setpoint",
-                "type": "f"
-            },
-            {
-                "name": "P-gain",
-                "type": "f"
-            },
-            {
-                "name": "I-gain",
-                "type": "f"
-            },
-            {
-                "name": "Relative or Absolute",
+                "name": "Scanner index",
                 "type": "H"
             },
             {
-                "name": "Home position (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z high limit (m)",
-                "type": "f"
-            },
-            {
-                "name": "Z low limit (m)",
-                "type": "f"
-            },
-            {
-                "name": "X (m)",
-                "type": "f"
-            },
-            {
-                "name": "Y (m)",
-                "type": "f"
-            },
-            {
-                "name": "Speed (m/s)",
-                "type": "f"
-            },
-            {
-                "name": "Scanner index",
+                "name": "Gain index",
                 "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "d"
             },
             {
-                "name": "Factor X (m/V)",
-                "type": "f"
-            },
-            {
-                "name": "Factor Y (m/V)",
-                "type": "f"
-            },
-            {
-                "name": "Factor Z (m/V)",
-                "type": "f"
-            },
-            {
-                "name": "Range X (m)",
-                "type": "f"
-            },
-            {
-                "name": "Range Y (m)",
-                "type": "f"
-            },
-            {
-                "name": "Range Z (m)",
-                "type": "f"
+                "name": "Offset",
+                "type": "d"
             }
         ]
     }

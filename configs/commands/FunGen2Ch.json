@@ -1,0 +1,199 @@
+{
+    "FunGen2Ch.Start": {
+        "args": [
+            {
+                "name": "Periods",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "FunGen2Ch.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Periods left",
+                "type": "i"
+            }
+        ]
+    },
+    "FunGen2Ch.IdleSet": {
+        "args": [
+            {
+                "name": "Device",
+                "type": "i"
+            },
+            {
+                "name": "Idle value",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.IdleGet": {
+        "args": [
+            {
+                "name": "Device",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Idle value",
+                "type": "f"
+            }
+        ]
+    },
+    "FunGen2Ch.OnOffSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.OnOffGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "FunGen2Ch.SignalSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.SignalGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "FunGen2Ch.PropsSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            },
+            {
+                "name": "Add/Zero",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.PropsGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            },
+            {
+                "name": "Add/Zero",
+                "type": "H"
+            }
+        ]
+    },
+    "FunGen2Ch.WaveformSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            },
+            {
+                "name": "Shape",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen2Ch.WaveformGet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Shape",
+                "type": "H"
+            }
+        ]
+    }
+}

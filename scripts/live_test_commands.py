@@ -49,6 +49,7 @@ DEFAULT_SKIP = {
 SKIPPED = 'SKIPPED'
 PASS = 'PASS'
 MODULE_UNAVAILABLE = 'MODULE_UNAVAILABLE'  # module/feature/scanner not present (env, not a bug)
+EMPTY_RESPONSE = 'EMPTY_RESPONSE'  # controller omitted declared fields without reporting an error
 PROTOCOL_MISMATCH = 'PROTOCOL_MISMATCH'    # Nanonis could not unflatten request -> wrong send types
 NANONIS_ERROR = 'NANONIS_ERROR'        # other non-zero Nanonis error status
 DECODE_ERROR = 'DECODE_ERROR'          # response could not be decoded per definition
@@ -59,19 +60,73 @@ CONNECTION_ERROR = 'CONNECTION_ERROR'  # socket/timeout failure
 # Substrings that mark an error as an environment limitation rather than a bug
 _MODULE_MARKERS = (
     'not available', 'make sure', 'module is running', 'cannot access',
-    'could not access', 'incorrect scanner index',
+    'could not access', 'incorrect scanner index', 'error trying to access',
+    'invalid scanner number', 'module not found', 'module  not found',
+    'property node', 'generate user event',
 )
 
 
 def order_commands_for_live_test(commands: List[str]) -> List[str]:
-    """Run module-opening commands before commands that depend on them."""
-    return sorted(commands, key=lambda name: (not name.endswith('.Open'), name))
+    """Group normal commands by module and defer potentially blocking starts."""
+
+    def key(name: str):
+        module, _, operation = name.partition('.')
+        is_start = operation == 'Start'
+        if operation == 'Open':
+            operation_order = 0
+        elif operation.endswith('Get'):
+            operation_order = 1
+        elif operation.endswith('Set'):
+            operation_order = 2
+        elif operation == 'Stop':
+            operation_order = 3
+        else:
+            operation_order = 4
+        # Starts can wait for an acquisition/sweep to finish and can make the
+        # TCP server unavailable in the meantime. Run every other section first.
+        return (is_start, module, operation_order, operation)
+
+    return sorted(commands, key=key)
+
+
+def paired_getter_name(command_name: str) -> str | None:
+    """Return the conventional getter paired with a setter, if applicable."""
+    if not command_name.endswith('Set'):
+        return None
+    return f'{command_name[:-3]}Get'
+
+
+def roundtrip_args(
+    send_types: List[Tuple[str, str]], getter_record: dict | None
+) -> tuple[Any, ...] | None:
+    """Build setter arguments from a successful matching getter response.
+
+    Exact normalized field-name matches are deliberately required. Falling
+    back by position can silently map unrelated status and control fields.
+    """
+    if not getter_record or getter_record.get('category') != PASS:
+        return None
+    decoded = getter_record.get('decoded') or {}
+    decoded_types = dict(getter_record.get('decoded_types') or [])
+    matched = {
+        name
+        for name, dtype in send_types
+        if name in decoded and decoded_types.get(name) == dtype
+    }
+    if not matched:
+        return None
+    return tuple(
+        decoded[name] if name in matched else synth_arg(dtype)
+        for name, dtype in send_types
+    )
 
 
 def classify_nanonis_error(message: str) -> str:
     """Sub-classify a non-zero Nanonis error message into a category."""
     msg = message.lower()
-    if any(marker in msg for marker in _MODULE_MARKERS):
+    if any(marker in msg for marker in _MODULE_MARKERS) or (
+        'module' in msg and 'not found' in msg
+    ):
         return MODULE_UNAVAILABLE
     if 'unflatten' in msg:
         return PROTOCOL_MISMATCH
@@ -114,6 +169,30 @@ def validate_response(decoder, recv_types: List[Tuple[str, str]], response: byte
     Returns a dict with keys: category, detail, decoded, leftover, error_status.
     Raises nothing - decode failures are reported in the category.
     """
+    # A failed command may return only its error trailer and omit every normal
+    # response field. Recognize that complete framing before schema decoding.
+    if len(response) >= 8:
+        status, desc, trailer_size = parse_error_trailer(response)
+        if status != 0 and trailer_size == len(response):
+            return {
+                'category': classify_nanonis_error(desc),
+                'detail': f"error status={status}, message={desc!r}",
+                'decoded': {},
+                'leftover': 0,
+                'error_status': status,
+            }
+        if recv_types and response == b'\x00' * 8:
+            return {
+                'category': EMPTY_RESPONSE,
+                'detail': (
+                    'controller returned a successful empty trailer but omitted '
+                    'all declared response fields'
+                ),
+                'decoded': {},
+                'leftover': 0,
+                'error_status': 0,
+            }
+
     offset = 0
     decoded_ctx: List[Tuple[str, Any]] = []
     decoded: dict = {}
@@ -134,6 +213,30 @@ def validate_response(decoder, recv_types: List[Tuple[str, str]], response: byte
 
     status, desc, trailer_size = parse_error_trailer(response[offset:])
     leftover = len(response) - offset - trailer_size
+
+    if status == 0:
+        # Some older modules prepend extra zero placeholders on failures.
+        # Search for a complete, aligned non-zero error trailer suffix before
+        # reporting a response-shape defect.
+        for candidate_offset in range(offset, len(response) - 7, 4):
+            candidate_status, candidate_desc, candidate_size = parse_error_trailer(
+                response[candidate_offset:]
+            )
+            if (
+                candidate_status != 0
+                and candidate_offset + candidate_size == len(response)
+            ):
+                return {
+                    'category': classify_nanonis_error(candidate_desc),
+                    'detail': (
+                        f"error status={candidate_status}, "
+                        f"message={candidate_desc!r}; controller emitted "
+                        f"{candidate_offset - offset} extra pre-error byte(s)"
+                    ),
+                    'decoded': decoded,
+                    'leftover': candidate_offset - offset,
+                    'error_status': candidate_status,
+                }
 
     if status != 0 or desc:
         return {
@@ -164,12 +267,20 @@ def validate_response(decoder, recv_types: List[Tuple[str, str]], response: byte
     }
 
 
-def test_command(ctrl: NanonisController, name: str) -> dict:
+def test_command(
+    ctrl: NanonisController,
+    name: str,
+    args_override: tuple[Any, ...] | None = None,
+) -> dict:
     """Run one command and return a result record."""
     cmd_def = ctrl._registry.get(name)
     send_types = cmd_def.get_send_types()
     recv_types = cmd_def.get_recv_types()
-    args = tuple(synth_arg(t) for _, t in send_types)
+    args = (
+        args_override
+        if args_override is not None
+        else tuple(synth_arg(t) for _, t in send_types)
+    )
 
     record = {
         'name': name,
@@ -178,6 +289,7 @@ def test_command(ctrl: NanonisController, name: str) -> dict:
         'args': args,
         'category': None,
         'detail': '',
+        'argument_source': 'matching getter' if args_override is not None else 'synthetic',
     }
 
     # Encode request
@@ -206,6 +318,8 @@ def test_command(ctrl: NanonisController, name: str) -> dict:
     record['category'] = result['category']
     record['detail'] = result['detail']
     record['resp_len'] = len(response)
+    record['decoded'] = result['decoded']
+    record['decoded_types'] = recv_types
     return record
 
 
@@ -216,6 +330,12 @@ def likely_reason(record: dict) -> str:
         return ("The relevant module/feature/scanner is not running in this "
                 "session (environment limitation). The command definition is "
                 "probably fine - retest with that module enabled.")
+    if cat == EMPTY_RESPONSE:
+        return (
+            "The controller omitted normal fields without reporting an error. "
+            "This commonly accompanies a closed/unsupported GUI module; enable "
+            "the module and retest before changing the schema."
+        )
     if cat == PROTOCOL_MISMATCH:
         return ("Nanonis could not unflatten the request body -> the command's "
                 "SEND argument types/order/count in the YAML do not match the "
@@ -265,7 +385,7 @@ def build_report(records: List[dict], host: str, port: int, config: Path) -> str
     lines.append("")
     lines.append("| Category | Count |")
     lines.append("|----------|-------|")
-    for cat in (PASS, MODULE_UNAVAILABLE, PROTOCOL_MISMATCH, NANONIS_ERROR,
+    for cat in (PASS, MODULE_UNAVAILABLE, EMPTY_RESPONSE, PROTOCOL_MISMATCH, NANONIS_ERROR,
                 STRUCTURE_MISMATCH, DECODE_ERROR, ENCODE_ERROR,
                 CONNECTION_ERROR, SKIPPED):
         lines.append(f"| {cat} | {len(by_cat.get(cat, []))} |")
@@ -318,6 +438,10 @@ def main(argv=None) -> int:
     parser.add_argument('--report', type=Path,
                         default=PROJECT_ROOT / 'live_test_report.md')
     parser.add_argument('--timeout', type=float, default=5.0)
+    parser.add_argument('--module',
+                        help='Only test commands in this module (for example Bias)')
+    parser.add_argument('--read-only', action='store_true',
+                        help='Only send *.Get and *.Open commands')
     parser.add_argument('--skip', nargs='*', default=None,
                         help='Command names to skip (default: destructive meta-commands)')
     args = parser.parse_args(argv if argv is not None else sys.argv[1:])
@@ -327,10 +451,19 @@ def main(argv=None) -> int:
     ctrl = NanonisController(args.host, args.port, args.config, timeout=args.timeout)
     ctrl.connect()
     commands = order_commands_for_live_test(ctrl.list_commands())
+    if args.module:
+        prefix = f'{args.module}.'
+        commands = [name for name in commands if name.startswith(prefix)]
+    if args.read_only:
+        commands = [
+            name for name in commands
+            if name.endswith('Get') or name.endswith('.Open')
+        ]
     print(f"Testing {len(commands)} commands against {args.host}:{args.port} "
           f"(skipping {len(skip & set(commands))}) ...\n")
 
     records: List[dict] = []
+    records_by_name: dict[str, dict] = {}
     for i, name in enumerate(commands, 1):
         if name in skip:
             rec = {'name': name, 'n_send': 0, 'n_recv': 0, 'args': (),
@@ -339,13 +472,19 @@ def main(argv=None) -> int:
             print(f"[{i:3}/{len(commands)}] skip {name:<32} {SKIPPED}")
             continue
         try:
-            rec = test_command(ctrl, name)
+            getter_name = paired_getter_name(name)
+            args_override = roundtrip_args(
+                ctrl._registry.get(name).get_send_types(),
+                records_by_name.get(getter_name) if getter_name else None,
+            )
+            rec = test_command(ctrl, name, args_override=args_override)
         except Exception as exc:  # noqa: BLE001 - never let one command kill the run
             rec = {'name': name, 'n_send': 0, 'n_recv': 0, 'args': (),
                    'category': DECODE_ERROR,
                    'detail': f"harness error: {type(exc).__name__}: {exc}"}
             traceback.print_exc()
         records.append(rec)
+        records_by_name[name] = rec
         flag = 'ok ' if rec['category'] == PASS else 'FAIL'
         print(f"[{i:3}/{len(commands)}] {flag} {name:<32} {rec['category']}")
         # Reconnect if the socket may be desynced
