@@ -1,0 +1,29 @@
+{
+    "MPass.Activate": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MPass.Load": {
+        "args": [
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "MPass.Save": {
+        "args": [
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    }
+}

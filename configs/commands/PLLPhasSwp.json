@@ -1,0 +1,49 @@
+{
+    "PLLPhasSwp.Start": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "PLLPhasSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

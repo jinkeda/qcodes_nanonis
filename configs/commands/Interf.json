@@ -1,0 +1,93 @@
+{
+    "Interf.CtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Interf.CtrlOnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "Interf.CtrlPropsSet": {
+        "args": [
+            {
+                "name": "Integral",
+                "type": "f"
+            },
+            {
+                "name": "Proportional",
+                "type": "f"
+            },
+            {
+                "name": "Sign",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Interf.CtrlPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Integral",
+                "type": "f"
+            },
+            {
+                "name": "Proportional",
+                "type": "f"
+            },
+            {
+                "name": "Sign",
+                "type": "I"
+            }
+        ]
+    },
+    "Interf.WPiezoSet": {
+        "args": [
+            {
+                "name": "W-piezo",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Interf.WPiezoGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "W-piezo",
+                "type": "f"
+            }
+        ]
+    },
+    "Interf.ValGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Interferometer value",
+                "type": "f"
+            }
+        ]
+    },
+    "Interf.CtrlCalibrOpen": {
+        "args": [],
+        "resp": []
+    },
+    "Interf.CtrlReset": {
+        "args": [],
+        "resp": []
+    },
+    "Interf.CtrlNullDefl": {
+        "args": [],
+        "resp": []
+    }
+}

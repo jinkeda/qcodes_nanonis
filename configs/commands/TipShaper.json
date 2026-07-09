@@ -1,0 +1,113 @@
+{
+    "TipShaper.Start": {
+        "args": [
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "TipShaper.PropsSet": {
+        "args": [
+            {
+                "name": "Switch Off Delay",
+                "type": "f"
+            },
+            {
+                "name": "Change Bias?",
+                "type": "I"
+            },
+            {
+                "name": "Bias (V)",
+                "type": "f"
+            },
+            {
+                "name": "Tip Lift (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 1 (s)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Lift (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias Settling Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Lift Time 2 (s)",
+                "type": "f"
+            },
+            {
+                "name": "End Wait Time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Restore Feedback?",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "TipShaper.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "switch_off_delay_s",
+                "type": "f"
+            },
+            {
+                "name": "change_bias",
+                "type": "I"
+            },
+            {
+                "name": "bias_v",
+                "type": "f"
+            },
+            {
+                "name": "tip_lift_m",
+                "type": "f"
+            },
+            {
+                "name": "lift_time_1_s",
+                "type": "f"
+            },
+            {
+                "name": "bias_lift_v",
+                "type": "f"
+            },
+            {
+                "name": "bias_settling_time_s",
+                "type": "f"
+            },
+            {
+                "name": "lift_height_m",
+                "type": "f"
+            },
+            {
+                "name": "lift_time_2_s",
+                "type": "f"
+            },
+            {
+                "name": "end_wait_time_s",
+                "type": "f"
+            },
+            {
+                "name": "restore_feedback",
+                "type": "I"
+            }
+        ]
+    }
+}

@@ -1,0 +1,237 @@
+{
+    "GenSwp.AcqChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channel names size",
+                "type": "i"
+            },
+            {
+                "name": "Channel names number",
+                "type": "i"
+            },
+            {
+                "name": "Channel names",
+                "type": "1D array string"
+            }
+        ],
+        "resp": []
+    },
+    "GenSwp.AcqChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels 2",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "GenSwp.SwpSignalSet": {
+        "args": [
+            {
+                "name": "Sweep channel name",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "GenSwp.SwpSignalGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Sweep channel name",
+                "type": "s"
+            }
+        ]
+    },
+    "GenSwp.LimitsSet": {
+        "args": [
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "GenSwp.LimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ]
+    },
+    "GenSwp.PropsSet": {
+        "args": [
+            {
+                "name": "Initial Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            },
+            {
+                "name": "Number of steps",
+                "type": "i"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "i"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "i"
+            },
+            {
+                "name": "Settling time (ms)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "GenSwp.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Initial Settling time (ms)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (units/s)",
+                "type": "f"
+            },
+            {
+                "name": "Number of steps",
+                "type": "i"
+            },
+            {
+                "name": "Period (ms)",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Save dialog box",
+                "type": "I"
+            },
+            {
+                "name": "Settling time (ms)",
+                "type": "f"
+            }
+        ]
+    },
+    "GenSwp.Start": {
+        "args": [
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            },
+            {
+                "name": "Reset signal",
+                "type": "I"
+            },
+            {
+                "name": "Z-Controller",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "GenSwp.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "GenSwp.Open": {
+        "args": [],
+        "resp": []
+    },
+    "GenSwp.SwpSignalListGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            }
+        ]
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "DataLog.Open": {
+        "args": [],
+        "resp": []
+    },
+    "DataLog.Start": {
+        "args": [],
+        "resp": []
+    },
+    "DataLog.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "DataLog.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Start time",
+                "type": "s"
+            },
+            {
+                "name": "Acquisition elapsed hours",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition elapsed minutes",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition elapsed seconds",
+                "type": "f"
+            },
+            {
+                "name": "Stop time",
+                "type": "s"
+            },
+            {
+                "name": "Saved file path",
+                "type": "s"
+            },
+            {
+                "name": "Points counter",
+                "type": "i"
+            }
+        ]
+    },
+    "DataLog.ChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "DataLog.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "DataLog.PropsSet": {
+        "args": [
+            {
+                "name": "Acquisition mode",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition duration( hours)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (minutes)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (seconds)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Size of the list of moduless",
+                "type": "i"
+            },
+            {
+                "name": "Number of modules",
+                "type": "i"
+            },
+            {
+                "name": "List of modules",
+                "type": "1D array string"
+            }
+        ],
+        "resp": []
+    },
+    "DataLog.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Acquisition mode",
+                "type": "H"
+            },
+            {
+                "name": "Acquisition duration( hours)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (minutes)",
+                "type": "i"
+            },
+            {
+                "name": "Acquisition duration (seconds)",
+                "type": "f"
+            },
+            {
+                "name": "Averaging",
+                "type": "i"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            }
+        ]
+    }
+}

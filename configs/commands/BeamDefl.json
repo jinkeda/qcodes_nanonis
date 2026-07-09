@@ -1,0 +1,137 @@
+{
+    "BeamDefl.HorConfigSet": {
+        "args": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "BeamDefl.HorConfigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "BeamDefl.VerConfigSet": {
+        "args": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "BeamDefl.VerConfigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "BeamDefl.IntConfigSet": {
+        "args": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "BeamDefl.IntConfigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "BeamDefl.AutoOffset": {
+        "args": [
+            {
+                "name": "Deflection signal",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    }
+}

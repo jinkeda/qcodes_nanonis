@@ -1,0 +1,101 @@
+{
+    "Bias.Set": {
+        "args": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bias value (V)",
+                "type": "f"
+            }
+        ]
+    },
+    "Bias.RangeSet": {
+        "args": [
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.RangeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bias ranges size",
+                "type": "i"
+            },
+            {
+                "name": "Number of ranges",
+                "type": "i"
+            },
+            {
+                "name": "Bias ranges",
+                "type": "1D array string"
+            },
+            {
+                "name": "Bias range index",
+                "type": "H"
+            }
+        ]
+    },
+    "Bias.CalibrSet": {
+        "args": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Bias.CalibrGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "f"
+            },
+            {
+                "name": "Offset",
+                "type": "f"
+            }
+        ]
+    },
+    "Bias.Pulse": {
+        "args": [
+            {
+                "name": "wait_until_done",
+                "type": "I"
+            },
+            {
+                "name": "bias_pulse_width_s",
+                "type": "f"
+            },
+            {
+                "name": "bias_value_v",
+                "type": "f"
+            },
+            {
+                "name": "z_controller_on_hold",
+                "type": "H"
+            },
+            {
+                "name": "pulse_absolute_relative",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    }
+}

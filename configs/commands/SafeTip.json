@@ -1,0 +1,63 @@
+{
+    "SafeTip.OnOffSet": {
+        "args": [
+            {
+                "name": "Safe Tip status",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "SafeTip.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Safe Tip status",
+                "type": "H"
+            }
+        ]
+    },
+    "SafeTip.SignalGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signal value",
+                "type": "f"
+            }
+        ]
+    },
+    "SafeTip.PropsSet": {
+        "args": [
+            {
+                "name": "Auto recovery",
+                "type": "H"
+            },
+            {
+                "name": "Auto pause scan",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "SafeTip.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Auto recovery",
+                "type": "H"
+            },
+            {
+                "name": "Auto pause scan",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            }
+        ]
+    }
+}

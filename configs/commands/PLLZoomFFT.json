@@ -1,0 +1,91 @@
+{
+    "PLLZoomFFT.Open": {
+        "args": [],
+        "resp": []
+    },
+    "PLLZoomFFT.ChSet": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLZoomFFT.ChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel index",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLZoomFFT.AvgRestart": {
+        "args": [],
+        "resp": []
+    },
+    "PLLZoomFFT.PropsSet": {
+        "args": [
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLZoomFFT.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "FFT window",
+                "type": "H"
+            },
+            {
+                "name": "Averaging mode",
+                "type": "H"
+            },
+            {
+                "name": "Weighting mode",
+                "type": "H"
+            },
+            {
+                "name": "Count",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLZoomFFT.DataGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Data f0",
+                "type": "d"
+            },
+            {
+                "name": "Data df",
+                "type": "d"
+            },
+            {
+                "name": "Data Y size",
+                "type": "i"
+            },
+            {
+                "name": "Data Y",
+                "type": "1D array float64"
+            }
+        ]
+    }
+}

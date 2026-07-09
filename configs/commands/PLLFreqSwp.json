@@ -1,0 +1,129 @@
+{
+    "PLLFreqSwp.Open": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PLLFreqSwp.ParamsSet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLLFreqSwp.ParamsGet": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Period (s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "PLLFreqSwp.Start": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            },
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Sweep direction",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Resonance frequency (Hz)",
+                "type": "d"
+            },
+            {
+                "name": "Q factor",
+                "type": "d"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude to excitation quotient (nm/mV)",
+                "type": "f"
+            },
+            {
+                "name": "Fit length",
+                "type": "i"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            }
+        ]
+    },
+    "PLLFreqSwp.Stop": {
+        "args": [
+            {
+                "name": "Modulator index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

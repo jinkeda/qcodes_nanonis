@@ -1,0 +1,146 @@
+{
+    "MProbeScanner.XYPosGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeScanner.XYPosSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            },
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeScanner.Stop": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeScanner.SpeedGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeScanner.SpeedSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            },
+            {
+                "name": "Speed (m/s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeScanner.ActiveScannerGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ]
+    },
+    "MProbeScanner.ScannerSwitch": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeScanner.CalibrSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            },
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeScanner.CalibrGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Factor X (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Y (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Factor Z (m/V)",
+                "type": "f"
+            },
+            {
+                "name": "Range X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Range Z (m)",
+                "type": "f"
+            }
+        ]
+    }
+}

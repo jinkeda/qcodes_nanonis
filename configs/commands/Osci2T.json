@@ -1,0 +1,168 @@
+{
+    "Osci2T.ChsSet": {
+        "args": [
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Osci2T.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            }
+        ]
+    },
+    "Osci2T.TimebaseSet": {
+        "args": [
+            {
+                "name": "Timebase index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Osci2T.TimebaseGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Timebase index",
+                "type": "H"
+            },
+            {
+                "name": "Number of timebases",
+                "type": "i"
+            },
+            {
+                "name": "Timebases (s)",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "Osci2T.OversamplSet": {
+        "args": [
+            {
+                "name": "Oversampling index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "Osci2T.OversamplGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Oversampling index",
+                "type": "H"
+            }
+        ]
+    },
+    "Osci2T.TrigSet": {
+        "args": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger channel",
+                "type": "H"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "Osci2T.TrigGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Trigger mode",
+                "type": "H"
+            },
+            {
+                "name": "Trigger channel",
+                "type": "H"
+            },
+            {
+                "name": "Trigger slope",
+                "type": "H"
+            },
+            {
+                "name": "Trigger level",
+                "type": "d"
+            },
+            {
+                "name": "Trigger hysteresis",
+                "type": "d"
+            },
+            {
+                "name": "Trigger position (s)",
+                "type": "d"
+            }
+        ]
+    },
+    "Osci2T.Run": {
+        "args": [],
+        "resp": []
+    },
+    "Osci2T.DataGet": {
+        "args": [
+            {
+                "name": "Data to get",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data t0",
+                "type": "d"
+            },
+            {
+                "name": "Data dt",
+                "type": "d"
+            },
+            {
+                "name": "Data size",
+                "type": "i"
+            },
+            {
+                "name": "Data CHA",
+                "type": "1D array float64"
+            },
+            {
+                "name": "Data size 2",
+                "type": "i"
+            },
+            {
+                "name": "Data CHB",
+                "type": "1D array float64"
+            }
+        ]
+    }
+}

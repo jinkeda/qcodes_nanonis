@@ -1,0 +1,47 @@
+{
+    "Laser.OnOffSet": {
+        "args": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Laser.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "Laser.PropsSet": {
+        "args": [
+            {
+                "name": "Laser Setpoint",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Laser.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Laser Setpoint",
+                "type": "f"
+            }
+        ]
+    },
+    "Laser.PowerGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Laser power",
+                "type": "f"
+            }
+        ]
+    }
+}

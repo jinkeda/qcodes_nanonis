@@ -1,0 +1,114 @@
+{
+    "Current.Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Current value (A)",
+                "type": "f"
+            }
+        ]
+    },
+    "Current.100Get": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Current 100 value (A)",
+                "type": "f"
+            }
+        ]
+    },
+    "Current.BEEMGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Current BEEM value (A)",
+                "type": "f"
+            }
+        ]
+    },
+    "Current.GainSet": {
+        "args": [
+            {
+                "name": "gain_index",
+                "type": "i"
+            },
+            {
+                "name": "filter_index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Current.GainsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Gains size",
+                "type": "i"
+            },
+            {
+                "name": "Number of gains",
+                "type": "i"
+            },
+            {
+                "name": "Gains",
+                "type": "1D array string"
+            },
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Filters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of filters",
+                "type": "i"
+            },
+            {
+                "name": "Filters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Filter index",
+                "type": "i"
+            }
+        ]
+    },
+    "Current.CalibrSet": {
+        "args": [
+            {
+                "name": "Gain index",
+                "type": "i"
+            },
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            }
+        ],
+        "resp": []
+    },
+    "Current.CalibrGet": {
+        "args": [
+            {
+                "name": "Gain index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration",
+                "type": "d"
+            },
+            {
+                "name": "Offset",
+                "type": "d"
+            }
+        ]
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "PLLQCtrl.AccessRequest": {
+        "args": [
+            {
+                "name": "Request/Release",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.AccessGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Request/Release",
+                "type": "I"
+            }
+        ]
+    },
+    "PLLQCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "On/Off",
+                "type": "I"
+            }
+        ]
+    },
+    "PLLQCtrl.QGainSet": {
+        "args": [
+            {
+                "name": "Q Gain",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.QGainGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Q Gain",
+                "type": "f"
+            }
+        ]
+    },
+    "PLLQCtrl.PhaseSet": {
+        "args": [
+            {
+                "name": "Phase Adjustment",
+                "type": "i"
+            },
+            {
+                "name": "Custom Phase",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PLLQCtrl.PhaseGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Phase Adjustment",
+                "type": "i"
+            },
+            {
+                "name": "Phase Custom",
+                "type": "f"
+            }
+        ]
+    }
+}

@@ -1,0 +1,154 @@
+{
+    "Signals.NamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Signals names number",
+                "type": "i"
+            },
+            {
+                "name": "Signals names",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.CalibrGet": {
+        "args": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            }
+        ]
+    },
+    "Signals.RangeGet": {
+        "args": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Maximum limit",
+                "type": "f"
+            },
+            {
+                "name": "Minimum limit",
+                "type": "f"
+            }
+        ]
+    },
+    "Signals.ValGet": {
+        "args": [
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signal value",
+                "type": "f"
+            }
+        ]
+    },
+    "Signals.ValsGet": {
+        "args": [
+            {
+                "name": "Signals indexes size",
+                "type": "i"
+            },
+            {
+                "name": "Signals indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Signals values size",
+                "type": "i"
+            },
+            {
+                "name": "Signals values",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "Signals.MeasNamesGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Measurement channels list size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Measurement channels",
+                "type": "i"
+            },
+            {
+                "name": "Measurement channels list",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "Signals.AddRTGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Additional RT signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Additional RT signals",
+                "type": "i"
+            },
+            {
+                "name": "Additional RT signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Additional RT signal 1",
+                "type": "s"
+            },
+            {
+                "name": "Additional RT signal 2",
+                "type": "s"
+            }
+        ]
+    },
+    "Signals.AddRTSet": {
+        "args": [
+            {
+                "name": "Additional RT signal 1",
+                "type": "i"
+            },
+            {
+                "name": "Additional RT signal 2",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

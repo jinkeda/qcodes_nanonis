@@ -1,0 +1,264 @@
+{
+    "MCVA5.UserInSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "User Input",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.UserInGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "User Input",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.GainSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Gain",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.GainGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Gain",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.InputModeSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Input mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.InputModeGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input mode",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.CouplingSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Coupling",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.CouplingGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Channel Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Coupling",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.SingleStateUpdate": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel 1 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 1 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 2 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 2 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 3 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 3 Overload",
+                "type": "I"
+            },
+            {
+                "name": "Channel 4 Ready",
+                "type": "I"
+            },
+            {
+                "name": "Channel 4 Overload",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.ContStateUpdateSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.ContStateUpdateGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ]
+    },
+    "MCVA5.SingleTempUpdate": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channel 1",
+                "type": "H"
+            },
+            {
+                "name": "Channel 2",
+                "type": "H"
+            },
+            {
+                "name": "Channel 3",
+                "type": "H"
+            },
+            {
+                "name": "Channel 4",
+                "type": "H"
+            }
+        ]
+    },
+    "MCVA5.ContTempUpdateSet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MCVA5.ContTempUpdateGet": {
+        "args": [
+            {
+                "name": "Preamplifier Nr.",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Continuous Read",
+                "type": "I"
+            }
+        ]
+    }
+}

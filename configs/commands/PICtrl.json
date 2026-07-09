@@ -1,0 +1,209 @@
+{
+    "PICtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "PICtrl.OnOffGet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Controller status",
+                "type": "I"
+            }
+        ]
+    },
+    "PICtrl.CtrlChSet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Control signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PICtrl.CtrlChGet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Control signal index",
+                "type": "i"
+            },
+            {
+                "name": "Control signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Control signals names",
+                "type": "i"
+            },
+            {
+                "name": "Control signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of Control signals indexes",
+                "type": "i"
+            },
+            {
+                "name": "Control signals indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "PICtrl.InputChSet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Input index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "PICtrl.InputChGet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "Input signals names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of Input signals names",
+                "type": "i"
+            },
+            {
+                "name": "Input signals names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of Input signals indexes",
+                "type": "i"
+            },
+            {
+                "name": "Input signals indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "PICtrl.PropsSet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "I gain",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "PICtrl.PropsGet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "I gain",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ]
+    },
+    "PICtrl.CtrlChPropsSet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "PICtrl.CtrlChPropsGet": {
+        "args": [
+            {
+                "name": "Controller index",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            }
+        ]
+    }
+}

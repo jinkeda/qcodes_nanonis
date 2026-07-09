@@ -1,0 +1,511 @@
+{
+    "ZSpectr.Open": {
+        "args": [],
+        "resp": []
+    },
+    "ZSpectr.Start": {
+        "args": [
+            {
+                "name": "Get data",
+                "type": "I"
+            },
+            {
+                "name": "Save base name string size",
+                "type": "i"
+            },
+            {
+                "name": "Save base name",
+                "type": "s"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels names size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channels names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array float32"
+            }
+        ]
+    },
+    "ZSpectr.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "ZSpectr.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "ZSpectr.ChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Channels size",
+                "type": "i"
+            },
+            {
+                "name": "Number of channels names",
+                "type": "i"
+            },
+            {
+                "name": "Channels",
+                "type": "1D array string"
+            }
+        ]
+    },
+    "ZSpectr.PropsSet": {
+        "args": [
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Backward sweep",
+                "type": "H"
+            },
+            {
+                "name": "Number of points",
+                "type": "i"
+            },
+            {
+                "name": "Parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of parameters",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Fixed parameters size",
+                "type": "i"
+            },
+            {
+                "name": "Number of fixed parameters",
+                "type": "i"
+            },
+            {
+                "name": "Fixed parameters",
+                "type": "1D array string"
+            },
+            {
+                "name": "Number of sweeps",
+                "type": "H"
+            },
+            {
+                "name": "Autosave",
+                "type": "H"
+            },
+            {
+                "name": "Show save dialog",
+                "type": "H"
+            },
+            {
+                "name": "Save all",
+                "type": "H"
+            }
+        ]
+    },
+    "ZSpectr.AdvPropsSet": {
+        "args": [
+            {
+                "name": "Time between forward and backward sweep (s)",
+                "type": "f"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Reset Z",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.AdvPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Time between forward and backward sweep (s)",
+                "type": "f"
+            },
+            {
+                "name": "Record final Z",
+                "type": "H"
+            },
+            {
+                "name": "Lockin Run",
+                "type": "H"
+            },
+            {
+                "name": "Reset Z",
+                "type": "H"
+            }
+        ]
+    },
+    "ZSpectr.RangeSet": {
+        "args": [
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z sweep distance (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.RangeGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z offset (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z sweep distance (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZSpectr.TimingSet": {
+        "args": [
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.TimingGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Z averaging time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Initial settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Maximum slew rate (V/s)",
+                "type": "f"
+            },
+            {
+                "name": "Settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Integration time (s)",
+                "type": "f"
+            },
+            {
+                "name": "End settling time (s)",
+                "type": "f"
+            },
+            {
+                "name": "Z control time (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZSpectr.RetractDelaySet": {
+        "args": [
+            {
+                "name": "Retract delay (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.RetractDelayGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Retract delay (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZSpectr.RetractSet": {
+        "args": [
+            {
+                "name": "Enable",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.RetractGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Enable",
+                "type": "H"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ]
+    },
+    "ZSpectr.Retract2ndSet": {
+        "args": [
+            {
+                "name": "2nd condition",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.Retract2ndGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "2nd condition",
+                "type": "i"
+            },
+            {
+                "name": "Threshold",
+                "type": "f"
+            },
+            {
+                "name": "Signal index",
+                "type": "i"
+            },
+            {
+                "name": "Comparison",
+                "type": "H"
+            }
+        ]
+    },
+    "ZSpectr.DigSyncSet": {
+        "args": [
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.DigSyncGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Digital Sync.",
+                "type": "H"
+            }
+        ]
+    },
+    "ZSpectr.TTLSyncSet": {
+        "args": [
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.TTLSyncGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "TTL line",
+                "type": "H"
+            },
+            {
+                "name": "TTL polarity",
+                "type": "H"
+            },
+            {
+                "name": "Time to on (s)",
+                "type": "f"
+            },
+            {
+                "name": "On duration (s)",
+                "type": "f"
+            }
+        ]
+    },
+    "ZSpectr.PulseSeqSyncSet": {
+        "args": [
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "ZSpectr.PulseSeqSyncGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Pulse Sequence Nr.",
+                "type": "H"
+            },
+            {
+                "name": "Nr. Periods",
+                "type": "I"
+            }
+        ]
+    }
+}

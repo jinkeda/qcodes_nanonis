@@ -1,0 +1,92 @@
+{
+    "FunGen1Ch.Start": {
+        "args": [
+            {
+                "name": "Periods",
+                "type": "i"
+            },
+            {
+                "name": "Wait until finished",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen1Ch.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "FunGen1Ch.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            },
+            {
+                "name": "Periods left",
+                "type": "i"
+            }
+        ]
+    },
+    "FunGen1Ch.PropsSet": {
+        "args": [
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen1Ch.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Amplitude (%)",
+                "type": "f"
+            },
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Polarity",
+                "type": "H"
+            },
+            {
+                "name": "Direction",
+                "type": "H"
+            }
+        ]
+    },
+    "FunGen1Ch.IdleSet": {
+        "args": [
+            {
+                "name": "Idle value",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "FunGen1Ch.IdleGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Idle value",
+                "type": "f"
+            }
+        ]
+    }
+}

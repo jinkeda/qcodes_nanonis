@@ -1,0 +1,185 @@
+{
+    "KelvinCtrl.CtrlOnOffSet": {
+        "args": [
+            {
+                "name": "Control On/Off",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.CtrlOnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "I"
+            }
+        ]
+    },
+    "KelvinCtrl.SetpntSet": {
+        "args": [
+            {
+                "name": "Setpoint",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.SetpntGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Setpoint",
+                "type": "f"
+            }
+        ]
+    },
+    "KelvinCtrl.GainSet": {
+        "args": [
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.GainGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant (s)",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ]
+    },
+    "KelvinCtrl.ModParamsSet": {
+        "args": [
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.ModParamsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Frequency (Hz)",
+                "type": "f"
+            },
+            {
+                "name": "Amplitude",
+                "type": "f"
+            },
+            {
+                "name": "Phase (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "KelvinCtrl.ModOnOffSet": {
+        "args": [
+            {
+                "name": "AC mode On/Off",
+                "type": "H"
+            },
+            {
+                "name": "Modulation On/Off",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.ModOnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "AC mode status",
+                "type": "H"
+            },
+            {
+                "name": "Modulation status",
+                "type": "H"
+            }
+        ]
+    },
+    "KelvinCtrl.CtrlSignalSet": {
+        "args": [
+            {
+                "name": "Demodulated/Control signal index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.CtrlSignalGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Demodulated/Control signal index",
+                "type": "i"
+            }
+        ]
+    },
+    "KelvinCtrl.AmpGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Amplitude",
+                "type": "f"
+            }
+        ]
+    },
+    "KelvinCtrl.BiasLimitsSet": {
+        "args": [
+            {
+                "name": "Bias high limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias low limit (V)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "KelvinCtrl.BiasLimitsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Bias high limit (V)",
+                "type": "f"
+            },
+            {
+                "name": "Bias low limit (V)",
+                "type": "f"
+            }
+        ]
+    }
+}

@@ -1,0 +1,206 @@
+{
+    "MProbeZCtrl.ZPosSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.ZPosGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Z position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeZCtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.OnOffGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Z-Controller status",
+                "type": "I"
+            }
+        ]
+    },
+    "MProbeZCtrl.SetpntSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.SetpntGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Z-Controller setpoint",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeZCtrl.GainSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.GainGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "P-gain",
+                "type": "f"
+            },
+            {
+                "name": "I-gain",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeZCtrl.Home": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.HomePropsSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.HomePropsGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Relative or Absolute",
+                "type": "H"
+            },
+            {
+                "name": "Home position (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "MProbeZCtrl.Withdraw": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.LimitsSet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            },
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "MProbeZCtrl.LimitsGet": {
+        "args": [
+            {
+                "name": "Scanner index",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Z high limit (m)",
+                "type": "f"
+            },
+            {
+                "name": "Z low limit (m)",
+                "type": "f"
+            }
+        ]
+    }
+}

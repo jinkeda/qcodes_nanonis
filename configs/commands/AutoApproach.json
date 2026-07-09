@@ -1,0 +1,24 @@
+{
+    "AutoApproach.Open": {
+        "args": [],
+        "resp": []
+    },
+    "AutoApproach.OnOffSet": {
+        "args": [
+            {
+                "name": "On/Off",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "AutoApproach.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Status",
+                "type": "H"
+            }
+        ]
+    }
+}

@@ -1,0 +1,446 @@
+{
+    "Scan.Action": {
+        "args": [
+            {
+                "name": "Scan action",
+                "type": "H"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Scan status",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.WaitEndOfScan": {
+        "args": [
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timeout status",
+                "type": "I"
+            },
+            {
+                "name": "File path size",
+                "type": "I"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ]
+    },
+    "Scan.WaitEndOfLine": {
+        "args": [
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timeout status",
+                "type": "I"
+            },
+            {
+                "name": "Line number",
+                "type": "i"
+            },
+            {
+                "name": "Type of movement",
+                "type": "H"
+            },
+            {
+                "name": "Pass number",
+                "type": "i"
+            }
+        ]
+    },
+    "Scan.FrameSet": {
+        "args": [
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.FrameGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Center X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Center Y (m)",
+                "type": "f"
+            },
+            {
+                "name": "Width (m)",
+                "type": "f"
+            },
+            {
+                "name": "Height (m)",
+                "type": "f"
+            },
+            {
+                "name": "Angle (deg)",
+                "type": "f"
+            }
+        ]
+    },
+    "Scan.BufferSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.BufferGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            },
+            {
+                "name": "Pixels",
+                "type": "i"
+            },
+            {
+                "name": "Lines",
+                "type": "i"
+            }
+        ]
+    },
+    "Scan.PropsSet": {
+        "args": [
+            {
+                "name": "continuous_scan",
+                "type": "I"
+            },
+            {
+                "name": "bouncy_scan",
+                "type": "I"
+            },
+            {
+                "name": "autosave",
+                "type": "I"
+            },
+            {
+                "name": "series_name",
+                "type": "s"
+            },
+            {
+                "name": "comment",
+                "type": "s"
+            },
+            {
+                "name": "modules_names_size",
+                "type": "i"
+            },
+            {
+                "name": "modules_names_number",
+                "type": "i"
+            },
+            {
+                "name": "modules_names",
+                "type": "1D array string"
+            },
+            {
+                "name": "autopaste",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Continuous scan",
+                "type": "I"
+            },
+            {
+                "name": "Bouncy scan",
+                "type": "I"
+            },
+            {
+                "name": "Autosave",
+                "type": "I"
+            },
+            {
+                "name": "Series name size",
+                "type": "i"
+            },
+            {
+                "name": "Series name",
+                "type": "s"
+            },
+            {
+                "name": "Comment size",
+                "type": "i"
+            },
+            {
+                "name": "Comment",
+                "type": "s"
+            },
+            {
+                "name": "Modules names size",
+                "type": "i"
+            },
+            {
+                "name": "Modules names number",
+                "type": "i"
+            },
+            {
+                "name": "Modules names",
+                "type": "1D array string"
+            },
+            {
+                "name": "Size of Number of Parameters per Module array",
+                "type": "i"
+            },
+            {
+                "name": "Number of Parameters per Module array",
+                "type": "1D array int"
+            },
+            {
+                "name": "Parameters rows",
+                "type": "i"
+            },
+            {
+                "name": "Parameters columns",
+                "type": "i"
+            },
+            {
+                "name": "Parameters",
+                "type": "2D array string"
+            },
+            {
+                "name": "Autopaste",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.SpeedSet": {
+        "args": [
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "Scan.SpeedGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Forward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward linear speed (m/s)",
+                "type": "f"
+            },
+            {
+                "name": "Forward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Backward time per line (s)",
+                "type": "f"
+            },
+            {
+                "name": "Keep parameter constant",
+                "type": "H"
+            },
+            {
+                "name": "Speed ratio",
+                "type": "f"
+            }
+        ]
+    },
+    "Scan.FrameDataGrab": {
+        "args": [
+            {
+                "name": "Channel index",
+                "type": "I"
+            },
+            {
+                "name": "Data direction",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Channels name size",
+                "type": "i"
+            },
+            {
+                "name": "Channel name",
+                "type": "s"
+            },
+            {
+                "name": "Scan data rows",
+                "type": "i"
+            },
+            {
+                "name": "Scan data columns",
+                "type": "i"
+            },
+            {
+                "name": "Scan data",
+                "type": "2D array float32"
+            },
+            {
+                "name": "Scan direction",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.XYPosGet": {
+        "args": [
+            {
+                "name": "Wait for newest data",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "X (m)",
+                "type": "f"
+            },
+            {
+                "name": "Y (m)",
+                "type": "f"
+            }
+        ]
+    },
+    "Scan.Save": {
+        "args": [
+            {
+                "name": "Wait until saved",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.BackgroundPaste": {
+        "args": [
+            {
+                "name": "Wait until pasted",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
+                "type": "I"
+            }
+        ]
+    },
+    "Scan.BackgroundDelete": {
+        "args": [
+            {
+                "name": "Wait until deleted",
+                "type": "I"
+            },
+            {
+                "name": "Timeout (ms)",
+                "type": "i"
+            },
+            {
+                "name": "Which background to delete",
+                "type": "I"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Timed out?",
+                "type": "I"
+            }
+        ]
+    }
+}

@@ -1,0 +1,224 @@
+{
+    "Script.Open": {
+        "args": [],
+        "resp": []
+    },
+    "Script.Load": {
+        "args": [
+            {
+                "name": "Script index",
+                "type": "i"
+            },
+            {
+                "name": "Script file path",
+                "type": "s"
+            },
+            {
+                "name": "Load session",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Script.Save": {
+        "args": [
+            {
+                "name": "Script index",
+                "type": "i"
+            },
+            {
+                "name": "Script file path",
+                "type": "s"
+            },
+            {
+                "name": "Save session",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Script.Deploy": {
+        "args": [
+            {
+                "name": "Script index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Script.Undeploy": {
+        "args": [
+            {
+                "name": "Script index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "Script.Run": {
+        "args": [
+            {
+                "name": "Script index",
+                "type": "i"
+            },
+            {
+                "name": "Wait until script finishes",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "Script.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "Script.ChsGet": {
+        "args": [
+            {
+                "name": "acquire_buffer",
+                "type": "H"
+            }
+        ],
+        "resp": [
+            {
+                "name": "num_channels",
+                "type": "i"
+            },
+            {
+                "name": "channel_indexes",
+                "type": "1D array int"
+            }
+        ]
+    },
+    "Script.ChsSet": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "Script.DataGet": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Sweep number",
+                "type": "i"
+            }
+        ],
+        "resp": [
+            {
+                "name": "Data rows",
+                "type": "i"
+            },
+            {
+                "name": "Data columns",
+                "type": "i"
+            },
+            {
+                "name": "Data",
+                "type": "2D array float32"
+            }
+        ]
+    },
+    "Script.Autosave": {
+        "args": [
+            {
+                "name": "Acquire buffer",
+                "type": "H"
+            },
+            {
+                "name": "Sweep number",
+                "type": "i"
+            },
+            {
+                "name": "All sweeps to same file",
+                "type": "I"
+            },
+            {
+                "name": "Folder path size",
+                "type": "i"
+            },
+            {
+                "name": "Folder path",
+                "type": "s"
+            },
+            {
+                "name": "Basename size",
+                "type": "i"
+            },
+            {
+                "name": "Basename",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTOpen": {
+        "args": [],
+        "resp": []
+    },
+    "Script.LUTLoad": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            },
+            {
+                "name": "LUT values size",
+                "type": "i"
+            },
+            {
+                "name": "LUT values",
+                "type": "1D array float32"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTSave": {
+        "args": [
+            {
+                "name": "LUT index",
+                "type": "i"
+            },
+            {
+                "name": "File path",
+                "type": "s"
+            }
+        ],
+        "resp": []
+    },
+    "Script.LUTDeploy": {
+        "args": [
+            {
+                "name": "lut_index",
+                "type": "i"
+            },
+            {
+                "name": "wait_until_finished",
+                "type": "I"
+            },
+            {
+                "name": "timeout_ms",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    }
+}

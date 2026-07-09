@@ -1,7 +1,96 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*.pyo
+*$py.class
+
+# C extensions
 *.so
-*.dll
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# Temporary files
+_tmp_*.py
+*.tmp
+
+# OS files
 .DS_Store
-.ipynb_checkpoints/
+Thumbs.db
+
+# Live test latest-run output (curated copies are kept under reports/)
+/live_test_report.md
+
+# Timestamped hardware-characterization dumps (machine-specific run artifacts)
+examples/m4a_characterization_*.json
+examples/m4a_characterization_*.npz
+examples/oneframe_characterization_*.json
+examples/oneframe_characterization_*.npz
+reports/signals_characterization_*.json
+reports/live_time_trace_*.json
+/manual_runs/

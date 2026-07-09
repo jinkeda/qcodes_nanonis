@@ -1,0 +1,32 @@
+{
+    "SignalChart.Open": {
+        "args": [],
+        "resp": []
+    },
+    "SignalChart.ChsSet": {
+        "args": [
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "SignalChart.ChsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Channel A index",
+                "type": "i"
+            },
+            {
+                "name": "Channel B index",
+                "type": "i"
+            }
+        ]
+    }
+}

@@ -1,0 +1,178 @@
+{
+    "GenPICtrl.OnOffSet": {
+        "args": [
+            {
+                "name": "Controller status",
+                "type": "I"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.OnOffGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Controller status",
+                "type": "I"
+            }
+        ]
+    },
+    "GenPICtrl.AOValSet": {
+        "args": [
+            {
+                "name": "Output value",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.AOValGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Output value",
+                "type": "f"
+            }
+        ]
+    },
+    "GenPICtrl.AOPropsSet": {
+        "args": [
+            {
+                "name": "Signal name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.AOPropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Signal name",
+                "type": "s"
+            },
+            {
+                "name": "Units",
+                "type": "s"
+            },
+            {
+                "name": "Upper limit",
+                "type": "f"
+            },
+            {
+                "name": "Lower limit",
+                "type": "f"
+            },
+            {
+                "name": "Calibration per volt",
+                "type": "f"
+            },
+            {
+                "name": "Offset in physical units",
+                "type": "f"
+            }
+        ]
+    },
+    "GenPICtrl.ModChSet": {
+        "args": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.ModChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Output index",
+                "type": "i"
+            }
+        ]
+    },
+    "GenPICtrl.DemodChSet": {
+        "args": [
+            {
+                "name": "Input index",
+                "type": "i"
+            },
+            {
+                "name": "AC mode",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.DemodChGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Input index",
+                "type": "i"
+            }
+        ]
+    },
+    "GenPICtrl.PropsSet": {
+        "args": [
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ],
+        "resp": []
+    },
+    "GenPICtrl.PropsGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "Setpoint",
+                "type": "f"
+            },
+            {
+                "name": "P gain",
+                "type": "f"
+            },
+            {
+                "name": "Time constant",
+                "type": "f"
+            },
+            {
+                "name": "Slope",
+                "type": "H"
+            }
+        ]
+    }
+}

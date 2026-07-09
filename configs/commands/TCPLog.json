@@ -1,0 +1,41 @@
+{
+    "TCPLog.Start": {
+        "args": [],
+        "resp": []
+    },
+    "TCPLog.Stop": {
+        "args": [],
+        "resp": []
+    },
+    "TCPLog.ChsSet": {
+        "args": [
+            {
+                "name": "Number of channels",
+                "type": "i"
+            },
+            {
+                "name": "Channel indexes",
+                "type": "1D array int"
+            }
+        ],
+        "resp": []
+    },
+    "TCPLog.OversamplSet": {
+        "args": [
+            {
+                "name": "Oversampling value",
+                "type": "i"
+            }
+        ],
+        "resp": []
+    },
+    "TCPLog.StatusGet": {
+        "args": [],
+        "resp": [
+            {
+                "name": "status",
+                "type": "i"
+            }
+        ]
+    }
+}
